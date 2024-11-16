@@ -115,7 +115,6 @@
     ffmpegthumbs
     firefox
     fooyin
-    gamescope
     gitMinimal
     kdePackages.akonadi
     kdePackages.akonadi-calendar
@@ -230,6 +229,12 @@
   # Enable kdeconnect
   programs.kdeconnect = {
     enable = true;
+  };
+
+  # Enable gamescope
+  programs.gamescope = {
+    enable = true;
+    capSysNice = true;
   };
 
   # Enable dconf (needed for configuration of gtk themes under wayland)
