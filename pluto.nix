@@ -139,6 +139,9 @@
     transmission_4-qt
   ];
 
+  # Enable user service for syncthing
+  systemd.user.services.syncthing.wantedBy = ["default.target"];
+
   # Enable custom fan control
   boot.kernelModules = ["nct6775"]; # motherboard sesnsors
   environment.etc."fan2go/fan2go.yaml".text = ''
