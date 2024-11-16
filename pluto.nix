@@ -5,11 +5,26 @@
     ./users/maik.nix
   ];
 
+  # Set hostname
+  networking.hostName = "pluto";
+
   # Disable mitigations for performance
   # FIXME: is this a good idea?
   boot.kernelParams = [
     "mitigations=off"
   ];
+
+  # Allow overclocking the AMD GPU
+  boot.kernelParams = ["amdgpu.ppfeaturemask=0xfff7ffff" "amd_pstate=active"];
+
+  # Overclock and undervolt AMD GPU
+
+  environment.etc."tmpfiles.d/gpu-undervolt.conf".text = ''
+    w+ /sys/class/drm/card1/device/pp_od_clk_voltage                - - - - vo -100\n
+    w+ /sys/class/drm/card1/device/pp_od_clk_voltage                - - - - m 1 1200\n
+    w+ /sys/class/drm/card1/device/pp_od_clk_voltage                - - - - c\n
+    w /sys/class/drm/card1/device/pp_power_profile_mode             - - - - 1
+  '';
 
   # Use latest stable kernel
   boot.kernelPackages = pkgs.linuxPackages_latest;
