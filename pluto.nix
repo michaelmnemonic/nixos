@@ -115,6 +115,7 @@
     ffmpegthumbs
     firefox
     fooyin
+    gamescope
     gitMinimal
     kdePackages.akonadi
     kdePackages.akonadi-calendar
