@@ -9,6 +9,7 @@
     ./services/chipcards.nix
     ./services/printing.nix
     ./services/scanning.nix
+    ./services/audio.nix
   ];
 
   # Set hostname
