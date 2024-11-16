@@ -104,6 +104,7 @@
     nfs-utils
     syncthing
     transmission_4-qt
+    sbctl
   ];
 
   # Enable custom fan control
