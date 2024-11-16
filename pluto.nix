@@ -14,6 +14,24 @@
   # Use latest stable kernel
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
+  # Use german keyboard layout
+  services.xserver = {
+    # set keymap
+    xkb.layout = "de";
+  };
+
+  # Use plasma as desktop environment
+  services.desktopManager.plasma6.enable = true;
+
+  # Use SDDM as displayManager
+  services.displayManager.sddm = {
+    enable = true;
+    wayland = {
+      enable = true;
+      compositor = "kwin";
+    };
+  };
+
   system.autoUpgrade.flake = "github:michaelmnemonic/nixos";
   system.stateVersion = "24.05"; # Did you read the comment?
 }
