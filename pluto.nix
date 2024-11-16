@@ -1,6 +1,7 @@
 {
-  pkgs,
+  inputs,
   lib,
+  pkgs,
   ...
 }: {
   imports = [
@@ -88,6 +89,7 @@
       flavour = ["mocha" "latte"];
       accents = ["rosewater"];
     })
+    (inputs.umu.packages.${pkgs.system}.umu.override {version = "${inputs.umu.shortRev}";})
     aspell
     aspellDicts.de
     aspellDicts.en
