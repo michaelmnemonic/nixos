@@ -4,8 +4,8 @@
     ./_shared/common.nix
     ./users/maik.nix
     ./mounts/orpheus-nfs.nix
-    ./apps/direnv.nix
-    ./apps/steam.nix
+    ./programs/direnv.nix
+    ./programs/steam.nix
   ];
 
   # Set hostname
