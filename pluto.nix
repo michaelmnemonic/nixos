@@ -155,7 +155,7 @@
           index: 2
         neverStop: true
         curve: cpu_curve
-      - id: gpu
+      - id: bottom
         hwmon:
           platform: nct6792-isa-0290
           index: 3
