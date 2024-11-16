@@ -21,6 +21,7 @@
     device = "/dev/disk/by-partlabel/NIXOS";
     allowDiscards = true;
     bypassWorkqueues = true;
+    crypttabExtraOpts = ["tpm2-device=auto"];
   };
 
   fileSystems."/boot" = {
