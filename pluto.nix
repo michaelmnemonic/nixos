@@ -6,6 +6,9 @@
     ./mounts/orpheus-nfs.nix
     ./programs/direnv.nix
     ./programs/steam.nix
+    ./services/chipcards.nix
+    ./services/printing.nix
+    ./services/scanning.nix
   ];
 
   # Set hostname
@@ -51,12 +54,6 @@
       compositor = "kwin";
     };
   };
-
-  # Enable printing
-  services.printing.enable = true;
-
-  # Enable scanning
-  hardware.sane.enable = true;
 
   # Use NetworkManager
   networking.networkmanager.enable = true;
