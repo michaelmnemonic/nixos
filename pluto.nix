@@ -5,6 +5,7 @@
     ./users/maik.nix
     ./mounts/orpheus-nfs.nix
     ./apps/direnv.nix
+    ./apps/steam.nix
   ];
 
   # Set hostname
