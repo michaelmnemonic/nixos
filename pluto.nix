@@ -2,6 +2,7 @@
   imports = [
     ./hardware/pluto.nix
     ./_shared/common.nix
+    ./users/maik.nix
   ];
 
   # Disable mitigations for performance
