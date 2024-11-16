@@ -4,6 +4,7 @@
     ./_shared/common.nix
     ./users/maik.nix
     ./mounts/orpheus-nfs.nix
+    ./apps/direnv.nix
   ];
 
   # Set hostname
