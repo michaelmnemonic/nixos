@@ -16,10 +16,10 @@
       ];
     };
     devShell.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.pkgs.mkShell {
-      buildInputs = [
-        nixpkgs.legacyPackages.x86_64-linux.pkgs.gitMinimal
-        nixpkgs.legacyPackages.x86_64-linux.pkgs.nil
-        nixpkgs.legacyPackages.x86_64-linux.pkgs.alejandra
+      buildInputs = with nixpkgs.legacyPackages.x86_64-linux.pkgs; [
+        gitMinimal
+        nil
+        alejandra
       ];
     };
   };
