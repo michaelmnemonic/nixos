@@ -1,15 +1,15 @@
 {pkgs, ...}: {
   imports = [
-    ./hardware/pluto.nix
     ./_shared/common.nix
-    ./users/maik.nix
+    ./hardware/pluto.nix
     ./mounts/orpheus-nfs.nix
     ./programs/direnv.nix
     ./programs/steam.nix
+    ./services/audio.nix
     ./services/chipcards.nix
     ./services/printing.nix
     ./services/scanning.nix
-    ./services/audio.nix
+    ./users/maik.nix
   ];
 
   # Set hostname
