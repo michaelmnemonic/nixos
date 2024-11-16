@@ -12,9 +12,10 @@
   };
   nixpkgs.config.allowUnfreePredicate = pkg:
     builtins.elem (lib.getName pkg) [
+      "libvgm"
       "steam"
       "steam-original"
-      "steam-unwrapped"
       "steam-run"
+      "steam-unwrapped"
     ];
 }
