@@ -3,6 +3,7 @@
     ./hardware/pluto.nix
     ./_shared/common.nix
     ./users/maik.nix
+    ./mounts/orpheus-nfs.nix
   ];
 
   # Set hostname
