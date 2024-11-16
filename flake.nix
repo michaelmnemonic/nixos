@@ -10,7 +10,7 @@
     };
 
     umu = {
-      url = "git+https://github.com/Open-Wine-Components/umu-launcher/?dir=packaging\/nix&submodules=1";
+      url = "github:Open-Wine-Components/umu-launcher/?dir=packaging\/nix&submodules=1/1.1.4";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -27,6 +27,7 @@
         lanzaboote.nixosModules.lanzaboote
         ./pluto.nix
       ];
+      specialArgs = {inherit umu;};
     };
     devShell.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.pkgs.mkShell {
       buildInputs = with nixpkgs.legacyPackages.x86_64-linux.pkgs; [

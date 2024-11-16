@@ -1,5 +1,5 @@
 {
-  inputs,
+  umu,
   lib,
   pkgs,
   ...
@@ -89,7 +89,7 @@
       flavour = ["mocha" "latte"];
       accents = ["rosewater"];
     })
-    (inputs.umu.packages.${pkgs.system}.umu.override {version = "${inputs.umu.shortRev}";})
+    (umu.packages.${pkgs.system}.umu)
     aspell
     aspellDicts.de
     aspellDicts.en
