@@ -29,6 +29,9 @@
   i18n.defaultLocale = "de_DE.UTF-8";
   console.keyMap = "de";
 
+  # Make users immutable
+  users.mutableUsers = false;
+
   # Enable sude for user of group wheel
   security.sudo.enable = true;
   security.sudo.execWheelOnly = true;
