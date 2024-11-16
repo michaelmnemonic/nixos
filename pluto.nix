@@ -84,7 +84,7 @@
   ];
 
   # customize the desktop
-  # FIXME: this compile plasma-workspace just to patch qml script
+  # FIXME: this compiles plasma-workspace just to patch qml script, which seems a wast of time
   nixpkgs.overlays = [
     (final: prev: {
       # use smaller icons with more spacing in plasma-workspace
