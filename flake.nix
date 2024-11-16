@@ -36,7 +36,7 @@
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.users.maik = import ./home.nix;
+          home-manager.users.maik = import ./homes/maik.nix;
         }
       ];
       specialArgs = {inherit umu;};
