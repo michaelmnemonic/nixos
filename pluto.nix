@@ -109,13 +109,14 @@
     kdePackages.kmail-account-wizard
     kdePackages.ksshaskpass
     kdePackages.merkuro
+    kdePackages.qtlocation
     kdePackages.tokodon
     libreoffice-qt
     lm_sensors
     nfs-utils
+    sbctl
     syncthing
     transmission_4-qt
-    sbctl
   ];
 
   # Enable custom fan control
