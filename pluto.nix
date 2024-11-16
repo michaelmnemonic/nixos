@@ -234,7 +234,6 @@
   # Enable gamescope
   programs.gamescope = {
     enable = true;
-    capSysNice = true;
   };
 
   # Enable dconf (needed for configuration of gtk themes under wayland)
