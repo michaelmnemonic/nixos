@@ -83,24 +83,6 @@
     noto-fonts-emoji
   ];
 
-  # customize the desktop
-  # FIXME: this compiles plasma-workspace just to patch qml script, which seems a wast of time
-  nixpkgs.overlays = [
-    (final: prev: {
-      # use smaller icons with more spacing in plasma-workspace
-      kdePackages = prev.kdePackages.overrideScope (sfinal: sprev: {
-        plasma-workspace = sprev.plasma-workspace.overrideAttrs (oldAttrs: {
-          patches =
-            oldAttrs.patches
-            ++ [
-              ./patches/0001-plasma-workspaces-systemtray-icon-sizes.patch
-              ./patches/0002-plasma-workspaces-lockout-icon-sizes.patch
-            ];
-        });
-      });
-    })
-  ];
-
   # List of system-wide packages
   environment.systemPackages = with pkgs; [
     (catppuccin-kde.override {
