@@ -74,6 +74,9 @@
   # Disable NetworkManager wait online
   systemd.services."NetworkManager-wait-online".enable = false;
 
+  # Enable mDNS
+  services.avahi.enable = true;
+
   # Add inter, jetbrains-mono and noto fonts
   fonts.packages = with pkgs; [
     inter
