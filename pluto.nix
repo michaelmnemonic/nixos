@@ -112,6 +112,7 @@
     kdePackages.ksshaskpass
     kdePackages.merkuro
     kdePackages.qtlocation
+    kdePackages.skanpage
     kdePackages.tokodon
     libreoffice-qt
     lm_sensors
