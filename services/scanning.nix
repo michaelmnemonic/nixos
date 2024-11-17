@@ -4,4 +4,5 @@
     enable = true;
     extraBackends = [pkgs.sane-airscan];
   };
+  services.saned.enable = true;
 }
