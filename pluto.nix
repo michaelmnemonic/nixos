@@ -231,6 +231,28 @@
     wantedBy = ["multi-user.target"];
   };
 
+  # load ath11k modules after suspend
+  systemd.services.ath11k-resume = {
+    description = "Load ath11k_pci module after suspend";
+    after = ["suspend.target"];
+    serviceConfig = {
+      Type = "simple";
+      ExecStart = ''${pkgs.kmod}/bin/modprobe ath11k_pci'';
+    };
+    wantedBy = ["suspend.target"];
+  };
+
+  # unload ath11k modules before suspend
+  systemd.services.ath11k-suspend = {
+    description = "Unload ath11k_pci module before suspend";
+    before = ["sleep.target"];
+    serviceConfig = {
+      Type = "simple";
+      ExecStart = ''${pkgs.kmod}/bin/rmmod ath11k_pci'';
+    };
+    wantedBy = ["sleep.target"];
+  };
+
   # Setup firewall
   networking.firewall = {
     enable = true;
