@@ -154,6 +154,7 @@
         hwmon:
           platform: nct6798-isa-0290
           index: 6
+        neverStop: true
         curve: cpu_curve
     sensors:
       - id: gpu_edge
