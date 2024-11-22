@@ -123,6 +123,8 @@
     sbctl
     syncthing
     transmission_4-qt
+    unar
+    mpv
   ];
 
   # Enable user service for syncthing
@@ -162,6 +164,12 @@
           index: 2
         neverStop: true
         curve: cpu_curve
+      - id: gpu
+        hwmon:
+          platform: nct6798-isa-0290
+          index: 4
+        neverStop: true
+        curve: gpu_curve
     sensors:
       - id: gpu_edge
         hwmon:
@@ -220,9 +228,9 @@
         linear:
           sensor: gpu_edge
           steps:
-            - 50: 50
-            - 60: 70
-            - 70: 110
+            - 55: 50
+            - 60: 110
+            - 65: 150
   '';
   systemd.services.fan2go = {
     enable = true;
