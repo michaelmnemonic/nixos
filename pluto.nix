@@ -138,22 +138,28 @@
           index: 1
         neverStop: true
         curve: front_curve
-      - id: cpu
-        hwmon:
-          platform: nct6798-isa-0290
-          index: 2
-        neverStop: true
-        curve: cpu_curve
       - id: front_top
         hwmon:
           platform: nct6798-isa-0290
           index: 5
         neverStop: true
         curve: front_curve
+      - id: top
+        hwmon:
+          platform: nct6798-isa-0290
+          index: 7
+        neverStop: true
+        curve: front_curve
       - id: back
         hwmon:
           platform: nct6798-isa-0290
           index: 6
+        neverStop: true
+        curve: cpu_curve
+      - id: cpu
+        hwmon:
+          platform: nct6798-isa-0290
+          index: 2
         neverStop: true
         curve: cpu_curve
     sensors:
