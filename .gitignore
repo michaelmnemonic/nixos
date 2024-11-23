@@ -1,2 +1,3 @@
 .direnv
+secrets.nix
 packages/autotag/Keys.cs
