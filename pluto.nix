@@ -273,6 +273,13 @@ in {
     wantedBy = ["sleep.target"];
   };
 
+  # ssh server with public key authentication only
+  services.openssh = {
+    enable = true;
+    settings.PasswordAuthentication = false;
+    settings.KbdInteractiveAuthentication = false;
+  };
+
   # Setup firewall
   networking.firewall = {
     enable = true;
