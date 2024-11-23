@@ -125,7 +125,7 @@
     syncthing
     transmission_4-qt
     unar
-    zed
+    zed-editor
   ];
 
   # Enable user service for syncthing
