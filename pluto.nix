@@ -119,12 +119,13 @@
     kdePackages.tokodon
     libreoffice-qt
     lm_sensors
+    mpv
     nfs-utils
     sbctl
     syncthing
     transmission_4-qt
     unar
-    mpv
+    zed
   ];
 
   # Enable user service for syncthing
@@ -198,6 +199,7 @@
             - 70: 80
             - 90: 100
             - 100: 150
+            - 100: 155
       - id: gpu_curve
         function:
           type: maximum
