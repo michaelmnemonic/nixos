@@ -31,6 +31,7 @@
       system = "x86_64-linux";
       modules = [
         lanzaboote.nixosModules.lanzaboote
+        agenix.nixosModules.default
         ./pluto.nix
       ];
       specialArgs = {inherit umu;};
