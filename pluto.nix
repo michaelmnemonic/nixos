@@ -313,6 +313,13 @@
     '';
   };
 
+  services.ollama = {
+    enable = true;
+    acceleration = "rocm";
+  };
+
+  hardware.amdgpu.opencl.enable = true;
+
   # Enable kdeconnect
   programs.kdeconnect = {
     enable = true;
