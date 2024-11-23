@@ -3,6 +3,7 @@
   buildDotnetModule,
   dotnetCorePackages,
   fetchFromGitHub,
+  config,
 }:
 buildDotnetModule rec {
   pname = "autotag";
@@ -25,7 +26,7 @@ buildDotnetModule rec {
   dotnet-runtime = dotnetCorePackages.runtime_7_0;
 
   patchPhase = ''
-    cp ${./Keys.cs} ./AutoTag.CLI/Keys.cs
+    cp ${config.age."packages/autotag/Keys.cs.age".path} ./AutoTag.CLI/Keys.cs
     ls ./AutoTag.CLI/
   '';
 
