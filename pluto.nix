@@ -325,9 +325,11 @@
   services.ollama = {
     enable = true;
     acceleration = "rocm";
-  };
+    rocmOverrideGfx = "11.0.0";
+    };
 
   hardware.amdgpu.opencl.enable = true;
+  hardware.graphics.extraPackages = with pkgs; [ rocmPackages.clr.icd ];
 
   # Enable kdeconnect
   programs.kdeconnect = {
