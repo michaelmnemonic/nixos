@@ -34,7 +34,10 @@
         agenix.nixosModules.default
         ./pluto.nix
       ];
-      specialArgs = {inherit umu;};
+      specialArgs = {
+        inherit umu;
+        inherit agenix;
+      };
     };
     devShell.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.pkgs.mkShell {
       buildInputs = with nixpkgs.legacyPackages.x86_64-linux.pkgs; [

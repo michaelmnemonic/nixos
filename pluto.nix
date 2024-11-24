@@ -2,10 +2,9 @@
   umu,
   lib,
   pkgs,
+  agenix,
   ...
-}: let
-  autotag = pkgs.callPackage ./packages/autotag/package.nix {};
-in {
+}: {
   imports = [
     ./_shared/common.nix
     ./hardware/pluto.nix
@@ -95,7 +94,7 @@ in {
       accents = ["rosewater"];
     })
     (umu.packages.${pkgs.system}.umu)
-    autotag
+    agenix.packages.${system}.default
     aspell
     aspellDicts.de
     aspellDicts.en
