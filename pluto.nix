@@ -109,6 +109,7 @@
     kdePackages.akonadi-mime
     kdePackages.akonadi-notes
     kdePackages.akonadi-search
+    kdePackages.alpaka
     kdePackages.elisa
     kdePackages.kdepim-addons
     kdePackages.kdepim-runtime
@@ -326,10 +327,10 @@
     enable = true;
     acceleration = "rocm";
     rocmOverrideGfx = "11.0.0";
-    };
+  };
 
   hardware.amdgpu.opencl.enable = true;
-  hardware.graphics.extraPackages = with pkgs; [ rocmPackages.clr.icd ];
+  hardware.graphics.extraPackages = with pkgs; [rocmPackages.clr.icd];
 
   # Enable kdeconnect
   programs.kdeconnect = {
