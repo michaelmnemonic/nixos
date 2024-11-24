@@ -48,6 +48,9 @@
   nix.gc.automatic = true;
   nix.gc.options = "--delete-older-than 7d";
 
-  # Never automatically reboot
-  system.autoUpgrade.allowReboot = false;
+  # Enable auto upgrades, but without automatic reboot
+  system.autoUpgrade = {
+    enable = true;
+    allowReboot = false;
+  };
 }
