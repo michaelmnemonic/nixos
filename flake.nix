@@ -18,6 +18,11 @@
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    autotag = {
+      url = "git+file:///var/lib/autotag";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -25,6 +30,7 @@
     agenix,
     nixpkgs,
     lanzaboote,
+    autotag,
     umu,
   }: {
     nixosConfigurations.pluto = nixpkgs.lib.nixosSystem {
@@ -37,6 +43,7 @@
       specialArgs = {
         inherit umu;
         inherit agenix;
+        inherit autotag;
       };
     };
     devShell.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.pkgs.mkShell {

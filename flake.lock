@@ -23,6 +23,26 @@
         "type": "github"
       }
     },
+    "autotag": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1732558390,
+        "narHash": "sha256-WlFAQwxi1xE08sLrRIez6rMmylgZYGmEMCa9pcIStwM=",
+        "ref": "refs/heads/master",
+        "rev": "4f91965a2c6dd8e0d4bcb9fbbb9e40039e0bf387",
+        "revCount": 71,
+        "type": "git",
+        "url": "file:///var/lib/autotag"
+      },
+      "original": {
+        "type": "git",
+        "url": "file:///var/lib/autotag"
+      }
+    },
     "crane": {
       "inputs": {
         "nixpkgs": [
@@ -253,6 +273,7 @@
     "root": {
       "inputs": {
         "agenix": "agenix",
+        "autotag": "autotag",
         "lanzaboote": "lanzaboote",
         "nixpkgs": "nixpkgs",
         "umu": "umu"

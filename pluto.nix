@@ -3,6 +3,7 @@
   lib,
   pkgs,
   agenix,
+  autotag,
   ...
 }: {
   imports = [
@@ -95,6 +96,7 @@
     })
     (umu.packages.${pkgs.system}.umu)
     agenix.packages.${system}.default
+    autotag.packages.${system}.default
     aspell
     aspellDicts.de
     aspellDicts.en
