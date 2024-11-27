@@ -124,6 +124,7 @@
     kdePackages.tokodon
     libreoffice-qt
     lm_sensors
+    libcamera
     mpv
     nfs-utils
     sbctl
