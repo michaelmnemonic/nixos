@@ -140,73 +140,73 @@
   # Enable custom fan control
   boot.kernelModules = ["nct6775"]; # motherboard sesnsors
   environment.etc."fan2go/fan2go.yaml".text = ''
-     fans:
-       - id: side
-         hwmon:
-           platform: nct6792-isa-0290
-           index: 1
-         neverStop: true
-         curve: side_curve
-       - id: cpu
-         hwmon:
-           platform: nct6792-isa-0290
-           index: 2
-         neverStop: true
-         curve: cpu_curve
-       - id: bottom
-         hwmon:
-           platform: nct6792-isa-0290
-           index: 3
-         neverStop: true
-         curve: gpu_curve
-     sensors:
-       - id: gpu_edge
-         hwmon:
-           platform: amdgpu-pci-0800
-           index: 1
-       - id: gpu_mem
-         hwmon:
-           platform: amdgpu-pci-0800
-           index: 3
-       - id: cpu_tctl
-         hwmon:
-           platform: k10temp-pci-00c3
-           index: 1
-     curves:
-       - id: gpu_edge_curve
-         linear:
-           sensor: gpu_edge
-           steps:
-             - 50: 80
-             - 60: 100
-             - 70: 150
-       - id: gpu_mem_curve
-         linear:
-           sensor: gpu_mem
-           steps:
-             - 70: 80
-             - 90: 100
-             - 100: 160
-       - id: gpu_curve
-         function:
-           type: maximum
-           curves:
-             - gpu_edge_curve
-             - gpu_mem_curve
-       - id: cpu_curve
-         linear:
-           sensor: cpu_tctl
-           steps:
-             - 50: 80
-             - 60: 100
-             - 70: 130
-       - id: side_curve
-         function:
-           type: maximum
-           curves:
-             - cpu_curve
-             - gpu_curve
-   '';
+    fans:
+      - id: side
+        hwmon:
+          platform: nct6792-isa-0290
+          index: 1
+        neverStop: true
+        curve: side_curve
+      - id: cpu
+        hwmon:
+          platform: nct6792-isa-0290
+          index: 2
+        neverStop: true
+        curve: cpu_curve
+      - id: bottom
+        hwmon:
+          platform: nct6792-isa-0290
+          index: 3
+        neverStop: true
+        curve: gpu_curve
+    sensors:
+      - id: gpu_edge
+        hwmon:
+          platform: amdgpu-pci-0800
+          index: 1
+      - id: gpu_mem
+        hwmon:
+          platform: amdgpu-pci-0800
+          index: 3
+      - id: cpu_tctl
+        hwmon:
+          platform: k10temp-pci-00c3
+          index: 1
+    curves:
+      - id: gpu_edge_curve
+        linear:
+          sensor: gpu_edge
+          steps:
+            - 50: 80
+            - 60: 100
+            - 70: 150
+      - id: gpu_mem_curve
+        linear:
+          sensor: gpu_mem
+          steps:
+            - 70: 80
+            - 90: 100
+            - 100: 160
+      - id: gpu_curve
+        function:
+          type: maximum
+          curves:
+            - gpu_edge_curve
+            - gpu_mem_curve
+      - id: cpu_curve
+        linear:
+          sensor: cpu_tctl
+          steps:
+            - 50: 80
+            - 60: 100
+            - 70: 130
+      - id: side_curve
+        function:
+          type: maximum
+          curves:
+            - cpu_curve
+            - gpu_curve
+  '';
   systemd.services.fan2go = {
     enable = true;
     after = ["lm-sensors.service"];
