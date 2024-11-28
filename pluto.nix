@@ -72,6 +72,7 @@
 
   # Use NetworkManager
   networking.networkmanager.enable = true;
+  services.tailscale.enable = true;
 
   # Disable NetworkManager wait online
   systemd.services."NetworkManager-wait-online".enable = false;
