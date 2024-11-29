@@ -52,6 +52,12 @@
   # Boot splash screen
   boot.plymouth.enable = true;
 
+  # Disable ttys
+  services.logind.extraConfig = ''
+    NAutoVTs=0
+    ReserveVT=0
+  '';
+
   # Use german keyboard layout
   services.xserver = {
     # set keymap
