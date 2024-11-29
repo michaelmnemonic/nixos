@@ -116,6 +116,7 @@
     kdePackages.elisa
     kdePackages.kdepim-addons
     kdePackages.kdepim-runtime
+    kdePackages.kleopatra
     kdePackages.kmail
     kdePackages.kmail-account-wizard
     kdePackages.ksshaskpass
