@@ -129,6 +129,7 @@
     libcamera
     mpv
     nfs-utils
+    pinentry-qt
     sbctl
     syncthing
     transmission_4-qt
