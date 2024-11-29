@@ -303,6 +303,11 @@
   hardware.amdgpu.opencl.enable = true;
   hardware.graphics.extraPackages = with pkgs; [rocmPackages.clr.icd];
 
+  programs.gnupg.agent = {
+    enable = true;
+    pinentryPackage = pkgs.pinentry-qt;
+  };
+
   # Enable kdeconnect
   programs.kdeconnect = {
     enable = true;
