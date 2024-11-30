@@ -4,11 +4,6 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
 
-    lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.1";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     umu = {
       url = "github:Open-Wine-Components/umu-launcher/?dir=packaging\/nix&submodules=1/1.1.4";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -29,14 +24,12 @@
     self,
     agenix,
     nixpkgs,
-    lanzaboote,
     autotag,
     umu,
   }: {
     nixosConfigurations.pluto = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
-        lanzaboote.nixosModules.lanzaboote
         agenix.nixosModules.default
         ./pluto.nix
       ];

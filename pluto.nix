@@ -42,16 +42,6 @@
   # Use latest stable kernel
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  # Enable lanzaboote
-  boot.loader.systemd-boot.enable = lib.mkForce false;
-  boot.lanzaboote = {
-    enable = true;
-    pkiBundle = "/etc/secureboot";
-  };
-
-  # Boot splash screen
-  boot.plymouth.enable = true;
-
   # Disable ttys
   services.logind.extraConfig = ''
     NAutoVTs=0
