@@ -310,8 +310,5 @@
   # Enable ssh-agent
   programs.ssh.startAgent = true;
 
-  # Auto updagrade from github repository
-  system.autoUpgrade.flake = "github:michaelmnemonic/nixos";
-
   system.stateVersion = "24.05";
 }
