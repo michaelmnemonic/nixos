@@ -17,13 +17,6 @@
     fsType = "ext4";
   };
 
-  boot.initrd.luks.devices."NIXOS" = {
-    device = "/dev/disk/by-partlabel/NIXOS";
-    allowDiscards = true;
-    bypassWorkqueues = true;
-    crypttabExtraOpts = ["tpm2-device=auto"];
-  };
-
   fileSystems."/boot" = {
     device = "/dev/disk/by-label/EFI";
     fsType = "vfat";
