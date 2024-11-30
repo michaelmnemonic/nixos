@@ -92,10 +92,6 @@
 
   # List of system-wide packages
   environment.systemPackages = with pkgs; [
-    (catppuccin-kde.override {
-      flavour = ["mocha" "latte"];
-      accents = ["rosewater"];
-    })
     (umu.packages.${pkgs.system}.umu)
     agenix.packages.${system}.default
     autotag.packages.${system}.default
@@ -139,7 +135,7 @@
   ];
 
   # Enable user service for syncthing
-  systemd.user.services.syncthing.wantedBy = ["default.target"];
+ # systemd.user.services.syncthing.wantedBy = ["default.target"];
 
   # Enable custom fan control
   boot.kernelModules = ["nct6775"]; # motherboard sesnsors
