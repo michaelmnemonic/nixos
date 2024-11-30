@@ -42,6 +42,9 @@
   # Use latest stable kernel
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
+  # Enable plymouth
+  boot.plymouth.enable = true;
+
   # Disable ttys
   services.logind.extraConfig = ''
     NAutoVTs=0
