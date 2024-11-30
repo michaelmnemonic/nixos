@@ -16,10 +16,6 @@
     "vt.global_cursor_default=0"
   ];
 
-  # Supress login on tty1
-  systemd.services."getty@tty1".enable = false;
-  systemd.services."autovt@tty1".enable = false;
-
   # Use zram as swap
   zramSwap = {
     enable = true;
