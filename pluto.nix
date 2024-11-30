@@ -68,6 +68,8 @@
 
   # Use NetworkManager
   networking.networkmanager.enable = true;
+
+  # Enable tailscale
   services.tailscale.enable = true;
 
   # Disable NetworkManager wait online
