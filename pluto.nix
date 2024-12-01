@@ -308,6 +308,7 @@
 
   # Enable ssh-agent
   programs.ssh.startAgent = true;
+  environment.sessionVariables.SSH_ASKPASS_REQUIRE = "prefer";
 
   system.stateVersion = "24.05";
 }
