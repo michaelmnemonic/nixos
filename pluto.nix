@@ -309,7 +309,7 @@
   # Enable ssh-agent
   programs.ssh = {
     startAgent = true;
-    askPassword = "${pkgs.ksshaskpass}/bin/ksshaskpass";
+    askPassword = "${pkgs.kdePackages.ksshaskpass}/bin/ksshaskpass";
   };
   environment.sessionVariables.SSH_ASKPASS_REQUIRE = "prefer";
 
