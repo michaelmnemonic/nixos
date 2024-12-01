@@ -121,9 +121,10 @@
     kdePackages.qtlocation
     kdePackages.skanpage
     kdePackages.tokodon
+    kmymoney
+    libcamera
     libreoffice-qt
     lm_sensors
-    libcamera
     mpv
     nfs-utils
     pinentry-qt
