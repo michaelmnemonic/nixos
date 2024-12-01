@@ -94,7 +94,6 @@
   environment.systemPackages = with pkgs; [
     (umu.packages.${pkgs.system}.umu)
     agenix.packages.${system}.default
-    autotag.packages.${system}.default
     aspell
     aspellDicts.de
     aspellDicts.en
