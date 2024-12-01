@@ -307,10 +307,12 @@
   };
 
   # Enable ssh-agent
-  programs.ssh = {
-    startAgent = true;
-    enableAskPassword = true;
-    askPassword = "/run/current-system/sw/bin/ksshaskpass";
+  # FIXME: this should be bossible with progam.ssh as well
+  environment = {
+    sessionVariables = {
+      SSH_ASKPASS_REQUIRE="prefer";
+      SSH_ASKPASS="/run/current-system/sw/bin/ksshaskpass";
+    };
   };
 
   system.stateVersion = "24.05";
