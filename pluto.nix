@@ -135,7 +135,7 @@
   ];
 
   # Enable user service for syncthing
- # systemd.user.services.syncthing.wantedBy = ["default.target"];
+  # systemd.user.services.syncthing.wantedBy = ["default.target"];
 
   # Enable custom fan control
   boot.kernelModules = ["nct6775"]; # motherboard sesnsors
@@ -307,7 +307,10 @@
   };
 
   # Enable ssh-agent
-  programs.ssh.startAgent = true;
+  programs.ssh = {
+    startAgent = true;
+    askPassword = "${pkgs.ksshaskpass}/bin/ksshaskpass";
+  };
   environment.sessionVariables.SSH_ASKPASS_REQUIRE = "prefer";
 
   system.stateVersion = "24.05";
