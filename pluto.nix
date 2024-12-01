@@ -124,7 +124,6 @@
     libcamera
     libreoffice-qt
     lm_sensors
-    gnucash
     mpv
     nfs-utils
     pinentry-qt
