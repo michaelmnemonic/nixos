@@ -1,5 +1,6 @@
 {...}: {
   security.pam.enableFscrypt = true;
+  security.pam.services.maik.kwallet.enable = true;
   users.users.maik = {
     isNormalUser = true;
     description = "Maik Köhler";

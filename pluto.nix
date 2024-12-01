@@ -53,6 +53,7 @@
 
   # Use german keyboard layout
   services.xserver = {
+    enable = true;
     # set keymap
     xkb.layout = "de";
   };
@@ -308,13 +309,12 @@
 
   # Enable ssh-agent
   # FIXME: this should be bossible with progam.ssh as well
-  programs.ssh.startAgent = false;
-  environment = {
-    sessionVariables = {
-      SSH_ASKPASS_REQUIRE="prefer";
-      SSH_ASKPASS="/run/current-system/sw/bin/ksshaskpass";
-    };
+  programs.ssh = {
+    startAgent = true;
+    enableAskPassword = true;
+    askPassword = "${pkgs.kdePackages.ksshaskpass}/bin/ksshaskpass";
   };
+  environment.sessionVariables.SSH_ASKPASS_REQUIRE="prefer";
 
   system.stateVersion = "24.05";
 }
