@@ -308,6 +308,7 @@
 
   # Enable ssh-agent
   # FIXME: this should be bossible with progam.ssh as well
+  programs.ssh.startAgent = false;
   environment = {
     sessionVariables = {
       SSH_ASKPASS_REQUIRE="prefer";
