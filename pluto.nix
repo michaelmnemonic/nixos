@@ -308,7 +308,6 @@
   };
 
   # Enable ssh-agent
-  # FIXME: this should be bossible with progam.ssh as well
   programs.ssh = {
     startAgent = true;
     enableAskPassword = true;
