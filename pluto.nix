@@ -310,7 +310,7 @@
   programs.ssh = {
     startAgent = true;
     enableAskPassword = true;
-    askPassword = "${pkgs.kdePackages.ksshaskpass}/bin/ksshaskpass";
+    askPassword = "/run/current-system/sw/bin/ksshaskpass";
   };
 
   system.stateVersion = "24.05";
