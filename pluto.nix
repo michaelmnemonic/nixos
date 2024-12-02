@@ -151,32 +151,50 @@
   boot.kernelModules = ["nct6775"]; # motherboard sesnsors
   environment.etc."fan2go/fan2go.yaml".text = ''
     fans:
-      - id: side
+      - id: front_bottom
         hwmon:
-          platform: nct6792-isa-0290
+          platform: nct6798-isa-0290
           index: 1
         neverStop: true
-        curve: side_curve
+        curve: front_curve
+      - id: front_top
+        hwmon:
+          platform: nct6798-isa-0290
+          index: 5
+        neverStop: true
+        curve: front_curve
+      - id: top
+        hwmon:
+          platform: nct6798-isa-0290
+          index: 7
+        neverStop: true
+        curve: front_curve
+      - id: back
+        hwmon:
+          platform: nct6798-isa-0290
+          index: 6
+        neverStop: true
+        curve: cpu_curve
       - id: cpu
         hwmon:
-          platform: nct6792-isa-0290
+          platform: nct6798-isa-0290
           index: 2
         neverStop: true
         curve: cpu_curve
-      - id: bottom
+      - id: gpu
         hwmon:
-          platform: nct6792-isa-0290
-          index: 3
+          platform: nct6798-isa-0290
+          index: 4
         neverStop: true
         curve: gpu_curve
     sensors:
       - id: gpu_edge
         hwmon:
-          platform: amdgpu-pci-0800
+          platform: amdgpu-pci-0a00
           index: 1
       - id: gpu_mem
         hwmon:
-          platform: amdgpu-pci-0800
+          platform: amdgpu-pci-0a00
           index: 3
       - id: cpu_tctl
         hwmon:
@@ -187,16 +205,17 @@
         linear:
           sensor: gpu_edge
           steps:
-            - 50: 80
-            - 60: 100
-            - 70: 150
+            - '50': 80
+            - '60': 100
+            - '70': 130
       - id: gpu_mem_curve
         linear:
           sensor: gpu_mem
           steps:
-            - 70: 80
-            - 90: 100
-            - 100: 160
+            - '70': 80
+            - '90': 100
+            - '100': 150
+            - '100': 155
       - id: gpu_curve
         function:
           type: maximum
@@ -207,15 +226,29 @@
         linear:
           sensor: cpu_tctl
           steps:
-            - 50: 80
-            - 60: 100
-            - 70: 130
-      - id: side_curve
+            - '50': 80
+            - '60': 100
+            - '70': 130
+      - id: front_curve
         function:
           type: maximum
           curves:
-            - cpu_curve
-            - gpu_curve
+            - front_cpu_curve
+            - front_gpu_curve
+      - id: front_cpu_curve
+        linear:
+          sensor: cpu_tctl
+          steps:
+            - '50': 50
+            - '60': 70
+            - '70': 110
+      - id: front_gpu_curve
+        linear:
+          sensor: gpu_edge
+          steps:
+            - '55': 50
+            - '60': 110
+            - '65': 150
   '';
   systemd.services.fan2go = {
     enable = true;
