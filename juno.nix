@@ -100,6 +100,7 @@
     libcamera
     nfs-utils
     papers
+    resources
     syncthing
     tuba
   ];
