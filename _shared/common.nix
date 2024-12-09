@@ -16,12 +16,6 @@
     "vt.global_cursor_default=0"
   ];
 
-  # Use zram as swap
-  zramSwap = {
-    enable = true;
-    algorithm = "zstd";
-  };
-
   # Setup time zone
   time.timeZone = "Europe/Berlin";
 

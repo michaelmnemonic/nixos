@@ -42,6 +42,12 @@
   # Use latest stable kernel
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
+  # Use zram as swap
+  zramSwap = {
+    enable = true;
+    algorithm = "zstd";
+  };
+
   # Enable plymouth
   boot.plymouth.enable = true;
 
@@ -137,8 +143,8 @@
   # Enable flatpak
   services.flatpak.enable = true;
   systemd.services.flatpak-repo = {
-    wantedBy = [ "multi-user.target" ];
-    path = [ pkgs.flatpak ];
+    wantedBy = ["multi-user.target"];
+    path = [pkgs.flatpak];
     script = ''
       flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
     '';
@@ -377,7 +383,7 @@
     enableAskPassword = true;
     askPassword = "${pkgs.kdePackages.ksshaskpass}/bin/ksshaskpass";
   };
-  environment.sessionVariables.SSH_ASKPASS_REQUIRE="prefer";
+  environment.sessionVariables.SSH_ASKPASS_REQUIRE = "prefer";
 
   system.stateVersion = "24.05";
 }

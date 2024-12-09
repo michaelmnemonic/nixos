@@ -27,16 +27,28 @@
     autotag,
     umu,
   }: {
-    nixosConfigurations.pluto = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      modules = [
-        agenix.nixosModules.default
-        ./pluto.nix
-      ];
-      specialArgs = {
-        inherit umu;
-        inherit agenix;
-        inherit autotag;
+    nixosConfigurations = {
+      pluto = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          agenix.nixosModules.default
+          ./pluto.nix
+        ];
+        specialArgs = {
+          inherit umu;
+          inherit agenix;
+          inherit autotag;
+        };
+      };
+      juno = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          agenix.nixosModules.default
+          ./juno.nix
+        ];
+        specialArgs = {
+          inherit autotag;
+        };
       };
     };
     devShell.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.pkgs.mkShell {
