@@ -54,7 +54,7 @@
   hardware.sensor.iio.enable = true;
 
   # Enable hardware accelerated video decode
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
     extraPackages = with pkgs; [
       intel-media-driver
