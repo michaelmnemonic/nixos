@@ -50,6 +50,9 @@
   # Use GDM as displayManager
   services.xserver.displayManager.gdm.enable = true;
 
+  # Enable auto rotation
+  hardware.sensor.iio.enable = true;
+
   # Use NetworkManager
   networking.networkmanager.enable = true;
 
