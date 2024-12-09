@@ -95,6 +95,7 @@
     aspell
     aspellDicts.de
     aspellDicts.en
+    celluloid
     firefox
     libcamera
     nfs-utils
