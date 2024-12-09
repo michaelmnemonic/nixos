@@ -71,6 +71,14 @@
     noto-fonts-emoji
   ];
 
+  # Debloat GNOME install
+  environment.gnome.excludePackages = with pkgs; [
+    gnome-tour
+    gnome-music
+    epiphany
+    evince
+  ];
+
   # List of system-wide packages
   environment.systemPackages = with pkgs; [
     aspell
@@ -79,6 +87,7 @@
     firefox
     libcamera
     nfs-utils
+    papers
     syncthing
   ];
 
