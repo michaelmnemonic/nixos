@@ -101,6 +101,7 @@
     nfs-utils
     papers
     syncthing
+    tuba
   ];
 
   # ssh server with public key authentication only
