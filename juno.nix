@@ -53,6 +53,14 @@
   # Enable auto rotation
   hardware.sensor.iio.enable = true;
 
+  # Enable hardware accelerated video decode
+  hardware.opengl = {
+    enable = true;
+    extraPackages = with pkgs; [
+      intel-media-driver
+    ];
+  };
+
   # Use NetworkManager
   networking.networkmanager.enable = true;
 
