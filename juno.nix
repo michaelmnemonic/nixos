@@ -86,17 +86,6 @@
   # Enable mDNS
   services.avahi.enable = true;
 
-  # Save some power
-  environment.etc."tmpfiles.d/powersave.conf".text = ''
-    w /sys/class/net/wlp0s20f3/device/power/wakeup - - - - enabled
-    w /sys/bus/usb/devices/1-3.2/power/wakeup      - - - - enabled
-    w /sys/bus/usb/devices/usb1/power/wakeup       - - - - enabled
-    w /sys/bus/usb/devices/1-10/power/wakeup       - - - - enabled
-    w /sys/bus/usb/devices/1-3/power/wakeup        - - - - enabled
-    w /sys/bus/usb/devices/usb2/power/wakeup       - - - - enabled
-    w /sys/bus/usb/devices/1-6/power/wakeup        - - - - enabled
-  '';
-
   # Add inter, jetbrains-mono and noto fonts
   fonts.packages = with pkgs; [
     inter
@@ -127,6 +116,7 @@
     resources
     syncthing
     tuba
+    gnomeExtensions.hibernate-status-button
   ];
 
   # ssh server with public key authentication only
