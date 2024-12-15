@@ -127,6 +127,7 @@
     kdePackages.qtlocation
     kdePackages.skanpage
     kdePackages.tokodon
+    kdePackages.kio-extras
     libcamera
     libreoffice-qt
     lm_sensors
