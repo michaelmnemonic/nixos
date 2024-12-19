@@ -17,18 +17,12 @@
     fsType = "ext4";
   };
 
-  boot.initrd.luks.devices."NIXOS" = {
-    device = "/dev/disk/by-partlabel/NIXOS";
-    allowDiscards = true;
-    bypassWorkqueues = true;
-  };
-
   fileSystems."/boot" = {
     device = "/dev/disk/by-label/EFI";
     fsType = "vfat";
   };
 
-  swapDevices = [];
+  swapDevices."SWAP".device="/dev/disk/by-label/SWAP";
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }
