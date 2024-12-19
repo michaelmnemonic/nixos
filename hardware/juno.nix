@@ -22,7 +22,7 @@
     fsType = "vfat";
   };
 
-  swapDevices."SWAP".device="/dev/disk/by-label/SWAP";
+  swapDevices = [];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }

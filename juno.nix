@@ -23,8 +23,6 @@
   boot.kernelParams = [
     # Disable mitigiations for some extra performance
     "mitigations=off"
-    # Enable hibernate
-    "resume=LABEL=SWAP"
   ];
 
   # Use latest stable kernel
@@ -66,16 +64,6 @@
   # Use NetworkManager
   networking.networkmanager.enable = true;
 
-  # Enable hibernate
-  systemd.sleep.extraConfig = ''
-    AllowSuspend=yes
-    AllowHibernation=yes
-    AllowHybridSleep=no
-    AllowSuspendThenHibernate=yes
-    HibernateDelaySec=15m
-    SuspendState=mem
-    MemorySleepMode=deep
-  '';
 
   # Enable tailscale
   services.tailscale.enable = true;
@@ -116,7 +104,6 @@
     resources
     syncthing
     tuba
-    gnomeExtensions.hibernate-status-button
   ];
 
   # ssh server with public key authentication only
