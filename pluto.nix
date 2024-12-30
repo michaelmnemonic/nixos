@@ -113,7 +113,6 @@
     kdePackages.akonadi-calendar
     kdePackages.akonadi-contacts
     kdePackages.akonadi-mime
-    kdePackages.akonadi-notes
     kdePackages.akonadi-search
     kdePackages.alpaka
     kdePackages.elisa
