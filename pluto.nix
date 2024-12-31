@@ -1,6 +1,4 @@
 {
-  umu,
-  lib,
   pkgs,
   agenix,
   autotag,
@@ -99,7 +97,6 @@
 
   # List of system-wide packages
   environment.systemPackages = with pkgs; [
-    (umu.packages.${pkgs.system}.umu)
     agenix.packages.${system}.default
     aspell
     aspellDicts.de
