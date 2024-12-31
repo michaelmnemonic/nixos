@@ -1,7 +1,5 @@
 {
   pkgs,
-  agenix,
-  autotag,
   ...
 }: {
   imports = [
@@ -97,7 +95,6 @@
 
   # List of system-wide packages
   environment.systemPackages = with pkgs; [
-    agenix.packages.${system}.default
     aspell
     aspellDicts.de
     aspellDicts.en
