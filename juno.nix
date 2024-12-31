@@ -5,7 +5,7 @@
 }: {
   imports = [
     ./_shared/common.nix
-    ./hardware/pluto.nix
+    ./hardware/juno.nix
     ./mounts/orpheus-nfs.nix
     ./programs/direnv.nix
     ./services/audio.nix
