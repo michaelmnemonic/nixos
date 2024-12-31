@@ -3,11 +3,17 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+
+    umu = {
+      url = "github:Open-Wine-Components/umu-launcher/?dir=packaging\/nix&submodules=1/1.1.4";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
     self,
     nixpkgs,
+    umu,
   }: {
     nixosConfigurations = {
       pluto = nixpkgs.lib.nixosSystem {
@@ -16,6 +22,7 @@
           ./pluto.nix
         ];
         specialArgs = {
+          inherit umu;
         };
       };
       juno = nixpkgs.lib.nixosSystem {

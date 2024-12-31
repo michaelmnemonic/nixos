@@ -1,5 +1,6 @@
 {
   pkgs,
+  umu,
   ...
 }: {
   imports = [
@@ -95,6 +96,7 @@
 
   # List of system-wide packages
   environment.systemPackages = with pkgs; [
+    (umu.packages.${pkgs.system}.umu)
     aspell
     aspellDicts.de
     aspellDicts.en
