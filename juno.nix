@@ -49,6 +49,10 @@
   # Use GDM as displayManager
   services.xserver.displayManager.gdm.enable = true;
 
+  # No need for xterm
+  services.xserver.excludePackages = [pkgs.xterm];
+  services.xserver.desktopManager.xterm.enable = false;
+
   # Enable auto rotation
   hardware.sensor.iio.enable = true;
 
@@ -62,7 +66,6 @@
 
   # Use NetworkManager
   networking.networkmanager.enable = true;
-
 
   # Enable tailscale
   services.tailscale.enable = true;
