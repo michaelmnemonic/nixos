@@ -99,6 +99,7 @@
     celluloid
     firefox
     libcamera
+    quodlibet
     nfs-utils
     papers
     resources
