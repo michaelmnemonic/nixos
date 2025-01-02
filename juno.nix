@@ -27,6 +27,17 @@
   # Use latest stable kernel
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
+  # Optimize power consumption
+  environment.etc."tmpfiles.d/optimize-power-consumption.conf".text = ''
+    w /sys/class/net/wlp0s20f3/device/power/wakeup - - - - enabled
+    w sys/bus/usb/devices/1-3.2/power/wakeup       - - - - enabled
+    w /sys/bus/usb/devices/usb1/power/wakeup       - - - - enabled
+    w /sys/bus/usb/devices/1-10/power/wakeup       - - - - enabled
+    w /sys/bus/usb/devices/1-3/power/wakeup        - - - - enabled
+    w /sys/bus/usb/devices/usb2/power/wakeup       - - - - enabled
+    w /sys/bus/usb/devices/1-6/power/wakeup        - - - - enabled
+  '';
+
   # Enable plymouth
   boot.plymouth.enable = true;
 
@@ -108,6 +119,7 @@
     resources
     syncthing
     tuba
+    kodi
   ];
 
   # ssh server with public key authentication only
