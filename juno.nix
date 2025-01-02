@@ -29,13 +29,24 @@
 
   # Optimize power consumption
   environment.etc."tmpfiles.d/optimize-power-consumption.conf".text = ''
-    w /sys/class/net/wlp0s20f3/device/power/wakeup - - - - enabled
-    w /sys/bus/usb/devices/1-3.2/power/wakeup       - - - - enabled
-    w /sys/bus/usb/devices/usb1/power/wakeup       - - - - enabled
-    w /sys/bus/usb/devices/1-10/power/wakeup       - - - - enabled
-    w /sys/bus/usb/devices/1-3/power/wakeup        - - - - enabled
-    w /sys/bus/usb/devices/usb2/power/wakeup       - - - - enabled
-    w /sys/bus/usb/devices/1-6/power/wakeup        - - - - enabled
+    w /sys/class/net/wlp0s20f3/device/power/wakeup    - - - - enabled
+    w /sys/bus/usb/devices/1-3.2/power/wakeup         - - - - enabled
+    w /sys/bus/usb/devices/usb1/power/wakeup          - - - - enabled
+    w /sys/bus/usb/devices/1-10/power/wakeup          - - - - enabled
+    w /sys/bus/usb/devices/1-3/power/wakeup           - - - - enabled
+    w /sys/bus/usb/devices/usb2/power/wakeup          - - - - enabled
+    w /sys/bus/usb/devices/1-6/power/wakeup           - - - - enabled
+    w /proc/sys/vm/dirty_writeback_centisecs          - - - - 1500
+    w /sys/module/snd_hda_intel/parameters/power_save - - - - 1
+    w /proc/sys/kernel/nmi_watchdog                   - - - - 0
+    w /sys/bus/pci/devices/0000:01:00.0/power/control - - - - auto
+    w /sys/bus/pci/devices/0000:00:0a.0/power/control - - - - auto
+    w /sys/bus/pci/devices/0000:00:14.2/power/control - - - - auto
+    w /sys/bus/pci/devices/0000:00:00.0/power/control - - - - auto
+    w /sys/bus/pci/devices/0000:00:1f.5/power/control - - - - auto
+    w /sys/bus/pci/devices/0000:00:14.3/power/control - - - - auto
+    w /sys/bus/pci/devices/0000:00:1f.0/power/control - - - - auto
+    w /sys/bus/pci/devices/0000:00:08.0/power/control - - - - auto
   '';
 
   # Enable plymouth
