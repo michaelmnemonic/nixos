@@ -30,7 +30,7 @@
   # Optimize power consumption
   environment.etc."tmpfiles.d/optimize-power-consumption.conf".text = ''
     w /sys/class/net/wlp0s20f3/device/power/wakeup - - - - enabled
-    w sys/bus/usb/devices/1-3.2/power/wakeup       - - - - enabled
+    w /sys/bus/usb/devices/1-3.2/power/wakeup       - - - - enabled
     w /sys/bus/usb/devices/usb1/power/wakeup       - - - - enabled
     w /sys/bus/usb/devices/1-10/power/wakeup       - - - - enabled
     w /sys/bus/usb/devices/1-3/power/wakeup        - - - - enabled
