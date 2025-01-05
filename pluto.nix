@@ -100,6 +100,7 @@
     aspell
     aspellDicts.de
     aspellDicts.en
+    digikam
     fan2go
     ffmpegthumbs
     firefox
