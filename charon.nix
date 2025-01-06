@@ -1,4 +1,9 @@
-{pkgs, lib, nixos-x13s,...}: {
+{
+  pkgs,
+  lib,
+  nixos-x13s,
+  ...
+}: {
   imports = [
     ./_shared/common.nix
     ./hardware/charon.nix
@@ -15,8 +20,8 @@
   # Enable X13S support
   nixos-x13s = {
     enable = true;
-#    wifiMac = true;
-#    bluetoothMac = true;
+    #    wifiMac = true;
+    #    bluetoothMac = true;
     kernel = "mainline";
   };
 
@@ -55,11 +60,11 @@
 
   # https://github.com/jhovold/linux/wiki/X13s#modem
   networking.networkmanager.fccUnlockScripts = [
-      {
-        id = "105b:e0c3";
-        path = "${pkgs.modemmanager}/share/ModemManager/fcc-unlock.available.d/105b";
-      }
-    ];
+    {
+      id = "105b:e0c3";
+      path = "${pkgs.modemmanager}/share/ModemManager/fcc-unlock.available.d/105b";
+    }
+  ];
 
   # Disable NetworkManager wait online
   systemd.services."NetworkManager-wait-online".enable = false;

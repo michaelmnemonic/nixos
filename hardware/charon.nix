@@ -36,12 +36,12 @@
   fileSystems."/" = {
     device = "/dev/disk/by-label/NIXOS";
     fsType = "btrfs";
-    options = [ "compress=zstd:1" ];
+    options = ["compress=zstd:1"];
   };
 
   boot.initrd.luks.devices.NIXOS = {
-         device = "/dev/disk/by-partlabel/NIXOS";
-         allowDiscards = true;
+    device = "/dev/disk/by-partlabel/NIXOS";
+    allowDiscards = true;
   };
 
   fileSystems."/boot" = {
