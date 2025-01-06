@@ -33,6 +33,14 @@
         specialArgs = {
         };
       };
+      charon = nixpkgs.lib.nixosSystem {
+        system = "aarch64-linux";
+        modules = [
+          ./charon.nix
+        ];
+        specialArgs = {
+        };
+      };
     };
     devShell.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.pkgs.mkShell {
       buildInputs = with nixpkgs.legacyPackages.x86_64-linux.pkgs; [
