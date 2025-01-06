@@ -99,6 +99,7 @@
   # List of system-wide packages
   environment.systemPackages = with pkgs; [
     (umu.packages.${pkgs.system}.umu)
+    aqbanking
     aspell
     aspellDicts.de
     aspellDicts.en
