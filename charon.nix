@@ -1,6 +1,7 @@
-{pkgs, lib, ...}: {
+{pkgs, lib, nixos-x13s,...}: {
   imports = [
     ./_shared/common.nix
+    ./hardware/charon.nix
     ./services/audio.nix
     ./services/chipcards.nix
     ./services/printing.nix
@@ -11,27 +12,15 @@
   # Set hostname
   networking.hostName = "charon";
 
-  # Use latest stable kernel
-  boot.kernelPackages = lib.mkForce pkgs.linuxPackages_latest;
-
-  # Use correct devicetree
-  hardware = {
-    deviceTree = {
-      enable = true;
-      name = "/dtbs/qcom/sc8280xp-lenovo-thinkpad-x13s.dtb";
-      filter = "*sc8280xp-lenovo-thinkpad-x13s.dtb";
-    };
+  # Enable X13S support
+  nixos-x13s = {
+    enable = true;
+#    wifiMac = true;
+#    bluetoothMac = true;
+    kernel = "mainline";
   };
 
-  # Copy device tree on EFI partition
-  boot.loader.systemd-boot.installDeviceTree = true;
-
-  boot.kernelParams = [
-    "dtb=/dtbs/qcom/sc8280xp-lenovo-thinkpad-x13s.dtb"
-    "arm64.nopauth"
-    "clk_ignore_unused"
-    "pd_ignore_unused"
-  ];
+  nixpkgs.config.allowUnfree = true;
 
   # Use zram as swap
   zramSwap = {

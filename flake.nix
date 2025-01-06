@@ -8,12 +8,18 @@
       url = "github:Open-Wine-Components/umu-launcher/?dir=packaging\/nix&submodules=1/1.1.4";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nixos-x13s = {
+      url = "github:BrainWart/x13s-nixos";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
     self,
     nixpkgs,
     umu,
+    nixos-x13s,
   }: {
     nixosConfigurations = {
       pluto = nixpkgs.lib.nixosSystem {
@@ -36,6 +42,7 @@
       charon = nixpkgs.lib.nixosSystem {
         system = "aarch64-linux";
         modules = [
+          nixos-x13s.nixosModules.default
           ./charon.nix
         ];
         specialArgs = {
