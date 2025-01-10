@@ -27,6 +27,9 @@
 
   nixpkgs.config.allowUnfree = true;
 
+  # Enable fingerprint reader
+  services.fprintd.enable = true;
+
   # Use zram as swap
   zramSwap = {
     enable = true;
