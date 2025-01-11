@@ -1,7 +1,4 @@
-{
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   imports = [
     ./_shared/common.nix
     ./hardware/charon.nix
@@ -141,9 +138,9 @@
   ];
 
   # Insecure dependency of neochat
-    nixpkgs.config.permittedInsecurePackages = [
-                "olm-3.2.16"
-              ];
+  nixpkgs.config.permittedInsecurePackages = [
+    "olm-3.2.16"
+  ];
 
   # Enable TLP (and disable ppd)
   services.power-profiles-daemon.enable = false;
