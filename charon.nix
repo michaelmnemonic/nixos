@@ -144,11 +144,11 @@
 
   # Enable TLP (and disable ppd)
   services.power-profiles-daemon.enable = false;
-  powerManagement.powertop.enable = true;
   services.tlp.enable = true;
   services.tlp.settings = {
     PCIE_ASPM_ON_BAT = "powersupersave";
     RUNTIME_PM_ON_AC = "auto";
+    RUNTIME_PM_ON_BAT = "on";
     # Operation mode when no power supply can be detected: AC, BAT.
     TLP_DEFAULT_MODE = "BAT";
     # Operation mode select: 0=depend on power source, 1=always use TLP_DEFAULT_MODE
@@ -156,6 +156,11 @@
     DEVICES_TO_DISABLE_ON_LAN_CONNECT = "wifi wwan";
     DEVICES_TO_DISABLE_ON_WIFI_CONNECT = "wwan";
     DEVICES_TO_DISABLE_ON_WWAN_CONNECT = "wifi";
+    #
+    START_CHARGE_THRESH_BAT0 = "75";
+    STOP_CHARGE_THRESH_BAT0 = "80";
+    #
+    USB_AUTOSUSPEND = "1";
   };
 
   system.stateVersion = "24.05";
