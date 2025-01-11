@@ -63,7 +63,8 @@
       "inputs": {
         "nixos-x13s": "nixos-x13s",
         "nixpkgs": "nixpkgs",
-        "umu": "umu"
+        "umu": "umu",
+        "widevine": "widevine"
       }
     },
     "systems": {
@@ -100,6 +101,22 @@
         "dir": "packaging/nix",
         "owner": "Open-Wine-Components",
         "repo": "umu-launcher",
+        "type": "github"
+      }
+    },
+    "widevine": {
+      "locked": {
+        "lastModified": 1734850675,
+        "narHash": "sha256-KKraru0hnpKpIJ+OkujU4V2/BdP/EGN7beRkyIAyoUw=",
+        "owner": "ExpidusOS",
+        "repo": "nixpkgs",
+        "rev": "ceec381abfe21304bf3761143a9219cc3c1a9dab",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ExpidusOS",
+        "ref": "feat/widevine-again",
+        "repo": "nixpkgs",
         "type": "github"
       }
     }

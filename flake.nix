@@ -4,6 +4,10 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-24.11";
 
+    widevine = {
+      url = "github:ExpidusOS/nixpkgs?ref=feat/widevine-again";
+    };
+
     umu = {
       url = "github:Open-Wine-Components/umu-launcher/?dir=packaging\/nix&submodules=1/1.1.4";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -20,7 +24,16 @@
     nixpkgs,
     umu,
     nixos-x13s,
-  }: {
+    widevine,
+  }: let
+    system = "aarch64-linux";
+    overlay-widevine = final: prev: {
+      widevine-overlay = import widevine {
+        inherit system;
+        config.allowUnfree = true;
+      };
+    };
+  in {
     nixosConfigurations = {
       pluto = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -43,9 +56,15 @@
         system = "aarch64-linux";
         modules = [
           nixos-x13s.nixosModules.default
+          ({
+            config,
+            pkgs,
+            ...
+          }: {nixpkgs.overlays = [overlay-widevine];})
           ./charon.nix
         ];
         specialArgs = {
+          inherit widevine;
         };
       };
     };
