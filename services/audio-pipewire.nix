@@ -4,13 +4,13 @@
   ...
 }: {
   # Use pipewire
-  hardware.pulseaudio.enable = lib.mkForce false;
+  hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
+    alsa.enable = false;
+    alsa.support32Bit = false;
+    pulse.enable = false;
     configPackages = [
       # Prevent resampling of sample rate the DAC nativly supports
       (pkgs.writeTextDir "share/pipewire/pipewire.conf.d/00-prevent-resampling.conf" ''
@@ -23,9 +23,9 @@
           ## Properties for the DSP configuration.
           default.clock.rate          = 48000
           default.clock.allowed-rates = [ 44100 48000 88200 96000 ]
-          #default.clock.quantum       = 1024
+          #default.clock.quantum       = 512
           #default.clock.min-quantum   = 32
-          #default.clock.max-quantum   = 2048
+          #default.clock.max-quantum   = 1024
           #default.clock.quantum-limit = 8192
           #default.video.width         = 640
           #default.video.height        = 480

@@ -8,7 +8,7 @@
     ./hardware/juno.nix
     ./mounts/orpheus-nfs.nix
     ./programs/direnv.nix
-    ./services/audio.nix
+    ./services/audio-pipewire.nix
     ./services/chipcards.nix
     ./services/printing.nix
     ./services/scanning.nix
