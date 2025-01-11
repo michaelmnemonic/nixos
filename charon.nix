@@ -7,7 +7,7 @@
   imports = [
     ./_shared/common.nix
     ./hardware/charon.nix
-    ./services/audio.nix
+    ./services/audio-pulseaudio.nix
     ./services/chipcards.nix
     ./services/printing.nix
     ./services/scanning.nix
