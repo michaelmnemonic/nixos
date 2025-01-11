@@ -8,9 +8,9 @@
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
-    alsa.enable = false;
-    alsa.support32Bit = false;
-    pulse.enable = false;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
     configPackages = [
       # Prevent resampling of sample rate the DAC nativly supports
       (pkgs.writeTextDir "share/pipewire/pipewire.conf.d/00-prevent-resampling.conf" ''
