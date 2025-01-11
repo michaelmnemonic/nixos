@@ -41,6 +41,10 @@
   # Use latest stable kernel
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
+
+  # Enable bluetooth
+  hardware.bluetooth.enable = true;
+
   # Use zram as swap
   zramSwap = {
     enable = true;

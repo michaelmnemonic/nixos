@@ -20,6 +20,9 @@
     kernel = "jhovold";
   };
 
+  # Enable bluetooth
+  hardware.bluetooth.enable = true;
+
   # Allow unfree software
   nixpkgs.config.allowUnfree = true;
 

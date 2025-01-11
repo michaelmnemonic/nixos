@@ -52,6 +52,9 @@
   # Enable plymouth
   boot.plymouth.enable = true;
 
+  # Enable bluetooth
+  hardware.bluetooth.enable = true;
+
   # Disable ttys
   services.logind.extraConfig = ''
     NAutoVTs=0
