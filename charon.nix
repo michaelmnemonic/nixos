@@ -51,10 +51,17 @@
 
   # Use SDDM as displayManager
   services.displayManager.sddm = {
+    enable = false;
+  };
+
+  services.greetd = {
     enable = true;
-    wayland = {
-      enable = true;
-      compositor = "kwin";
+    settings = rec {
+      initial_session = {
+        command = "${pkgs.kdePackages.plasma-workspace}/bin/startplasma-wayland";
+        user = "maik";
+      };
+      default_session = initial_session;
     };
   };
 
@@ -89,10 +96,55 @@
     aspell
     aspellDicts.de
     aspellDicts.en
+    digikam
     ffmpegthumbs
     firefox
+    fooyin
     gitMinimal
+    kdePackages.akonadi
+    kdePackages.akonadi-calendar
+    kdePackages.akonadi-contacts
+    kdePackages.akonadi-mime
+    kdePackages.akonadi-search
+    kdePackages.alpaka
+    kdePackages.elisa
+    kdePackages.kdepim-addons
+    kdePackages.kdepim-runtime
+    kdePackages.kleopatra
+    kdePackages.kmail
+    kdePackages.kmail-account-wizard
+    kdePackages.ksshaskpass
+    kdePackages.merkuro
+    kdePackages.qtlocation
+    kdePackages.skanpage
+    kdePackages.tokodon
+    kdePackages.kio-extras
+    libcamera
+    libreoffice-qt
+    mpv
+    nfs-utils
+    pinentry-qt
+    syncthing
+    transmission_4-qt
+    unar
+    zed-editor
   ];
+
+  # Enable TLP (and disable ppd)
+  services.power-profiles-daemon.enable = false;
+  powerManagement.powertop.enable = true;
+  services.tlp.enable = true;
+  services.tlp.settings = {
+    PCIE_ASPM_ON_BAT = "powersupersave";
+    RUNTIME_PM_ON_AC = "auto";
+    # Operation mode when no power supply can be detected: AC, BAT.
+    TLP_DEFAULT_MODE = "BAT";
+    # Operation mode select: 0=depend on power source, 1=always use TLP_DEFAULT_MODE
+    TLP_PERSISTENT_DEFAULT = "1";
+    DEVICES_TO_DISABLE_ON_LAN_CONNECT = "wifi wwan";
+    DEVICES_TO_DISABLE_ON_WIFI_CONNECT = "wwan";
+    DEVICES_TO_DISABLE_ON_WWAN_CONNECT = "wifi";
+  };
 
   system.stateVersion = "24.05";
 }
