@@ -41,6 +41,12 @@
     font = "${pkgs.inter}/share/fonts/truetype/InterVariable.ttf";
   };
 
+  # Disable ttys
+  services.logind.extraConfig = ''
+    NAutoVTs=0
+    ReserveVT=0
+  '';
+
   # Use german keyboard layout
   services.xserver = {
     enable = true;
