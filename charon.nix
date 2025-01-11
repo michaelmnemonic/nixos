@@ -36,7 +36,10 @@
   };
 
   # Enable plymouth
-  boot.plymouth.enable = true;
+  boot.plymouth = {
+    enable = true;
+    font = "${pkgs.inter}/share/fonts/truetype/InterVariable.ttf";
+  };
 
   # Use german keyboard layout
   services.xserver = {
