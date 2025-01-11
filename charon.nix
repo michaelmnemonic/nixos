@@ -163,5 +163,10 @@
     USB_AUTOSUSPEND = "1";
   };
 
+  # Enable kdeconnect
+  programs.kdeconnect = {
+    enable = true;
+  };
+
   system.stateVersion = "24.05";
 }
