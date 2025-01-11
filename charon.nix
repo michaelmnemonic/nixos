@@ -57,7 +57,7 @@
   # Use plasma as desktop environment
   services.desktopManager.plasma6.enable = true;
 
-  # Use SDDM as displayManager
+  # Disable SDDM as displayManager
   services.displayManager.sddm = {
     enable = false;
   };
