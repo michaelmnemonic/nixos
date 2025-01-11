@@ -101,6 +101,7 @@
 
   # List of system-wide packages
   environment.systemPackages = with pkgs; [
+    pkgs.widevine-overlay.widevine-cdm
     aspell
     aspellDicts.de
     aspellDicts.en
