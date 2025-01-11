@@ -23,6 +23,7 @@
     kernel = "jhovold";
   };
 
+  # Allow unfree software
   nixpkgs.config.allowUnfree = true;
 
   # Enable fingerprint reader
