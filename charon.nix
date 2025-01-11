@@ -1,7 +1,5 @@
 {
   pkgs,
-  lib,
-  nixos-x13s,
   ...
 }: {
   imports = [
