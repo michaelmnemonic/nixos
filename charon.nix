@@ -167,6 +167,12 @@
     USB_AUTOSUSPEND = "1";
   };
 
+  # Enable syncthing
+  services.syncthing = {
+    enable = true;
+    user = "maik";
+  };
+
   # Enable kdeconnect
   programs.kdeconnect = {
     enable = true;
