@@ -13,6 +13,7 @@
   boot.kernelParams = [
     "quiet"
     "loglevel=0"
+    "systemd.show_status=false"
     "vt.global_cursor_default=0"
   ];
 
