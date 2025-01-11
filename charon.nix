@@ -102,6 +102,7 @@
     aspell
     aspellDicts.de
     aspellDicts.en
+    calibre
     digikam
     ffmpegthumbs
     firefox
