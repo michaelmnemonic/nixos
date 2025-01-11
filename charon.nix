@@ -119,15 +119,16 @@
     kdePackages.elisa
     kdePackages.kdepim-addons
     kdePackages.kdepim-runtime
+    kdePackages.kio-extras
     kdePackages.kleopatra
     kdePackages.kmail
     kdePackages.kmail-account-wizard
     kdePackages.ksshaskpass
     kdePackages.merkuro
+    kdePackages.neochat
     kdePackages.qtlocation
     kdePackages.skanpage
     kdePackages.tokodon
-    kdePackages.kio-extras
     libcamera
     libreoffice-qt
     mpv
