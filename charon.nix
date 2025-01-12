@@ -90,6 +90,21 @@
   # Enable mDNS
   services.avahi.enable = true;
 
+    systemd.mounts = [
+    {
+      type = "btrfs";
+      mountConfig = {
+        Options = "subvol=@maik";
+      };
+      what = "LABEL=NIXOS";
+      where = "/home/maik";
+    }
+  ];
+
+    environment.etc."tmpfiles.d/home-maikconf".text = ''
+      d /home/maik               700 1000 100 -
+    '';
+
   # Add inter, jetbrains-mono and noto fonts
   fonts.packages = with pkgs; [
     inter
