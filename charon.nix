@@ -18,7 +18,7 @@
     enable = true;
     #    wifiMac = true;
     #    bluetoothMac = true;
-    kernel = "jhovold";
+    kernel = "mainline";
   };
 
   # Enable bluetooth
@@ -150,6 +150,7 @@
     kdePackages.akonadi-contacts
     kdePackages.akonadi-mime
     kdePackages.akonadi-search
+    kdePackages.akregator
     kdePackages.alpaka
     kdePackages.elisa
     kdePackages.kdepim-addons
