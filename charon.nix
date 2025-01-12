@@ -151,7 +151,6 @@
     kdePackages.akonadi-mime
     kdePackages.akonadi-search
     kdePackages.akregator
-    kdePackages.alpaka
     kdePackages.elisa
     kdePackages.kdepim-addons
     kdePackages.kdepim-runtime
