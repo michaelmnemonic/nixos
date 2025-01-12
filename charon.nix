@@ -2,6 +2,7 @@
   imports = [
     ./_shared/common.nix
     ./hardware/charon.nix
+    ./mounts/orpheus-nfs.nix
     ./services/audio-pulseaudio.nix
     ./services/chipcards.nix
     ./services/printing.nix
@@ -169,7 +170,6 @@
     mpv
     nfs-utils
     pinentry-qt
-    syncthing
     transmission_4-qt
     unar
     zed-editor
