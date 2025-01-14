@@ -58,9 +58,13 @@
   # Use plasma as desktop environment
   services.desktopManager.plasma6.enable = true;
 
-  # Disable SDDM as displayManager
+  # Use SDDM as displayManager
   services.displayManager.sddm = {
-    enable = false;
+    enable = true;
+    wayland = {
+      enable = true;
+      compositor = "kwin";
+    };
   };
 
   # customize the desktop
@@ -81,17 +85,6 @@
     })
   ];
 
-  services.greetd = {
-    enable = true;
-    settings = rec {
-      initial_session = {
-        command = "${pkgs.kdePackages.plasma-workspace}/bin/startplasma-wayland";
-        user = "maik";
-      };
-      default_session = initial_session;
-    };
-  };
-
   # Use NetworkManager
   networking.networkmanager.enable = true;
 
@@ -108,25 +101,6 @@
 
   # Enable mDNS
   services.avahi.enable = true;
-
-    systemd.mounts = [
-    {
-      type = "btrfs";
-      mountConfig = {
-        Options = "subvol=@maik";
-      };
-      what = "LABEL=NIXOS";
-      where = "/home/maik";
-    }
-  ];
-
-    environment.etc."tmpfiles.d/home-maik.conf".text = ''
-      d /home/maik               700 1000 100 -
-    '';
-
-    environment.etc."tmpfiles.d/var-lib-synthing.conf".text = ''
-      d /var/lib/syncthing       700 1000 100 -
-    '';
 
   # Add inter, jetbrains-mono and noto fonts
   fonts.packages = with pkgs; [
@@ -175,6 +149,7 @@
     mpv
     nfs-utils
     pinentry-qt
+    syncthing
     transmission_4-qt
     unar
     zed-editor
@@ -206,12 +181,6 @@
     USB_AUTOSUSPEND = "1";
   };
 
-  # Enable syncthing
-  services.syncthing = {
-    enable = true;
-    user = "maik";
-  };
-
   # Enable kdeconnect
   programs.kdeconnect = {
     enable = true;
@@ -221,9 +190,9 @@
   programs.ssh = {
     startAgent = true;
     enableAskPassword = true;
-#    askPassword = "${pkgs.kdePackages.ksshaskpass}/bin/ksshaskpass";
+    askPassword = "${pkgs.kdePackages.ksshaskpass}/bin/ksshaskpass";
   };
-#  environment.sessionVariables.SSH_ASKPASS_REQUIRE = "prefer";
+  environment.sessionVariables.SSH_ASKPASS_REQUIRE = "prefer";
 
   system.stateVersion = "24.05";
 }
