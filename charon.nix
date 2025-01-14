@@ -120,8 +120,12 @@
     }
   ];
 
-    environment.etc."tmpfiles.d/home-maikconf".text = ''
+    environment.etc."tmpfiles.d/home-maik.conf".text = ''
       d /home/maik               700 1000 100 -
+    '';
+
+    environment.etc."tmpfiles.d/var-lib-synthing.conf".text = ''
+      d /var/lib/syncthing       700 1000 100 -
     '';
 
   # Add inter, jetbrains-mono and noto fonts
