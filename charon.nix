@@ -18,7 +18,7 @@
     enable = true;
     #    wifiMac = true;
     #    bluetoothMac = true;
-    kernel = "mainline";
+    kernel = "jhovold";
   };
 
   # Enable bluetooth
