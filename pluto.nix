@@ -201,11 +201,11 @@
     sensors:
       - id: gpu_edge
         hwmon:
-          platform: amdgpu-pci-0a00
+          platform: amdgpu-pci-0b00
           index: 1
       - id: gpu_mem
         hwmon:
-          platform: amdgpu-pci-0a00
+          platform: amdgpu-pci-0b00
           index: 3
       - id: cpu_tctl
         hwmon:
