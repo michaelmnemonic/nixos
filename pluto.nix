@@ -125,7 +125,6 @@
     kdePackages.kleopatra
     kdePackages.kmail
     kdePackages.kmail-account-wizard
-    kdePackages.kmymoney
     kdePackages.ksshaskpass
     kdePackages.merkuro
     kdePackages.qtlocation
