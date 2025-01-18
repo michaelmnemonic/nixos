@@ -20,8 +20,8 @@
   # Enable X13S support
   nixos-x13s = {
     enable = true;
-    #    wifiMac = true;
-    #    bluetoothMac = true;
+        wifiMac = "F4:A8:0D:F5:5D:BC";
+        bluetoothMac = "F4:A8:0D:30:9D:8B";
     kernel = "mainline";
   };
 
