@@ -22,8 +22,10 @@
     enable = true;
         wifiMac = "F4:A8:0D:F5:5D:BC";
         bluetoothMac = "F4:A8:0D:30:9D:8B";
-    kernel = "mainline";
+    kernel = "jhovold";
   };
+
+  nix.settings.trusted-users = [ "root" "maik" ];
 
   # Enable bluetooth
   hardware.bluetooth.enable = true;
@@ -132,6 +134,7 @@
     aspell
     aspellDicts.de
     aspellDicts.en
+    cachix
     calibre
     digikam
     ffmpegthumbs
