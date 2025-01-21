@@ -47,6 +47,8 @@
     w /sys/bus/pci/devices/0000:00:14.3/power/control - - - - auto
     w /sys/bus/pci/devices/0000:00:1f.0/power/control - - - - auto
     w /sys/bus/pci/devices/0000:00:08.0/power/control - - - - auto
+    w /proc/acpi/wakeup                               - - - - CNVW
+    w /proc/acpi/wakeup                               - - - - XHCI
   '';
 
   # Enable plymouth
