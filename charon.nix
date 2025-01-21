@@ -7,7 +7,7 @@
     ./_shared/common.nix
     ./hardware/charon.nix
     ./mounts/orpheus-nfs.nix
-    ./services/audio-pulseaudio.nix
+    ./services/audio-pipewire.nix
     ./services/chipcards.nix
     ./services/printing.nix
     ./services/scanning.nix
