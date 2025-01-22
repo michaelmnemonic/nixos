@@ -61,14 +61,28 @@
   # Use plasma as desktop environment
   services.desktopManager.plasma6.enable = true;
 
-  # Use SDDM as displayManager
-  services.displayManager.sddm = {
+  # Auto log-in
+  services.greetd = {
     enable = true;
-    wayland = {
-      enable = true;
-      compositor = "kwin";
+    settings = rec {
+      initial_session = {
+        command = "${pkgs.kdePackages.plasma-workspace}/bin/startplasma-wayland";
+        user = "maik";
+      };
+      default_session = initial_session;
     };
   };
+
+  systemd.mounts = [
+    {
+      type = "btrfs";
+      mountConfig = {
+        Options = "subvol=@maik";
+      };
+      what = "LABEL=NIXOS";
+      where = "/home/maik";
+    }
+  ];
 
   # customize the desktop
   # FIXME: this compiles plasma-workspace just to patch qml script
@@ -87,6 +101,14 @@
   #       });
   #     })
   #   ];
+
+  environment.etc."tmpfiles.d/home-maik.conf".text = ''
+    d /home/maik               700 1000 100 -
+  '';
+
+  environment.etc."tmpfiles.d/var-lib-synthing.conf".text = ''
+    d /var/lib/syncthing       700 1000 100 -
+  '';
 
   # https://invent.kde.org/plasma/ksshaskpass/-/merge_requests/24
   nixpkgs.overlays = [
@@ -197,6 +219,12 @@
     STOP_CHARGE_THRESH_BAT0 = "80";
     #
     USB_AUTOSUSPEND = "1";
+  };
+
+  # Enable syncthing
+  services.syncthing = {
+    enable = true;
+    user = "maik";
   };
 
   # Enable kdeconnect
