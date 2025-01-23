@@ -25,8 +25,6 @@
     kernel = "jhovold";
   };
 
-  nix.settings.trusted-users = ["root" "maik"];
-
   # Enable bluetooth
   hardware.bluetooth.enable = true;
 
