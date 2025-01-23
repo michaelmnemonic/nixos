@@ -150,6 +150,50 @@
     "olm-3.2.16"
   ];
 
+
+  # Setup firewall
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [
+      # syncthing
+      22000 # sync
+      # transmission
+      43219
+    ];
+    allowedTCPPortRanges = [
+      # kdeconnect
+      {
+        from = 1714;
+        to = 1764;
+      }
+    ];
+    allowedUDPPorts = [
+      # syncthing
+      22000
+      21027
+      # transmission
+      43219
+    ];
+    allowedUDPPortRanges = [
+      # kdeconnect
+      {
+        from = 1714;
+        to = 1764;
+      }
+    ];
+    # if packets are still dropped, they will show up in dmesg
+    logReversePathDrops = true;
+    # wireguard trips rpfilter up
+    extraCommands = ''
+      ip46tables -t mangle -I nixos-fw-rpfilter -p udp -m udp --sport 1637 -j RETURN
+      ip46tables -t mangle -I nixos-fw-rpfilter -p udp -m udp --dport 1637 -j RETURN
+    '';
+    extraStopCommands = ''
+      ip46tables -t mangle -D nixos-fw-rpfilter -p udp -m udp --sport 1637 -j RETURN || true
+      ip46tables -t mangle -D nixos-fw-rpfilter -p udp -m udp --dport 1637 -j RETURN || true
+    '';
+  };
+
   # Enable TLP (and disable ppd)
   services.power-profiles-daemon.enable = false;
   services.tlp.enable = true;
