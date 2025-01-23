@@ -145,12 +145,6 @@
     zed-editor
   ];
 
-  # Insecure dependency of neochat
-  nixpkgs.config.permittedInsecurePackages = [
-    "olm-3.2.16"
-  ];
-
-
   # Setup firewall
   networking.firewall = {
     enable = true;
