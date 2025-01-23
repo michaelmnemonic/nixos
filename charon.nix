@@ -102,6 +102,9 @@
   # Enable mDNS
   services.avahi.enable = true;
 
+  # Enable tailscale
+  services.tailscale.enable = true;
+
   # Add inter, jetbrains-mono and noto fonts
   fonts.packages = with pkgs; [
     inter
