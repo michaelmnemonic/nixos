@@ -134,6 +134,8 @@
     fractal
     fragments
     gitMinimal
+    gnomeExtensions.no-overview
+    gnomeExtensions.caffeine
     kodi
     libcamera
     libreoffice
