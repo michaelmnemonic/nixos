@@ -11,23 +11,6 @@
     "nvme"
     "phy-qcom-qmp-pcie"
     "pcie-qcom"
-
-    "i2c-core"
-    "i2c-hid"
-    "i2c-hid-of"
-    "i2c-qcom-geni"
-
-    "leds_qcom_lpg"
-    "pwm_bl"
-    "qrtr"
-    "pmic_glink_altmode"
-    "gpio_sbu_mux"
-    "phy-qcom-qmp-combo"
-    "gpucc_sc8280xp"
-    "dispcc_sc8280xp"
-    "phy_qcom_edp"
-    "panel-edp"
-    "msm"
   ];
   boot.initrd.kernelModules = [];
   boot.kernelModules = [];
@@ -35,13 +18,8 @@
 
   fileSystems."/" = {
     device = "/dev/disk/by-label/NIXOS";
-    fsType = "btrfs";
-    options = ["compress=zstd:1"];
-  };
-
-  boot.initrd.luks.devices.NIXOS = {
-    device = "/dev/disk/by-partlabel/NIXOS";
-    allowDiscards = true;
+    fsType = "f2fs";
+    options = [ "compress_algorithm=zstd:1" "compress_chksum" "atgc" "gc_merge" "lazytime"];
   };
 
   fileSystems."/boot" = {
