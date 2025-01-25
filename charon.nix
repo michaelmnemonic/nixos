@@ -20,8 +20,8 @@
   # Enable X13S support
   nixos-x13s = {
     enable = true;
-    wifiMac = "F4:A8:0D:F5:5D:BC";
-    bluetoothMac = "F4:A8:0D:30:9D:8B";
+        wifiMac = "F4:A8:0D:F5:5D:BC";
+        bluetoothMac = "F4:A8:0D:30:9D:8B";
     kernel = "jhovold";
   };
 
@@ -56,15 +56,20 @@
     xkb.layout = "de";
   };
 
-  # Use GNOME as desktop environment
-  services.xserver.desktopManager.gnome.enable = true;
+  # Use plasma as desktop environment
+  services.desktopManager.plasma6.enable = true;
 
-  # Use GDM as displayManager
-  services.xserver.displayManager.gdm.enable = true;
-
-  # No need for xterm
-  services.xserver.excludePackages = [pkgs.xterm];
-  services.xserver.desktopManager.xterm.enable = false;
+  # Auto log-in
+  services.greetd = {
+    enable = true;
+    settings = rec {
+      initial_session = {
+        command = "${pkgs.kdePackages.plasma-workspace}/bin/startplasma-wayland";
+        user = "maik";
+      };
+      default_session = initial_session;
+    };
+  };
 
   systemd.mounts = [
     {
@@ -77,6 +82,24 @@
     }
   ];
 
+  # customize the desktop
+  # FIXME: this compiles plasma-workspace just to patch qml script
+  #   nixpkgs.overlays = [
+  #     (final: prev: {
+  #       # use smaller icons with more spacing in plasma-workspace
+  #       kdePackages = prev.kdePackages.overrideScope (sfinal: sprev: {
+  #         plasma-workspace = sprev.plasma-workspace.overrideAttrs (oldAttrs: {
+  #           patches =
+  #             oldAttrs.patches
+  #             ++ [
+  #               ./patches/0001-plasma-workspaces-systemtray-icon-sizes.patch
+  #               ./patches/0002-plasma-workspaces-lockout-icon-sizes.patch
+  #             ];
+  #         });
+  #       });
+  #     })
+  #   ];
+
   environment.etc."tmpfiles.d/home-maik.conf".text = ''
     d /home/maik               700 1000 100 -
   '';
@@ -84,6 +107,20 @@
   environment.etc."tmpfiles.d/var-lib-synthing.conf".text = ''
     d /var/lib/syncthing       700 1000 100 -
   '';
+
+  # https://invent.kde.org/plasma/ksshaskpass/-/merge_requests/24
+  nixpkgs.overlays = [
+    (final: prev: {
+      kdePackages = prev.kdePackages.overrideScope (sfinal: sprev: {
+        ksshaskpass = sprev.ksshaskpass.overrideAttrs (oldAttrs: {
+          patches = builtins.fetchurl {
+            url = "https://invent.kde.org/plasma/ksshaskpass/-/merge_requests/24.patch";
+            sha256 = "sha256:00rqh4bkwy8hhh2fl3pqddilprilanp78zi2l84ggfik4arm52ig";
+          };
+        });
+      });
+    })
+  ];
 
   # Use NetworkManager
   networking.networkmanager.enable = true;
@@ -114,36 +151,48 @@
     noto-fonts-emoji
   ];
 
-  # Debloat GNOME install
-  environment.gnome.excludePackages = with pkgs; [
-    gnome-tour
-    gnome-music
-    gnome-system-monitor
-    epiphany
-    evince
-  ];
-
   # List of system-wide packages
   environment.systemPackages = with pkgs; [
     pkgs.widevine-overlay.widevine-cdm
     aspell
     aspellDicts.de
     aspellDicts.en
-    celluloid
+    cachix
+    calibre
+    digikam
+    ffmpegthumbs
     firefox
-    fractal
-    fragments
+    fooyin
     gitMinimal
-    gnomeExtensions.no-overview
-    gnomeExtensions.caffeine
-    kodi
+    kdePackages.akonadi
+    kdePackages.akonadi-calendar
+    kdePackages.akonadi-contacts
+    kdePackages.akonadi-mime
+    kdePackages.akonadi-search
+    kdePackages.akregator
+    kdePackages.alligator
+    kdePackages.elisa
+    kdePackages.kdepim-addons
+    kdePackages.kdepim-runtime
+    kdePackages.kio-extras
+    kdePackages.kleopatra
+    kdePackages.kmail
+    kdePackages.kmail-account-wizard
+    kdePackages.ksshaskpass
+    kdePackages.merkuro
+    kdePackages.neochat
+    kdePackages.qtlocation
+    kdePackages.skanpage
+    kdePackages.tokodon
+    kmymoney
     libcamera
-    libreoffice
+    libreoffice-qt
+    mpv
     nfs-utils
-    papers
-    quodlibet
-    resources
-    tuba
+    pinentry-qt
+    syncthing
+    transmission_4-qt
+    unar
     zed-editor
   ];
 
@@ -220,14 +269,15 @@
   # Enable kdeconnect
   programs.kdeconnect = {
     enable = true;
-    package = pkgs.gnomeExtensions.gsconnect;
   };
 
   # Enable ssh-agent
   programs.ssh = {
     startAgent = true;
     enableAskPassword = true;
+    askPassword = "${pkgs.kdePackages.ksshaskpass}/bin/ksshaskpass";
   };
+  environment.sessionVariables.SSH_ASKPASS_REQUIRE = "prefer";
 
   system.stateVersion = "24.05";
 }
