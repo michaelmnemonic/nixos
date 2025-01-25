@@ -59,15 +59,12 @@
   # Use plasma as desktop environment
   services.desktopManager.plasma6.enable = true;
 
-  # Auto log-in
-  services.greetd = {
+  # Use sddm as display-manager
+  services.displayManager.sddm = {
     enable = true;
-    settings = rec {
-      initial_session = {
-        command = "${pkgs.kdePackages.plasma-workspace}/bin/startplasma-wayland";
-        user = "maik";
-      };
-      default_session = initial_session;
+    wayland = {
+      enable = true;
+      compositor = "kwin";
     };
   };
 
