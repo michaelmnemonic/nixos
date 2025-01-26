@@ -230,10 +230,7 @@
     DEVICES_TO_DISABLE_ON_LAN_CONNECT = "wifi wwan";
     DEVICES_TO_DISABLE_ON_WIFI_CONNECT = "wwan";
     DEVICES_TO_DISABLE_ON_WWAN_CONNECT = "wifi";
-    #
-    START_CHARGE_THRESH_BAT0 = "75";
-    STOP_CHARGE_THRESH_BAT0 = "80";
-    #
+    # Enable USB autosuspend
     USB_AUTOSUSPEND = "1";
   };
 
