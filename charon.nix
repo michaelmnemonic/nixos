@@ -223,6 +223,7 @@
     # Use scedutil in all cases
     CPU_SCALING_GOVERNOR_ON_AC = "schedutil";
     CPU_SCALING_GOVERNOR_ON_BAT = "schedutil";
+    # Set PCIE powersaving
     PCIE_ASPM_ON_BAT = "powersupersave";
     RUNTIME_PM_ON_AC = "auto";
     RUNTIME_PM_ON_BAT = "on";
