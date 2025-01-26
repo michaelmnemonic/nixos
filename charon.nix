@@ -68,17 +68,6 @@
     };
   };
 
-  systemd.mounts = [
-    {
-      type = "btrfs";
-      mountConfig = {
-        Options = "subvol=@maik";
-      };
-      what = "LABEL=NIXOS";
-      where = "/home/maik";
-    }
-  ];
-
   # customize the desktop
   # FIXME: this compiles plasma-workspace just to patch qml script
   #   nixpkgs.overlays = [
@@ -96,14 +85,6 @@
   #       });
   #     })
   #   ];
-
-  environment.etc."tmpfiles.d/home-maik.conf".text = ''
-    d /home/maik               700 1000 100 -
-  '';
-
-  environment.etc."tmpfiles.d/var-lib-synthing.conf".text = ''
-    d /var/lib/syncthing       700 1000 100 -
-  '';
 
   # https://invent.kde.org/plasma/ksshaskpass/-/merge_requests/24
   nixpkgs.overlays = [
