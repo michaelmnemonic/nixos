@@ -144,6 +144,9 @@
     zed-editor
   ];
 
+  # Enable podman
+    virtualisation.podman.enable = true;
+
   # Enable flatpak
   services.flatpak.enable = true;
   systemd.services.flatpak-repo = {
