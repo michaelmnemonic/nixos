@@ -177,7 +177,6 @@
     kdePackages.kmail-account-wizard
     kdePackages.ksshaskpass
     kdePackages.merkuro
-    kdePackages.neochat
     kdePackages.qtlocation
     kdePackages.skanpage
     kdePackages.tokodon
