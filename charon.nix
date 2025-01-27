@@ -56,17 +56,24 @@
     xkb.layout = "de";
   };
 
-  # Use plasma as desktop environment
-  services.desktopManager.plasma6.enable = true;
+  # Use GNOME as desktop environment
+  services.xserver.desktopManager.gnome.enable = true;
 
-  # Use sddm as display-manager
-  services.displayManager.sddm = {
-    enable = true;
-    wayland = {
-      enable = true;
-      compositor = "kwin";
-    };
-  };
+  # Use GDM as displayManager
+  services.xserver.displayManager.gdm.enable = true;
+
+  # No need for xterm
+  services.xserver.excludePackages = [pkgs.xterm];
+  services.xserver.desktopManager.xterm.enable = false;
+
+  # Debloat GNOME install
+  environment.gnome.excludePackages = with pkgs; [
+    gnome-tour
+    gnome-music
+    gnome-system-monitor
+    epiphany
+    evince
+  ];
 
   # customize the desktop
   # FIXME: this compiles plasma-workspace just to patch qml script
@@ -135,42 +142,18 @@
     aspell
     aspellDicts.de
     aspellDicts.en
-    cachix
-    calibre
-    digikam
-    ffmpegthumbs
     firefox
-    fooyin
     gitMinimal
-    kdePackages.akonadi
-    kdePackages.akonadi-calendar
-    kdePackages.akonadi-contacts
-    kdePackages.akonadi-mime
-    kdePackages.akonadi-search
-    kdePackages.akregator
-    kdePackages.alligator
-    kdePackages.elisa
-    kdePackages.kdepim-addons
-    kdePackages.kdepim-runtime
-    kdePackages.kio-extras
-    kdePackages.kleopatra
-    kdePackages.kmail
-    kdePackages.kmail-account-wizard
-    kdePackages.ksshaskpass
-    kdePackages.merkuro
-    kdePackages.qtlocation
-    kdePackages.skanpage
-    kdePackages.tokodon
-    kmymoney
     libcamera
-    libreoffice-qt
-    mpv
+    celluloid
     nfs-utils
-    pinentry-qt
     syncthing
-    transmission_4-qt
-    unar
+    fragments
+    fractal
     zed-editor
+    resources
+    amberol
+    tuba
   ];
 
   # Setup firewall
@@ -241,6 +224,7 @@
   # Enable kdeconnect
   programs.kdeconnect = {
     enable = true;
+    package = pkgs.gnomeExtensions.gsconnect;
   };
 
   # Enable ssh-agent
