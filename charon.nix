@@ -154,6 +154,7 @@
     resources
     amberol
     tuba
+    papers
   ];
 
   # Setup firewall
