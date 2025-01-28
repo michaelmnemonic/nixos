@@ -27,15 +27,46 @@
   # Use latest stable kernel
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
+  # Enable TLP (and disable ppd)
+  services.power-profiles-daemon.enable = false;
+  services.tlp.enable = true;
+  services.tlp.settings = {
+    # Use scedutil in all cases
+    CPU_SCALING_GOVERNOR_ON_AC = "schedutil";
+    CPU_SCALING_GOVERNOR_ON_BAT = "schedutil";
+    # Set PCIE powersaving
+    PCIE_ASPM_ON_BAT = "powersupersave";
+    RUNTIME_PM_ON_AC = "auto";
+    RUNTIME_PM_ON_BAT = "on";
+    # Operation mode select: 0=depend on power source, 1=always use TLP_DEFAULT_MODE
+    TLP_PERSISTENT_DEFAULT = "1";
+    DEVICES_TO_DISABLE_ON_LAN_CONNECT = "wifi wwan";
+    DEVICES_TO_DISABLE_ON_WIFI_CONNECT = "wwan";
+    DEVICES_TO_DISABLE_ON_WWAN_CONNECT = "wifi";
+    # Enable USB autosuspend
+    USB_AUTOSUSPEND = "1";
+    CPU_MIN_PERF_ON_AC = "0";
+    CPU_MAX_PERF_ON_AC = "100";
+    CPU_MIN_PERF_ON_BAT = "0";
+    CPU_MAX_PERF_ON_BAT = "75";
+    CPU_HWP_DYN_BOOST_ON_AC = "1";
+    CPU_HWP_DYN_BOOST_ON_BAT = "1";
+    CPU_BOOST_ON_AC = "1";
+    CPU_BOOST_ON_BAT = "1";
+
+
+  };
+
+
   # Optimize power consumption
   environment.etc."tmpfiles.d/optimize-power-consumption.conf".text = ''
-    w /sys/class/net/wlp0s20f3/device/power/wakeup    - - - - enabled
-    w /sys/bus/usb/devices/1-3.2/power/wakeup         - - - - enabled
-    w /sys/bus/usb/devices/usb1/power/wakeup          - - - - enabled
-    w /sys/bus/usb/devices/1-10/power/wakeup          - - - - enabled
-    w /sys/bus/usb/devices/1-3/power/wakeup           - - - - enabled
-    w /sys/bus/usb/devices/usb2/power/wakeup          - - - - enabled
-    w /sys/bus/usb/devices/1-6/power/wakeup           - - - - enabled
+    w /sys/class/net/wlp0s20f3/device/power/wakeup    - - - - disabled
+    w /sys/bus/usb/devices/1-3.2/power/wakeup         - - - - disabled
+    w /sys/bus/usb/devices/usb1/power/wakeup          - - - - disabled
+    w /sys/bus/usb/devices/1-10/power/wakeup          - - - - disabled
+    w /sys/bus/usb/devices/1-3/power/wakeup           - - - - disabled
+    w /sys/bus/usb/devices/usb2/power/wakeup          - - - - disabled
+    w /sys/bus/usb/devices/1-6/power/wakeup           - - - - disabled
     w /proc/sys/vm/dirty_writeback_centisecs          - - - - 1500
     w /sys/module/snd_hda_intel/parameters/power_save - - - - 1
     w /proc/sys/kernel/nmi_watchdog                   - - - - 0
