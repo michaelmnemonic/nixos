@@ -56,6 +56,9 @@
     xkb.layout = "de";
   };
 
+  # Use GNOME as desktop environement
+  services.xserver.desktopManager.gnome.enable = true;
+
   # Use GDM as displayManager
   services.xserver.displayManager.gdm.enable = true;
 
