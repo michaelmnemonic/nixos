@@ -152,6 +152,7 @@
     celluloid
     nfs-utils
     syncthing
+    tuba
     zed-editor
     gnomeExtensions.caffeine
   ];
