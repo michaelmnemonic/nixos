@@ -56,17 +56,22 @@
     xkb.layout = "de";
   };
 
-  # Use plasma as desktop environment
-  services.desktopManager.plasma6.enable = true;
+  # Use GDM as displayManager
+  services.xserver.displayManager.gdm.enable = true;
 
-  # Use sddm as display-manager
-  services.displayManager.sddm = {
-    enable = true;
-    wayland = {
-      enable = true;
-      compositor = "kwin";
-    };
-  };
+  # No need for xterm
+  services.xserver.excludePackages = [pkgs.xterm];
+  services.xserver.desktopManager.xterm.enable = false;
+
+  # Debloat GNOME install
+  environment.gnome.excludePackages = with pkgs; [
+    gnome-tour
+    gnome-music
+    gnome-system-monitor
+    epiphany
+    evince
+    gnome-shell-extensions
+  ];
 
   # customize the desktop
   # FIXME: this compiles plasma-workspace just to patch qml script
@@ -132,44 +137,18 @@
   # List of system-wide packages
   environment.systemPackages = with pkgs; [
     pkgs.widevine-overlay.widevine-cdm
+    amberol
     aspell
     aspellDicts.de
     aspellDicts.en
-    cachix
-    calibre
-    digikam
-    ffmpegthumbs
     firefox
-    fooyin
+    fragments
+    fractal
     gitMinimal
-    kdePackages.akonadi
-    kdePackages.akonadi-calendar
-    kdePackages.akonadi-contacts
-    kdePackages.akonadi-mime
-    kdePackages.akonadi-search
-    kdePackages.akregator
-    kdePackages.alligator
-    kdePackages.elisa
-    kdePackages.kdepim-addons
-    kdePackages.kdepim-runtime
-    kdePackages.kio-extras
-    kdePackages.kleopatra
-    kdePackages.kmail
-    kdePackages.kmail-account-wizard
-    kdePackages.ksshaskpass
-    kdePackages.merkuro
-    kdePackages.qtlocation
-    kdePackages.skanpage
-    kdePackages.tokodon
-    kmymoney
     libcamera
-    libreoffice-qt
-    mpv
+    celluloid
     nfs-utils
-    pinentry-qt
     syncthing
-    transmission_4-qt
-    unar
     zed-editor
   ];
 
@@ -241,15 +220,14 @@
   # Enable kdeconnect
   programs.kdeconnect = {
     enable = true;
+    package = pkgs.gnomeExtensions.gsconnect;
   };
 
   # Enable ssh-agent
   programs.ssh = {
     startAgent = true;
     enableAskPassword = true;
-    askPassword = "${pkgs.kdePackages.ksshaskpass}/bin/ksshaskpass";
   };
-  environment.sessionVariables.SSH_ASKPASS_REQUIRE = "prefer";
 
   system.stateVersion = "24.05";
 }
