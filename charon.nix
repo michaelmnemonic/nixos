@@ -153,6 +153,7 @@
     nfs-utils
     syncthing
     zed-editor
+    gnomeExtensions.caffeine
   ];
 
   # Setup firewall
