@@ -73,6 +73,7 @@
     gnome-system-monitor
     epiphany
     evince
+    gnome-shell-extensions
   ];
 
   # customize the desktop
