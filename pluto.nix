@@ -303,6 +303,9 @@
     settings.KbdInteractiveAuthentication = false;
   };
 
+  # Enable mosh
+  programs.mosh.enable = true;
+
   # Setup firewall
   networking.firewall = {
     enable = true;
