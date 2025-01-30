@@ -385,6 +385,9 @@
     };
   };
 
+  # Enable mosh
+  programs.mosh.enable = true;
+
   # Enable ssh-agent
   programs.ssh = {
     startAgent = true;
