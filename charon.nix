@@ -245,8 +245,9 @@
   # Enable ssh-agent
   programs.ssh = {
     startAgent = true;
-    enableAskPassword = true;
+    askPassword = "${pkgs.kdePackages.ksshaskpass}/bin/ksshaskpass";
   };
+  environment.sessionVariables.SSH_ASKPASS_REQUIRE = "prefer";
 
   system.stateVersion = "24.05";
 }
