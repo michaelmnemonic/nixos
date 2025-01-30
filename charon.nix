@@ -56,25 +56,17 @@
     xkb.layout = "de";
   };
 
-  # Use GNOME as desktop environement
-  services.xserver.desktopManager.gnome.enable = true;
+  # Use plasma as desktop environment
+  services.desktopManager.plasma6.enable = true;
 
-  # Use GDM as displayManager
-  services.xserver.displayManager.gdm.enable = true;
-
-  # No need for xterm
-  services.xserver.excludePackages = [pkgs.xterm];
-  services.xserver.desktopManager.xterm.enable = false;
-
-  # Debloat GNOME install
-  environment.gnome.excludePackages = with pkgs; [
-    gnome-tour
-    gnome-music
-    gnome-system-monitor
-    epiphany
-    evince
-    gnome-shell-extensions
-  ];
+  # Use sddm as display-manager
+  services.displayManager.sddm = {
+    enable = true;
+    wayland = {
+      enable = true;
+      compositor = "kwin";
+    };
+  };
 
   # customize the desktop
   # FIXME: this compiles plasma-workspace just to patch qml script
@@ -140,21 +132,44 @@
   # List of system-wide packages
   environment.systemPackages = with pkgs; [
     pkgs.widevine-overlay.widevine-cdm
-    amberol
     aspell
     aspellDicts.de
     aspellDicts.en
+    calibre
+    digikam
+    ffmpegthumbs
     firefox
-    fragments
-    fractal
+    fooyin
     gitMinimal
+    kdePackages.akonadi
+    kdePackages.akonadi-calendar
+    kdePackages.akonadi-contacts
+    kdePackages.akonadi-mime
+    kdePackages.akonadi-search
+    kdePackages.akregator
+    kdePackages.alligator
+    kdePackages.elisa
+    kdePackages.kdepim-addons
+    kdePackages.kdepim-runtime
+    kdePackages.kio-extras
+    kdePackages.kleopatra
+    kdePackages.kmail
+    kdePackages.kmail-account-wizard
+    kdePackages.ksshaskpass
+    kdePackages.merkuro
+    kdePackages.qtlocation
+    kdePackages.skanpage
+    kdePackages.tokodon
+    kmymoney
     libcamera
-    celluloid
+    libreoffice-qt
+    mpv
     nfs-utils
+    pinentry-qt
     syncthing
-    tuba
+    transmission_4-qt
+    unar
     zed-editor
-    gnomeExtensions.caffeine
   ];
 
   # Setup firewall
@@ -225,7 +240,6 @@
   # Enable kdeconnect
   programs.kdeconnect = {
     enable = true;
-    package = pkgs.gnomeExtensions.gsconnect;
   };
 
   # Enable ssh-agent
