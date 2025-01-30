@@ -219,6 +219,8 @@
     '';
   };
 
+  services.fwupd.enable = true;
+
   # Enable kdeconnect
   programs.kdeconnect = {
     enable = true;
