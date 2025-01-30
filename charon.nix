@@ -235,5 +235,12 @@
     enableAskPassword = true;
   };
 
+  # Enable auto upgrades, but without automatic reboot
+  system.autoUpgrade = {
+    enable = true;
+    allowReboot = false;
+    flake = "github:michaelmnemonic/nixos/gnome-charon";
+  };
+
   system.stateVersion = "24.05";
 }
