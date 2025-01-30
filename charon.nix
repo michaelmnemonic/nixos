@@ -141,6 +141,7 @@
     firefox
     fooyin
     gitMinimal
+    iosevka
     kdePackages.akonadi
     kdePackages.akonadi-calendar
     kdePackages.akonadi-contacts
