@@ -237,6 +237,11 @@
     USB_AUTOSUSPEND = "1";
   };
 
+  services.ollama = {
+    enable = true;
+    loadModels = ["ollama run deepseek-coder-v2"];
+  };
+
   # Enable kdeconnect
   programs.kdeconnect = {
     enable = true;
