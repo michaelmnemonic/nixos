@@ -145,6 +145,7 @@
     aspellDicts.de
     aspellDicts.en
     firefox
+    foliate
     fragments
     fractal
     gitMinimal
