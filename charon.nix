@@ -238,11 +238,6 @@
     USB_AUTOSUSPEND = "1";
   };
 
-  services.ollama = {
-    enable = true;
-    loadModels = ["ollama run deepseek-coder-v2"];
-  };
-
   # Make fish shell availlable
   programs.fish.enable = true;
 
