@@ -243,6 +243,9 @@
     loadModels = ["ollama run deepseek-coder-v2"];
   };
 
+  # Make fish shell availlable
+  programs.fish.enable = true;
+
   # Enable kdeconnect
   programs.kdeconnect = {
     enable = true;
