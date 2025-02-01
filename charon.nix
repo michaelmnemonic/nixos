@@ -250,9 +250,9 @@
     enable = true;
     languagePacks = ["de"];
     nativeMessagingHosts.packages = [pkgs.ff2mpv];
-    autoConfig = ''
-      lockPref(browser.download.alwaysOpenPanel, false)
-    ''
+    preferences = {
+      "browser.download.alwaysOpenPanel" = false;
+    };
   };
 
   # Enable ssh-agent
