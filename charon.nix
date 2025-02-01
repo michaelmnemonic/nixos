@@ -246,11 +246,6 @@
     enable = true;
   };
 
-  services.miniflux = {
-    enable = true;
-    adminCredentialsFile = ./miniflux.creds;
-  };
-
   programs.firefox = {
     enable = true;
     languagePacks = ["de"];
