@@ -22,7 +22,7 @@
     enable = true;
         wifiMac = "F4:A8:0D:F5:5D:BC";
         bluetoothMac = "F4:A8:0D:30:9D:8B";
-    kernel = "jhovold";
+    kernel = "mainline";
   };
 
   # Enable bluetooth
@@ -138,7 +138,6 @@
     calibre
     digikam
     ffmpegthumbs
-    firefox
     fooyin
     gitMinimal
     iosevka
@@ -165,6 +164,7 @@
     libcamera
     libreoffice-qt
     mpv
+    yt-dlp
     nfs-utils
     pinentry-qt
     syncthing
@@ -244,6 +244,17 @@
   # Enable kdeconnect
   programs.kdeconnect = {
     enable = true;
+  };
+
+  services.miniflux = {
+    enable = true;
+    adminCredentialsFile = ./miniflux.creds;
+  };
+
+  programs.firefox = {
+    enable = true;
+    languagePacks = ["de"];
+    nativeMessagingHosts.packages = [pkgs.ff2mpv];
   };
 
   # Enable ssh-agent
