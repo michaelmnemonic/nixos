@@ -17,6 +17,13 @@
   # Set hostname
   networking.hostName = "charon";
 
+  # Set kernel parameters
+  boot.kernelParams = [
+    # https://wiki.debian.org/InstallingDebianOn/Thinkpad/X13s
+    "iommu.passthrough=0"
+    "iommu.strict=0"
+  ];
+
   # Enable X13S support
   nixos-x13s = {
     enable = true;
