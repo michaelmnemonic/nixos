@@ -162,8 +162,8 @@
               ]
               actions = {
                 update-props = {
-                  node.nick              = "LINSOUL 7HZ Timeless"
-                  node.description       = "LINSOUL 7HZ Timeless"
+                  node.nick              = "Kopfhörer"
+                  node.description       = "Kopfhörer"
                 }
               }
             }
