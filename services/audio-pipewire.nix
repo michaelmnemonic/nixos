@@ -149,5 +149,27 @@
         ]
       '')
     ];
+    wireplumber = {
+      enable = true;
+      configPackages = [
+        (pkgs.writeTextDir "share/wireplumber/wireplumber.conf.d/10-usb-c-headphones.conf" ''
+          monitor.alsa.rules = [
+             {
+              matches = [
+                {
+                  node.name = "alsa_output.usb-KTMicro_KT_USB_Audio_2020-02-20-0000-0000-0000--00.analog-stereo"
+                }
+              ]
+              actions = {
+                update-props = {
+                  node.nick              = "LINSOUL 7HZ Timeless"
+                  node.description       = "LINSOUL 7HZ Timeless"
+                }
+              }
+            }
+          ]
+        '')
+      ];
+    };
   };
 }
