@@ -22,6 +22,7 @@
     # https://wiki.debian.org/InstallingDebianOn/Thinkpad/X13s
     "iommu.passthrough=0"
     "iommu.strict=0"
+    "pcie_aspm.policy=powersupersave"
   ];
 
   # Enable X13S support
