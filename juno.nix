@@ -161,14 +161,15 @@
     aspellDicts.en
     celluloid
     firefox
+    gnomeExtensions.caffeine
+    kodi
     libcamera
-    quodlibet
     nfs-utils
     papers
+    quodlibet
     resources
     syncthing
     tuba
-    kodi
   ];
 
   # ssh server with public key authentication only
