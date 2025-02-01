@@ -252,6 +252,7 @@
     nativeMessagingHosts.packages = [pkgs.ff2mpv];
     preferences = {
       "browser.download.alwaysOpenPanel" = false;
+       "widget.use-xdg-desktop-portal.file-picker" = 1;
     };
   };
 
