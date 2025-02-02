@@ -173,6 +173,7 @@
     resources
     syncthing
     tuba
+    foliate
   ];
 
   # ssh server with public key authentication only
