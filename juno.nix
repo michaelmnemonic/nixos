@@ -1,8 +1,4 @@
-{
-  lib,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   imports = [
     ./_shared/common.nix
     ./hardware/juno.nix
@@ -55,10 +51,7 @@
     CPU_HWP_DYN_BOOST_ON_BAT = "1";
     CPU_BOOST_ON_AC = "1";
     CPU_BOOST_ON_BAT = "1";
-
-
   };
-
 
   # Optimize power consumption
   environment.etc."tmpfiles.d/optimize-power-consumption.conf".text = ''
@@ -83,7 +76,7 @@
     w /proc/acpi/wakeup                               - - - - CNVW
     w /proc/acpi/wakeup                               - - - - XHCI
   '';
-  
+
   # Run powertop auto tune on startup
   powerManagement.powertop.enable = true;
 
