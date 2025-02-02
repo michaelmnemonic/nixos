@@ -1,8 +1,4 @@
-{
-  pkgs,
-  fetchpatch,
-  ...
-}: {
+{pkgs, ...}: {
   imports = [
     ./_shared/common.nix
     ./hardware/charon.nix
@@ -28,8 +24,8 @@
   # Enable X13S support
   nixos-x13s = {
     enable = true;
-        wifiMac = "F4:A8:0D:F5:5D:BC";
-        bluetoothMac = "F4:A8:0D:30:9D:8B";
+    wifiMac = "F4:A8:0D:F5:5D:BC";
+    bluetoothMac = "F4:A8:0D:30:9D:8B";
     kernel = "jhovold";
   };
 
@@ -261,7 +257,7 @@
     nativeMessagingHosts.packages = [pkgs.ff2mpv];
     preferences = {
       "browser.download.alwaysOpenPanel" = false;
-       "widget.use-xdg-desktop-portal.file-picker" = 1;
+      "widget.use-xdg-desktop-portal.file-picker" = 1;
     };
   };
 
