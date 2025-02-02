@@ -6,7 +6,7 @@
   imports = [
     ./_shared/common.nix
     ./hardware/charon.nix
-    ./mounts/orpheus-nfs.nix
+    ./mounts/orpheus-webdav.nix
     ./services/audio-pipewire.nix
     ./services/chipcards.nix
     ./services/printing.nix
