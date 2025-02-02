@@ -83,6 +83,9 @@
     w /proc/acpi/wakeup                               - - - - CNVW
     w /proc/acpi/wakeup                               - - - - XHCI
   '';
+  
+  # Run powertop auto tune on startup
+  powerManagement.powertop.enable = true;
 
   # Enable plymouth
   boot.plymouth.enable = true;
