@@ -140,6 +140,7 @@
   # List of system-wide packages
   environment.systemPackages = with pkgs; [
     pkgs.widevine-overlay.widevine-cdm
+    arianna
     aspell
     aspellDicts.de
     aspellDicts.en
