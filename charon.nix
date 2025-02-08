@@ -63,11 +63,6 @@
   services.xserver.displayManager.gdm.enable = true;
 
   # Enable fractional scaling in GDM
-  environment.etc."dconf/db/local.d/disable-auto-suspend".text = ''
-    [org/gnome/mutter]
-    experimental-features='['scale-monitor-framebuffer']'
-  '';
-
   environment.etc."tmpfiles.d/gdm-monitor-config.conf".text = ''
     L+ /run/gdm/.config/monitors.xml - - - - ${pkgs.writeText "gdm-monitors.xml" ''
       <monitors version="2">
