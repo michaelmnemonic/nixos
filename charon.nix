@@ -20,8 +20,8 @@
   # Enable X13S support
   nixos-x13s = {
     enable = true;
-        wifiMac = "F4:A8:0D:F5:5D:BC";
-        bluetoothMac = "F4:A8:0D:30:9D:8B";
+    wifiMac = "F4:A8:0D:F5:5D:BC";
+    bluetoothMac = "F4:A8:0D:30:9D:8B";
     kernel = "mainline";
   };
 
@@ -61,6 +61,41 @@
 
   # Use GDM as displayManager
   services.xserver.displayManager.gdm.enable = true;
+
+  # Enable fractional scaling in GDM
+  environment.etc."dconf/db/local.d/disable-auto-suspend".text = ''
+    [org/gnome/mutter]
+    experimental-features='['scale-monitor-framebuffer']'
+  '';
+
+  environment.etc."tmpfiles.d/gdm-monitor-config.conf".text = ''
+    L+ /run/gdm/.config/monitors.xml - - - - ${pkgs.writeText "gdm-monitors.xml" ''
+      <monitors version="2">
+        <configuration>
+          <layoutmode>logical</layoutmode>
+          <logicalmonitor>
+            <x>0</x>
+            <y>0</y>
+            <scale>1.2</scale>
+            <primary>yes</primary>
+            <monitor>
+              <monitorspec>
+                <connector>eDP-1</connector>
+                <vendor>BOE</vendor>
+                <product>0x0964</product>
+                <serial>0x00000000</serial>
+              </monitorspec>
+              <mode>
+                <width>1920</width>
+                <height>1200</height>
+                <rate>60.003</rate>
+              </mode>
+            </monitor>
+          </logicalmonitor>
+        </configuration>
+      </monitors>
+    ''}"
+  '';
 
   # No need for xterm
   services.xserver.excludePackages = [pkgs.xterm];
