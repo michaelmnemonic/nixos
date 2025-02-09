@@ -169,6 +169,7 @@
 
   # List of system-wide packages
   environment.systemPackages = with pkgs; [
+    ausweisapp
     amberol
     aspell
     aspellDicts.de
