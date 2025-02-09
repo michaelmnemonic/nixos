@@ -185,6 +185,7 @@
     tuba
     zed-editor
     gnomeExtensions.caffeine
+    gnucash
   ];
 
   # Setup firewall
