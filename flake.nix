@@ -2,40 +2,31 @@
   description = "A very basic flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-24.11";
 
-    widevine = {
-      url = "github:ExpidusOS/nixpkgs?ref=feat/widevine-again";
-    };
+    nixpkgs-stable.url = "github:nixos/nixpkgs?ref=nixos-24.11";
+
+    nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=nixos-unstable";
 
     umu = {
       url = "github:Open-Wine-Components/umu-launcher/?dir=packaging\/nix&submodules=1/1.1.4";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-stable";
     };
 
     nixos-x13s = {
       url = "github:BrainWart/x13s-nixos";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
   };
 
   outputs = {
     self,
-    nixpkgs,
+    nixpkgs-stable,
+    nixpkgs-unstable,
     umu,
     nixos-x13s,
-    widevine,
-  }: let
-    system = "aarch64-linux";
-    overlay-widevine = final: prev: {
-      widevine-overlay = import widevine {
-        inherit system;
-        config.allowUnfree = true;
-      };
-    };
-  in {
+  }:{
     nixosConfigurations = {
-      pluto = nixpkgs.lib.nixosSystem {
+      pluto = nixpkgs-stable.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           ./pluto.nix
@@ -44,7 +35,7 @@
           inherit umu;
         };
       };
-      juno = nixpkgs.lib.nixosSystem {
+      juno = nixpkgs-stable.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           ./juno.nix
@@ -52,31 +43,26 @@
         specialArgs = {
         };
       };
-      charon = nixpkgs.lib.nixosSystem {
+      charon = nixpkgs-unstable.lib.nixosSystem {
         system = "aarch64-linux";
         modules = [
           nixos-x13s.nixosModules.default
-          ({
-            config,
-            pkgs,
-            ...
-          }: {nixpkgs.overlays = [overlay-widevine];})
           ./charon.nix
         ];
         specialArgs = {
-          inherit widevine;
+          inherit nixos-x13s;
         };
       };
     };
-    devShell.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.pkgs.mkShell {
-      buildInputs = with nixpkgs.legacyPackages.x86_64-linux.pkgs; [
+    devShell.x86_64-linux = nixpkgs-unstable.legacyPackages.x86_64-linux.pkgs.mkShell {
+      buildInputs = with nixpkgs-unstable.legacyPackages.x86_64-linux.pkgs; [
         gitMinimal
         nil
         alejandra
       ];
     };
-    devShell.aarch64-linux = nixpkgs.legacyPackages.aarch64-linux.pkgs.mkShell {
-      buildInputs = with nixpkgs.legacyPackages.aarch64-linux.pkgs; [
+    devShell.aarch64-linux = nixpkgs-unstable.legacyPackages.aarch64-linux.pkgs.mkShell {
+      buildInputs = with nixpkgs-unstable.legacyPackages.aarch64-linux.pkgs; [
         gitMinimal
         nil
         alejandra
