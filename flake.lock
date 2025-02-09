@@ -45,11 +45,11 @@
     },
     "nixpkgs-stable": {
       "locked": {
-        "lastModified": 1738843498,
-        "narHash": "sha256-7x+Q4xgFj9UxZZO9aUDCR8h4vyYut4zPUvfj3i+jBHE=",
+        "lastModified": 1739055578,
+        "narHash": "sha256-2MhC2Bgd06uI1A0vkdNUyDYsMD0SLNGKtD8600mZ69A=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "f5a32fa27df91dfc4b762671a0e0a859a8a0058f",
+        "rev": "a45fa362d887f4d4a7157d95c28ca9ce2899b70e",
         "type": "github"
       },
       "original": {
@@ -106,11 +106,11 @@
       },
       "locked": {
         "dir": "packaging/nix",
-        "lastModified": 1737834175,
-        "narHash": "sha256-X4Id2CL/OrX/WfuuuExYXFrZN+U1zFnnsNdfQCPpW98=",
+        "lastModified": 1739083607,
+        "narHash": "sha256-VNqRSY6+YaydYims03DmygmmXQLcNesLL6pJzvim5FQ=",
         "owner": "Open-Wine-Components",
         "repo": "umu-launcher",
-        "rev": "4d1860eefd79d6c04e964774155dbe13be65121a",
+        "rev": "a1266d1a4537d9f55936566f24de6a54e60a4df3",
         "type": "github"
       },
       "original": {
