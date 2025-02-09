@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{pkgs, nixos-x13s, ...}: {
   imports = [
     ./_shared/common.nix
     ./hardware/charon.nix
@@ -135,7 +135,6 @@
 
   # List of system-wide packages
   environment.systemPackages = with pkgs; [
-    pkgs.widevine-overlay.widevine-cdm
     arianna
     aspell
     aspellDicts.de

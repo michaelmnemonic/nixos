@@ -25,7 +25,7 @@
       "inputs": {
         "flake-utils": "flake-utils",
         "nixpkgs": [
-          "nixpkgs"
+          "nixpkgs-unstable"
         ],
         "systems": "systems"
       },
@@ -43,7 +43,7 @@
         "type": "github"
       }
     },
-    "nixpkgs": {
+    "nixpkgs-stable": {
       "locked": {
         "lastModified": 1738843498,
         "narHash": "sha256-7x+Q4xgFj9UxZZO9aUDCR8h4vyYut4zPUvfj3i+jBHE=",
@@ -59,12 +59,28 @@
         "type": "github"
       }
     },
+    "nixpkgs-unstable": {
+      "locked": {
+        "lastModified": 1739020877,
+        "narHash": "sha256-mIvECo/NNdJJ/bXjNqIh8yeoSjVLAuDuTUzAo7dzs8Y=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "a79cfe0ebd24952b580b1cf08cd906354996d547",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "nixos-x13s": "nixos-x13s",
-        "nixpkgs": "nixpkgs",
-        "umu": "umu",
-        "widevine": "widevine"
+        "nixpkgs-stable": "nixpkgs-stable",
+        "nixpkgs-unstable": "nixpkgs-unstable",
+        "umu": "umu"
       }
     },
     "systems": {
@@ -85,7 +101,7 @@
     "umu": {
       "inputs": {
         "nixpkgs": [
-          "nixpkgs"
+          "nixpkgs-stable"
         ]
       },
       "locked": {
@@ -101,22 +117,6 @@
         "dir": "packaging/nix",
         "owner": "Open-Wine-Components",
         "repo": "umu-launcher",
-        "type": "github"
-      }
-    },
-    "widevine": {
-      "locked": {
-        "lastModified": 1734850675,
-        "narHash": "sha256-KKraru0hnpKpIJ+OkujU4V2/BdP/EGN7beRkyIAyoUw=",
-        "owner": "ExpidusOS",
-        "repo": "nixpkgs",
-        "rev": "ceec381abfe21304bf3761143a9219cc3c1a9dab",
-        "type": "github"
-      },
-      "original": {
-        "owner": "ExpidusOS",
-        "ref": "feat/widevine-again",
-        "repo": "nixpkgs",
         "type": "github"
       }
     }
