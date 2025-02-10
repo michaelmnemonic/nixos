@@ -173,7 +173,7 @@
     nfs-utils
     pinentry-qt
     syncthing
-    teams
+    teams-for-linux
     transmission_4-qt
     unar
     zed-editor
