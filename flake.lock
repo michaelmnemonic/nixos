@@ -30,11 +30,11 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1739480428,
-        "narHash": "sha256-gsavCMonyYWaCo0JRItfotQK1euZCHs/m0JpqyA4naY=",
+        "lastModified": 1739479823,
+        "narHash": "sha256-Qa8U99nsEojei3lbPkSyVJH6LgEpXAq7EdVipgqX1H4=",
         "owner": "michaelmnemonic",
         "repo": "x13s-nixos",
-        "rev": "82d8f6c7d66ab447ea2a4db880cf6655c1a968ae",
+        "rev": "46509ddebbcf40ab0d616b20816feca1d28d7c0a",
         "type": "github"
       },
       "original": {
