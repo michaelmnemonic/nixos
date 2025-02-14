@@ -30,11 +30,11 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1739564133,
-        "narHash": "sha256-hKxdX+Sthz+IUz7LmF7iyMJF4sXUA7EW2zVSW7+s0kE=",
+        "lastModified": 1739564424,
+        "narHash": "sha256-13IuCStN8LDgjkTFryMwh4zUYg8SYCiuA2/NIhqUeEU=",
         "owner": "michaelmnemonic",
         "repo": "x13s-nixos",
-        "rev": "a867fa53bbccdcb0f7c3488a358cd9622b8089c1",
+        "rev": "d9ed83b5d371b91585f11d843532bde79a538b0f",
         "type": "github"
       },
       "original": {
@@ -106,11 +106,11 @@
       },
       "locked": {
         "dir": "packaging/nix",
-        "lastModified": 1739564105,
-        "narHash": "sha256-aN/iqfcpi0fZXRsSyfPIdw99UWM4fBGFz32OpzJC8OI=",
+        "lastModified": 1739564179,
+        "narHash": "sha256-ZlRFeef5I9L8zSZheVBW2ohZB0U+m2hNbMbmWvjMVAI=",
         "owner": "Open-Wine-Components",
         "repo": "umu-launcher",
-        "rev": "84deb25ff9eef61cbd7131df3b9756a4ca480a1c",
+        "rev": "8f946e7f885f159b7bad00559513b68690f1eabc",
         "type": "github"
       },
       "original": {
