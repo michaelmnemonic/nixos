@@ -253,28 +253,6 @@
     '';
   };
 
-  # Enable TLP (and disable ppd)
-  services.power-profiles-daemon.enable = false;
-  services.tlp.enable = true;
-  services.tlp.settings = {
-    # Use scedutil in all cases
-    CPU_SCALING_GOVERNOR_ON_AC = "schedutil";
-    CPU_SCALING_GOVERNOR_ON_BAT = "schedutil";
-    # Set PCIE powersaving
-    PCIE_ASPM_ON_BAT = "powersupersave";
-    RUNTIME_PM_ON_AC = "auto";
-    RUNTIME_PM_ON_BAT = "on";
-    # Operation mode when no power supply can be detected: AC, BAT.
-    TLP_DEFAULT_MODE = "BAT";
-    # Operation mode select: 0=depend on power source, 1=always use TLP_DEFAULT_MODE
-    TLP_PERSISTENT_DEFAULT = "1";
-    DEVICES_TO_DISABLE_ON_LAN_CONNECT = "wifi wwan";
-    DEVICES_TO_DISABLE_ON_WIFI_CONNECT = "wwan";
-    DEVICES_TO_DISABLE_ON_WWAN_CONNECT = "wifi";
-    # Enable USB autosuspend
-    USB_AUTOSUSPEND = "1";
-  };
-
   # Make fish shell availlable
   programs.fish.enable = true;
 
