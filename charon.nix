@@ -41,6 +41,9 @@
     algorithm = "zstd";
   };
 
+  # Enable fingerprint reader
+  services.fprintd.enable = true;
+
   # Enable plymouth
   boot.plymouth = {
     enable = true;
