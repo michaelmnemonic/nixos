@@ -1,6 +1,5 @@
 {
   pkgs,
-  umu,
   ...
 }: {
   imports = [
@@ -102,7 +101,7 @@
 
   # List of system-wide packages
   environment.systemPackages = with pkgs; [
-    (umu.packages.${pkgs.system}.umu)
+    umu-launcher
     aqbanking
     aspell
     aspellDicts.de
