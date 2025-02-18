@@ -13,7 +13,7 @@
     };
 
     nixos-x13s = {
-      url = "github:BrainWart/x13s-nixos";
+      url = "github:michaelmnemonic/x13s-nixos";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
   };

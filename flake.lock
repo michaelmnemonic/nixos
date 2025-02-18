@@ -30,26 +30,26 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1733585906,
-        "narHash": "sha256-rS8ptnJmVzAptMz4Zivr7oYNKnesa6b1bghRA3vtZco=",
-        "owner": "BrainWart",
+        "lastModified": 1739564424,
+        "narHash": "sha256-13IuCStN8LDgjkTFryMwh4zUYg8SYCiuA2/NIhqUeEU=",
+        "owner": "michaelmnemonic",
         "repo": "x13s-nixos",
-        "rev": "0413fb351a46350a8f7000a3e4f43024c935ec14",
+        "rev": "d9ed83b5d371b91585f11d843532bde79a538b0f",
         "type": "github"
       },
       "original": {
-        "owner": "BrainWart",
+        "owner": "michaelmnemonic",
         "repo": "x13s-nixos",
         "type": "github"
       }
     },
     "nixpkgs-stable": {
       "locked": {
-        "lastModified": 1739055578,
-        "narHash": "sha256-2MhC2Bgd06uI1A0vkdNUyDYsMD0SLNGKtD8600mZ69A=",
+        "lastModified": 1739758141,
+        "narHash": "sha256-uq6A2L7o1/tR6VfmYhZWoVAwb3gTy7j4Jx30MIrH0rE=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "a45fa362d887f4d4a7157d95c28ca9ce2899b70e",
+        "rev": "c618e28f70257593de75a7044438efc1c1fc0791",
         "type": "github"
       },
       "original": {
@@ -61,11 +61,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1739020877,
-        "narHash": "sha256-mIvECo/NNdJJ/bXjNqIh8yeoSjVLAuDuTUzAo7dzs8Y=",
+        "lastModified": 1739736696,
+        "narHash": "sha256-zON2GNBkzsIyALlOCFiEBcIjI4w38GYOb+P+R4S8Jsw=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "a79cfe0ebd24952b580b1cf08cd906354996d547",
+        "rev": "d74a2335ac9c133d6bbec9fc98d91a77f1604c1f",
         "type": "github"
       },
       "original": {
@@ -106,11 +106,11 @@
       },
       "locked": {
         "dir": "packaging/nix",
-        "lastModified": 1739083607,
-        "narHash": "sha256-VNqRSY6+YaydYims03DmygmmXQLcNesLL6pJzvim5FQ=",
+        "lastModified": 1739783115,
+        "narHash": "sha256-dw105/52GFK4zJMflh3iOy53ARMJkekDFR7NbsTwrkU=",
         "owner": "Open-Wine-Components",
         "repo": "umu-launcher",
-        "rev": "a1266d1a4537d9f55936566f24de6a54e60a4df3",
+        "rev": "c0a94426030f57f965929bb1f48c4f41248bf59f",
         "type": "github"
       },
       "original": {
