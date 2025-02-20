@@ -163,7 +163,7 @@
   # Enable custom fan control
   boot.kernelModules = ["nct6775"]; # motherboard sesnsors
   environment.etc."fan2go/fan2go.yaml".text = ''
-    fans:
+  fans:
     - id: side
         hwmon:
         platform: nct6792-isa-0290
@@ -182,7 +182,7 @@
         index: 3
         neverStop: true
         curve: gpu_curve
-    sensors:
+  sensors:
     - id: gpu_edge
         hwmon:
         platform: amdgpu-pci-0800
@@ -195,7 +195,7 @@
         hwmon:
         platform: k10temp-pci-00c3
         index: 1
-    curves:
+  curves:
     - id: gpu_edge_curve
         linear:
         sensor: gpu_edge
