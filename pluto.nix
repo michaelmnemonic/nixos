@@ -167,6 +167,7 @@
     transmission_4-qt
     unar
     zed-editor
+    vulkan-hdr-layer-kwin6
   ];
 
   # Enable podman
