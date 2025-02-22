@@ -1,7 +1,4 @@
-{
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   imports = [
     ./_shared/common.nix
     ./hardware/pluto.nix
@@ -28,18 +25,45 @@
     "amd_pstate=active"
   ];
 
-  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+  boot.binfmt.emulatedSystems = ["aarch64-linux"];
 
-  # Overclock and undervolt AMD GPU
-  environment.etc."tmpfiles.d/gpu-undervolt.conf".text = ''
-    w+ /sys/class/drm/card1/device/pp_od_clk_voltage                - - - - vo -100\n
-    w+ /sys/class/drm/card1/device/pp_od_clk_voltage                - - - - m 1 1200\n
-    w+ /sys/class/drm/card1/device/pp_od_clk_voltage                - - - - c\n
+  # Overclock and undervolt AMD GPU when gaming, otherwise save power
+  environment.etc."tmpfiles.d/gpu-permissions.conf".text = ''
+    z  /sys/class/drm/card0/device/pp_od_clk_voltage                664 root wheel - -
+    z  /sys/class/drm/card0/device/pp_power_profile_mode            664 root wheel - -
   '';
+
+  environment.etc."gamemode/gpu-performance.conf".text = ''
+    w+ /sys/class/drm/card0/device/pp_od_clk_voltage                - - - - vo -100\n
+    w+ /sys/class/drm/card0/device/pp_od_clk_voltage                - - - - m 1 1200\n
+    w+ /sys/class/drm/card0/device/pp_od_clk_voltage                - - - - c\n
+  '';
+
+  environment.etc."tmpfiles.d/gpu-manual-performance-level.conf".text = ''
+    w /sys/class/drm/card0/device/power_dpm_force_performance_level - - - - manual
+  '';
+
+  environment.etc."tmpfiles.d/gpu-powersave.conf".text = ''
+    w+ /sys/class/drm/card0/device/pp_od_clk_voltage                - - - - vo -350\n
+    w+ /sys/class/drm/card0/device/pp_od_clk_voltage                - - - - m 1 1000\n
+    w+ /sys/class/drm/card0/device/pp_od_clk_voltage                - - - - s 1 1500\n
+    w+ /sys/class/drm/card0/device/pp_od_clk_voltage                - - - - c\n
+    w /sys/class/drm/card0/device/pp_power_profile_mode             - - - - 2
+  '';
+
+  programs.gamemode.settings = {
+    enable = true;
+    general = {
+      renice = 10;
+    };
+    custom = {
+      start = "${pkgs.systemd}/bin/systemd-tmpfiles --create /etc/gamemode/gpu-performance.conf";
+      end = "${pkgs.systemd}/bin/systemd-tmpfiles --create /etc/tmpfiles.d/gpu-powersave.conf";
+    };
+  };
 
   # Use latest stable kernel
   boot.kernelPackages = pkgs.linuxPackages_latest;
-
 
   # Enable bluetooth
   hardware.bluetooth.enable = true;
@@ -145,7 +169,7 @@
   ];
 
   # Enable podman
-    virtualisation.podman.enable = true;
+  virtualisation.podman.enable = true;
 
   # Enable flatpak
   services.flatpak.enable = true;
@@ -163,72 +187,72 @@
   # Enable custom fan control
   boot.kernelModules = ["nct6775"]; # motherboard sesnsors
   environment.etc."fan2go/fan2go.yaml".text = ''
-  fans:
-    - id: side
-      hwmon:
-        platform: nct6792-isa-0290
-        index: 1
-      neverStop: true
-      curve: side_curve
-    - id: cpu
-      hwmon:
-        platform: nct6792-isa-0290
-        index: 2
-      neverStop: true
-      curve: cpu_curve
-    - id: bottom
-      hwmon:
-        platform: nct6792-isa-0290
-        index: 3
-      neverStop: true
-      curve: gpu_curve
-  sensors:
-    - id: gpu_edge
-      hwmon:
-        platform: amdgpu-pci-0800
-        index: 1
-    - id: gpu_mem
-      hwmon:
-        platform: amdgpu-pci-0800
-        index: 3
-    - id: cpu_tctl
-      hwmon:
-        platform: k10temp-pci-00c3
-        index: 1
-  curves:
-    - id: gpu_edge_curve
-      linear:
-        sensor: gpu_edge
-        steps:
-          - 50: 80
-          - 60: 100
-          - 70: 150
-    - id: gpu_mem_curve
-      linear:
-        sensor: gpu_mem
-        steps:
-          - 70: 80
-          - 90: 100
-          - 100: 160
-    - id: gpu_curve
-      function:
-        type: maximum
-        curves:
-          - gpu_edge_curve
-          - gpu_mem_curve
-    - id: cpu_curve
-      linear:
-        sensor: cpu_tctl
-        steps:
-          - 50: 80
-          - 60: 100
-          - 70: 130
-    - id: side_curve
-      function:
-        type: maximum
-        curves:
-          - cpu_curve
-          - gpu_curve
+    fans:
+      - id: side
+        hwmon:
+          platform: nct6792-isa-0290
+          index: 1
+        neverStop: true
+        curve: side_curve
+      - id: cpu
+        hwmon:
+          platform: nct6792-isa-0290
+          index: 2
+        neverStop: true
+        curve: cpu_curve
+      - id: bottom
+        hwmon:
+          platform: nct6792-isa-0290
+          index: 3
+        neverStop: true
+        curve: gpu_curve
+    sensors:
+      - id: gpu_edge
+        hwmon:
+          platform: amdgpu-pci-0800
+          index: 1
+      - id: gpu_mem
+        hwmon:
+          platform: amdgpu-pci-0800
+          index: 3
+      - id: cpu_tctl
+        hwmon:
+          platform: k10temp-pci-00c3
+          index: 1
+    curves:
+      - id: gpu_edge_curve
+        linear:
+          sensor: gpu_edge
+          steps:
+            - 50: 80
+            - 60: 100
+            - 70: 150
+      - id: gpu_mem_curve
+        linear:
+          sensor: gpu_mem
+          steps:
+            - 70: 80
+            - 90: 100
+            - 100: 160
+      - id: gpu_curve
+        function:
+          type: maximum
+          curves:
+            - gpu_edge_curve
+            - gpu_mem_curve
+      - id: cpu_curve
+        linear:
+          sensor: cpu_tctl
+          steps:
+            - 50: 80
+            - 60: 100
+            - 70: 130
+      - id: side_curve
+        function:
+          type: maximum
+          curves:
+            - cpu_curve
+            - gpu_curve
   '';
   systemd.services.fan2go = {
     enable = true;
@@ -342,14 +366,6 @@
 
   # Enable dconf (needed for configuration of gtk themes under wayland)
   programs.dconf.enable = true;
-
-  # Enable gamemode
-  programs.gamemode = {
-    enable = true;
-    settings = {
-      general. renice = 10;
-    };
-  };
 
   # Enable mosh
   programs.mosh.enable = true;
