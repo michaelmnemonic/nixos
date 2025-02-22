@@ -135,6 +135,7 @@
     ffmpegthumbs
     firefox
     fooyin
+    gamemode
     gitMinimal
     kdePackages.akonadi
     kdePackages.akonadi-calendar
