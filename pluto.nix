@@ -49,14 +49,16 @@
     w /sys/class/drm/card1/device/pp_power_profile_mode             - - - - 2
   '';
 
-  programs.gamemode.settings = {
+  programs.gamemode = {
     enable = true;
-    general = {
-      renice = 10;
-    };
-    custom = {
-      start = "${pkgs.systemd}/bin/systemd-tmpfiles --create /etc/gamemode/gpu-performance.conf";
-      end = "${pkgs.systemd}/bin/systemd-tmpfiles --create /etc/tmpfiles.d/gpu-powersave.conf";
+    settings = {
+      general = {
+        renice = 10;
+      };
+      custom = {
+        start = "${pkgs.systemd}/bin/systemd-tmpfiles --create /etc/gamemode/gpu-performance.conf";
+        end = "${pkgs.systemd}/bin/systemd-tmpfiles --create /etc/tmpfiles.d/gpu-powersave.conf";
+      };
     };
   };
 
