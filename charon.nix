@@ -140,6 +140,11 @@
     noto-fonts-emoji
   ];
 
+  fonts.fontconfig.defaultFonts = {
+    monospace = ["JetBrains Mono"];
+    sansSerif = ["Inter"];
+  };
+
   # List of system-wide packages
   environment.systemPackages = with pkgs; [
     arianna
