@@ -29,26 +29,26 @@
 
   # Overclock and undervolt AMD GPU when gaming, otherwise save power
   environment.etc."tmpfiles.d/gpu-permissions.conf".text = ''
-    z  /sys/class/drm/card0/device/pp_od_clk_voltage                664 root wheel - -
-    z  /sys/class/drm/card0/device/pp_power_profile_mode            664 root wheel - -
+    z  /sys/class/drm/card1/device/pp_od_clk_voltage                664 root wheel - -
+    z  /sys/class/drm/card1/device/pp_power_profile_mode            664 root wheel - -
   '';
 
   environment.etc."gamemode/gpu-performance.conf".text = ''
-    w+ /sys/class/drm/card0/device/pp_od_clk_voltage                - - - - vo -100\n
-    w+ /sys/class/drm/card0/device/pp_od_clk_voltage                - - - - m 1 1200\n
-    w+ /sys/class/drm/card0/device/pp_od_clk_voltage                - - - - c\n
+    w+ /sys/class/drm/card1/device/pp_od_clk_voltage                - - - - vo -100\n
+    w+ /sys/class/drm/card1/device/pp_od_clk_voltage                - - - - m 1 1200\n
+    w+ /sys/class/drm/card1/device/pp_od_clk_voltage                - - - - c\n
   '';
 
   environment.etc."tmpfiles.d/gpu-manual-performance-level.conf".text = ''
-    w /sys/class/drm/card0/device/power_dpm_force_performance_level - - - - manual
+    w /sys/class/drm/card1/device/power_dpm_force_performance_level - - - - manual
   '';
 
   environment.etc."tmpfiles.d/gpu-powersave.conf".text = ''
-    w+ /sys/class/drm/card0/device/pp_od_clk_voltage                - - - - vo -350\n
-    w+ /sys/class/drm/card0/device/pp_od_clk_voltage                - - - - m 1 1000\n
-    w+ /sys/class/drm/card0/device/pp_od_clk_voltage                - - - - s 1 1500\n
-    w+ /sys/class/drm/card0/device/pp_od_clk_voltage                - - - - c\n
-    w /sys/class/drm/card0/device/pp_power_profile_mode             - - - - 2
+    w+ /sys/class/drm/card1/device/pp_od_clk_voltage                - - - - vo -350\n
+    w+ /sys/class/drm/card1/device/pp_od_clk_voltage                - - - - m 1 1000\n
+    w+ /sys/class/drm/card1/device/pp_od_clk_voltage                - - - - s 1 1500\n
+    w+ /sys/class/drm/card1/device/pp_od_clk_voltage                - - - - c\n
+    w /sys/class/drm/card1/device/pp_power_profile_mode             - - - - 2
   '';
 
   programs.gamemode.settings = {
