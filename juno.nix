@@ -16,8 +16,6 @@
 
   # Set kernel parameters
   boot.kernelParams = [
-    # Disable mitigiations for some extra performance
-    "mitigations=off"
     # Allow firmware upgrades
     "iomem=relaxed"
   ];

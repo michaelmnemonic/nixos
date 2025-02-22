@@ -17,8 +17,6 @@
 
   # Set kernel parameters
   boot.kernelParams = [
-    # Disable mitigiations for some extra performance
-    "mitigations=off"
     # Allow overclocking of GPU
     "amdgpu.ppfeaturemask=0xfff7ffff"
     # Use pstate_epp for CPU reclocking
