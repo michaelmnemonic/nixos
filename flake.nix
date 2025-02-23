@@ -2,10 +2,14 @@
   description = "A very basic flake";
 
   inputs = {
-
     nixpkgs-stable.url = "github:nixos/nixpkgs?ref=nixos-24.11";
 
     nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      follows = "nixpkgs-unstable";
+    };
 
     nixos-x13s = {
       url = "github:michaelmnemonic/x13s-nixos";
@@ -17,8 +21,9 @@
     self,
     nixpkgs-stable,
     nixpkgs-unstable,
+    home-manager,
     nixos-x13s,
-  }:{
+  }: {
     nixosConfigurations = {
       pluto = nixpkgs-unstable.lib.nixosSystem {
         system = "x86_64-linux";
