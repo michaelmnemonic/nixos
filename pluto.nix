@@ -168,6 +168,7 @@
     unar
     zed-editor
     vulkan-hdr-layer-kwin6
+    calibre
   ];
 
   # Enable podman
