@@ -29,6 +29,15 @@
         system = "x86_64-linux";
         modules = [
           ./pluto.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.maik = import ./homes/maik.nix;
+
+            # Optionally, use home-manager.extraSpecialArgs to pass
+            # arguments to home.nix
+          }
         ];
         specialArgs = {
         };
