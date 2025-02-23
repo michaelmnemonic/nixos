@@ -199,6 +199,23 @@
             }
           ]
         '')
+                (pkgs.writeTextDir "share/wireplumber/wireplumber.conf.d/10-lg-monitor.conf" ''
+          monitor.alsa.rules = [
+             {
+              matches = [
+                {
+                  node.name = "alsa_output.pci-0000_08_00.1.hdmi-stereo"
+                }
+              ]
+              actions = {
+                update-props = {
+                  node.nick              = "Monitor"
+                  node.description       = "LG UltraWide 38WN95CP-W"
+                }
+              }
+            }
+          ]
+        '')
       ];
     };
   };
