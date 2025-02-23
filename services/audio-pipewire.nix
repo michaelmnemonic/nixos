@@ -182,6 +182,23 @@
             }
           ]
         '')
+        (pkgs.writeTextDir "share/wireplumber/wireplumber.conf.d/10-usb-dac.conf" ''
+          monitor.alsa.rules = [
+             {
+              matches = [
+                {
+                  node.name = "alsa_output.usb-SMSL_SMSL_USB_AUDIO-00.analog-stereo"
+                }
+              ]
+              actions = {
+                update-props = {
+                  node.nick              = "USB DAC"
+                  node.description       = "USB DAC"
+                }
+              }
+            }
+          ]
+        '')
       ];
     };
   };
