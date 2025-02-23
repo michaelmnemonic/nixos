@@ -102,6 +102,10 @@
     };
   };
 
+  # No need for xterm
+  services.xserver.excludePackages = [pkgs.xterm];
+  services.xserver.desktopManager.xterm.enable = false;
+
   # Use NetworkManager
   networking.networkmanager.enable = true;
 
