@@ -157,9 +157,6 @@
     aspell
     aspellDicts.de
     aspellDicts.en
-    calibre
-    chromium
-    digikam
     ffmpegthumbs
     fooyin
     gitMinimal
