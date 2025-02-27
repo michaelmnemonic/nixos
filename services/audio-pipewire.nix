@@ -175,8 +175,9 @@
               ]
               actions = {
                 update-props = {
-                  node.nick              = "Lautsprecher"
-                  node.description       = "Lautsprecher"
+                  node.nick                  = "Lautsprecher"
+                  node.description           = "Lautsprecher"
+                  device.profile.description = "Lautsprecher"
                 }
               }
             }
