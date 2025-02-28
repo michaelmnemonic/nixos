@@ -156,6 +156,7 @@
     aspell
     aspellDicts.de
     aspellDicts.en
+    audacious
     ffmpegthumbs
     fooyin
     gitMinimal
