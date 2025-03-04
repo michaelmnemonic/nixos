@@ -192,6 +192,7 @@
     transmission_4-qt
     unar
     zed-editor
+    vscode
   ];
 
   # Setup firewall
