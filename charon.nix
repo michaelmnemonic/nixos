@@ -153,7 +153,7 @@
     aspellDicts.de
     aspellDicts.en
     audacious
-    ffmpegthumbs
+    kdePackages.ffmpegthumbs
     fooyin
     gitMinimal
     iosevka
