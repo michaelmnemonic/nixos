@@ -238,6 +238,9 @@
     '';
   };
 
+  # Make direnv availlable
+  programs.direnv.enable = true;
+
   # Make fish shell availlable
   programs.fish.enable = true;
 
