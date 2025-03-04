@@ -189,7 +189,7 @@
     unar
     zed-editor
     vscodium
-    logseq
+    kdePackages.ghostwriter
   ];
 
   # Setup firewall
