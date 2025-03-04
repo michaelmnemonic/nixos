@@ -170,9 +170,9 @@
     syncthing
     transmission_4-qt
     unar
-    zed-editor
     vulkan-hdr-layer-kwin6
     calibre
+    vscode
   ];
 
   # Enable podman
