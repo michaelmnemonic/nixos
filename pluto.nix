@@ -172,7 +172,7 @@
     unar
     vulkan-hdr-layer-kwin6
     calibre
-    vscode
+    vscodium
   ];
 
   # Enable podman
