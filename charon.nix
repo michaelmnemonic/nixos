@@ -1,8 +1,4 @@
-{
-  pkgs,
-  nixos-x13s,
-  ...
-}: {
+{pkgs, ...}: {
   imports = [
     ./_shared/common.nix
     ./hardware/charon.nix
