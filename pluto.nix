@@ -134,9 +134,7 @@
     aspell
     aspellDicts.de
     aspellDicts.en
-    digikam
     fan2go
-    ffmpegthumbs
     firefox
     fooyin
     gamemode
@@ -147,7 +145,9 @@
     kdePackages.akonadi-mime
     kdePackages.akonadi-search
     kdePackages.alpaka
+    kdePackages.digikam
     kdePackages.elisa
+    kdePackages.ffmpegthumbs
     kdePackages.kdepim-addons
     kdePackages.kdepim-runtime
     kdePackages.kleopatra
