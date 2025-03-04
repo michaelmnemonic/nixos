@@ -189,6 +189,7 @@
     unar
     zed-editor
     vscode
+    logseq
   ];
 
   # Setup firewall
