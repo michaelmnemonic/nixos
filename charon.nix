@@ -188,7 +188,7 @@
     transmission_4-qt
     unar
     zed-editor
-    vscode
+    vscodium
     logseq
   ];
 
