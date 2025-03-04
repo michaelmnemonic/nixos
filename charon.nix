@@ -148,7 +148,7 @@
 
   # List of system-wide packages
   environment.systemPackages = with pkgs; [
-    arianna
+    kdePackages.arianna
     aspell
     aspellDicts.de
     aspellDicts.en
