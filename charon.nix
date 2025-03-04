@@ -190,6 +190,7 @@
     zed-editor
     vscodium
     kdePackages.ghostwriter
+    kdePackages.marknote
   ];
 
   # Setup firewall
