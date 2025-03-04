@@ -137,6 +137,7 @@
     fan2go
     firefox
     fooyin
+    digikam
     gamemode
     gitMinimal
     kdePackages.akonadi
@@ -145,7 +146,6 @@
     kdePackages.akonadi-mime
     kdePackages.akonadi-search
     kdePackages.alpaka
-    kdePackages.digikam
     kdePackages.elisa
     kdePackages.ffmpegthumbs
     kdePackages.kdepim-addons
