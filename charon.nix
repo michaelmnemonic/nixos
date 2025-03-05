@@ -253,6 +253,17 @@
     };
   };
 
+  programs.neovim = {
+    enable = true;
+    configure = {
+      customRC = ''
+      '';
+      packages.myVimPackage = with pkgs.vimPlugins; {
+        start = [nvim-lspconfig];
+      };
+    };
+  };
+
   # Enable ssh-agent
   programs.ssh = {
     startAgent = true;
