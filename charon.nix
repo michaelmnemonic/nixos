@@ -29,14 +29,6 @@
     kernel = "jhovold";
   };
 
-  # Enable podman by default
-  virtualisation = {
-    podman = {
-      enable = true;
-      dockerCompat = false;
-    };
-  };
-
   # Enable bluetooth
   hardware.bluetooth.enable = true;
 
