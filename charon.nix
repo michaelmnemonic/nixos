@@ -72,6 +72,10 @@
     };
   };
 
+  # No need for xterm
+  services.xserver.excludePackages = [pkgs.xterm];
+  services.xserver.desktopManager.xterm.enable = false;
+
   # customize the desktop
   # FIXME: this compiles plasma-workspace just to patch qml script
   #   nixpkgs.overlays = [
