@@ -129,15 +129,15 @@
 
   # List of system-wide packages
   environment.systemPackages = with pkgs; [
-    umu-launcher
     aqbanking
     aspell
     aspellDicts.de
     aspellDicts.en
+    calibre
+    digikam
     fan2go
     firefox
     fooyin
-    digikam
     gamemode
     gitMinimal
     kdePackages.akonadi
@@ -169,10 +169,17 @@
     sbctl
     syncthing
     transmission_4-qt
+    umu-launcher
     unar
     vulkan-hdr-layer-kwin6
-    calibre
-    vscodium
+    (vscode-with-extensions.override {
+      vscode = vscodium;
+      vscodeExtensions = with vscode-extensions; [
+        continue.continue
+        catppuccin.catppuccin-vsc-icons
+        catppuccin.catppuccin-vsc
+      ];
+    })
   ];
 
   # Enable flatpak
@@ -184,6 +191,9 @@
       flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
     '';
   };
+
+  # Enable docker
+  virtualisation.docker.enable = true;
 
   # Enable user service for syncthing
   # systemd.user.services.syncthing.wantedBy = ["default.target"];
