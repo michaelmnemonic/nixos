@@ -172,16 +172,7 @@
     umu-launcher
     unar
     vulkan-hdr-layer-kwin6
-    (vscode-with-extensions.override {
-      vscode = vscodium;
-      vscodeExtensions = with vscode-extensions; [
-        continue.continue
-        catppuccin.catppuccin-vsc-icons
-        catppuccin.catppuccin-vsc
-        jnoortheen.nix-ide
-        mkhl.direnv
-      ];
-    })
+    vscodium
   ];
 
   # Enable flatpak
