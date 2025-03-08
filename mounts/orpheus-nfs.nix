@@ -7,10 +7,10 @@
       mountConfig = {
         Options = "noatime";
         ForceUnmount = true;
+        TimeoutSec= "5s";
       };
       what = "192.168.178.30:";
       where = "/mnt";
-      TimeoutSec= "5s";
     }
   ];
   systemd.automounts = [
