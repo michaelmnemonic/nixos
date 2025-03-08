@@ -6,11 +6,6 @@
 
     nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=nixos-unstable";
 
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      follows = "nixpkgs-unstable";
-    };
-
     nixos-x13s = {
       url = "github:michaelmnemonic/x13s-nixos";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -21,7 +16,6 @@
     self,
     nixpkgs-stable,
     nixpkgs-unstable,
-    home-manager,
     nixos-x13s,
   }: {
     nixosConfigurations = {
