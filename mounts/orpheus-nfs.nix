@@ -10,6 +10,7 @@
       };
       what = "192.168.178.30:";
       where = "/mnt";
+      TimeoutSec= "5s";
     }
   ];
   systemd.automounts = [
