@@ -173,6 +173,7 @@
     unar
     vulkan-hdr-layer-kwin6
     vscodium
+    zed-editor
   ];
 
   # Enable flatpak
