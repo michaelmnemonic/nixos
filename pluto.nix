@@ -192,9 +192,6 @@
     '';
   };
 
-  # Enable docker
-  virtualisation.docker.enable = true;
-
   # Enable user service for syncthing
   # systemd.user.services.syncthing.wantedBy = ["default.target"];
 
