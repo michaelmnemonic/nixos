@@ -178,6 +178,8 @@
         continue.continue
         catppuccin.catppuccin-vsc-icons
         catppuccin.catppuccin-vsc
+        jnoortheen.nix-ide
+        mkhl.direnv
       ];
     })
   ];
