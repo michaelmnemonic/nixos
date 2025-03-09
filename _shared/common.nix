@@ -31,9 +31,6 @@
   security.sudo.enable = true;
   security.sudo.execWheelOnly = true;
 
-  # Enable flakes
-  nix.settings.experimental-features = ["nix-command" "flakes"];
-
   # Garbage collect nix store
   nix.settings.auto-optimise-store = true;
   nix.gc.automatic = true;
@@ -43,6 +40,5 @@
   system.autoUpgrade = {
     enable = true;
     allowReboot = false;
-    flake = "github:michaelmnemonic/nixos";
   };
 }
