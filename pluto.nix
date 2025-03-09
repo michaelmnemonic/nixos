@@ -73,7 +73,6 @@
             oldAttrs.patches
             ++ [
               ./patches/0001-plasma-workspaces-systemtray-icon-sizes.patch
-
               ./patches/0002-plasma-workspaces-lockout-icon-sizes.patch
             ];
         });
