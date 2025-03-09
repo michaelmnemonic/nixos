@@ -150,6 +150,7 @@
     aspellDicts.en
     audacious
     kdePackages.ffmpegthumbs
+    firefox
     fooyin
     gitMinimal
     iosevka
@@ -241,16 +242,6 @@
   # Enable kdeconnect
   programs.kdeconnect = {
     enable = true;
-  };
-
-  programs.firefox = {
-    enable = true;
-    languagePacks = ["de"];
-    nativeMessagingHosts.packages = [pkgs.ff2mpv];
-    preferences = {
-      "browser.download.alwaysOpenPanel" = false;
-      "widget.use-xdg-desktop-portal.file-picker" = 1;
-    };
   };
 
   programs.neovim = {
