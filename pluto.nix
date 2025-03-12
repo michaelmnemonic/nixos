@@ -111,6 +111,9 @@
   # Make niri availlable
   programs.niri.enable = true;
 
+  # Make waybar availlable
+  programs.waybar.enable = true;
+
   # Autologin with greetd
   services.greetd = {
     enable = true;
