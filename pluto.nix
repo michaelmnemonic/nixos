@@ -133,13 +133,10 @@
   systemd.mounts = [
     {
       type = "btrfs";
-
       mountConfig = {
         Options = "subvol=@maik";
       };
-
       what = "LABEL=NIXOS";
-
       where = "/home/maik";
     }
   ];
