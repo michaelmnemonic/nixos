@@ -152,6 +152,9 @@
     kdePackages.ffmpegthumbs
     firefox
     fooyin
+    fuzzel
+    nautilus
+    ptyxis
     gitMinimal
     iosevka
     kdePackages.akonadi
@@ -235,6 +238,9 @@
 
   # Make direnv availlable
   programs.direnv.enable = true;
+
+  # Make niri availlable
+  programs.niri.enable = true;
 
   # Make fish shell availlable
   programs.fish.enable = true;
