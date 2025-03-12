@@ -189,6 +189,17 @@
     zed-editor
   ];
 
+  xdg = {
+    autostart.enable = true;
+    menus.enable = true;
+    mime.enable = true;
+    icons.enable = true;
+    portal = {
+      enable = true;
+      extraPortals = [pkgs.xdg-desktop-portal-gnome];
+    };
+  };
+
   # Enable custom fan control
   boot.kernelModules = ["nct6775"]; # motherboard sesnsors
   environment.etc."fan2go/fan2go.yaml".text = ''
@@ -343,6 +354,11 @@
 
   # Enable dconf (needed for configuration of gtk themes under wayland)
   programs.dconf.enable = true;
+
+  services.dbus = {
+    enable = true;
+    implementation = "broker";
+  };
 
   # Enable mosh
   programs.mosh.enable = true;
