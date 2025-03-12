@@ -108,24 +108,14 @@
     xkb.layout = "de";
   };
 
-  # Use plasma as desktop environment
-  services.desktopManager.plasma6.enable = true;
-
-  # Use SDDM as displayManager
-  services.displayManager.sddm = {
-    enable = true;
-    wayland = {
-      enable = true;
-      compositor = "kwin";
-    };
-  };
-
-  # No need for xterm
-  services.xserver.excludePackages = [pkgs.xterm];
-  services.xserver.desktopManager.xterm.enable = false;
+  # Make niri availlable
+  programs.niri.enable = true;
 
   # Use NetworkManager
-  networking.networkmanager.enable = true;
+  networking.networkmanager = {
+    enable = true;
+    wifi.backend = "iwd";
+  };
 
   # Enable tailscale
   services.tailscale.enable = true;
@@ -147,65 +137,18 @@
 
   # List of system-wide packages
   environment.systemPackages = with pkgs; [
-    aqbanking
     aspell
     aspellDicts.de
     aspellDicts.en
-    calibre
-    digikam
     fan2go
     firefox
-    fooyin
-    gamemode
     gitMinimal
-    kdePackages.akonadi
-    kdePackages.akonadi-calendar
-    kdePackages.akonadi-contacts
-    kdePackages.akonadi-mime
-    kdePackages.akonadi-search
-    kdePackages.alpaka
-    kdePackages.elisa
-    kdePackages.ffmpegthumbs
-    kdePackages.kdepim-addons
-    kdePackages.kdepim-runtime
-    kdePackages.kleopatra
-    kdePackages.kmail
-    kdePackages.kmail-account-wizard
-    kdePackages.ksshaskpass
-    kdePackages.merkuro
-    kdePackages.qtlocation
-    kdePackages.skanpage
-    kdePackages.tokodon
-    kdePackages.kio-extras
-    kdePackages.kcalc
-    libcamera
-    libreoffice-qt
-    lm_sensors
     mpv
     nfs-utils
-    pinentry-qt
-    sbctl
-    syncthing
-    transmission_4-qt
-    umu-launcher
-    unar
-    vulkan-hdr-layer-kwin6
+    alacritty
+    fuzzel
     vscodium
-    zed-editor
   ];
-
-  # Enable flatpak
-  services.flatpak.enable = true;
-  systemd.services.flatpak-repo = {
-    wantedBy = ["multi-user.target"];
-    path = [pkgs.flatpak];
-    script = ''
-      flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-    '';
-  };
-
-  # Enable user service for syncthing
-  # systemd.user.services.syncthing.wantedBy = ["default.target"];
 
   # Enable custom fan control
   boot.kernelModules = ["nct6775"]; # motherboard sesnsors
@@ -291,28 +234,6 @@
     wantedBy = ["multi-user.target"];
   };
 
-  # load ath11k modules after suspend
-  systemd.services.ath11k-resume = {
-    description = "Load ath11k_pci module after suspend";
-    after = ["suspend.target"];
-    serviceConfig = {
-      Type = "simple";
-      ExecStart = ''${pkgs.kmod}/bin/modprobe ath11k_pci'';
-    };
-    wantedBy = ["suspend.target"];
-  };
-
-  # unload ath11k modules before suspend
-  systemd.services.ath11k-suspend = {
-    description = "Unload ath11k_pci module before suspend";
-    before = ["sleep.target"];
-    serviceConfig = {
-      Type = "simple";
-      ExecStart = ''${pkgs.kmod}/bin/rmmod ath11k_pci'';
-    };
-    wantedBy = ["sleep.target"];
-  };
-
   # ssh server with public key authentication only
   services.openssh = {
     enable = true;
@@ -374,12 +295,6 @@
 
   programs.gnupg.agent = {
     enable = true;
-    pinentryPackage = pkgs.pinentry-qt;
-  };
-
-  # Enable kdeconnect
-  programs.kdeconnect = {
-    enable = true;
   };
 
   # Enable gamescope
@@ -397,9 +312,7 @@
   programs.ssh = {
     startAgent = true;
     enableAskPassword = true;
-    askPassword = "${pkgs.kdePackages.ksshaskpass}/bin/ksshaskpass";
   };
-  environment.sessionVariables.SSH_ASKPASS_REQUIRE = "prefer";
 
   system.stateVersion = "24.05";
 }
