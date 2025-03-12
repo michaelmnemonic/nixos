@@ -111,6 +111,18 @@
   # Make niri availlable
   programs.niri.enable = true;
 
+  # Autologin with greetd
+  services.greetd = {
+      enable = true;
+      settings = {
+        default_session = {
+          command = "${pkgs.niri}/bin/niri";
+        };
+        initial_session = {
+          command = "${pkgs.niri}/bin/niri";
+        };
+      };
+
   # Use NetworkManager
   networking.networkmanager = {
     enable = true;
