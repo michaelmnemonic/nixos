@@ -183,6 +183,7 @@
     alacritty
     fuzzel
     vscodium
+    zed-editor
   ];
 
   # Enable custom fan control
