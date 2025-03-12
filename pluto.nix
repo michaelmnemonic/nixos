@@ -113,16 +113,38 @@
 
   # Autologin with greetd
   services.greetd = {
-      enable = true;
-      settings = {
-        default_session = {
-          command = "${pkgs.niri}/bin/niri";
-        };
-        initial_session = {
-          command = "${pkgs.niri}/bin/niri";
-          user = "maik";
-        };
+    enable = true;
+    settings = {
+      default_session = {
+        command = "${pkgs.niri}/bin/niri";
       };
+      initial_session = {
+        command = "${pkgs.niri}/bin/niri";
+        user = "maik";
+      };
+    };
+  };
+
+  # mount subvolume that contains the user home
+
+  systemd.mounts = [
+    {
+      type = "btrfs";
+
+      mountConfig = {
+        Options = "subvol=@maik";
+      };
+
+      what = "LABEL=NIXOS";
+
+      where = "/home/maik";
+    }
+  ];
+
+  # make sure mount point of user home exists
+  environment.etc."tmpfiles.d/home-maik.conf".text = ''
+    d /home/maik               700 1000 100 -
+  '';
 
   # Use NetworkManager
   networking.networkmanager = {
