@@ -120,6 +120,7 @@
         };
         initial_session = {
           command = "${pkgs.niri}/bin/niri";
+          user = "maik";
         };
       };
 
