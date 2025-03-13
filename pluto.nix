@@ -117,14 +117,12 @@
   # Autologin with greetd
   services.greetd = {
     enable = true;
-    settings = {
-      default_session = {
-        command = "${pkgs.niri}/bin/niri";
-      };
+    settings = rec {
       initial_session = {
-        command = "${pkgs.niri}/bin/niri";
+        command = "${pkgs.niri}/bin/niri-session";
         user = "maik";
       };
+      default_session = initial_session;
     };
   };
 
@@ -172,6 +170,7 @@
 
   # List of system-wide packages
   environment.systemPackages = with pkgs; [
+     adwaita-icon-theme
     aspell
     aspellDicts.de
     aspellDicts.en
@@ -179,6 +178,7 @@
     firefox
     gitMinimal
     mpv
+    nautilus
     nfs-utils
     alacritty
     fuzzel
