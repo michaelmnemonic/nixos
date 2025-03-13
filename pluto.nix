@@ -144,17 +144,21 @@
     d /home/maik               700 1000 100 -
   '';
 
-  # Use NetworkManager
-  networking.networkmanager = {
-    enable = true;
-    wifi.backend = "iwd";
+  # Networking with systemd-networkd and iwd
+  networking.useNetworkd = true;
+  systemd.network.enable = true;
+  systemd.network.networks."20-wlan" = {
+    matchConfig.Name = "wlan*";
+    networkConfig.DHCP = "yes";
   };
+  systemd.network.networks."10-lan" = {
+    matchConfig.Name = "en*";
+    networkConfig.DHCP = "yes";
+  };
+  networking.wireless.iwd.enable = true;
 
   # Enable tailscale
   services.tailscale.enable = true;
-
-  # Disable NetworkManager wait online
-  systemd.services."NetworkManager-wait-online".enable = false;
 
   # Enable mDNS
   services.avahi.enable = true;
@@ -163,7 +167,7 @@
   fonts.packages = with pkgs; [
     inter
     jetbrains-mono
-    nerd-fonts.jetbrains-mono
+    nerdfonts
     noto-fonts
     noto-fonts-cjk-sans
     noto-fonts-emoji
