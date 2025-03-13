@@ -132,6 +132,7 @@
   fonts.packages = with pkgs; [
     inter
     jetbrains-mono
+    nerd-fonts.jetbrains-mono
     noto-fonts
     noto-fonts-cjk-sans
     noto-fonts-emoji
@@ -182,6 +183,7 @@
     mpv
     yt-dlp
     nfs-utils
+    pavucontrol
     pinentry-qt
     syncthing
     teams-for-linux
@@ -191,6 +193,8 @@
     vscodium
     kdePackages.ghostwriter
     kdePackages.marknote
+    ptyxis
+    adwaita-icon-theme
   ];
 
   # Setup firewall
@@ -241,6 +245,8 @@
 
   # Make niri availlable
   programs.niri.enable = true;
+
+  programs.dconf.enable = true;
 
   # Make waybar availlable
   programs.waybar.enable = true;
