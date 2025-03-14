@@ -95,6 +95,9 @@
   # Enable plymouth
   boot.plymouth.enable = true;
 
+  # Early KMS
+  boot.initrd.kernelModules = [ "amdgpu" ];
+
   # Disable ttys
   services.logind.extraConfig = ''
     NAutoVTs=0
@@ -181,13 +184,18 @@
     aspellDicts.en
     fan2go
     firefox
+    fragments
     gitMinimal
     mpv
     nautilus
     nfs-utils
+    papers
+    pavucontrol
     ptyxis
     alacritty
     fuzzel
+    thunderbird
+    tuba
     vscodium
     zed-editor
   ];
