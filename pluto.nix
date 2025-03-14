@@ -190,7 +190,12 @@
     fragments
     fuzzel
     gitMinimal
+    gnome-calculator
+    keepassxc
+    adwaita-qt
+    libsForQt5.qt5ct
     libreoffice
+    mako
     mpv
     nautilus
     nfs-utils
@@ -198,11 +203,27 @@
     pavucontrol
     ptyxis
     quodlibet
+    resources
     thunderbird
     tuba
+    valent
     vscodium
     zed-editor
   ];
+
+  nixpkgs.config.qt5 = {
+    enable = true;
+    platformTheme = "qt5ct";
+      style = {
+        package = pkgs.adwaita-qt;
+        name = "Adwaita";
+      };
+  };
+
+  environment.variables.QT_QPA_PLATFORMTHEME = "qt5ct";
+
+  # Disable gnome-keyring, keepassxc is used instead
+  services.gnome.gnome-keyring.enable = false;
 
   xdg = {
     autostart.enable = true;
