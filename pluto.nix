@@ -185,7 +185,7 @@
     fan2go
     firefox
     fragments
-    factal
+    fractal
     gitMinimal
     libreoffice
     mpv
