@@ -187,6 +187,7 @@
     fragments
     fractal
     gitMinimal
+    quodlibet
     libreoffice
     mpv
     nautilus
