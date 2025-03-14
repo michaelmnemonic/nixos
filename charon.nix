@@ -157,6 +157,7 @@
     nautilus
     ptyxis
     gitMinimal
+    quodlibet-full
     iosevka
     kdePackages.akonadi
     kdePackages.akonadi-calendar
@@ -193,7 +194,7 @@
     vscodium
     kdePackages.ghostwriter
     kdePackages.marknote
-    ptyxis
+    alacritty
     adwaita-icon-theme
   ];
 
