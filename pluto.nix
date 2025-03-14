@@ -186,6 +186,7 @@
     firefox
     fragments
     gitMinimal
+    libreoffice
     mpv
     nautilus
     nfs-utils
