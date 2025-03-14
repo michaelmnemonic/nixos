@@ -175,7 +175,7 @@
 
   # List of system-wide packages
   environment.systemPackages = with pkgs; [
-     adwaita-icon-theme
+    adwaita-icon-theme
     aspell
     aspellDicts.de
     aspellDicts.en
@@ -185,6 +185,7 @@
     mpv
     nautilus
     nfs-utils
+    ptyxis
     alacritty
     fuzzel
     vscodium
@@ -335,6 +336,17 @@
       ip46tables -t mangle -D nixos-fw-rpfilter -p udp -m udp --dport 1637 -j RETURN || true
     '';
   };
+
+  services.syncthing = {
+    enable = true;
+    openDefaultPorts = true;
+    user = "maik";
+  };
+
+  # make sure syncthing home exists
+  environment.etc."tmpfiles.d/var-lib-synthing.conf".text = ''
+    d /var/lib/syncthing       700 1000 100 -
+  '';
 
   services.ollama = {
     enable = true;
