@@ -182,6 +182,7 @@
     aspell
     aspellDicts.de
     aspellDicts.en
+    celluloid
     fan2go
     firefox
     fragments
