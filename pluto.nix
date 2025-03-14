@@ -179,16 +179,17 @@
   # List of system-wide packages
   environment.systemPackages = with pkgs; [
     adwaita-icon-theme
+    alacritty
     aspell
     aspellDicts.de
     aspellDicts.en
     celluloid
     fan2go
     firefox
-    fragments
     fractal
+    fragments
+    fuzzel
     gitMinimal
-    quodlibet
     libreoffice
     mpv
     nautilus
@@ -196,8 +197,7 @@
     papers
     pavucontrol
     ptyxis
-    alacritty
-    fuzzel
+    quodlibet
     thunderbird
     tuba
     vscodium
