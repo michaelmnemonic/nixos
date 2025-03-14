@@ -211,6 +211,7 @@
     valent
     vscodium
     xwayland-satellite
+    wineWowPackages.stable
     zed-editor
   ];
 
