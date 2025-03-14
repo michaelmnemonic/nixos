@@ -191,10 +191,12 @@
     fuzzel
     gitMinimal
     gnome-calculator
+    gnome-text-editor
     keepassxc
     adwaita-qt
     libsForQt5.qt5ct
     libreoffice
+    playerctl
     mako
     mpv
     nautilus
@@ -202,12 +204,13 @@
     papers
     pavucontrol
     ptyxis
-    quodlibet
+    quodlibet-full
     resources
     thunderbird
     tuba
     valent
     vscodium
+    xwayland-satellite
     zed-editor
   ];
 
