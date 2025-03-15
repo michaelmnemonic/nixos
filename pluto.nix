@@ -41,24 +41,6 @@
     };
   };
 
-  # customize the desktop
-  # FIXME: this compiles plasma-workspace just to patch qml script
-  nixpkgs.overlays = [
-    (final: prev: {
-      # use smaller icons with more spacing in plasma-workspace
-      kdePackages = prev.kdePackages.overrideScope (sfinal: sprev: {
-        plasma-workspace = sprev.plasma-workspace.overrideAttrs (oldAttrs: {
-          patches =
-            oldAttrs.patches
-            ++ [
-              ./patches/0001-plasma-workspaces-systemtray-icon-sizes.patch
-              ./patches/0002-plasma-workspaces-lockout-icon-sizes.patch
-            ];
-        });
-      });
-    })
-  ];
-
   # Use latest stable kernel
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
