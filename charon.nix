@@ -145,19 +145,16 @@
 
   # List of system-wide packages
   environment.systemPackages = with pkgs; [
-    kdePackages.arianna
+    adwaita-icon-theme
+    alacritty
     aspell
     aspellDicts.de
     aspellDicts.en
     audacious
-    kdePackages.ffmpegthumbs
     firefox
     fooyin
     fuzzel
-    nautilus
-    ptyxis
     gitMinimal
-    quodlibet-full
     iosevka
     kdePackages.akonadi
     kdePackages.akonadi-calendar
@@ -166,7 +163,10 @@
     kdePackages.akonadi-search
     kdePackages.akregator
     kdePackages.alligator
+    kdePackages.arianna
     kdePackages.elisa
+    kdePackages.ffmpegthumbs
+    kdePackages.ghostwriter
     kdePackages.kdepim-addons
     kdePackages.kdepim-runtime
     kdePackages.kio-extras
@@ -174,6 +174,7 @@
     kdePackages.kmail
     kdePackages.kmail-account-wizard
     kdePackages.ksshaskpass
+    kdePackages.marknote
     kdePackages.merkuro
     kdePackages.qtlocation
     kdePackages.skanpage
@@ -182,20 +183,20 @@
     libcamera
     libreoffice-qt
     mpv
-    yt-dlp
+    nautilus
     nfs-utils
     pavucontrol
     pinentry-qt
+    ptyxis
+    quodlibet-full
+    resources
     syncthing
     teams-for-linux
     transmission_4-qt
     unar
-    zed-editor
     vscodium
-    kdePackages.ghostwriter
-    kdePackages.marknote
-    alacritty
-    adwaita-icon-theme
+    yt-dlp
+    zed-editor
   ];
 
   # Setup firewall
