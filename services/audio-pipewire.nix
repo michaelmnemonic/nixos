@@ -200,7 +200,7 @@
             }
           ]
         '')
-                (pkgs.writeTextDir "share/wireplumber/wireplumber.conf.d/10-lg-monitor.conf" ''
+        (pkgs.writeTextDir "share/wireplumber/wireplumber.conf.d/10-lg-monitor.conf" ''
           monitor.alsa.rules = [
              {
               matches = [
@@ -211,7 +211,7 @@
               actions = {
                 update-props = {
                   node.nick              = "Monitor"
-                  node.description       = "LG UltraWide 38WN95CP-W"
+                  node.description       = "Monitor"
                 }
               }
             }

@@ -23,44 +23,12 @@
     "amd_pstate=active"
   ];
 
-  boot.binfmt.emulatedSystems = ["aarch64-linux"];
-
-  # Overclock and undervolt AMD GPU when gaming, otherwise save power
-  environment.etc."tmpfiles.d/gpu-permissions.conf".text = ''
-    z  /sys/class/drm/card1/device/pp_od_clk_voltage                664 root wheel - -
-    z  /sys/class/drm/card1/device/pp_power_profile_mode            664 root wheel - -
-  '';
-
-  environment.etc."gamemode/gpu-performance.conf".text = ''
+  # Overclock and undervolt AMD GPU
+  environment.etc."tmpfiles.d/gpu-undervolt.conf".text = ''
     w+ /sys/class/drm/card1/device/pp_od_clk_voltage                - - - - vo -100\n
     w+ /sys/class/drm/card1/device/pp_od_clk_voltage                - - - - m 1 1200\n
     w+ /sys/class/drm/card1/device/pp_od_clk_voltage                - - - - c\n
   '';
-
-  environment.etc."tmpfiles.d/gpu-manual-performance-level.conf".text = ''
-    w /sys/class/drm/card1/device/power_dpm_force_performance_level - - - - manual
-  '';
-
-  environment.etc."tmpfiles.d/gpu-powersave.conf".text = ''
-    w+ /sys/class/drm/card1/device/pp_od_clk_voltage                - - - - vo -350\n
-    w+ /sys/class/drm/card1/device/pp_od_clk_voltage                - - - - m 1 1000\n
-    w+ /sys/class/drm/card1/device/pp_od_clk_voltage                - - - - s 1 1500\n
-    w+ /sys/class/drm/card1/device/pp_od_clk_voltage                - - - - c\n
-    w /sys/class/drm/card1/device/pp_power_profile_mode             - - - - 2
-  '';
-
-  programs.gamemode = {
-    enable = true;
-    settings = {
-      general = {
-        renice = 10;
-      };
-      custom = {
-        start = "${pkgs.systemd}/bin/systemd-tmpfiles --create /etc/gamemode/gpu-performance.conf";
-        end = "${pkgs.systemd}/bin/systemd-tmpfiles --create /etc/tmpfiles.d/gpu-powersave.conf";
-      };
-    };
-  };
 
   # Use latest stable kernel
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -77,6 +45,9 @@
   # Enable plymouth
   boot.plymouth.enable = true;
 
+  # Early KMS
+  boot.initrd.kernelModules = [ "amdgpu" ];
+
   # Disable ttys
   services.logind.extraConfig = ''
     NAutoVTs=0
@@ -90,30 +61,57 @@
     xkb.layout = "de";
   };
 
-  # Use plasma as desktop environment
-  services.desktopManager.plasma6.enable = true;
+  # Make niri availlable
+  programs.niri.enable = true;
 
-  # Use SDDM as displayManager
-  services.displayManager.sddm = {
+  # Make waybar availlable
+  programs.waybar.enable = true;
+
+  # Autologin with greetd
+  services.greetd = {
     enable = true;
-    wayland = {
-      enable = true;
-      compositor = "kwin";
+    settings = rec {
+      initial_session = {
+        command = "${pkgs.niri}/bin/niri-session";
+        user = "maik";
+      };
+      default_session = initial_session;
     };
   };
 
-  # No need for xterm
-  services.xserver.excludePackages = [pkgs.xterm];
-  services.xserver.desktopManager.xterm.enable = false;
+  # Mount subvolume that contains the user home
+  systemd.mounts = [
+    {
+      type = "btrfs";
+      mountConfig = {
+        Options = "subvol=@maik";
+      };
+      what = "LABEL=NIXOS";
+      where = "/home/maik";
+    }
+  ];
 
-  # Use NetworkManager
-  networking.networkmanager.enable = true;
+  # Make sure mount point of user home exists
+  environment.etc."tmpfiles.d/home-maik.conf".text = ''
+    d /home/maik               700 1000 100 -
+  '';
+
+  # Networking with systemd-networkd and iwd
+  networking.useNetworkd = true;
+  systemd.network.enable = true;
+  systemd.network.networks."20-wlan" = {
+    matchConfig.Name = "wlan*";
+    networkConfig.DHCP = "yes";
+  };
+  systemd.network.networks."10-lan" = {
+    matchConfig.Name = "en*";
+    networkConfig.DHCP = "yes";
+  };
+
+  networking.wireless.iwd.enable = true;
 
   # Enable tailscale
   services.tailscale.enable = true;
-
-  # Disable NetworkManager wait online
-  systemd.services."NetworkManager-wait-online".enable = false;
 
   # Enable mDNS
   services.avahi.enable = true;
@@ -122,6 +120,7 @@
   fonts.packages = with pkgs; [
     inter
     jetbrains-mono
+    nerdfonts
     noto-fonts
     noto-fonts-cjk-sans
     noto-fonts-emoji
@@ -129,65 +128,81 @@
 
   # List of system-wide packages
   environment.systemPackages = with pkgs; [
-    aqbanking
+    adwaita-icon-theme
+    alacritty
     aspell
     aspellDicts.de
     aspellDicts.en
-    calibre
-    digikam
+    celluloid
     fan2go
     firefox
-    fooyin
-    gamemode
+    fractal
+    fragments
+    fuzzel
     gitMinimal
-    kdePackages.akonadi
-    kdePackages.akonadi-calendar
-    kdePackages.akonadi-contacts
-    kdePackages.akonadi-mime
-    kdePackages.akonadi-search
-    kdePackages.alpaka
-    kdePackages.elisa
-    kdePackages.ffmpegthumbs
-    kdePackages.kdepim-addons
-    kdePackages.kdepim-runtime
-    kdePackages.kleopatra
-    kdePackages.kmail
-    kdePackages.kmail-account-wizard
-    kdePackages.ksshaskpass
-    kdePackages.merkuro
-    kdePackages.qtlocation
-    kdePackages.skanpage
-    kdePackages.tokodon
-    kdePackages.kio-extras
-    kdePackages.kcalc
-    libcamera
-    libreoffice-qt
-    lm_sensors
+    gnome-calculator
+    gnome-clocks
+    gnome-text-editor
+    keepassxc
+    adwaita-qt
+    libsForQt5.qt5ct
+    libreoffice
+    playerctl
+    mangohud
+    mako
     mpv
+    nautilus
     nfs-utils
-    pinentry-qt
-    sbctl
-    syncthing
-    transmission_4-qt
-    umu-launcher
-    unar
-    vulkan-hdr-layer-kwin6
+    papers
+    pavucontrol
+    ptyxis
+    quodlibet-full
+    resources
+    swaylock
+    thunderbird
+    tuba
+    valent
     vscodium
+    xwayland-satellite
+    wineWowPackages.stable
     zed-editor
   ];
 
-  # Enable flatpak
-  services.flatpak.enable = true;
-  systemd.services.flatpak-repo = {
-    wantedBy = ["multi-user.target"];
-    path = [pkgs.flatpak];
-    script = ''
-      flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-    '';
+  nixpkgs.config.qt5 = {
+    enable = true;
+    platformTheme = "qt5ct";
+      style = {
+        package = pkgs.adwaita-qt;
+        name = "Adwaita";
+      };
   };
 
-  # Enable user service for syncthing
-  # systemd.user.services.syncthing.wantedBy = ["default.target"];
+  # Use qt5ct configuration
+  environment.variables.QT_QPA_PLATFORMTHEME = "qt5ct";
+
+  # Disable gnome-keyring, keepassxc is used instead
+  services.gnome.gnome-keyring.enable = false;
+
+  xdg = {
+    autostart.enable = true;
+    menus.enable = true;
+    mime.enable = true;
+    icons.enable = true;
+    portal = {
+      enable = true;
+      extraPortals = [pkgs.xdg-desktop-portal-gnome];
+    };
+  };
+
+  # Optimize performance for games
+  programs.gamemode = {
+    enable = true;
+    settings = {
+      general = {
+        renice = 10;
+      };
+    };
+  };
 
   # Enable custom fan control
   boot.kernelModules = ["nct6775"]; # motherboard sesnsors
@@ -273,28 +288,6 @@
     wantedBy = ["multi-user.target"];
   };
 
-  # load ath11k modules after suspend
-  systemd.services.ath11k-resume = {
-    description = "Load ath11k_pci module after suspend";
-    after = ["suspend.target"];
-    serviceConfig = {
-      Type = "simple";
-      ExecStart = ''${pkgs.kmod}/bin/modprobe ath11k_pci'';
-    };
-    wantedBy = ["suspend.target"];
-  };
-
-  # unload ath11k modules before suspend
-  systemd.services.ath11k-suspend = {
-    description = "Unload ath11k_pci module before suspend";
-    before = ["sleep.target"];
-    serviceConfig = {
-      Type = "simple";
-      ExecStart = ''${pkgs.kmod}/bin/rmmod ath11k_pci'';
-    };
-    wantedBy = ["sleep.target"];
-  };
-
   # ssh server with public key authentication only
   services.openssh = {
     enable = true;
@@ -345,22 +338,31 @@
     '';
   };
 
+  # Enable syncthing
+  services.syncthing = {
+    enable = true;
+    openDefaultPorts = true;
+    user = "maik";
+  };
+
+  # Make sure syncthing home exists
+  environment.etc."tmpfiles.d/var-lib-synthing.conf".text = ''
+    d /var/lib/syncthing       700 1000 100 -
+  '';
+
+  # Enable ollama
   services.ollama = {
     enable = true;
     acceleration = "rocm";
     rocmOverrideGfx = "11.0.0";
   };
 
+  # Make gpu acceleration availlable using rocm
   hardware.amdgpu.opencl.enable = true;
   hardware.graphics.extraPackages = with pkgs; [rocmPackages.clr.icd];
 
+  # Enable gnupg
   programs.gnupg.agent = {
-    enable = true;
-    pinentryPackage = pkgs.pinentry-qt;
-  };
-
-  # Enable kdeconnect
-  programs.kdeconnect = {
     enable = true;
   };
 
@@ -372,6 +374,12 @@
   # Enable dconf (needed for configuration of gtk themes under wayland)
   programs.dconf.enable = true;
 
+  # Enable dbus with "dbus-broker" implementation
+  services.dbus = {
+    enable = true;
+    implementation = "broker";
+  };
+
   # Enable mosh
   programs.mosh.enable = true;
 
@@ -379,9 +387,8 @@
   programs.ssh = {
     startAgent = true;
     enableAskPassword = true;
-    askPassword = "${pkgs.kdePackages.ksshaskpass}/bin/ksshaskpass";
   };
-  environment.sessionVariables.SSH_ASKPASS_REQUIRE = "prefer";
 
+  # NixOS state version
   system.stateVersion = "24.05";
 }
