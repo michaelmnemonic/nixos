@@ -151,6 +151,7 @@
     aspellDicts.de
     aspellDicts.en
     audacious
+    brightnessctl
     firefox
     fooyin
     fuzzel
@@ -198,6 +199,9 @@
     yt-dlp
     zed-editor
   ];
+
+  # Make vscode use wayland
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   # Setup firewall
   networking.firewall = {
