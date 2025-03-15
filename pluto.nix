@@ -25,28 +25,11 @@
 
   boot.binfmt.emulatedSystems = ["aarch64-linux"];
 
-  # Overclock and undervolt AMD GPU when gaming, otherwise save power
-  environment.etc."tmpfiles.d/gpu-permissions.conf".text = ''
-    z  /sys/class/drm/card1/device/pp_od_clk_voltage                664 root wheel - -
-    z  /sys/class/drm/card1/device/pp_power_profile_mode            664 root wheel - -
-  '';
-
-  environment.etc."gamemode/gpu-performance.conf".text = ''
+  # Overclock and undervolt AMD GPU
+  environment.etc."tmpfiles.d/gpu-undervolt.conf".text = ''
     w+ /sys/class/drm/card1/device/pp_od_clk_voltage                - - - - vo -100\n
     w+ /sys/class/drm/card1/device/pp_od_clk_voltage                - - - - m 1 1200\n
     w+ /sys/class/drm/card1/device/pp_od_clk_voltage                - - - - c\n
-  '';
-
-  environment.etc."tmpfiles.d/gpu-manual-performance-level.conf".text = ''
-    w /sys/class/drm/card1/device/power_dpm_force_performance_level - - - - manual
-  '';
-
-  environment.etc."tmpfiles.d/gpu-powersave.conf".text = ''
-    w+ /sys/class/drm/card1/device/pp_od_clk_voltage                - - - - vo -350\n
-    w+ /sys/class/drm/card1/device/pp_od_clk_voltage                - - - - m 1 1000\n
-    w+ /sys/class/drm/card1/device/pp_od_clk_voltage                - - - - s 1 1500\n
-    w+ /sys/class/drm/card1/device/pp_od_clk_voltage                - - - - c\n
-    w /sys/class/drm/card1/device/pp_power_profile_mode             - - - - 2
   '';
 
   programs.gamemode = {
@@ -54,10 +37,6 @@
     settings = {
       general = {
         renice = 10;
-      };
-      custom = {
-        start = "${pkgs.systemd}/bin/systemd-tmpfiles --create /etc/gamemode/gpu-performance.conf";
-        end = "${pkgs.systemd}/bin/systemd-tmpfiles --create /etc/tmpfiles.d/gpu-powersave.conf";
       };
     };
   };
@@ -158,6 +137,7 @@
     matchConfig.Name = "en*";
     networkConfig.DHCP = "yes";
   };
+
   networking.wireless.iwd.enable = true;
 
   # Enable tailscale
@@ -191,12 +171,14 @@
     fuzzel
     gitMinimal
     gnome-calculator
+    gnome-clocks
     gnome-text-editor
     keepassxc
     adwaita-qt
     libsForQt5.qt5ct
     libreoffice
     playerctl
+    mangohud
     mako
     mpv
     nautilus
@@ -206,6 +188,7 @@
     ptyxis
     quodlibet-full
     resources
+    swaylock
     thunderbird
     tuba
     valent
