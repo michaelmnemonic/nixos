@@ -23,8 +23,6 @@
     "amd_pstate=active"
   ];
 
-  boot.binfmt.emulatedSystems = ["aarch64-linux"];
-
   # Overclock and undervolt AMD GPU
   environment.etc."tmpfiles.d/gpu-undervolt.conf".text = ''
     w+ /sys/class/drm/card1/device/pp_od_clk_voltage                - - - - vo -100\n
