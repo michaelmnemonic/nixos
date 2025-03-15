@@ -46,7 +46,7 @@
   boot.plymouth.enable = true;
 
   # Early KMS
-  boot.initrd.kernelModules = [ "amdgpu" ];
+  boot.initrd.kernelModules = ["amdgpu"];
 
   # Disable ttys
   services.logind.extraConfig = ''
@@ -171,10 +171,10 @@
   nixpkgs.config.qt5 = {
     enable = true;
     platformTheme = "qt5ct";
-      style = {
-        package = pkgs.adwaita-qt;
-        name = "Adwaita";
-      };
+    style = {
+      package = pkgs.adwaita-qt;
+      name = "Adwaita";
+    };
   };
 
   # Use qt5ct configuration
