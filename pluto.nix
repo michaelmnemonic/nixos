@@ -30,15 +30,6 @@
     w+ /sys/class/drm/card1/device/pp_od_clk_voltage                - - - - c\n
   '';
 
-  programs.gamemode = {
-    enable = true;
-    settings = {
-      general = {
-        renice = 10;
-      };
-    };
-  };
-
   # Use latest stable kernel
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
@@ -88,8 +79,7 @@
     };
   };
 
-  # mount subvolume that contains the user home
-
+  # Mount subvolume that contains the user home
   systemd.mounts = [
     {
       type = "btrfs";
@@ -101,7 +91,7 @@
     }
   ];
 
-  # make sure mount point of user home exists
+  # Make sure mount point of user home exists
   environment.etc."tmpfiles.d/home-maik.conf".text = ''
     d /home/maik               700 1000 100 -
   '';
@@ -187,6 +177,7 @@
       };
   };
 
+  # Use qt5ct configuration
   environment.variables.QT_QPA_PLATFORMTHEME = "qt5ct";
 
   # Disable gnome-keyring, keepassxc is used instead
@@ -200,6 +191,16 @@
     portal = {
       enable = true;
       extraPortals = [pkgs.xdg-desktop-portal-gnome];
+    };
+  };
+
+  # Optimize performance for games
+  programs.gamemode = {
+    enable = true;
+    settings = {
+      general = {
+        renice = 10;
+      };
     };
   };
 
@@ -337,26 +338,30 @@
     '';
   };
 
+  # Enable syncthing
   services.syncthing = {
     enable = true;
     openDefaultPorts = true;
     user = "maik";
   };
 
-  # make sure syncthing home exists
+  # Make sure syncthing home exists
   environment.etc."tmpfiles.d/var-lib-synthing.conf".text = ''
     d /var/lib/syncthing       700 1000 100 -
   '';
 
+  # Enable ollama
   services.ollama = {
     enable = true;
     acceleration = "rocm";
     rocmOverrideGfx = "11.0.0";
   };
 
+  # Make gpu acceleration availlable using rocm
   hardware.amdgpu.opencl.enable = true;
   hardware.graphics.extraPackages = with pkgs; [rocmPackages.clr.icd];
 
+  # Enable gnupg
   programs.gnupg.agent = {
     enable = true;
   };
@@ -369,6 +374,7 @@
   # Enable dconf (needed for configuration of gtk themes under wayland)
   programs.dconf.enable = true;
 
+  # Enable dbus with "dbus-broker" implementation
   services.dbus = {
     enable = true;
     implementation = "broker";
@@ -383,5 +389,6 @@
     enableAskPassword = true;
   };
 
+  # NixOS state version
   system.stateVersion = "24.05";
 }
