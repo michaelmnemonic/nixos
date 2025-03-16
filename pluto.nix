@@ -134,6 +134,7 @@
     kdePackages.qtlocation
     kdePackages.skanpage
     kdePackages.tokodon
+    keepassxc
     libcamera
     libreoffice-qt
     lm_sensors
