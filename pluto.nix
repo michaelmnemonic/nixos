@@ -61,23 +61,27 @@
     xkb.layout = "de";
   };
 
-  # Make niri availlable
-  programs.niri.enable = true;
+  # Use plasma as desktop environment
+  services.desktopManager.plasma6.enable = true;
 
-  # Make waybar availlable
-  programs.waybar.enable = true;
+  # No need for xterm
+  services.xserver.excludePackages = [pkgs.xterm];
+  services.xserver.desktopManager.xterm.enable = false;
 
   # Autologin with greetd
   services.greetd = {
     enable = true;
     settings = rec {
       initial_session = {
-        command = "${pkgs.niri}/bin/niri-session";
+        command = "${pkgs.kdePackages.plasma-workspace}/bin/startplasma-wayland";
         user = "maik";
       };
       default_session = initial_session;
     };
   };
+
+  # Use NetworkManager
+  networking.networkmanager.enable = true;
 
   # Mount subvolume that contains the user home
   systemd.mounts = [
@@ -96,20 +100,6 @@
     d /home/maik               700 1000 100 -
   '';
 
-  # Networking with systemd-networkd and iwd
-  networking.useNetworkd = true;
-  systemd.network.enable = true;
-  systemd.network.networks."20-wlan" = {
-    matchConfig.Name = "wlan*";
-    networkConfig.DHCP = "yes";
-  };
-  systemd.network.networks."10-lan" = {
-    matchConfig.Name = "en*";
-    networkConfig.DHCP = "yes";
-  };
-
-  networking.wireless.iwd.enable = true;
-
   # Enable tailscale
   services.tailscale.enable = true;
 
@@ -120,7 +110,6 @@
   fonts.packages = with pkgs; [
     inter
     jetbrains-mono
-    nerd-fonts.jetbrains-mono
     noto-fonts
     noto-fonts-cjk-sans
     noto-fonts-emoji
@@ -128,71 +117,42 @@
 
   # List of system-wide packages
   environment.systemPackages = with pkgs; [
-    adwaita-icon-theme
-    alacritty
+    aqbanking
     aspell
     aspellDicts.de
     aspellDicts.en
-    celluloid
     fan2go
     firefox
-    fractal
-    fragments
-    fuzzel
+    fooyin
     gitMinimal
-    gnome-calculator
-    gnome-clocks
-    gnome-text-editor
-    keepassxc
-    adwaita-qt
-    libsForQt5.qt5ct
-    libreoffice
-    playerctl
-    mangohud
-    mako
+    kdePackages.akonadi
+    kdePackages.akonadi-calendar
+    kdePackages.akonadi-contacts
+    kdePackages.akonadi-mime
+    kdePackages.akonadi-search
+    kdePackages.ffmpegthumbs
+    kdePackages.kcalc
+    kdePackages.kdepim-addons
+    kdePackages.kdepim-runtime
+    kdePackages.kio-extras
+    kdePackages.kleopatra
+    kdePackages.kmail
+    kdePackages.kmail-account-wizard
+    kdePackages.ksshaskpass
+    kdePackages.merkuro
+    kdePackages.qtlocation
+    kdePackages.skanpage
+    kdePackages.tokodon
+    libcamera
+    libreoffice-qt
+    lm_sensors
     mpv
-    nautilus
     nfs-utils
-    papers
-    pavucontrol
-    ptyxis
-    quodlibet-full
-    resources
-    swaylock
-    thunderbird
-    tuba
-    valent
+    pinentry-qt
+    transmission_4-qt
+    unar
     vscodium
-    xwayland-satellite
-    wineWowPackages.stable
-    zed-editor
   ];
-
-  nixpkgs.config.qt5 = {
-    enable = true;
-    platformTheme = "qt5ct";
-    style = {
-      package = pkgs.adwaita-qt;
-      name = "Adwaita";
-    };
-  };
-
-  # Use qt5ct configuration
-  environment.variables.QT_QPA_PLATFORMTHEME = "qt5ct";
-
-  # Disable gnome-keyring, keepassxc is used instead
-  services.gnome.gnome-keyring.enable = false;
-
-  xdg = {
-    autostart.enable = true;
-    menus.enable = true;
-    mime.enable = true;
-    icons.enable = true;
-    portal = {
-      enable = true;
-      extraPortals = [pkgs.xdg-desktop-portal-gnome];
-    };
-  };
 
   # Optimize performance for games
   programs.gamemode = {
@@ -364,6 +324,7 @@
   # Enable gnupg
   programs.gnupg.agent = {
     enable = true;
+    pinentryPackage = pkgs.pinentry-qt;
   };
 
   # Enable gamescope
@@ -387,7 +348,9 @@
   programs.ssh = {
     startAgent = true;
     enableAskPassword = true;
+    askPassword = "${pkgs.kdePackages.ksshaskpass}/bin/ksshaskpass";
   };
+  environment.sessionVariables.SSH_ASKPASS_REQUIRE = "prefer";
 
   # NixOS state version
   system.stateVersion = "24.05";
