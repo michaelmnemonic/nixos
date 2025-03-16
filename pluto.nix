@@ -143,6 +143,7 @@
     transmission_4-qt
     unar
     vscodium
+    wineWowPackages.waylandFull
   ];
 
   # Optimize performance for games
