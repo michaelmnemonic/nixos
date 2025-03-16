@@ -254,9 +254,6 @@
 
   programs.dconf.enable = true;
 
-  # Make waybar availlable
-  programs.waybar.enable = true;
-
   # Make fish shell availlable
   programs.fish.enable = true;
 
