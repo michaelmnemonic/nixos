@@ -352,6 +352,20 @@
   };
   environment.sessionVariables.SSH_ASKPASS_REQUIRE = "prefer";
 
+  # https://invent.kde.org/plasma/ksshaskpass/-/merge_requests/24
+  nixpkgs.overlays = [
+    (final: prev: {
+      kdePackages = prev.kdePackages.overrideScope (sfinal: sprev: {
+        ksshaskpass = sprev.ksshaskpass.overrideAttrs (oldAttrs: {
+          patches = builtins.fetchurl {
+            url = "https://invent.kde.org/plasma/ksshaskpass/-/merge_requests/24.patch";
+            sha256 = "sha256:00rqh4bkwy8hhh2fl3pqddilprilanp78zi2l84ggfik4arm52ig";
+          };
+        });
+      });
+    })
+  ];
+
   # NixOS state version
   system.stateVersion = "24.05";
 }
