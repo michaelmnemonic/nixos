@@ -143,6 +143,7 @@
     transmission_4-qt
     unar
     vscodium
+    vulkan-hdr-layer-kwin6
     wineWowPackages.waylandFull
   ];
 
