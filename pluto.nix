@@ -83,6 +83,9 @@
   # Use NetworkManager
   networking.networkmanager.enable = true;
 
+  # Disable NetworkManager wait online
+  systemd.services."NetworkManager-wait-online".enable = false;
+
   # Mount subvolume that contains the user home
   systemd.mounts = [
     {
