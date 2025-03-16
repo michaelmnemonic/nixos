@@ -79,23 +79,6 @@
     };
   };
 
-  # Mount subvolume that contains the user home
-  systemd.mounts = [
-    {
-      type = "btrfs";
-      mountConfig = {
-        Options = "subvol=@maik";
-      };
-      what = "LABEL=NIXOS";
-      where = "/home/maik";
-    }
-  ];
-
-  # Make sure mount point of user home exists
-  environment.etc."tmpfiles.d/home-maik.conf".text = ''
-    d /home/maik               700 1000 100 -
-  '';
-
   # Networking with systemd-networkd and iwd
   networking.useNetworkd = true;
   systemd.network.enable = true;
