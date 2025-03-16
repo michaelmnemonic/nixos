@@ -146,7 +146,10 @@
     vscodium
     vulkan-hdr-layer-kwin6
     wineWowPackages.staging
-];
+  ];
+
+  # VSCode shall use native wayland
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   # Optimize performance for games
   programs.gamemode = {
