@@ -145,8 +145,8 @@
     unar
     vscodium
     vulkan-hdr-layer-kwin6
-    wineWowPackages.waylandFull
-  ];
+    wineWowPackages.staging
+];
 
   # Optimize performance for games
   programs.gamemode = {
