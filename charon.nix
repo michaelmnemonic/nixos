@@ -252,6 +252,8 @@
   # Make niri availlable
   programs.niri.enable = true;
 
+  programs.waybar.enable = true;
+
   programs.dconf.enable = true;
 
   # Make fish shell availlable
