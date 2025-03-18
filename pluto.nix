@@ -105,7 +105,7 @@
   fonts.fontconfig.defaultFonts = {
     monospace = ["JetBrains Mono"];
     sansSerif = ["Inter Variable"];
-    sans = ["Noto Sans"];
+    serif = ["Noto Serif"];
   };
 
   # List of system-wide packages
