@@ -110,27 +110,28 @@
 
   # List of system-wide packages
   environment.systemPackages = with pkgs; [
-    zed-editor
-    wineWowPackages.staging
-    vscodium
-    tuba
-    nfs-utils
-    libreoffice
-    libcamera
-    gnucash
-    gnomeExtensions.caffeine
-    gitMinimal
-    fragments
-    fractal
-    foliate
-    firefox
-    fan2go
-    celluloid
-    ausweisapp
-    aspellDicts.en
-    aspellDicts.de
-    aspell
     amberol
+    aspell
+    aspellDicts.de
+    aspellDicts.en
+    ausweisapp
+    celluloid
+    fan2go
+    firefox
+    foliate
+    fractal
+    fragments
+    gitMinimal
+    gnomeExtensions.caffeine
+    gnucash
+    libcamera
+    libreoffice
+    nfs-utils
+    papers
+    tuba
+    vscodium
+    wineWowPackages.staging
+    zed-editor
   ];
 
   # VSCode shall use native wayland
