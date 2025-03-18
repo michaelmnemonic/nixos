@@ -123,6 +123,7 @@
     fragments
     gitMinimal
     gnomeExtensions.caffeine
+    gnomeExtensions.gsnap
     gnucash
     libcamera
     libreoffice
