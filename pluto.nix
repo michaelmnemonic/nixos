@@ -124,6 +124,7 @@
     gitMinimal
     gnomeExtensions.caffeine
     gnomeExtensions.gsnap
+    gnomeExtensions.mpris-label
     gnucash
     libcamera
     libreoffice
