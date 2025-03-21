@@ -249,9 +249,6 @@
   # Make direnv availlable
   programs.direnv.enable = true;
 
-  # Make niri availlable
-  programs.niri.enable = true;
-
   programs.dconf.enable = true;
 
   # Make fish shell availlable
