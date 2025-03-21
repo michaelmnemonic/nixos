@@ -146,6 +146,7 @@
     vscodium
     vulkan-hdr-layer-kwin6
     wineWowPackages.staging
+    zed-editor
   ];
 
   # VSCode shall use native wayland
