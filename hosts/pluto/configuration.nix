@@ -5,15 +5,17 @@
   lib,
   ...
 }: {
-  imports = [
+  imports = with inputs.self.nixosModules; [
     # Shared host configuration
-    inputs.self.nixosModules.hosts-shared
+    hosts-shared
     # Hardware configuration
-    inputs.self.nixosModules.hosts-pluto
+    hosts-pluto
     # Users
-    inputs.self.nixosModules.users-maik
+    users-maik
     # Fan control with fan2go
-    inputs.self.nixosModules.fan2go
+    fan2go
+    # Software deployment platform steam
+    steam
   ];
 
   # Use latest stable kernel
@@ -153,9 +155,14 @@
     zed-editor
   ];
 
+  # Not all software is free
   nixpkgs.config.allowUnfreePredicate = pkg:
     builtins.elem (lib.getName pkg) [
       "libvgm" # dependency of fooyin
+      "steam"
+      "steam-original"
+      "steam-run"
+      "steam-unwrapped"
     ];
 
   #########################

@@ -1,8 +1,4 @@
-{
-  pkgs,
-  lib,
-  ...
-}: {
+{pkgs, ...}: {
   # Deploy udev rules for steam
   hardware.steam-hardware.enable = true;
 
@@ -13,13 +9,4 @@
     # prevent steam to access wifi passwords
     package = pkgs.steam.override {extraProfile = "export DBUS_SYSTEM_BUS_ADDRESS=";};
   };
-
-  # Steam is not free software
-  nixpkgs.config.allowUnfreePredicate = pkg:
-    builtins.elem (lib.getName pkg) [
-      "steam"
-      "steam-original"
-      "steam-run"
-      "steam-unwrapped"
-    ];
 }
