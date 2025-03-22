@@ -1,4 +1,13 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  modulesPath,
+  ...
+}: {
+  # Import modulesPath
+  imports = [
+    (modulesPath + "/installer/scan/not-detected.nix")
+  ];
+
   # Kernel modules
   boot.kernelModules = [
     # Virtualization support
