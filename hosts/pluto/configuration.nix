@@ -20,6 +20,8 @@
     pipewire
     # Chipcards via pcscd
     chipcards
+    # Printing
+    printing
   ];
 
   # Use latest stable kernel
