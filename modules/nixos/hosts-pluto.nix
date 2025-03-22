@@ -8,15 +8,20 @@
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
-  # Kernel modules
+  # Kernel modules to during initrd
+  boot.initrd.kernelModules = [
+    # Early KMS
+    "amdgpu"
+  ];
+
+  # Kernel modules to load ofter initrd
   boot.kernelModules = [
     # Virtualization support
     "kvm-amd"
     # Motherboard sensors
     "nct6775"
-    # Early KMS
-    "amdgpu"
   ];
+
   boot.extraModulePackages = [];
 
   # Luks encrypted root partition
