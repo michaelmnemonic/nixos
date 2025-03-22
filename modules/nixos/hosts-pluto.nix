@@ -1,6 +1,7 @@
 {
-  pkgs,
+  lib,
   modulesPath,
+  pkgs,
   ...
 }: {
   # Import modulesPath
@@ -60,5 +61,5 @@
   hardware.graphics.extraPackages = with pkgs; [rocmPackages.clr.icd];
 
   # Host platform
-  nixpkgs.hostPlatform = "x86_64-linux";
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }
