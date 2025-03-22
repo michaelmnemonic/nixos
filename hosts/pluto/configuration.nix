@@ -22,6 +22,8 @@
     chipcards
     # Printing
     printing
+    # Scanning
+    scanning
   ];
 
   # Use latest stable kernel
