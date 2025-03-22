@@ -68,6 +68,9 @@
     }
   ];
 
+  # Enable direnv
+  programs.direnv.enable = true;
+
   # Enable flakes
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
