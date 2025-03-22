@@ -16,6 +16,8 @@
     fan2go
     # Software deployment platform steam
     steam
+    # Audio and video via pipwire
+    pipewire
   ];
 
   # Use latest stable kernel
