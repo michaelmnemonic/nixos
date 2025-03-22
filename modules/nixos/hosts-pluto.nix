@@ -10,7 +10,7 @@
 
   # Kernel modules to during initrd
   boot.initrd.kernelModules = [
-    # Early KMS
+    # Early KMS to enable prettier boot *and* gpu overclock via tmpfile
     "amdgpu"
   ];
 
