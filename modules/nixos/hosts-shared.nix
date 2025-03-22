@@ -21,6 +21,12 @@
     "vt.global_cursor_default=0"
   ];
 
+  # Disable ttys
+  services.logind.extraConfig = ''
+    NAutoVTs=0
+    ReserveVT=0
+  '';
+
   # Setup time zone
   time.timeZone = "Europe/Berlin";
 
@@ -31,9 +37,12 @@
   # Make users immutable
   users.mutableUsers = false;
 
-  # Enable sude for user of group wheel
+  # Enable sudo for user of group wheel
   security.sudo.enable = true;
   security.sudo.execWheelOnly = true;
+
+  # Enable fscrypted home directories
+  security.pam.enableFscrypt = true;
 
   # Enable flakes
   nix.settings.experimental-features = ["nix-command" "flakes"];

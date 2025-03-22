@@ -1,6 +1,11 @@
-{...}: {
+{pkgs, ...}: {
   # Kernel modules
-  boot.kernelModules = ["kvm-amd"];
+  boot.kernelModules = [
+    # Virtualization support
+    "kvm-amd"
+    # Motherboard sensors
+    "nct6775"
+  ];
   boot.extraModulePackages = [];
 
   # Luks encrypted root partition
@@ -22,6 +27,21 @@
   };
 
   swapDevices = [];
+
+  # Kernel command line
+  boot.kernelParams = [
+    # Allow overclocking of GPU
+    "amdgpu.ppfeaturemask=0xfff7ffff"
+    # Use pstate_epp for CPU reclocking
+    "amd_pstate=active"
+  ];
+
+  # Enable plymouth
+  boot.plymouth.enable = true;
+
+  # Make gpu acceleration availlable using rocm
+  hardware.amdgpu.opencl.enable = true;
+  hardware.graphics.extraPackages = with pkgs; [rocmPackages.clr.icd];
 
   # Host platform
   nixpkgs.hostPlatform = "x86_64-linux";
