@@ -18,6 +18,8 @@
     steam
     # Audio and video via pipwire
     pipewire
+    # Chipcards via pcscd
+    chipcards
   ];
 
   # Use latest stable kernel
