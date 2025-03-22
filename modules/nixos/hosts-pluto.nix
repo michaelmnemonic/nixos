@@ -14,6 +14,8 @@
     "kvm-amd"
     # Motherboard sensors
     "nct6775"
+    # Early KMS
+    "amdgpu"
   ];
   boot.extraModulePackages = [];
 
