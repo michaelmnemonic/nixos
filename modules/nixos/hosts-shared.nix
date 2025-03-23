@@ -1,4 +1,4 @@
-{...}: {
+{pkgs, ...}: {
   # Initrd configuration
   boot.initrd.systemd.enable = true;
   boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci"];
@@ -79,6 +79,12 @@
       };
       where = "/mnt";
     }
+  ];
+
+  # Minimal set of packages
+  environment.systemPackages = with pkgs; [
+    gitMinimal
+    nfs-utils
   ];
 
   # Enable direnv

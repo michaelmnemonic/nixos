@@ -11,6 +11,10 @@
     hosts-pluto
     # Users
     users-maik
+    # PLASMA desktio
+    gui-plasma
+    # SSH
+    ssh
     # Fan control with fan2go
     fan2go
     # Software deployment platform steam
@@ -79,13 +83,6 @@
   # Enable bluetooth
   hardware.bluetooth.enable = true;
 
-  # Use plasma as desktop environment
-  services.desktopManager.plasma6.enable = true;
-
-  # No need for xterm
-  services.xserver.excludePackages = [pkgs.xterm];
-  services.xserver.desktopManager.xterm.enable = false;
-
   # Autologin with greetd
   services.greetd = {
     enable = true;
@@ -107,46 +104,10 @@
     noto-fonts-emoji
   ];
 
-  # List of system-wide packages
   environment.systemPackages = with pkgs; [
-    aqbanking
-    aspell
-    aspellDicts.de
-    aspellDicts.en
-    firefox
-    fooyin
-    gitMinimal
-    haruna
-    kdePackages.akonadi
-    kdePackages.akonadi-calendar
-    kdePackages.akonadi-contacts
-    kdePackages.akonadi-mime
-    kdePackages.akonadi-search
-    kdePackages.ffmpegthumbs
-    kdePackages.kcalc
-    kdePackages.kdepim-addons
-    kdePackages.kdepim-runtime
-    kdePackages.kio-extras
-    kdePackages.kleopatra
-    kdePackages.kmail
-    kdePackages.kmail-account-wizard
-    kdePackages.ksshaskpass
-    kdePackages.merkuro
-    kdePackages.qtlocation
-    kdePackages.skanpage
-    kdePackages.tokodon
-    keepassxc
-    libcamera
-    libreoffice-qt
-    mpv
-    nfs-utils
-    pinentry-qt
-    transmission_4-qt
-    unar
     vscodium
-    vulkan-hdr-layer-kwin6
-    wineWowPackages.staging
     zed-editor
+    wineWowPackages.staging
   ];
 
   # Not all software is free
@@ -165,9 +126,6 @@
 
   # VSCode shall use native wayland
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
-
-  # Make ssh-askpass prefer to interactivly ask for password
-  environment.sessionVariables.SSH_ASKPASS_REQUIRE = "prefer";
 
   #####################
   # ETC configuration #
@@ -274,41 +232,12 @@
     enable = true;
   };
 
-  # Enable dconf (needed for configuration of gtk themes under wayland)
-  programs.dconf.enable = true;
-
   ############
   # Services #
   ############
 
   # Enable mDNS
   services.avahi.enable = true;
-
-  # Enable dbus with "dbus-broker" implementation
-  services.dbus = {
-    enable = true;
-    implementation = "broker";
-  };
-
-  # Enable SSH server with public key authentication only
-  services.openssh = {
-    enable = true;
-    settings.PasswordAuthentication = false;
-    settings.KbdInteractiveAuthentication = false;
-  };
-
-  # Enable ssh-agent
-  programs.ssh = {
-    startAgent = true;
-    enableAskPassword = true;
-    askPassword = "${pkgs.kdePackages.ksshaskpass}/bin/ksshaskpass";
-  };
-
-  # Enable gnupg
-  programs.gnupg.agent = {
-    enable = true;
-    pinentryPackage = pkgs.pinentry-qt;
-  };
 
   # Enable syncthing
   services.syncthing = {
@@ -323,24 +252,6 @@
     acceleration = "rocm";
     rocmOverrideGfx = "11.0.0";
   };
-
-  ############
-  # Overlays #
-  ############
-
-  # https://invent.kde.org/plasma/ksshaskpass/-/merge_requests/24
-  nixpkgs.overlays = [
-    (final: prev: {
-      kdePackages = prev.kdePackages.overrideScope (sfinal: sprev: {
-        ksshaskpass = sprev.ksshaskpass.overrideAttrs (oldAttrs: {
-          patches = builtins.fetchurl {
-            url = "https://invent.kde.org/plasma/ksshaskpass/-/merge_requests/24.patch";
-            sha256 = "sha256:00rqh4bkwy8hhh2fl3pqddilprilanp78zi2l84ggfik4arm52ig";
-          };
-        });
-      });
-    })
-  ];
 
   # NixOS state version
   system.stateVersion = "24.05";
