@@ -104,7 +104,7 @@
     noto-fonts-emoji
   ];
 
-# List of system-wide packages
+  # List of system-wide packages
   environment.systemPackages = with pkgs; [
     aspell
     aspellDicts.de
@@ -200,13 +200,6 @@
     enable = true;
     settings.PasswordAuthentication = false;
     settings.KbdInteractiveAuthentication = false;
-  };
-
-  # Enable ssh-agent
-  programs.ssh = {
-    startAgent = true;
-    enableAskPassword = true;
-    askPassword = "${pkgs.kdePackages.ksshaskpass}/bin/ksshaskpass";
   };
 
   # Enable gnupg
