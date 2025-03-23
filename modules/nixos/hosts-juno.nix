@@ -21,6 +21,15 @@
   boot.initrd.kernelModules = [];
   boot.extraModulePackages = [];
 
+  # Set kernel parameters
+  boot.kernelParams = [
+    # Allow firmware upgrades
+    "iomem=relaxed"
+  ];
+
+  # Enable plymouth
+  boot.plymouth.enable = true;
+
   # Filesystems
   fileSystems."/" = {
     device = "/dev/disk/by-label/NIXOS";
@@ -33,6 +42,15 @@
   };
 
   swapDevices = [];
+
+
+  # Enable hardware accelerated video decode
+  hardware.graphics = {
+    enable = true;
+    extraPackages = with pkgs; [
+      intel-media-driver
+    ];
+  };
 
   # Host platform
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
