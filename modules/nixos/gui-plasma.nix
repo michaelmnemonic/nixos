@@ -15,12 +15,12 @@
     firefox
     fooyin
     haruna
-    kdePackages.ark
     kdePackages.akonadi
     kdePackages.akonadi-calendar
     kdePackages.akonadi-contacts
     kdePackages.akonadi-mime
     kdePackages.akonadi-search
+    kdePackages.ark
     kdePackages.ffmpegthumbs
     kdePackages.kcalc
     kdePackages.kdepim-addons
@@ -34,6 +34,7 @@
     kdePackages.qtlocation
     kdePackages.skanpage
     kdePackages.tokodon
+    kmymoney
     libcamera
     libreoffice-qt
     mpv
