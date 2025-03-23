@@ -1,5 +1,2 @@
 .direnv
-configuration.nix
-secrets.nix
-packages/autotag/Keys.cs
 result

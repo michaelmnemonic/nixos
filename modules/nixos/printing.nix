@@ -2,6 +2,7 @@
   # Enable printing
   services.printing.enable = true;
   hardware.printers = {
+    # Setup default printers
     ensurePrinters = [
       {
         name = "Laserdrucker";

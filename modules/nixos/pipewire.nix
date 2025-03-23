@@ -1,14 +1,20 @@
 {pkgs, ...}: {
-  # Use pipewire
+  # Disable pulseaudio
   hardware.pulseaudio.enable = false;
+
+  # Enable rtkit for (some) realtime support
   security.rtkit.enable = true;
+
+  # Enable pipewire
   services.pipewire = {
     enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
+
+    # Configure pipewise
     configPackages = [
-      # Prevent resampling of sample rate the DAC nativly supports
+      # Prevent resampling of sample rate the DAC natively supports
       (pkgs.writeTextDir "share/pipewire/pipewire.conf.d/00-prevent-resampling.conf" ''
         context.properties = {
           link.max-buffers = 16           # version < 3 clients can't handle more
@@ -145,9 +151,12 @@
         ]
       '')
     ];
+
+    # Configure wireplumber (pipewire session manager)
     wireplumber = {
       enable = true;
       configPackages = [
+        # Prettier name for usb-c headset
         (pkgs.writeTextDir "share/wireplumber/wireplumber.conf.d/10-usb-c-headphones.conf" ''
           monitor.alsa.rules = [
              {
@@ -165,6 +174,8 @@
             }
           ]
         '')
+
+        # Prettier name for speakers of charon
         (pkgs.writeTextDir "share/wireplumber/wireplumber.conf.d/10-lenovo-x13s-speakers.conf" ''
           monitor.alsa.rules = [
              {
@@ -183,6 +194,8 @@
             }
           ]
         '')
+
+        # Prettier name for USB DAC
         (pkgs.writeTextDir "share/wireplumber/wireplumber.conf.d/10-usb-dac.conf" ''
           monitor.alsa.rules = [
              {
@@ -200,6 +213,8 @@
             }
           ]
         '')
+
+        # Prettier name for desktop monitor
         (pkgs.writeTextDir "share/wireplumber/wireplumber.conf.d/10-lg-monitor.conf" ''
           monitor.alsa.rules = [
              {

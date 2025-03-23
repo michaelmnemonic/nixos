@@ -1,64 +1,21 @@
 {
   description = "Nix configuration for several private host systems";
 
+  # Add all your dependencies here
   inputs = {
-    nixpkgs-stable.url = "github:nixos/nixpkgs?ref=nixos-24.11";
+    nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
 
-    nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    blueprint = {
+      url = "github:numtide/blueprint";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     nixos-x13s = {
       url = "github:michaelmnemonic/x13s-nixos";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = {
-    self,
-    nixpkgs-stable,
-    nixpkgs-unstable,
-    nixos-x13s,
-  }: {
-    nixosConfigurations = {
-      pluto = nixpkgs-unstable.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          ./pluto.nix
-        ];
-        specialArgs = {
-        };
-      };
-      juno = nixpkgs-stable.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          ./juno.nix
-        ];
-        specialArgs = {
-        };
-      };
-      charon = nixpkgs-unstable.lib.nixosSystem {
-        system = "aarch64-linux";
-        modules = [
-          nixos-x13s.nixosModules.default
-          ./charon.nix
-        ];
-        specialArgs = {
-          inherit nixos-x13s;
-        };
-      };
-    };
-    devShell.x86_64-linux = nixpkgs-unstable.legacyPackages.x86_64-linux.pkgs.mkShell {
-      buildInputs = with nixpkgs-unstable.legacyPackages.x86_64-linux.pkgs; [
-        gitMinimal
-        nil
-        alejandra
-      ];
-    };
-    devShell.aarch64-linux = nixpkgs-unstable.legacyPackages.aarch64-linux.pkgs.mkShell {
-      buildInputs = with nixpkgs-unstable.legacyPackages.aarch64-linux.pkgs; [
-        gitMinimal
-        nil
-        alejandra
-      ];
-    };
-  };
+  # Load the blueprint
+  outputs = inputs: inputs.blueprint {inherit inputs;};
 }
