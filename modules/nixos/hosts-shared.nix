@@ -96,6 +96,6 @@
   system.autoUpgrade = {
     enable = true;
     allowReboot = false;
-    flake = "github:michaelmnemonic/nixos/blueprint";
+    flake = "github:michaelmnemonic/nixos";
   };
 }
