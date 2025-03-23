@@ -8,30 +8,30 @@
     # Shared host configuration
     hosts-shared
     # Hardware configuration
-    hosts-pluto
+    hosts-charon
     # Users
     users-maik
-    # Fan control with fan2go
-    fan2go
-    # Software deployment platform steam
-    steam
     # Audio and video via pipwire
     pipewire
-    # Chipcards via pcscd
-    chipcards
     # Printing
     printing
     # Scanning
     scanning
   ];
 
-  # Use latest stable kernel
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # Allow unfree software
+  nixpkgs.config.allowUnfree = true;
 
   # Network configuration
-  networking.hostName = "pluto";
+  networking.hostName = "charon";
   networking.networkmanager.enable = true;
   systemd.services."NetworkManager-wait-online".enable = false;
+  networking.modemmanager.fccUnlockScripts = [
+    {
+      id = "105b:e0c3";
+      path = "${pkgs.modemmanager}/share/ModemManager/fcc-unlock.available.d/105b";
+    }
+  ];
 
   # Firewall configuration
   networking.firewall = {
@@ -82,21 +82,18 @@
   # Use plasma as desktop environment
   services.desktopManager.plasma6.enable = true;
 
+  # Use sddm as display-manager
+  services.displayManager.sddm = {
+    enable = true;
+    wayland = {
+      enable = true;
+      compositor = "kwin";
+    };
+  };
+
   # No need for xterm
   services.xserver.excludePackages = [pkgs.xterm];
   services.xserver.desktopManager.xterm.enable = false;
-
-  # Autologin with greetd
-  services.greetd = {
-    enable = true;
-    settings = rec {
-      initial_session = {
-        command = "${pkgs.kdePackages.plasma-workspace}/bin/startplasma-wayland";
-        user = "maik";
-      };
-      default_session = initial_session;
-    };
-  };
 
   # Fonts
   fonts.packages = with pkgs; [
@@ -107,23 +104,25 @@
     noto-fonts-emoji
   ];
 
-  # List of system-wide packages
+# List of system-wide packages
   environment.systemPackages = with pkgs; [
-    aqbanking
     aspell
     aspellDicts.de
     aspellDicts.en
     firefox
     fooyin
     gitMinimal
-    haruna
     kdePackages.akonadi
     kdePackages.akonadi-calendar
     kdePackages.akonadi-contacts
     kdePackages.akonadi-mime
     kdePackages.akonadi-search
+    kdePackages.akregator
+    kdePackages.alligator
+    kdePackages.arianna
+    kdePackages.elisa
     kdePackages.ffmpegthumbs
-    kdePackages.kcalc
+    kdePackages.ghostwriter
     kdePackages.kdepim-addons
     kdePackages.kdepim-runtime
     kdePackages.kio-extras
@@ -131,33 +130,25 @@
     kdePackages.kmail
     kdePackages.kmail-account-wizard
     kdePackages.ksshaskpass
+    kdePackages.marknote
     kdePackages.merkuro
     kdePackages.qtlocation
     kdePackages.skanpage
     kdePackages.tokodon
-    keepassxc
+    kmymoney
     libcamera
     libreoffice-qt
     mpv
+    nautilus
     nfs-utils
     pinentry-qt
+    syncthing
     transmission_4-qt
     unar
     vscodium
-    vulkan-hdr-layer-kwin6
-    wineWowPackages.staging
+    yt-dlp
     zed-editor
   ];
-
-  # Not all software is free
-  nixpkgs.config.allowUnfreePredicate = pkg:
-    builtins.elem (lib.getName pkg) [
-      "libvgm" # dependency of fooyin
-      "steam"
-      "steam-original"
-      "steam-run"
-      "steam-unwrapped"
-    ];
 
   #########################
   # Environment variables #
@@ -169,113 +160,27 @@
   # Make ssh-askpass prefer to interactivly ask for password
   environment.sessionVariables.SSH_ASKPASS_REQUIRE = "prefer";
 
-  #####################
-  # ETC configuration #
-  #####################
-
-  # Overclock and undervolt AMD GPU
-  environment.etc."tmpfiles.d/gpu-undervolt.conf".text = ''
-    w+ /sys/class/drm/card1/device/pp_od_clk_voltage                - - - - vo -100\n
-    w+ /sys/class/drm/card1/device/pp_od_clk_voltage                - - - - m 1 1200\n
-    w+ /sys/class/drm/card1/device/pp_od_clk_voltage                - - - - c\n
-  '';
-
-  # Make sure syncthing home exists
-  environment.etc."tmpfiles.d/var-lib-synthing.conf".text = ''
-    d /var/lib/syncthing       700 1000 100 -
-  '';
-
-  # Fan control
-  environment.etc."fan2go/fan2go.yaml".text = ''
-    fans:
-      - id: side
-        hwmon:
-          platform: nct6792-isa-0290
-          index: 1
-        neverStop: true
-        curve: side_curve
-      - id: cpu
-        hwmon:
-          platform: nct6792-isa-0290
-          index: 2
-        neverStop: true
-        curve: cpu_curve
-      - id: bottom
-        hwmon:
-          platform: nct6792-isa-0290
-          index: 3
-        neverStop: true
-        curve: gpu_curve
-    sensors:
-      - id: gpu_edge
-        hwmon:
-          platform: amdgpu-pci-0800
-          index: 1
-      - id: gpu_mem
-        hwmon:
-          platform: amdgpu-pci-0800
-          index: 3
-      - id: cpu_tctl
-        hwmon:
-          platform: k10temp-pci-00c3
-          index: 1
-    curves:
-      - id: gpu_edge_curve
-        linear:
-          sensor: gpu_edge
-          steps:
-            - 50: 80
-            - 60: 100
-            - 70: 150
-      - id: gpu_mem_curve
-        linear:
-          sensor: gpu_mem
-          steps:
-            - 70: 80
-            - 90: 100
-            - 100: 160
-      - id: gpu_curve
-        function:
-          type: maximum
-          curves:
-            - gpu_edge_curve
-            - gpu_mem_curve
-      - id: cpu_curve
-        linear:
-          sensor: cpu_tctl
-          steps:
-            - 50: 80
-            - 60: 100
-            - 70: 130
-      - id: side_curve
-        function:
-          type: maximum
-          curves:
-            - cpu_curve
-            - gpu_curve
-  '';
-
   ############
   # Programs #
   ############
 
-  # Enable gamemode
-  programs.gamemode = {
-    enable = true;
-    settings = {
-      general = {
-        renice = 10;
-      };
-    };
-  };
-
-  # Enable gamescope
-  programs.gamescope = {
-    enable = true;
-  };
+  # Enable direnv
+  programs.direnv.enable = true;
 
   # Enable dconf (needed for configuration of gtk themes under wayland)
   programs.dconf.enable = true;
+
+  # Make fish shell availlable
+  programs.fish.enable = true;
+
+  # Enable kdeconnect
+  programs.kdeconnect.enable = true;
+
+  # Enable ssh-agent
+  programs.ssh = {
+    startAgent = true;
+    askPassword = "${pkgs.kdePackages.ksshaskpass}/bin/ksshaskpass";
+  };
 
   ############
   # Services #
@@ -308,20 +213,6 @@
   programs.gnupg.agent = {
     enable = true;
     pinentryPackage = pkgs.pinentry-qt;
-  };
-
-  # Enable syncthing
-  services.syncthing = {
-    enable = true;
-    openDefaultPorts = true;
-    user = "maik";
-  };
-
-  # Enable ollama
-  services.ollama = {
-    enable = true;
-    acceleration = "rocm";
-    rocmOverrideGfx = "11.0.0";
   };
 
   ############

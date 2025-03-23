@@ -34,6 +34,19 @@
   i18n.defaultLocale = "de_DE.UTF-8";
   console.keyMap = "de";
 
+  # Use german keyboard layout
+  services.xserver = {
+    enable = true;
+    # set keymap
+    xkb.layout = "de";
+  };
+
+  # Use zram as swap
+  zramSwap = {
+    enable = true;
+    algorithm = "zstd";
+  };
+
   # Make users immutable
   users.mutableUsers = false;
 
