@@ -1,5 +1,5 @@
 {
-  description = "Simple flake with a devshell";
+  description = "Nix configuration for several private host systems";
 
   # Add all your dependencies here
   inputs = {
@@ -17,5 +17,5 @@
   };
 
   # Load the blueprint
-  outputs = inputs: inputs.blueprint { inherit inputs; };
+  outputs = inputs: inputs.blueprint {inherit inputs;};
 }
