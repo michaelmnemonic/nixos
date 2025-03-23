@@ -1,10 +1,12 @@
 {
+  inputs,
   lib,
   modulesPath,
   ...
 }: {
   # Import modulesPath
   imports = [
+    inputs.nixos-x13s.nixosModules.default
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
