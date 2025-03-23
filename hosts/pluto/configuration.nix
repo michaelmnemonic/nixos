@@ -15,6 +15,8 @@
     gui-plasma
     # SSH
     ssh
+    # vscodium
+    vscodium
     # Fan control with fan2go
     fan2go
     # Software deployment platform steam
@@ -105,7 +107,6 @@
   ];
 
   environment.systemPackages = with pkgs; [
-    vscodium
     zed-editor
     wineWowPackages.staging
   ];
@@ -119,13 +120,6 @@
       "steam-run"
       "steam-unwrapped"
     ];
-
-  #########################
-  # Environment variables #
-  #########################
-
-  # VSCode shall use native wayland
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   #####################
   # ETC configuration #

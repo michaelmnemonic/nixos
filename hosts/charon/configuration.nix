@@ -15,6 +15,8 @@
     gui-plasma
     # SSH
     ssh
+    # vscodium
+    vscodium
     # Audio and video via pipwire
     pipewire
     # Printing
@@ -103,15 +105,7 @@
 
   # List of system-wide packages
   environment.systemPackages = with pkgs; [
-    vscodium
   ];
-
-  #########################
-  # Environment variables #
-  #########################
-
-  # VSCode shall use native wayland
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   ############
   # Programs #
