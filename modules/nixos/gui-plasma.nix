@@ -12,7 +12,6 @@
     aspell
     aspellDicts.de
     aspellDicts.en
-    firefox
     fooyin
     haruna
     kdePackages.akonadi
@@ -54,6 +53,12 @@
   services.dbus = {
     enable = true;
     implementation = "broker";
+  };
+
+  # Enable firefox
+  programs.firefox = {
+    enable = true;
+    nativeMessagingHosts.packages = [ pkgs.plasma-browser-integration ];
   };
 
   # Enable kdeconnect
