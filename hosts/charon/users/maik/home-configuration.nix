@@ -1,9 +1,14 @@
-{...}:{
+{pkgs, ...}:{
     # Enable syncthing
     services.syncthing.enable = true;
 
     # Manage systemd user services
     systemd.user.enable = true;
+
+    # Install user packages
+    home.packages = with pkgs; [
+        zed-editor
+    ];
 
 #     # Dotfiles
 #     home.file = {
