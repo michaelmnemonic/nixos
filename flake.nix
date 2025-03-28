@@ -10,6 +10,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nixos-x13s = {
       url = "github:michaelmnemonic/x13s-nixos";
       inputs.nixpkgs.follows = "nixpkgs";
