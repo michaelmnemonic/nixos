@@ -14,9 +14,7 @@
     home.file = {
         # mpv
         ".config/mpv/mpv.conf".text = ''
-            profile=high-quality
             vo=gpu-next
-            gpu-api=vulkan
             gpu-context=waylandvk
         '';
         ".config/mpv/input.conf".text = ''
