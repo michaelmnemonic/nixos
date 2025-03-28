@@ -10,18 +10,34 @@
         zed-editor
     ];
 
-#     # Dotfiles
-#     home.file = {
-#         ".mozilla/firefox/native-messaging-hosts/org.kde.plasma.browser_integration.json".text = ''
-#             {
-#                 "name": "org.kde.plasma.browser_integration",
-#                 "description": "Native connector for KDE Plasma",
-#                 "path": "/run/current-system/sw/bin/plasma-browser-integration-host",
-#                 "type": "stdio",
-#                 "allowed_extensions": ["plasma-browser-integration@kde.org"]
-#             }
-#         '';
-#     };
+    # Dotfiles
+    home.file = {
+        # mpv
+        ".config/mpv/mpv.conf".text = ''
+            profile=high-quality
+            vo=gpu-next
+            gpu-api=vulkan
+            gpu-context=waylandvk
+        '';
+        ".config/mpv/input.conf".text = ''
+            WHEEL_UP      seek  10
+            WHEEL_DOWN    seek -10
+        '';
+
+        # kwin window rules
+        ".config/kwinrulesrc".text = ''
+            [General]
+            count=1
+            rules=dd064355-b15d-4681-a245-b7b757480f63
+
+            [dd064355-b15d-4681-a245-b7b757480f63]
+            Description=Dark mode für mpv
+            decocolor=BreezeDark
+            decocolorrule=2
+            wmclass=mpv
+            wmclassmatch=1
+        '';
+    };
 
     home.stateVersion = "24.11";
 }
