@@ -58,7 +58,7 @@
   # Enable firefox
   programs.firefox = {
     enable = true;
-    nativeMessagingHosts.packages = [ pkgs.plasma-browser-integration ];
+    nativeMessagingHosts.packages = [ pkgs.kdePackages.plasma-browser-integration ];
   };
 
   # Enable kdeconnect
