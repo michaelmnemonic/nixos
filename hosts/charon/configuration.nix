@@ -17,12 +17,11 @@
     ssh
     # vscodium
     vscodium
-    # Audio and video via pipwire
+    # Basic capabilites
     pipewire
-    # Printing
     printing
-    # Scanning
     scanning
+    chipcards
   ];
 
   # Allow unfree software
