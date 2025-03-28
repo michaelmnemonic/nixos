@@ -71,11 +71,11 @@
         "systems": "systems_2"
       },
       "locked": {
-        "lastModified": 1743164335,
-        "narHash": "sha256-oX2NWbp84viiIQDkk2LujbGuAvJU89e53XKvnoLZWIQ=",
+        "lastModified": 1743193404,
+        "narHash": "sha256-pDv0xdo8PyWL0MrXQsyCXQnJEoEKgMH3VbYTflnov1I=",
         "owner": "michaelmnemonic",
         "repo": "x13s-nixos",
-        "rev": "1cba68d3bb1f92802116e8bf0d9dce14cf935438",
+        "rev": "caf6712da953a4c1060a5a91652a8dd6aba83589",
         "type": "github"
       },
       "original": {
