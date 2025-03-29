@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   # Disable pulseaudio
-  services.pulseaudio.enable = false;
+  hardware.pulseaudio.enable = false;
 
   # Enable rtkit for (some) realtime support
   security.rtkit.enable = true;
@@ -153,128 +153,128 @@
 
       # Provide equalizer for Desktop Speakers
       (pkgs.writeTextDir "share/pipewire/pipewire.conf.d/10-kef-speakers.conf" ''
-        context.modules = [
-          { name = libpipewire-module-filter-chain
-            args = {
-              node.description = "Desktoplautsprecher"
-              media.name       = "Desktoplautsprecher"
-              filter.graph = {
-                  nodes = [
-                      {
-                          type  = builtin
-                          name  = eq_band_1
-                          label = bq_peaking
-                          control = { "Freq" = 139 "Q" = 3.17 "Gain" = -6.4 }
-                      }
-                      {
-                          type  = builtin
-                          name  = eq_band_2
-                          label = bq_peaking
-                          control = { "Freq" = 184 "Q" = 2.0 "Gain" = -8.8 }
-                      }
-                      {
-                          type  = builtin
-                          name  = eq_band_3
-                          label = bq_peaking
-                          control = { "Freq" = 265 "Q" = 1.79 "Gain" = -7.3 }
-                      }
-                      {
-                          type  = builtin
-                          name  = eq_band_4
-                          label = bq_peaking
-                          control = { "Freq" = 320 "Q" = 1.92 "Gain" = 3.4 }
-                      }
-                      {
-                          type  = builtin
-                          name  = eq_band_5
-                          label = bq_peaking
-                          control = { "Freq" = 327 "Q" = 6.27 "Gain" = -4.1 }
-                      }
-                      {
-                          type  = builtin
-                          name  = eq_band_6
-                          label = bq_peaking
-                          control = { "Freq" = 1720 "Q" = 7.09 "Gain" = 1.7 }
-                      }
-                      {
-                          type  = builtin
-                          name  = eq_band_7
-                          label = bq_peaking
-                          control = { "Freq" = 1813 "Q" = 3.06 "Gain" = -2.2 }
-                      }
-                      {
-                          type  = builtin
-                          name  = eq_band_8
-                          label = bq_peaking
-                          control = { "Freq" = 2569 "Q" = 1.87 "Gain" = 2.4 }
-                      }
-                      {
-                          type  = builtin
-                          name  = eq_band_9
-                          label = bq_peaking
-                          control = { "Freq" = 2932 "Q" = 2.27 "Gain" = -3.3 }
-                      }
-                      {
-                          type  = builtin
-                          name  = eq_band_10
-                          label = bq_peaking
-                          control = { "Freq" = 4707 "Q" = 4.35 "Gain" = -2.7 }
-                      }
-                      {
-                          type  = builtin
-                          name  = eq_band_11
-                          label = bq_peaking
-                          control = { "Freq" = 5141 "Q" = 1.45 "Gain" = 3.9 }
-                      }
-                      {
-                          type  = builtin
-                          name  = eq_band_12
-                          label = bq_peaking
-                          control = { "Freq" = 6862 "Q" = 1.82 "Gain" = -4.4 }
-                      }
-                      {
-                          type  = builtin
-                          name  = eq_band_13
-                          label = bq_peaking
-                          control = { "Freq" = 11002 "Q" = 1.0 "Gain" = -3.1 }
-                      }
-                      {
-                          type  = builtin
-                          name  = eq_band_14
-                          label = bq_peaking
-                          control = { "Freq" = 15390 "Q" = 1.53 "Gain" = -3.7 }
-                      }
-                  ]
-                  links = [
-                      { output = "eq_band_1:Out" input = "eq_band_2:In" }
-                      { output = "eq_band_2:Out" input = "eq_band_3:In" }
-                      { output = "eq_band_3:Out" input = "eq_band_4:In" }
-                      { output = "eq_band_4:Out" input = "eq_band_5:In" }
-                      { output = "eq_band_5:Out" input = "eq_band_6:In" }
-                      { output = "eq_band_6:Out" input = "eq_band_7:In" }
-                      { output = "eq_band_7:Out" input = "eq_band_8:In" }
-                      { output = "eq_band_8:Out" input = "eq_band_9:In" }
-                      { output = "eq_band_9:Out" input = "eq_band_10:In" }
-                      { output = "eq_band_10:Out" input = "eq_band_11:In" }
-                      { output = "eq_band_11:Out" input = "eq_band_12:In" }
-                      { output = "eq_band_12:Out" input = "eq_band_13:In" }
-                      { output = "eq_band_13:Out" input = "eq_band_14:In" }
-                  ]
-              }
-          audio.channels = 2
-          audio.position = [ FL FR ]
-              capture.props = {
-                  node.name   = "effect_input.eq14"
-                  media.class = Audio/Sink
-              }
-              playback.props = {
-                  node.name   = "effect_output.eq14"
-                  node.target = "alsa_output.usb-SMSL_SMSL_USB_AUDIO-00.analog-stereo"
-                  node.passive = true
-              }
+          context.modules = [
+            { name = libpipewire-module-filter-chain
+              args = {
+                node.description = "Desktoplautsprecher"
+                media.name       = "Desktoplautsprecher"
+                filter.graph = {
+                    nodes = [
+                        {
+                            type  = builtin
+                            name  = eq_band_1
+                            label = bq_peaking
+                            control = { "Freq" = 139 "Q" = 3.17 "Gain" = -6.4 }
+                        }
+                        {
+                            type  = builtin
+                            name  = eq_band_2
+                            label = bq_peaking
+                            control = { "Freq" = 184 "Q" = 2.0 "Gain" = -8.8 }
+                        }
+                        {
+                            type  = builtin
+                            name  = eq_band_3
+                            label = bq_peaking
+                            control = { "Freq" = 265 "Q" = 1.79 "Gain" = -7.3 }
+                        }
+                        {
+                            type  = builtin
+                            name  = eq_band_4
+                            label = bq_peaking
+                            control = { "Freq" = 320 "Q" = 1.92 "Gain" = 3.4 }
+                        }
+                        {
+                            type  = builtin
+                            name  = eq_band_5
+                            label = bq_peaking
+                            control = { "Freq" = 327 "Q" = 6.27 "Gain" = -4.1 }
+                        }
+                        {
+                            type  = builtin
+                            name  = eq_band_6
+                            label = bq_peaking
+                            control = { "Freq" = 1720 "Q" = 7.09 "Gain" = 1.7 }
+                        }
+                        {
+                            type  = builtin
+                            name  = eq_band_7
+                            label = bq_peaking
+                            control = { "Freq" = 1813 "Q" = 3.06 "Gain" = -2.2 }
+                        }
+                        {
+                            type  = builtin
+                            name  = eq_band_8
+                            label = bq_peaking
+                            control = { "Freq" = 2569 "Q" = 1.87 "Gain" = 2.4 }
+                        }
+                        {
+                            type  = builtin
+                            name  = eq_band_9
+                            label = bq_peaking
+                            control = { "Freq" = 2932 "Q" = 2.27 "Gain" = -3.3 }
+                        }
+                        {
+                            type  = builtin
+                            name  = eq_band_10
+                            label = bq_peaking
+                            control = { "Freq" = 4707 "Q" = 4.35 "Gain" = -2.7 }
+                        }
+                        {
+                            type  = builtin
+                            name  = eq_band_11
+                            label = bq_peaking
+                            control = { "Freq" = 5141 "Q" = 1.45 "Gain" = 3.9 }
+                        }
+                        {
+                            type  = builtin
+                            name  = eq_band_12
+                            label = bq_peaking
+                            control = { "Freq" = 6862 "Q" = 1.82 "Gain" = -4.4 }
+                        }
+                        {
+                            type  = builtin
+                            name  = eq_band_13
+                            label = bq_peaking
+                            control = { "Freq" = 11002 "Q" = 1.0 "Gain" = -3.1 }
+                        }
+                        {
+                            type  = builtin
+                            name  = eq_band_14
+                            label = bq_peaking
+                            control = { "Freq" = 15390 "Q" = 1.53 "Gain" = -3.7 }
+                        }
+                    ]
+                    links = [
+                        { output = "eq_band_1:Out" input = "eq_band_2:In" }
+                        { output = "eq_band_2:Out" input = "eq_band_3:In" }
+                        { output = "eq_band_3:Out" input = "eq_band_4:In" }
+                        { output = "eq_band_4:Out" input = "eq_band_5:In" }
+                        { output = "eq_band_5:Out" input = "eq_band_6:In" }
+                        { output = "eq_band_6:Out" input = "eq_band_7:In" }
+                        { output = "eq_band_7:Out" input = "eq_band_8:In" }
+                        { output = "eq_band_8:Out" input = "eq_band_9:In" }
+                        { output = "eq_band_9:Out" input = "eq_band_10:In" }
+                        { output = "eq_band_10:Out" input = "eq_band_11:In" }
+                        { output = "eq_band_11:Out" input = "eq_band_12:In" }
+                        { output = "eq_band_12:Out" input = "eq_band_13:In" }
+                        { output = "eq_band_13:Out" input = "eq_band_14:In" }
+                    ]
+                }
+            audio.channels = 2
+            audio.position = [ FL FR ]
+                capture.props = {
+                    node.name   = "effect_input.eq14"
+                    media.class = Audio/Sink
+                }
+                playback.props = {
+                    node.name   = "effect_output.eq14"
+                    node.target = "alsa_output.usb-SMSL_SMSL_USB_AUDIO-00.analog-stereo"
+                    node.passive = true
+                }
+            }
           }
-        }
-      ]
+        ]
       '')
     ];
 
