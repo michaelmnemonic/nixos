@@ -1,27 +1,26 @@
 {
-  inputs,
   pkgs,
   lib,
   ...
 }: {
-  imports = with inputs.self.nixosModules; [
+  imports = [
     # Shared host configuration
-    hosts-shared
+    ./_shared.nix
     # Hardware configuration
-    hosts-charon
+    ../hardware/charon.nix
     # Users
-    users-maik
+    ../users/maik.nix
     # PLASMA desktio
-    gui-plasma
+    ../gui/plasma.nix
     # SSH
-    ssh
+    ../capabilities/ssh.nix
     # vscodium
-    vscodium
+    ../capabilities/vscodium.nix
     # Basic capabilites
-    pipewire
-    printing
-    scanning
-    chipcards
+    ../capabilities/pipewire
+    ../capabilities/printing
+    ../capabilities/scanning
+    ../capabilities/chipcards
   ];
 
   # Allow unfree software

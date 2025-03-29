@@ -6,7 +6,7 @@
 }: {
   # Import modulesPath
   imports = [
-    inputs.nixos-x13s.nixosModules.default
+    ../x13s-nixos/module.nix
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
