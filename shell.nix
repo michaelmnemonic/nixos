@@ -2,8 +2,9 @@
 
 pkgs.mkShell {
   packages = with pkgs; [
+    alejandra
     gitMinimal
     nil
-    alejandra
+    niv
   ];
 }
