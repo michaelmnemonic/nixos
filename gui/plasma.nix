@@ -75,17 +75,30 @@
   # Use ksshaskpass for ssh
   programs.ssh.askPassword = "${pkgs.kdePackages.ksshaskpass}/bin/ksshaskpass";
 
-  # https://invent.kde.org/plasma/ksshaskpass/-/merge_requests/24
+  # Customize kde plasma
   nixpkgs.overlays = [
     (final: prev: {
       kdePackages = prev.kdePackages.overrideScope (sfinal: sprev: {
+        # https://invent.kde.org/plasma/ksshaskpass/-/merge_requests/24
         ksshaskpass = sprev.ksshaskpass.overrideAttrs (oldAttrs: {
           patches = builtins.fetchurl {
             url = "https://invent.kde.org/plasma/ksshaskpass/-/merge_requests/24.patch";
             sha256 = "sha256:00rqh4bkwy8hhh2fl3pqddilprilanp78zi2l84ggfik4arm52ig";
           };
         });
+        # smaller systemtray icons with more spacing
+        # FIXME: this compiles plasma-workspace just to patch qml script
+        plasma-workspace = sprev.plasma-workspace.overrideAttrs (oldAttrs: {
+          patches =
+            oldAttrs.patches
+            ++ [
+              ../patches/0001-plasma-workspaces-systemtray-icon-sizes.patch
+              ../patches/0002-plasma-workspaces-lockout-icon-sizes.patch
+            ];
+          });
       });
     })
   ];
+
+
 }
