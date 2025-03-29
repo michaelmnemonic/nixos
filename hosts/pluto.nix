@@ -13,21 +13,21 @@
     # PLASMA desktio
     ../gui/plasma.nix
     # SSH
-    ../capabilites/ssh.nix
+    ../capabilities/ssh.nix
     # vscodium
-    ../capabilites/vscodium.nix
+    ../capabilities/vscodium.nix
     # Fan control with fan2go
-    ../capabilites/fan2go.nix
+    ../capabilities/fan2go.nix
     # Software deployment platform steam
-    ../capabilites/steam.nix
+    ../capabilities/steam.nix
     # Audio and video via pipwire
-    ../capabilites/pipewire.nix
+    ../capabilities/pipewire.nix
     # Chipcards via pcscd
-    ../capabilites/chipcards.nix
+    ../capabilities/chipcards.nix
     # Printing
-    ../capabilites/printing.nix
+    ../capabilities/printing.nix
     # Scanning
-    ../capabilites/scanning.nix
+    ../capabilities/scanning.nix
   ];
 
   # Use latest stable kernel
