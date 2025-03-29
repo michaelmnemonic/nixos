@@ -38,6 +38,7 @@
     libreoffice-qt
     mpv
     pinentry-qt
+    syncthing
     transmission_4-qt
     unar
   ];

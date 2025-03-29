@@ -232,13 +232,6 @@
   # Enable mDNS
   services.avahi.enable = true;
 
-  # Enable syncthing
-  services.syncthing = {
-    enable = true;
-    openDefaultPorts = true;
-    user = "maik";
-  };
-
   # Enable ollama
   services.ollama = {
     enable = true;
