@@ -4,31 +4,31 @@
   lib,
   ...
 }: {
-  imports = with inputs.self.nixosModules; [
+  imports = [
     # Shared host configuration
-    hosts-shared
+    ./_shared.nix
     # Hardware configuration
-    hosts-pluto
+    ../hardware/pluto.nix
     # Users
-    users-maik
+    ../users/maik.nix
     # PLASMA desktio
-    gui-plasma
+    ../gui/plasma.nix
     # SSH
-    ssh
+    ../capabilites/ssh.nix
     # vscodium
-    vscodium
+    ../capabilites/vscodium.nix
     # Fan control with fan2go
-    fan2go
+    ../capabilites/fan2go.nix
     # Software deployment platform steam
-    steam
+    ../capabilites/steam.nix
     # Audio and video via pipwire
-    pipewire
+    ../capabilites/pipewire.nix
     # Chipcards via pcscd
-    chipcards
+    ../capabilites/chipcards.nix
     # Printing
-    printing
+    ../capabilites/printing.nix
     # Scanning
-    scanning
+    ../capabilites/scanning.nix
   ];
 
   # Use latest stable kernel
