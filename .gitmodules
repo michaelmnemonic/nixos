@@ -1,0 +1,3 @@
+[submodule "x13s-nixos"]
+	path = x13s-nixos
+	url = git@github.com:michaelmnemonic/x13s-nixos.git
