@@ -17,10 +17,10 @@
     # vscodium
     ../capabilities/vscodium.nix
     # Basic capabilites
-    ../capabilities/pipewire
-    ../capabilities/printing
-    ../capabilities/scanning
-    ../capabilities/chipcards
+    ../capabilities/pipewire.nix
+    ../capabilities/printing.nix
+    ../capabilities/scanning.nix
+    ../capabilities/chipcards.nix
   ];
 
   # Allow unfree software
