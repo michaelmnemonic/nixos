@@ -25,12 +25,6 @@
 
   boot.extraModulePackages = [];
 
-  # Luks encrypted root partition
-  boot.initrd.luks.devices.NIXOS = {
-    device = "/dev/disk/by-partlabel/NIXOS";
-    allowDiscards = true;
-  };
-
   # Filesystems
   fileSystems."/" = {
     device = "/dev/disk/by-label/NIXOS";
