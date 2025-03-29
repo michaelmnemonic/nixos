@@ -2,6 +2,15 @@
   # Use plasma as desktop environment
   services.desktopManager.plasma6.enable = true;
 
+  # Use sddm as display-manager
+  services.displayManager.sddm = {
+    enable = true;
+    wayland = {
+      enable = true;
+      compositor = "kwin";
+    };
+  };
+
   # No need for xterm
   services.xserver.excludePackages = [pkgs.xterm];
   services.xserver.desktopManager.xterm.enable = false;

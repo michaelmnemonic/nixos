@@ -84,15 +84,6 @@
   # Enable bluetooth
   hardware.bluetooth.enable = true;
 
-  # Use sddm as display-manager
-  services.displayManager.sddm = {
-    enable = true;
-    wayland = {
-      enable = true;
-      compositor = "kwin";
-    };
-  };
-
   # Fonts
   fonts.packages = with pkgs; [
     inter

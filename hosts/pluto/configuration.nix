@@ -85,18 +85,6 @@
   # Enable bluetooth
   hardware.bluetooth.enable = true;
 
-  # Autologin with greetd
-  services.greetd = {
-    enable = true;
-    settings = rec {
-      initial_session = {
-        command = "${pkgs.kdePackages.plasma-workspace}/bin/startplasma-wayland";
-        user = "maik";
-      };
-      default_session = initial_session;
-    };
-  };
-
   # Fonts
   fonts.packages = with pkgs; [
     inter
