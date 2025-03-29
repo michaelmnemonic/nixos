@@ -40,7 +40,6 @@
     pinentry-qt
     transmission_4-qt
     unar
-    vulkan-hdr-layer-kwin6
   ];
 
   # Make ssh-askpass prefer to interactivly ask for password
