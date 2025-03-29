@@ -38,6 +38,15 @@
     }
   ];
 
+  # Use sddm as display-manager
+  services.displayManager.sddm = {
+    enable = true;
+    wayland = {
+      enable = true;
+      compositor = "kwin";
+    };
+  };
+
   # Firewall configuration
   networking.firewall = {
     enable = true;

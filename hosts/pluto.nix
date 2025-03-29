@@ -39,6 +39,18 @@
   networking.networkmanager.enable = true;
   systemd.services."NetworkManager-wait-online".enable = false;
 
+  # Autologin with greetd
+  services.greetd = {
+    enable = true;
+    settings = rec {
+      initial_session = {
+        command = "${pkgs.kdePackages.plasma-workspace}/bin/startplasma-wayland";
+        user = "maik";
+      };
+      default_session = initial_session;
+    };
+  };
+
   # Firewall configuration
   networking.firewall = {
     enable = true;
