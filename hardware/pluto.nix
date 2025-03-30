@@ -25,11 +25,6 @@
 
   boot.extraModulePackages = [];
 
-  boot.kernelPatches = [{
-    name = "bore-scheduler";
-    patch = ../patches/0010-linux6.14.y-bore5.9.6r2.patch;
-  }];
-
   # Luks encrypted root partition
   boot.initrd.luks.devices.NIXOS = {
     device = "/dev/disk/by-partlabel/NIXOS";
