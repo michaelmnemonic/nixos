@@ -44,7 +44,6 @@
 
   swapDevices = [];
 
-
   # Enable hardware accelerated video decode
   hardware.graphics = {
     enable = true;
