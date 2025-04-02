@@ -1,6 +1,7 @@
 {
   lib,
   modulesPath,
+  nixos-x13s,
   ...
 }: {
   # Import modulesPath
@@ -11,29 +12,21 @@
   # Kernel modules to during initrd
   boot.initrd.availableKernelModules = [
     "nvme"
-    "xhci_pci"
-    "ahci"
+    "phy-qcom-qmp-pcie"
+    "pcie-qcom"
   ];
 
   # Kernel modules to load ofter initrd
-  boot.kernelModules = ["kvm-intel"];
+  boot.kernelModules = [];
 
   boot.initrd.kernelModules = [];
   boot.extraModulePackages = [];
 
-  # Set kernel parameters
-  boot.kernelParams = [
-    # Allow firmware upgrades
-    "iomem=relaxed"
-  ];
-
-  # Enable plymouth
-  boot.plymouth.enable = true;
-
   # Filesystems
   fileSystems."/" = {
     device = "/dev/disk/by-label/NIXOS";
-    fsType = "ext4";
+    fsType = "f2fs";
+    options = ["compress_algorithm=zstd:1" "compress_chksum" "atgc" "gc_merge" "lazytime"];
   };
 
   fileSystems."/boot" = {
@@ -43,15 +36,17 @@
 
   swapDevices = [];
 
+  # Set kernel parameters
+  boot.kernelParams = [
+    # https://wiki.debian.org/InstallingDebianOn/Thinkpad/X13s
+    "iommu.passthrough=0"
+    "iommu.strict=0"
+    "pcie_aspm.policy=powersupersave"
+  ];
 
-  # Enable hardware accelerated video decode
-  hardware.graphics = {
-    enable = true;
-    extraPackages = with pkgs; [
-      intel-media-driver
-    ];
-  };
+  # Enable plymouth
+  boot.plymouth.enable = true;
 
   # Host platform
-  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+  nixpkgs.hostPlatform = lib.mkDefault "aarch64-linux";
 }

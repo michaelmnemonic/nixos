@@ -1,0 +1,13 @@
+diff --git a/applets/lock_logout/contents/ui/data.js b/applets/lock_logout/contents/ui/data.js
+index c784fa68e0..8eb695fe4b 100644
+--- a/applets/lock_logout/contents/ui/data.js
++++ b/applets/lock_logout/contents/ui/data.js
+@@ -33,7 +33,7 @@ var data = [{
+     tooltip_subText: i18n("End the session"),
+     requires: "Logout"
+ }, {
+-    icon: "system-log-out",
++    icon: "system-shutdown",
+     operation: "requestLogoutPrompt",
+     configKey: "requestLogoutScreen",
+     tooltip_mainText: i18nc("@info:tooltip", "Show logout screen"),

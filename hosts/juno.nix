@@ -4,25 +4,21 @@
   lib,
   ...
 }: {
-  imports = with inputs.self.nixosModules; [
+  imports = [
     # Shared host configuration
-    hosts-shared
+    ./_shared.nix
     # Hardware configuration
-    hosts-juno
+    ../hardware/juno.nix
     # Users
-    users-maik
-    # Fan control with fan2go
-    fan2go
-    # Software deployment platform steam
-    steam
+    ../users/maik.nix
     # Audio and video via pipwire
-    pipewire
+    ../capabilities/pipewire.nix
     # Chipcards via pcscd
-    chipcards
+    ../capabilities/chipcards.nix
     # Printing
-    printing
+    ../capabilities/printing.nix
     # Scanning
-    scanning
+    ../capabilities/scanning.nix
   ];
 
   # Use latest stable kernel

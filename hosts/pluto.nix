@@ -1,34 +1,33 @@
 {
-  inputs,
   pkgs,
   lib,
   ...
 }: {
-  imports = with inputs.self.nixosModules; [
+  imports = [
     # Shared host configuration
-    hosts-shared
+    ./_shared.nix
     # Hardware configuration
-    hosts-pluto
+    ../hardware/pluto.nix
     # Users
-    users-maik
+    ../users/maik.nix
     # PLASMA desktio
-    gui-plasma
+    ../gui/plasma.nix
     # SSH
-    ssh
+    ../capabilities/ssh.nix
     # vscodium
-    vscodium
+    ../capabilities/vscodium.nix
     # Fan control with fan2go
-    fan2go
+    ../capabilities/fan2go.nix
     # Software deployment platform steam
-    steam
+    ../capabilities/steam.nix
     # Audio and video via pipwire
-    pipewire
+    ../capabilities/pipewire.nix
     # Chipcards via pcscd
-    chipcards
+    ../capabilities/chipcards.nix
     # Printing
-    printing
+    ../capabilities/printing.nix
     # Scanning
-    scanning
+    ../capabilities/scanning.nix
   ];
 
   # Use latest stable kernel
@@ -38,6 +37,18 @@
   networking.hostName = "pluto";
   networking.networkmanager.enable = true;
   systemd.services."NetworkManager-wait-online".enable = false;
+
+  # Autologin with greetd
+  services.greetd = {
+    enable = true;
+    settings = rec {
+      initial_session = {
+        command = "${pkgs.kdePackages.plasma-workspace}/bin/startplasma-wayland";
+        user = "maik";
+      };
+      default_session = initial_session;
+    };
+  };
 
   # Firewall configuration
   networking.firewall = {
@@ -220,13 +231,6 @@
 
   # Enable mDNS
   services.avahi.enable = true;
-
-  # Enable syncthing
-  services.syncthing = {
-    enable = true;
-    openDefaultPorts = true;
-    user = "maik";
-  };
 
   # Enable ollama
   services.ollama = {

@@ -1,0 +1,12 @@
+diff -Naur a/applets/lock_logout/contents/ui/main.qml b/applets/lock_logout/contents/ui/main.qml
+--- a/applets/lock_logout/contents/ui/main.qml	2024-05-31 14:48:02.000000000 +0200
++++ b/applets/lock_logout/contents/ui/main.qml	2024-10-02 00:04:14.255118293 +0200
+@@ -108,7 +108,7 @@
+                 Kirigami.Icon {
+                     id: iconButton
+                     width: items.iconSize
+-                    height: items.iconSize
++                    height: Kirigami.Units.iconSizes.small
+                     anchors.centerIn: parent
+                     source: modelData.icon
+                     scale: tapHandler.pressed ? 0.9 : 1
