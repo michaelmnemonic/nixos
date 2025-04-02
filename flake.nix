@@ -51,12 +51,15 @@
       };
     };
     devShell = forAllSystems (system:
-      nixpkgs-unstable.legacyPackages.${system}.pkgs.mkShell {
-        buildInputs = with nixpkgs-unstable.legacyPackages.${system}.pkgs; [
-          gitMinimal
-          nil
-          alejandra
-        ];
+      let
+        pkgs = nixpkgs-unstable.legacyPackages.${system}.pkgs;
+      in
+        pkgs.mkShell {
+          buildInputs = with pkgs; [
+            gitMinimal
+            nil
+            alejandra
+          ];
       });
-  };
+    };
 }
