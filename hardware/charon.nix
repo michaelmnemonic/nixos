@@ -1,12 +1,11 @@
 {
-  inputs,
   lib,
   modulesPath,
+  nixos-x13s,
   ...
 }: {
   # Import modulesPath
   imports = [
-    inputs.nixos-x13s.nixosModules.default
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
@@ -47,14 +46,6 @@
 
   # Enable plymouth
   boot.plymouth.enable = true;
-
-  # Enable X13S support
-  nixos-x13s = {
-    enable = true;
-    wifiMac = "F4:A8:0D:F5:5D:BC";
-    bluetoothMac = "F4:A8:0D:30:9D:8B";
-    kernel = "jhovold";
-  };
 
   # Host platform
   nixpkgs.hostPlatform = lib.mkDefault "aarch64-linux";

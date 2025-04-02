@@ -1,28 +1,39 @@
 {
   inputs,
   pkgs,
+  nixos-x13s,
   lib,
   ...
 }: {
-  imports = with inputs.self.nixosModules; [
+  imports = [
     # Shared host configuration
-    hosts-shared
+    ./_shared.nix
     # Hardware configuration
-    hosts-charon
+    ../hardware/charon.nix
     # Users
-    users-maik
-    # PLASMA desktio
-    gui-plasma
+    ../users/maik.nix
+    # PLASMA desktop
+    ../gui/plasma.nix
     # SSH
-    ssh
+    ../capabilities/ssh.nix
     # vscodium
-    vscodium
+    ../capabilities/vscodium.nix
     # Basic capabilites
-    pipewire
-    printing
-    scanning
-    chipcards
+    ../capabilities/pipewire.nix
+    ../capabilities/printing.nix
+    ../capabilities/scanning.nix
+    ../capabilities/chipcards.nix
   ];
+
+  # Enable X13S support
+  # FIXME: logically this belongs is hardware-specifc, but flake only import one level deep 🤔
+  nixos-x13s = {
+    enable = true;
+    wifiMac = "F4:A8:0D:F5:5D:BC";
+    bluetoothMac = "F4:A8:0D:30:9D:8B";
+    kernel = "jhovold";
+  };
+
 
   # Allow unfree software
   nixpkgs.config.allowUnfree = true;

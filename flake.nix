@@ -19,7 +19,7 @@
       nixos-x13s,
     }: {
       nixosConfigurations = {
-        pluto = nixpkgs-unstable.lib.nixosSystem {
+        pluto = nixpkgs-stable.lib.nixosSystem {
           system = "x86_64-linux";
           modules = [
             ./hosts/pluto.nix
