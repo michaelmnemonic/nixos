@@ -133,6 +133,13 @@
   # Enable mDNS
   services.avahi.enable = true;
 
+  nix = {
+    settings = {
+      cores = 3;
+      max-jobs = 1;
+    };
+  };
+
   # NixOS state version
   system.stateVersion = "24.05";
 }
