@@ -106,8 +106,9 @@
   ];
 
   environment.systemPackages = with pkgs; [
-    zed-editor
+    neovim
     wineWowPackages.staging
+    zed-editor
   ];
 
   # Not all software is free
