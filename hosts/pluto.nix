@@ -50,6 +50,9 @@
     };
   };
 
+  virtualisation.virtualbox.host.enable = true;
+  users.extraGroups.vboxusers.members = [ "maik" ];
+
   # Firewall configuration
   networking.firewall = {
     enable = true;
