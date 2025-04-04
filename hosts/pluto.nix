@@ -50,8 +50,10 @@
     };
   };
 
-  virtualisation.virtualbox.host.enable = true;
-  users.extraGroups.vboxusers.members = [ "maik" ];
+  virtualisation.libvirtd.enable = true;
+  programs.virt-manager.enable = true;
+  users.users.maik.extraGroups = [ "libvirtd" "docker"];
+  virtualisation.docker.enable = true;
 
   # Firewall configuration
   networking.firewall = {
