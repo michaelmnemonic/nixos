@@ -23,7 +23,7 @@
     forAllSystems = nixpkgs-unstable.lib.genAttrs systems;
   in {
     nixosConfigurations = {
-      pluto = nixpkgs-stable.lib.nixosSystem {
+      pluto = nixpkgs-unstable.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           ./hosts/pluto.nix
