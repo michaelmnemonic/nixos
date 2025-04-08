@@ -111,8 +111,10 @@
   ];
 
   environment.systemPackages = with pkgs; [
+    gamescope-wsi
     neovim
     wineWowPackages.staging
+    vulkan-hdr-layer-kwin6
     zed-editor
   ];
 
@@ -224,11 +226,6 @@
         renice = 10;
       };
     };
-  };
-
-  # Enable gamescope
-  programs.gamescope = {
-    enable = true;
   };
 
   ############
