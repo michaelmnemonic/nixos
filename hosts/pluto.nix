@@ -11,7 +11,7 @@
     # Users
     ../users/maik.nix
     # PLASMA desktio
-    ../gui/plasma.nix
+    ../gui/niri.nix
     # SSH
     ../capabilities/ssh.nix
     # vscodium
@@ -43,7 +43,7 @@
     enable = true;
     settings = rec {
       initial_session = {
-        command = "${pkgs.kdePackages.plasma-workspace}/bin/startplasma-wayland";
+        command = "${pkgs.niri}/bin/niri-session";
         user = "maik";
       };
       default_session = initial_session;
@@ -52,7 +52,7 @@
 
   virtualisation.libvirtd.enable = true;
   programs.virt-manager.enable = true;
-  users.users.maik.extraGroups = [ "libvirtd" "docker"];
+  users.users.maik.extraGroups = ["libvirtd" "docker"];
   virtualisation.docker.enable = true;
 
   # Firewall configuration
