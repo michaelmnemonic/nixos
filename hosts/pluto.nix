@@ -10,7 +10,7 @@
     ../hardware/pluto.nix
     # Users
     ../users/maik.nix
-    # PLASMA desktio
+    # PLASMA desktop
     ../gui/niri.nix
     # SSH
     ../capabilities/ssh.nix
@@ -49,11 +49,6 @@
       default_session = initial_session;
     };
   };
-
-  virtualisation.libvirtd.enable = true;
-  programs.virt-manager.enable = true;
-  users.users.maik.extraGroups = ["libvirtd" "docker"];
-  virtualisation.docker.enable = true;
 
   # Firewall configuration
   networking.firewall = {
