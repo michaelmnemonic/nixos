@@ -43,7 +43,7 @@
     enable = true;
     settings = rec {
       initial_session = {
-        command = "${pkgs.niri}/bin/niri-session";
+        command = "${pkgs.kdePackages.plasma-workspace}/bin/startplasma-wayland";
         user = "maik";
       };
       default_session = initial_session;
