@@ -11,7 +11,7 @@
     # Users
     ../users/maik.nix
     # PLASMA desktop
-    ../gui/niri.nix
+    ../gui/plasma.nix
     # SSH
     ../capabilities/ssh.nix
     # vscodium
