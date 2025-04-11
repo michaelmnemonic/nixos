@@ -223,6 +223,9 @@
     };
   };
 
+  # Enable gamescope
+  programs.gamescope.enable = true;
+
   ############
   # Services #
   ############
