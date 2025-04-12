@@ -107,6 +107,7 @@
 
   environment.systemPackages = with pkgs; [
     gamescope-wsi
+    mangohud
     neovim
     wineWowPackages.staging
     vulkan-hdr-layer-kwin6
