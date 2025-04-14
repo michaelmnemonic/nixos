@@ -1,6 +1,9 @@
-{...}: {
+{pkgs, ...}: {
   # Enable printing
-  services.printing.enable = true;
+  services.printing = {
+    enable = true;
+    drivers = [ pkgs.hplip ];
+  };
   hardware.printers = {
     # Setup default printers
     ensurePrinters = [
