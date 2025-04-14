@@ -44,7 +44,6 @@
     aspell
     aspellDicts.de
     aspellDicts.en
-    celluloid
     fan2go
     firefox
     fractal
@@ -75,8 +74,6 @@
     valent
     vscodium
     xwayland-satellite
-    wineWowPackages.stable
-    zed-editor
   ];
 
   # Use qt5ct configuration
