@@ -120,6 +120,11 @@
     neovim
   ];
 
+  # Make sure syncthing home exists
+  environment.etc."tmpfiles.d/var-lib-synthing.conf".text = ''
+    d /var/lib/syncthing       700 1000 100 -
+  '';
+
   ############
   # Programs #
   ############
@@ -137,6 +142,13 @@
   # Enable mDNS
   services.avahi.enable = true;
 
+  # syncthing
+  services.syncthing = {
+    enable = true;
+    user = "maik";
+  };
+
+  # Use only three cores for compilation -- this device is passivly cooled
   nix = {
     settings = {
       cores = 3;
