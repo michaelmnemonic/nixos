@@ -118,6 +118,7 @@
   # List of system-wide packages
   environment.systemPackages = with pkgs; [
     neovim
+    zed-editor
   ];
 
   # Make sure syncthing home exists
