@@ -106,6 +106,9 @@
   # Enable auto rotation
   hardware.sensor.iio.enable = true;
 
+  # Enable fscrypt
+  security.pam.enableFscrypt = true;
+
   # List of system-wide packages
   environment.systemPackages = with pkgs; [
     aspell
