@@ -149,14 +149,6 @@
     user = "maik";
   };
 
-  # Use only three cores for compilation -- this device is passivly cooled
-  nix = {
-    settings = {
-      cores = 3;
-      max-jobs = 1;
-    };
-  };
-
   # NixOS state version
   system.stateVersion = "24.05";
 }
