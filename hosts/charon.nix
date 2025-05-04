@@ -117,6 +117,7 @@
 
   # List of system-wide packages
   environment.systemPackages = with pkgs; [
+    kodi
     neovim
     zed-editor
   ];
