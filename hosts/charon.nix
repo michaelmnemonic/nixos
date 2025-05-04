@@ -150,6 +150,9 @@
     user = "maik";
   };
 
+  # tailscale
+  services.tailscale.enable = true;
+
   # NixOS state version
   system.stateVersion = "24.05";
 }
