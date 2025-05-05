@@ -35,7 +35,7 @@
   };
 
   # Setup time zone
-  time.timeZone = "Europe/GB";
+  time.timeZone = "GB";
 
   # Allow unfree software
   nixpkgs.config.allowUnfree = true;
