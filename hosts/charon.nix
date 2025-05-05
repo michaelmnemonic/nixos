@@ -34,6 +34,9 @@
     kernel = "jhovold";
   };
 
+  # Setup time zone
+  time.timeZone = "Europe/GB";
+
   # Allow unfree software
   nixpkgs.config.allowUnfree = true;
 

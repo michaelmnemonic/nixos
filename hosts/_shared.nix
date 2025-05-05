@@ -27,9 +27,6 @@
     ReserveVT=0
   '';
 
-  # Setup time zone
-  time.timeZone = "Europe/Berlin";
-
   # Use german internationalisation
   i18n.defaultLocale = "de_DE.UTF-8";
   console.keyMap = "de";

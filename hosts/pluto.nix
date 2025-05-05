@@ -38,6 +38,9 @@
   networking.networkmanager.enable = true;
   systemd.services."NetworkManager-wait-online".enable = false;
 
+  # Setup time zone
+  time.timeZone = "Europe/Berlin";
+
   # Autologin with greetd
   services.greetd = {
     enable = true;
