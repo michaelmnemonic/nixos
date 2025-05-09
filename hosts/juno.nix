@@ -29,9 +29,6 @@
   networking.networkmanager.enable = true;
   systemd.services."NetworkManager-wait-online".enable = false;
 
-  # Setup time zone
-  time.timeZone = "Europe/Berlin";
-
   # Firewall configuration
   networking.firewall = {
     enable = true;

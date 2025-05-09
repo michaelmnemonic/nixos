@@ -21,6 +21,9 @@
     "vt.global_cursor_default=0"
   ];
 
+  # Setup time zone
+  time.timeZone = "Europe/Berlin";
+
   # Disable ttys
   services.logind.extraConfig = ''
     NAutoVTs=0
