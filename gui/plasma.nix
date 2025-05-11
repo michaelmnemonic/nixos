@@ -13,7 +13,6 @@
     aspellDicts.de
     aspellDicts.en
     fooyin
-    haruna
     kdePackages.akonadi
     kdePackages.akonadi-calendar
     kdePackages.akonadi-contacts
