@@ -45,15 +45,6 @@
   # Make ssh-askpass prefer to interactivly ask for password
   environment.sessionVariables.SSH_ASKPASS_REQUIRE = "prefer";
 
-  # Enable XDG portals
-  xdg.portal = {
-    enable = true;
-    extraPortals = with pkgs; [
-      xdg-desktop-portal-gtk
-      kdePackages.xdg-desktop-portal-kde
-    ];
-  };
-
   # Enable dconf (needed for configuration of gtk themes under wayland)
   programs.dconf.enable = true;
 
