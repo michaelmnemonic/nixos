@@ -119,7 +119,6 @@
   environment.systemPackages = with pkgs; [
     anytype
     kodi-wayland
-    neovim
     zed-editor
   ];
 
