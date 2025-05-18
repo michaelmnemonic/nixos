@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   # Disable pulseaudio
-  hardware.pulseaudio.enable = false;
+  service.pulseaudio.enable = false;
 
   # Enable rtkit for (some) realtime support
   security.rtkit.enable = true;
