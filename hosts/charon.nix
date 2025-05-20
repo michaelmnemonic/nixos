@@ -12,6 +12,7 @@
     ../hardware/charon.nix
     # Users
     ../users/maik.nix
+    ../users/root.nix
     # PLASMA desktop
     ../gui/plasma.nix
     # SSH

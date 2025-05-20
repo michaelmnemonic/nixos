@@ -11,6 +11,7 @@
     ../hardware/juno.nix
     # Users
     ../users/maik.nix
+    ../users/root.nix
     # Audio and video via pipwire
     ../capabilities/pipewire.nix
     # Chipcards via pcscd
