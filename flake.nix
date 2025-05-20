@@ -4,6 +4,11 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
 
+    ragenix = {
+      url = "github:yaxitech/ragenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nixos-x13s = {
       url = "github:michaelmnemonic/x13s-nixos";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -13,6 +18,7 @@
   outputs = {
     self,
     nixpkgs,
+    ragenix,
     nixos-x13s,
   }: let
     # Define 'forAllSystems' for properties that shall be build for x86_64 *and* aarch64
@@ -24,6 +30,7 @@
         system = "x86_64-linux";
         modules = [
           ./hosts/pluto.nix
+          ragenix.nixosModules.default
         ];
         specialArgs = {
         };
@@ -56,7 +63,8 @@
             gitMinimal
             nil
             alejandra
+            ragenix
           ];
-      });
+        });
     };
 }

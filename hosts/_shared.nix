@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{pkgs, config, ...}: {
   # Initrd configuration
   boot.initrd.systemd.enable = true;
   boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci"];
@@ -94,9 +94,28 @@
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
   # Garbage collect nix store
-  nix.settings.auto-optimise-store = true;
-  nix.gc.automatic = true;
-  nix.gc.options = "--delete-older-than 7d";
+  nix.settings = {
+    substituters = [ "@nix-cache-host@" ];
+    trusted-public-keys = [ "@nix-cache-host-key@" ];
+    auto-optimise-store = true;
+  };
+
+  system.activationScripts."nix-cache-host" = ''
+    secret=$(cat "${config.age.secrets.nix-cache-host.path}")
+    configFile=/etc/nix/nix.conf
+    ${pkgs.gnused}/bin/sed -i "s#@nix-cache-host@#$secret#" "$configFile"
+  '';
+
+  system.activationScripts."nix-cache-host-key" = ''
+    secret=$(cat "${config.age.secrets.nix-cache-host-key.path}")
+    configFile=/etc/nix/nix.conf
+    ${pkgs.gnused}/bin/sed -i "s#@nix-cache-host-key@#$secret#" "$configFile"
+  '';
+
+  nix.gc = {
+    automatic = true;
+    options = "--delete-older-than 7d";
+  };
 
   # Enable auto upgrades, but without automatic reboot
   system.autoUpgrade = {
