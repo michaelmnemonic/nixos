@@ -118,7 +118,9 @@
   # List of system-wide packages
   environment.systemPackages = with pkgs; [
     anytype
-    kodi-wayland
+    (pkgs.kodi.withPackages (kodiPkgs: with pkgs; [
+      python312Packages.pillow
+    ]))
     zed-editor
   ];
 
