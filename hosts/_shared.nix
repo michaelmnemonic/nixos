@@ -97,6 +97,7 @@
   nix.settings = {
     substituters = [ "@nix-cache-host@" ];
     trusted-public-keys = [ "@nix-cache-host-key@" ];
+    secret-key-files = [ "@nix-cache-host-private-key@" ];
     auto-optimise-store = true;
   };
 
@@ -110,6 +111,12 @@
     secret=$(cat "${config.age.secrets.nix-cache-host-key.path}")
     configFile=/etc/nix/nix.conf
     ${pkgs.gnused}/bin/sed -i "s#@nix-cache-host-key@#$secret#" "$configFile"
+  '';
+
+  system.activationScripts."nix-cache-host-private-key" = ''
+    secret=$(cat "${config.age.secrets.nix-cache-host-private-key.path}")
+    configFile=/etc/nix/nix.conf
+    ${pkgs.gnused}/bin/sed -i "s#@nix-cache-host-private-key@#$secret#" "$configFile"
   '';
 
   nix.gc = {
