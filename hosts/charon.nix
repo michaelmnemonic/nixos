@@ -25,6 +25,10 @@
     ../capabilities/chipcards.nix
   ];
 
+  # Secrets
+  age.secrets."nix-cache-host".file = ../secrets/nix-cache-host.age;
+  age.secrets."nix-cache-host-key".file = ../secrets/nix-cache-host-key.age;
+
   # Enable X13S support
   # FIXME: logically this belongs is hardware-specifc, but flake only import one level deep 🤔
   nixos-x13s = {

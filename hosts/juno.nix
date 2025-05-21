@@ -21,6 +21,10 @@
     ../capabilities/scanning.nix
   ];
 
+  # Secrets
+  age.secrets."nix-cache-host".file = ../secrets/nix-cache-host.age;
+  age.secrets."nix-cache-host-key".file = ../secrets/nix-cache-host-key.age;
+
   # Use latest stable kernel
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
