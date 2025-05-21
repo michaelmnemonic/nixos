@@ -65,7 +65,6 @@
             gitMinimal
             nil
             alejandra
-            ragenix
           ];
         });
     };
