@@ -60,13 +60,12 @@
       pkgs = nixpkgs.legacyPackages.${system}.pkgs;
     in
       pkgs.mkShell {
-        buildInputs =
-          [ragenix.packages.${system}.ragenix]
-          ++ [
-            pkgs.gitMinimal
-            pkgs.nil
-            pkgs.alejandra
-          ];
+        buildInputs = [
+          ragenix.packages.${system}.ragenix
+          pkgs.gitMinimal
+          pkgs.nil
+          pkgs.alejandra
+        ];
       });
   };
 }
