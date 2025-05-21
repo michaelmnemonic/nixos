@@ -101,10 +101,22 @@
     auto-optimise-store = true;
   };
 
+  environment.etc."nix/upload-to-cache.sh" = {
+    text = ''
+        #!/usr/bin/env bash
+        set -eu
+        set -f # disable globbing
+        export IFS=' '
+        echo "Uploading paths" $OUT_PATHS
+        exec nix copy --to "@nix-cache-host@" $OUT_PATHS
+    '';
+    mode = "0755";
+  };
+
   system.activationScripts."nix-cache-host" = ''
     secret=$(cat "${config.age.secrets.nix-cache-host.path}")
-    configFile=/etc/nix/nix.conf
-    ${pkgs.gnused}/bin/sed -i "s#@nix-cache-host@#$secret#" "$configFile"
+    ${pkgs.gnused}/bin/sed -i "s#@nix-cache-host@#$secret#" "/etc/nix/nix.conf"
+    ${pkgs.gnused}/bin/sed -i "s#@nix-cache-host@#$secret#" "/etc/nix/upload-to-cache.sh"
   '';
 
   system.activationScripts."nix-cache-host-key" = ''
