@@ -56,16 +56,17 @@
         };
       };
     };
-    devShell = forAllSystems (system:
-      let
-        pkgs = nixpkgs.legacyPackages.${system}.pkgs;
-      in
-        pkgs.mkShell {
-          buildInputs = with pkgs; [
-            gitMinimal
-            nil
-            alejandra
+    devShell = forAllSystems (system: let
+      pkgs = nixpkgs.legacyPackages.${system}.pkgs;
+    in
+      pkgs.mkShell {
+        buildInputs =
+          [ragenix.packages.${system}.ragenix]
+          ++ [
+            pkgs.gitMinimal
+            pkgs.nil
+            pkgs.alejandra
           ];
-        });
-    };
+      });
+  };
 }
