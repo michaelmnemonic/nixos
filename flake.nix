@@ -39,6 +39,7 @@
         system = "x86_64-linux";
         modules = [
           ./hosts/juno.nix
+          ragenix.nixosModules.default
         ];
         specialArgs = {
         };
@@ -48,6 +49,7 @@
         modules = [
           nixos-x13s.nixosModules.default
           ./hosts/charon.nix
+          ragenix.nixosModules.default
         ];
         specialArgs = {
           inherit nixos-x13s;
