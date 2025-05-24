@@ -34,6 +34,7 @@
   # Secrets
   age.secrets."nix-cache-host".file = ../secrets/nix-cache-host.age;
   age.secrets."nix-cache-host-key".file = ../secrets/nix-cache-host-key.age;
+  age.secrets."nix-cache-host-private-key".file = ../secrets/nix-cache-host-private-key.age;
 
   # Use latest stable kernel
   boot.kernelPackages = pkgs.linuxPackages_latest;
