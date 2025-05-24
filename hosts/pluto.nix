@@ -12,7 +12,7 @@
     # Users
     ../users/maik.nix
     # PLASMA desktop
-    ../gui/plasma.nix
+    ../gui/sway.nix
     # SSH
     ../capabilities/ssh.nix
     # vscodium
@@ -51,7 +51,7 @@
     enable = true;
     settings = rec {
       initial_session = {
-        command = "${pkgs.kdePackages.plasma-workspace}/bin/startplasma-wayland";
+        command = "${pkgs.sway}/bin/sway";
         user = "maik";
       };
       default_session = initial_session;
