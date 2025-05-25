@@ -131,5 +131,10 @@
   };
 
   # Enable auto upgrades, but without automatic reboot
+  system.autoUpgrade = {
+    enable = true;
+    allowReboot = false;
+    flake = "github:michaelmnemonic/nixos";
+  };
 
 }
