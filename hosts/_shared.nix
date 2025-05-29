@@ -8,11 +8,15 @@
   boot.consoleLogLevel = 0;
 
   # Boot loader
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.systemd-boot.editor = false;
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.systemd-boot.configurationLimit = 5;
-  boot.loader.timeout = 0;
+  boot.loader = {
+    efi.canTouchEfiVariables = true;
+    systemd-boot = {
+      editor = false;
+      enable = true;
+      configurationLimit = 5;
+    };
+    timeout = 0;
+  };
 
   # Kernel command line
   boot.kernelParams = [
