@@ -24,6 +24,11 @@
   # Setup time zone
   time.timeZone = "Europe/Berlin";
 
+  # Hard-code host entries
+  networking.extraHosts = ''
+    192.168.178.30 orpheus
+  '';
+
   # Disable ttys
   services.logind.extraConfig = ''
     NAutoVTs=0
