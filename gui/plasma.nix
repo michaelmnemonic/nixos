@@ -29,6 +29,7 @@
     kdePackages.kmail-account-wizard
     kdePackages.ksshaskpass
     kdePackages.merkuro
+    kdePackages.neochat
     kdePackages.qtlocation
     kdePackages.skanpage
     kdePackages.tokodon
@@ -40,6 +41,11 @@
     syncthing
     transmission_4-qt
     unar
+  ];
+
+  # kdePackages.neochat has known vulns in depedency
+  nixpkgs.config.permittedInsecurePackages = [
+    "olm-3.2.16"
   ];
 
   # Make ssh-askpass prefer to interactivly ask for password
@@ -80,6 +86,4 @@
       });
     })
   ];
-
-
 }
