@@ -120,6 +120,7 @@
     neovim
     wineWowPackages.staging
     vulkan-hdr-layer-kwin6
+    vscode
     zed-editor
   ];
 
@@ -131,6 +132,7 @@
       "steam-original"
       "steam-run"
       "steam-unwrapped"
+      "vscode"
     ];
 
   boot.kernel.sysctl = {
