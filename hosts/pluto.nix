@@ -135,6 +135,18 @@
       "vscode"
     ];
 
+    # Enable podman
+    virtualisation.containers.enable = true;
+        virtualisation = {
+        podman = {
+            enable = true;
+
+            # Create a `docker` alias for podman, to use it as a drop-in replacement
+            dockerCompat = true;
+
+        };
+      };
+
   boot.kernel.sysctl = {
     "vm.max_map_count" = 16777216;
     "fs.file-max" = 524288;
