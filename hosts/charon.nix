@@ -123,9 +123,10 @@
   # List of system-wide packages
   environment.systemPackages = with pkgs; [
     anytype
-    (pkgs.kodi.withPackages (kodiPkgs: with pkgs; [
-      python312Packages.pillow
-    ]))
+    (pkgs.kodi.withPackages (kodiPkgs:
+      with pkgs; [
+        python312Packages.pillow
+      ]))
     zed-editor
   ];
 
