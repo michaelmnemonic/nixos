@@ -296,6 +296,11 @@
   # tailscale
   services.tailscale.enable = true;
 
+  # Enable ollama
+  services.ollama = {
+    enable = true;
+  };
+
   # NixOS state version
   system.stateVersion = "24.05";
 }
