@@ -301,6 +301,13 @@
     enable = true;
   };
 
+  virtualisation.containers.enable = true;
+  virtualisation = {
+    podman = {
+      enable = true;
+    };
+  };
+
   # NixOS state version
   system.stateVersion = "24.05";
 }
