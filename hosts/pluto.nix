@@ -168,6 +168,23 @@
     d /var/lib/syncthing       700 1000 100 -
   '';
 
+  # Make sure mount point of user home exists
+  environment.etc."tmpfiles.d/home-maik.conf".text = ''
+    d /home/maik               700 1000 100 -
+  '';
+
+  # Mount subvolume that contains the user home
+  systemd.mounts = [
+    {
+      type = "btrfs";
+      mountConfig = {
+        Options = "subvol=@maik";
+      };
+      what = "LABEL=NIXOS";
+      where = "/home/maik";
+    }
+  ];
+
   services.pipewire.configPackages = [
     # Provide equalizer for Desktop Speakers
     (pkgs.writeTextDir "share/pipewire/pipewire.conf.d/10-kef-speakers.conf" ''
