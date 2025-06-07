@@ -107,7 +107,7 @@
   nix.settings = {
     substituters = [ "@nix-cache-host@" ];
     trusted-public-keys = [ "@nix-cache-host-key@" ];
-    secret-key-files = config.age.secrets.nix-cache-host-private-key.path;
+    #secret-key-files = config.age.secrets.nix-cache-host-private-key.path;
     auto-optimise-store = true;
   };
 
