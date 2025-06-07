@@ -1,5 +1,5 @@
 {pkgs, ...}: let
-  inherit (pkgs) vscode-extensions vscode-utils vscode-with-extensions;
+  inherit (pkgs) vscode-extensions vscode-with-extensions;
 
   continue = pkgs.vscode-utils.buildVscodeMarketplaceExtension {
     mktplcRef = {
