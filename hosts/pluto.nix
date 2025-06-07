@@ -16,7 +16,7 @@
     # SSH
     ../capabilities/ssh.nix
     # vscodium
-    ../capabilities/vscodium.nix
+    ../capabilities/vscode.nix
     # Fan control with fan2go
     ../capabilities/fan2go.nix
     # Software deployment platform steam
@@ -120,24 +120,7 @@
     neovim
     wineWowPackages.staging
     vulkan-hdr-layer-kwin6
-    vscode
     zed-editor
-    (vscode-with-extensions.override {
-      vscodeExtensions = with vscode-extensions; [
-        ms-vscode-remote.remote-ssh
-        (pkgs.vscode-utils.buildVscodeMarketplaceExtension {
-          mktplcRef = {
-            name = "continue";
-            publisher = "Continue";
-            version = "1.1.40";
-            sha256 = "sha256-P4rhoj4Juag7cfB9Ca8eRmHRA10Rb4f7y5bNGgVZt+E=";
-            arch = "linux-x64";
-          };
-          nativeBuildInputs = [pkgs.autoPatchelfHook];
-          buildInputs = [pkgs.stdenv.cc.cc.lib];
-        })
-      ];
-    })
   ];
 
   # Not all software is free
