@@ -1,12 +1,12 @@
-{pkgs, ...}: let
+{pkgs, lib, ...}: let
   inherit (pkgs) vscode-extensions vscode-with-extensions;
 
   continue = pkgs.vscode-utils.buildVscodeMarketplaceExtension {
     mktplcRef = {
       name = "continue";
       publisher = "Continue";
-      version = "1.1.40";
-      sha256 = "sha256-P4rhoj4Juag7cfB9Ca8eRmHRA10Rb4f7y5bNGgVZt+E=";
+      version = "1.1.45";
+      sha256 = "sha256-5jMRf27p1O0K6x3lSaN2fJLVFv/9mw1zx3LbYoWdeCw=";
       arch = "linux-x64";
     };
     # Patch obtained from: https://github.com/continuedev/continue/issues/821
