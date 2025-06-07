@@ -10,6 +10,7 @@ let
             sha256 = "sha256-P4rhoj4Juag7cfB9Ca8eRmHRA10Rb4f7y5bNGgVZt+E=";
             arch = "linux-x64";
           };
+          # Patch obtained from: https://github.com/continuedev/continue/issues/821
           nativeBuildInputs = [pkgs.autoPatchelfHook];
           buildInputs = [pkgs.stdenv.cc.cc.lib];
         };
@@ -18,6 +19,9 @@ let
     vscodeExtensions = with vscode-extensions;
       [
         continue
+        jnoortheen.nix-ide
+        mkhl.direnv
+        ms-vscode-remote.remote-ssh
       ];
   };
 in {
