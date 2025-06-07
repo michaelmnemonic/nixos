@@ -35,7 +35,7 @@
   fileSystems."/" = {
     device = "/dev/disk/by-label/NIXOS";
     fsType = "btrfs";
-    options = ["compress=zstd:1"];
+    options = ["subvol=@" "compress=zstd:1"];
   };
 
   fileSystems."/boot" = {
