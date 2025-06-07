@@ -45,7 +45,7 @@
   systemd.services."NetworkManager-wait-online".enable = false;
 
   # Emulate aarch64
-  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+  boot.binfmt.emulatedSystems = ["aarch64-linux"];
 
   # Autologin with greetd
   services.greetd = {
@@ -122,6 +122,22 @@
     vulkan-hdr-layer-kwin6
     vscode
     zed-editor
+    (vscode-with-extensions.override {
+      vscodeExtensions = with vscode-extensions; [
+        ms-vscode-remote.remote-ssh
+        (pkgs.vscode-utils.buildVscodeMarketplaceExtension {
+          mktplcRef = {
+            name = "continue";
+            publisher = "Continue";
+            version = "1.1.40";
+            sha256 = "sha256-P4rhoj4Juag7cfB9Ca8eRmHRA10Rb4f7y5bNGgVZt+E=";
+            arch = "linux-x64";
+          };
+          nativeBuildInputs = [pkgs.autoPatchelfHook];
+          buildInputs = [pkgs.stdenv.cc.cc.lib];
+        })
+      ];
+    })
   ];
 
   # Not all software is free
@@ -133,19 +149,20 @@
       "steam-run"
       "steam-unwrapped"
       "vscode"
+      "vscode-with-extensions"
+      "vscode-extension-ms-vscode-remote-remote-ssh"
     ];
 
-    # Enable podman
-    virtualisation.containers.enable = true;
-        virtualisation = {
-        podman = {
-            enable = true;
+  # Enable podman
+  virtualisation.containers.enable = true;
+  virtualisation = {
+    podman = {
+      enable = true;
 
-            # Create a `docker` alias for podman, to use it as a drop-in replacement
-            dockerCompat = true;
-
-        };
-      };
+      # Create a `docker` alias for podman, to use it as a drop-in replacement
+      dockerCompat = true;
+    };
+  };
 
   boot.kernel.sysctl = {
     "vm.max_map_count" = 16777216;
@@ -315,73 +332,73 @@
 
   # Fan control
   environment.etc."fan2go/fan2go.yaml".text = ''
-      fans:
-        - id: side
-          hwmon:
-            platform: nct6792-isa-0290
-            index: 1
-          neverStop: true
-          curve: side_curve
-        - id: cpu
-          hwmon:
-            platform: nct6792-isa-0290
-            index: 2
-          neverStop: true
-          curve: cpu_curve
-        - id: bottom
-          hwmon:
-            platform: nct6792-isa-0290
-            index: 3
-          neverStop: true
-          curve: gpu_curve
-      sensors:
-        - id: gpu_edge
-          hwmon:
-            platform: amdgpu-pci-0800
-            index: 1
-        - id: gpu_mem
-          hwmon:
-            platform: amdgpu-pci-0800
-            index: 3
-        - id: cpu_tctl
-          hwmon:
-            platform: k10temp-pci-00c3
-            index: 1
-      curves:
-        - id: gpu_edge_curve
-          linear:
-            sensor: gpu_edge
-            steps:
-              - 50: 80
-              - 60: 100
-              - 70: 150
-        - id: gpu_mem_curve
-          linear:
-            sensor: gpu_mem
-            steps:
-              - 70: 80
-              - 90: 100
-              - 100: 160
-        - id: gpu_curve
-          function:
-            type: maximum
-            curves:
-              - gpu_edge_curve
-              - gpu_mem_curve
-        - id: cpu_curve
-          linear:
-            sensor: cpu_tctl
-            steps:
-              - 50: 80
-              - 60: 100
-              - 70: 130
-        - id: side_curve
-          function:
-            type: maximum
-            curves:
-              - cpu_curve
-              - gpu_curve
-    '';
+    fans:
+      - id: side
+        hwmon:
+          platform: nct6792-isa-0290
+          index: 1
+        neverStop: true
+        curve: side_curve
+      - id: cpu
+        hwmon:
+          platform: nct6792-isa-0290
+          index: 2
+        neverStop: true
+        curve: cpu_curve
+      - id: bottom
+        hwmon:
+          platform: nct6792-isa-0290
+          index: 3
+        neverStop: true
+        curve: gpu_curve
+    sensors:
+      - id: gpu_edge
+        hwmon:
+          platform: amdgpu-pci-0800
+          index: 1
+      - id: gpu_mem
+        hwmon:
+          platform: amdgpu-pci-0800
+          index: 3
+      - id: cpu_tctl
+        hwmon:
+          platform: k10temp-pci-00c3
+          index: 1
+    curves:
+      - id: gpu_edge_curve
+        linear:
+          sensor: gpu_edge
+          steps:
+            - 50: 80
+            - 60: 100
+            - 70: 150
+      - id: gpu_mem_curve
+        linear:
+          sensor: gpu_mem
+          steps:
+            - 70: 80
+            - 90: 100
+            - 100: 160
+      - id: gpu_curve
+        function:
+          type: maximum
+          curves:
+            - gpu_edge_curve
+            - gpu_mem_curve
+      - id: cpu_curve
+        linear:
+          sensor: cpu_tctl
+          steps:
+            - 50: 80
+            - 60: 100
+            - 70: 130
+      - id: side_curve
+        function:
+          type: maximum
+          curves:
+            - cpu_curve
+            - gpu_curve
+  '';
 
   ############
   # Programs #
