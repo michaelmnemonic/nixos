@@ -11,17 +11,17 @@ in {
     extraGroups = ["wheel" "kvm" "docker"]; # Enable ‘sudo’ for the user.
     openssh.authorizedKeys.keys = ssh_keys;
     subUidRanges = [
-        {
+      {
         count = 65536;
         startUid = 1000000;
-        }
-    ];
-  subGidRanges = [
-      {
-      count = 65536;
-      startGid = 1000000;
       }
-  ];
-};
+    ];
+    subGidRanges = [
+      {
+        count = 65536;
+        startGid = 1000000;
+      }
+    ];
+  };
   users.users.root.openssh.authorizedKeys.keys = ssh_keys;
 }

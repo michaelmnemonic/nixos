@@ -1,15 +1,14 @@
 let
   maik_at_pluto = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICfEOsO8EXO+oW8sisd+JHrT6FrvnuY+1xAVPEz5Prhm";
   maik_at_charon = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG6LzyOkknXOUIkRd43lKDrajtIPw81Bni9eRIsjTHbs";
-  users = [ maik_at_pluto maik_at_charon ];
+  users = [maik_at_pluto maik_at_charon];
 
   orpheus = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCu5eDTW17n9dNFdFhv4B/SDgOwtkKlxYdmwuoXZlPL8U74coDfqeCssTS3iaH43sLeLBesqG4hTghORxkIsaF9Nr+So29eFhqPeSPye50XwcrMkdCPGdjkdOgo6MijEWC0ucdp4EIqRJMppWGOicv3Ot36pPzoVkMcfDGyafgrWnxiZhkRxR2/tXHelWdTSlBf/UIPMxCPNS9itr1jf9IEEoAfvp/1i7BBbynBpOdHcjRoDZnKcC/QN787NwzTwFG8Hq7KRufUg+4t19PQCcaFNf9wUpLDBgboNES7F4XcGw4EL79rNohhP89azSKz63Do5yB+QOmBL7fGvktnyexFhKDNBagRqVuqSxy3RodmhWaLCJuoavAnzSkWYsv3bJafxgI5alMY09iBF1lzXtGg/dSovNjwaymC1v2x6mhgtPmEaQWIzbpk7aYPxNOHa6iScqgDO0XfAD7nszo82mEjjhWqSRFoTKXBY6L8PKZNCbX1ugz7j0FQA1narJnxBg4d0NfvWfc57C//uMIb7cRwCRmKETWz/ElFSBGpUHchrvl2xH2UM+mgCQ9wxAVXLhN8aAEJfNqX9SPYaOLORqeMtQHSIAnug9O099GdbIWSYVpBjqRskeH/I/lUwYGBsHBQKVI2wFVTYuBc4yHtpw5Gv13YUn43Y7Ud3kBNJQUlkQ==
 ";
   pluto = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIjHS4U1P8tnwdeC56YZaH+MWqP2qrf+0cnc1ST+qpak";
   charon = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDu/wCglX7cIQ+mD3/Suulbm5dw1nIFg+56/H6Vj9n397SKdk5YlsrPpyb8jZBsWM2PcTrJ7ZIigB/oDEIK6y0noyJiUKXuOMfTYyY2EztVWsEPIvNeSK5I3e8VODvl6rJhuKvGh+ZmT4JLWmAXSEVUN5Ldu+1yks6E3O54DDTF3/jwDwQ6+Rz7hNvi/YNiK2vd8x3hzwzJrhJEsNvA7XgRRyWC7JUD+yXHKukHpfzYI25Ix2oCAyDpnsu3uHPtZXioEdPiJCqMDcp9Pb5llnQHONj+Ao5LmIKt5+3kDNoxckdrj7VHxZwt39SEVWgN+pDy1Ur+VmjNNc1EDPXquf//Mtzl9AtqOg7ctgCQaUAavVmJEHSNO1TE2/m1ECOIp7Su8lCZvPpK40umUWHHoB2rhnhvM/5vpLS7wq4nxE7cRd4KxsCTAo0ri/bOZWQSp4fRm5PRatn/NN5YP0cCPV+cYXbQ4EA5adUepK5KKuPXDQG1+XNZCXY0OHr2tmAlCRTSOEvZiqNCnWAtggqfA+S9caTT77UPzX71cHqmclVS+dnSPwLrz7A9X4X8bdRbLjlR40ZY63IAWw7YUtp664Xf13eoRpRmtmlEwNXRxmpfy9W8Cz6TOkxQNU6etQdmzHyYXN4uPH78CG5u01tnAj6Vr6Y+q2oKAQNGK0LbnCoRhQ==";
-  systems = [ orpheus pluto charon];
-in
-{
+  systems = [orpheus pluto charon];
+in {
   "nix-cache-host.age".publicKeys = users ++ systems;
   "nix-cache-host-key.age".publicKeys = users ++ systems;
   "nix-cache-host-private-key.age".publicKeys = users ++ systems;

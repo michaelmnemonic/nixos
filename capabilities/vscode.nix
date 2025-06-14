@@ -1,4 +1,8 @@
-{pkgs, lib, ...}: let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   inherit (pkgs) vscode-extensions vscode-with-extensions;
 
   continue = pkgs.vscode-utils.buildVscodeMarketplaceExtension {

@@ -2,7 +2,7 @@
   # Enable printing
   services.printing = {
     enable = true;
-    drivers = [ pkgs.hplip ];
+    drivers = [pkgs.hplip];
   };
   hardware.printers = {
     # Setup default printers

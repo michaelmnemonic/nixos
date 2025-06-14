@@ -36,14 +36,15 @@
     kmymoney
     libcamera
     libreoffice-qt
-    (mpv-unwrapped.wrapper {
-          scripts = with pkgs.mpvScripts; [
-            dynamic-crop
-            sponsorblock
-          ];
+    (
+      mpv-unwrapped.wrapper {
+        scripts = with pkgs.mpvScripts; [
+          dynamic-crop
+          sponsorblock
+        ];
 
-          mpv = pkgs.mpv-unwrapped;
-        }
+        mpv = pkgs.mpv-unwrapped;
+      }
     )
     pinentry-qt
     syncthing

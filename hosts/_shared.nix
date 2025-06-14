@@ -1,4 +1,8 @@
-{pkgs, config, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   # Initrd configuration
   boot.initrd.systemd.enable = true;
   boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci"];
@@ -105,20 +109,20 @@
 
   # Garbage collect nix store
   nix.settings = {
-    substituters = [ "@nix-cache-host@" ];
-    trusted-public-keys = [ "@nix-cache-host-key@" ];
+    substituters = ["@nix-cache-host@"];
+    trusted-public-keys = ["@nix-cache-host-key@"];
     #secret-key-files = config.age.secrets.nix-cache-host-private-key.path;
     auto-optimise-store = true;
   };
 
   environment.etc."nix/upload-to-cache.sh" = {
     text = ''
-        #!/usr/bin/env bash
-        set -eu
-        set -f # disable globbing
-        export IFS=' '
-        echo "Uploading paths" $OUT_PATHS
-        exec nix copy --to "@nix-cache-host@" $OUT_PATHS
+      #!/usr/bin/env bash
+      set -eu
+      set -f # disable globbing
+      export IFS=' '
+      echo "Uploading paths" $OUT_PATHS
+      exec nix copy --to "@nix-cache-host@" $OUT_PATHS
     '';
     mode = "0755";
   };
@@ -146,5 +150,4 @@
     allowReboot = false;
     flake = "github:michaelmnemonic/nixos";
   };
-
 }
