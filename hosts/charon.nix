@@ -87,6 +87,8 @@
       21027
       # transmission
       43219
+      # wireguard
+      51871
     ];
     allowedUDPPortRanges = [
       # kdeconnect
