@@ -24,6 +24,7 @@
       jnoortheen.nix-ide
       mkhl.direnv
       ms-vscode-remote.remote-ssh
+      ms-python.python
     ];
   };
 in {
