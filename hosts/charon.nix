@@ -53,17 +53,17 @@
     }
   ];
 
-  # Autologin with greetd
-  services.greetd = {
+  # Enable SDDM
+  services.displayManager.sddm = {
     enable = true;
-    settings = rec {
-      initial_session = {
-        command = "${pkgs.kdePackages.plasma-workspace}/bin/startplasma-wayland";
-        user = "maik";
-      };
-      default_session = initial_session;
+    wayland = {
+      enable = true;
+      compositor = "kwin";
     };
   };
+
+  # Enable kodi session
+  services.xserver.desktopManager.kodi.enable = true;
 
   # Firewall configuration
   networking.firewall = {
@@ -297,11 +297,6 @@
 
   # tailscale
   services.tailscale.enable = true;
-
-  # Enable ollama
-  services.ollama = {
-    enable = true;
-  };
 
   virtualisation.containers.enable = true;
   virtualisation = {
