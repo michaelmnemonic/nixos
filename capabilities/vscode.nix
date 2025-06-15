@@ -25,6 +25,7 @@
       mkhl.direnv
       ms-vscode-remote.remote-ssh
       ms-python.python
+      ms-python.debugpy
     ];
   };
 in {
