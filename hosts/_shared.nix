@@ -139,6 +139,11 @@
     ${pkgs.gnused}/bin/sed -i "s#@nix-cache-host-key@#$secret#" "$configFile"
   '';
 
+  programs.git = {
+    enable = true;
+    lfs.enable = true;
+  };
+
   nix.gc = {
     automatic = true;
     options = "--delete-older-than 7d";
