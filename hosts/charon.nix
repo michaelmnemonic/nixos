@@ -53,12 +53,15 @@
     }
   ];
 
-  # Enable SDDM
-  services.displayManager.sddm = {
+  # Autologin with greetd
+  services.greetd = {
     enable = true;
-    wayland = {
-      enable = true;
-      compositor = "kwin";
+    settings = rec {
+      initial_session = {
+        command = "${pkgs.kdePackages.plasma-workspace}/bin/startplasma-wayland";
+        user = "maik";
+      };
+      default_session = initial_session;
     };
   };
 
