@@ -17,7 +17,7 @@
     # SSH
     ../capabilities/ssh.nix
     # vscodium
-    ../capabilities/vscodium.nix
+    ../capabilities/vscode.nix
     # Basic capabilites
     ../capabilities/pipewire.nix
     ../capabilities/printing.nix
