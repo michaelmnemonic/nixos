@@ -3,6 +3,8 @@
   pkgs,
   nixos-x13s,
   lib,
+  self,
+  allowed-unfree-packages,
   ...
 }: {
   imports = [

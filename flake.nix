@@ -24,6 +24,13 @@
     # Define 'forAllSystems' for properties that shall be build for x86_64 *and* aarch64
     systems = ["x86_64-linux" "aarch64-linux"];
     forAllSystems = nixpkgs.lib.genAttrs systems;
+    pkgs = forAllSystems (system: nixpkgs.legacyPackages.${system});
+
+    allowed-unfree-packages = [
+      "widevine-cdm"
+      "widevine-firefox"
+      "self.packages.widevine-firefox"
+    ];
   in {
     nixosConfigurations = {
       pluto = nixpkgs.lib.nixosSystem {
@@ -52,10 +59,13 @@
           ragenix.nixosModules.default
         ];
         specialArgs = {
-          inherit nixos-x13s;
+          inherit nixos-x13s self allowed-unfree-packages;
         };
       };
     };
+
+    packages = import ./pkgs nixpkgs.legacyPackages.aarch64-linux;
+
     devShell = forAllSystems (system: let
       pkgs = nixpkgs.legacyPackages.${system}.pkgs;
     in
