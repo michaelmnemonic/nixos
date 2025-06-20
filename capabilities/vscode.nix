@@ -26,6 +26,7 @@
       ms-vscode-remote.remote-ssh
       ms-python.python
       ms-python.debugpy
+      ms-python.black-formatter
     ];
   };
 in {
