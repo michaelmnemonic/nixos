@@ -30,6 +30,9 @@
   # Use latest stable kernel
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
+  # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
+
   # Network configuration
   networking.hostName = "juno";
   networking.networkmanager.enable = true;
