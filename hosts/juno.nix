@@ -19,6 +19,8 @@
     ../capabilities/printing.nix
     # Scanning
     ../capabilities/scanning.nix
+    # VS Code
+    ../capabilities/vscode.nix
   ];
 
   # Secrets
