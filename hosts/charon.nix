@@ -18,7 +18,7 @@
     ../gui/plasma.nix
     # SSH
     ../capabilities/ssh.nix
-    # vscodium
+    # vscode
     ../capabilities/vscode.nix
     # Basic capabilites
     ../capabilities/pipewire.nix
@@ -28,7 +28,7 @@
   ];
 
   # Enable X13S support
-  # FIXME: logically this belongs is hardware-specifc, but flake only import one level deep 🤔
+  # FIXME: logically this is hardware-specifc, but flakes only import one level deep, so placing it in hardware/ is not not possible 🤔
   nixos-x13s = {
     enable = true;
     wifiMac = "F4:A8:0D:F5:5D:BC";
