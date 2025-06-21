@@ -46,12 +46,6 @@
     options = ["compress_algorithm=zstd:1" "compress_chksum" "atgc" "gc_merge" "lazytime"];
   };
 
-  # Luks encrypted root partition
-  boot.initrd.luks.devices.NIXOS = {
-    device = "/dev/disk/by-partlabel/NIXOS";
-    allowDiscards = true;
-  };
-
   fileSystems."/boot" = {
     device = "/dev/disk/by-label/EFI";
     fsType = "vfat";
