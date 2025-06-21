@@ -52,10 +52,10 @@
       pkgs = nixpkgs.legacyPackages.${system}.pkgs;
     in
       pkgs.mkShell {
-        buildInputs = [
-          pkgs.gitMinimal
-          pkgs.nil
-          pkgs.alejandra
+        buildInputs = with pkgs; [
+          gitMinimal
+          nil
+          alejandra
         ];
       });
   };
