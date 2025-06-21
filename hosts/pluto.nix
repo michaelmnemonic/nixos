@@ -334,6 +334,7 @@
           index: 3
         neverStop: true
         curve: gpu_curve
+        controlAlgorithm: direct
     sensors:
       - id: gpu_edge
         hwmon:
@@ -349,19 +350,19 @@
           index: 1
     curves:
       - id: gpu_edge_curve
-        linear:
+        pid:
           sensor: gpu_edge
-          steps:
-            - 50: 80
-            - 60: 100
-            - 70: 150
+          setPoint: 70
+          p: -0.05
+          i: -0.005
+          d: -0.005
       - id: gpu_mem_curve
-        linear:
+        pid:
           sensor: gpu_mem
-          steps:
-            - 70: 80
-            - 90: 100
-            - 100: 160
+          setPoint: 100
+          p: -0.05
+          i: -0.005
+          d: -0.005
       - id: gpu_curve
         function:
           type: maximum
