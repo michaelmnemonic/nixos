@@ -110,6 +110,7 @@
   ];
 
   environment.systemPackages = with pkgs; [
+    AusweisApp2
     gamescope-wsi
     mangohud
     neovim
