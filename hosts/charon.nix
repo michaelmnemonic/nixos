@@ -14,8 +14,8 @@
     ../hardware/charon.nix
     # Users
     ../users/maik.nix
-    # PLASMA desktop
-    ../gui/plasma.nix
+    # niri window manager
+    ../gui/niri.nix
     # SSH
     ../capabilities/ssh.nix
     # vscode
@@ -55,7 +55,7 @@
     enable = true;
     settings = rec {
       initial_session = {
-        command = "${pkgs.kdePackages.plasma-workspace}/bin/startplasma-wayland";
+        command = "${pkgs.niri}/bin/niri-session";
         user = "maik";
       };
       default_session = initial_session;
