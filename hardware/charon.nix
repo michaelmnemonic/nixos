@@ -42,8 +42,8 @@
   # Filesystems
   fileSystems."/" = {
     device = "/dev/disk/by-label/NIXOS";
-    fsType = "f2fs";
-    options = ["compress_algorithm=zstd:1" "compress_chksum" "atgc" "gc_merge" "lazytime"];
+    fsType = "btrfs";
+    options = ["subvol=@" "compress=zstd:1"];
   };
 
   # Luks encrypted root partition
@@ -58,6 +58,22 @@
   };
 
   swapDevices = [];
+
+  # btrfs subvolume setup
+  environment.etc."tmpfiles.d/home-maik.conf".text = ''
+    d /home/maik               700 1000 100 -
+  '';
+
+  systemd.mounts = [
+    {
+      type = "btrfs";
+      mountConfig = {
+        Options = "subvol=@maik";
+      };
+      what = "LABEL=NIXOS";
+      where = "/home/maik";
+    }
+  ];
 
   # Set kernel parameters
   boot.kernelParams = [
