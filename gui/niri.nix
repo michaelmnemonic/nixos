@@ -44,6 +44,7 @@
     aspell
     aspellDicts.de
     aspellDicts.en
+    brightnessctl
     fan2go
     firefox
     fractal
