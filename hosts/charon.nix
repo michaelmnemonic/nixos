@@ -60,7 +60,8 @@
 
   # Enable SDDM
   services.displayManager.sddm = {
-  wayland = {
+    enable = true;
+    wayland = {
       enable = true;
       compositor = "kwin";
     };
