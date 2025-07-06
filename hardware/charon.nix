@@ -64,12 +64,10 @@
     "iommu.strict=0"
     "pcie_aspm.policy=powersupersave"
     # hibernate
-    "resume=/dev/disk/by-label/SWAP"
+    #"resume=/dev/disk/by-label/SWAP"
   ];
 
-  boot.resumeDevice = "/dev/disk/by-label/SWAP";
-
-  powerManagement.enable = true;
+  #boot.resumeDevice = "/dev/disk/by-label/SWAP";
 
   # Enable plymouth
   boot.plymouth.enable = true;
