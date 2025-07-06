@@ -42,6 +42,12 @@
   # Emulate aarch64
   boot.binfmt.emulatedSystems = ["aarch64-linux"];
 
+  # Use zram as swap
+  zramSwap = {
+    enable = true;
+    algorithm = "zstd";
+  };
+
   # Autologin with greetd
   services.greetd = {
     enable = true;

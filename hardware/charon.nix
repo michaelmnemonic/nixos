@@ -42,14 +42,8 @@
   # Filesystems
   fileSystems."/" = {
     device = "/dev/disk/by-label/NIXOS";
-    fsType = "btrfs";
-    options = ["subvol=@" "compress=zstd:1"];
-  };
-
-  # Luks encrypted root partition
-  boot.initrd.luks.devices.NIXOS = {
-    device = "/dev/disk/by-partlabel/NIXOS";
-    allowDiscards = true;
+    fsType = "f2fs";
+    options = ["compress_algorithm=zstd:1" "compress_chksum" "atgc" "gc_merge" "lazytime"];
   };
 
   fileSystems."/boot" = {
@@ -57,21 +51,9 @@
     fsType = "vfat";
   };
 
-  swapDevices = [];
-
-  # btrfs subvolume setup
-  environment.etc."tmpfiles.d/home-maik.conf".text = ''
-    d /home/maik               700 1000 100 -
-  '';
-
-  systemd.mounts = [
+  swapDevices = [
     {
-      type = "btrfs";
-      mountConfig = {
-        Options = "subvol=@maik";
-      };
-      what = "LABEL=NIXOS";
-      where = "/home/maik";
+      device = "/dev/disk/by-label/SWAP";
     }
   ];
 
@@ -81,7 +63,13 @@
     "iommu.passthrough=0"
     "iommu.strict=0"
     "pcie_aspm.policy=powersupersave"
+    # hibernate
+    "resume=/dev/disk/by-label/SWAP"
   ];
+
+  boot.resumeDevice = "/dev/disk/by-label/SWAP";
+
+  powerManagement.enable = true;
 
   # Enable plymouth
   boot.plymouth.enable = true;

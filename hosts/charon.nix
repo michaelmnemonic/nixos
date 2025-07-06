@@ -50,15 +50,19 @@
     }
   ];
 
-  # Autologin with greetd
-  services.greetd = {
-    enable = true;
-    settings = rec {
-      initial_session = {
-        command = "${pkgs.kdePackages.plasma-workspace}/bin/startplasma-wayland";
-        user = "maik";
-      };
-      default_session = initial_session;
+  # energy managment
+  services.power-profiles-daemon.enable = true;
+  # Suspend first then hibernate when closing the lid
+  services.logind.lidSwitch = "hibernate";
+  # Hibernate on power button pressed
+  services.logind.powerKey = "hibernate";
+  services.logind.powerKeyLongPress = "poweroff";
+
+  # Enable SDDM
+  services.displayManager.sddm = {
+  wayland = {
+      enable = true;
+      compositor = "kwin";
     };
   };
 

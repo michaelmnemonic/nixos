@@ -55,12 +55,6 @@
     xkb.layout = "de";
   };
 
-  # Use zram as swap
-  zramSwap = {
-    enable = true;
-    algorithm = "zstd";
-  };
-
   # Make users immutable
   users.mutableUsers = false;
 
