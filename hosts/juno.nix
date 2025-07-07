@@ -93,6 +93,7 @@
     gnome-system-monitor
     epiphany
     evince
+    flashrom
   ];
 
   # No need for xterm
@@ -146,6 +147,8 @@
     w /sys/bus/usb/devices/1-3/power/wakeup           - - - - disabled
     w /sys/bus/usb/devices/usb2/power/wakeup          - - - - disabled
     w /sys/bus/usb/devices/1-6/power/wakeup           - - - - disabled
+    w /sys/bus/usb/devices/1-2.2.3/power/control      - - - - auto
+    w /sys/bus/usb/devices/1-2.2.4/power/control      - - - - auto
     w /proc/sys/vm/dirty_writeback_centisecs          - - - - 1500
     w /sys/module/snd_hda_intel/parameters/power_save - - - - 1
     w /proc/sys/kernel/nmi_watchdog                   - - - - 0
