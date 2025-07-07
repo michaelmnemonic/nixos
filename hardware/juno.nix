@@ -26,6 +26,9 @@
   boot.kernelParams = [
     # Allow firmware upgrades
     "iomem=relaxed"
+    # Allow hibernate
+    "resume_offset=4105728"
+    "mem_sleep_default=deep"
   ];
 
   # Enable plymouth
@@ -43,7 +46,28 @@
     fsType = "vfat";
   };
 
-  swapDevices = [];
+  swapDevices = [
+    {
+      device = "/var/lib/swapfile";
+      size = 20 * 1024; # 32GB in MB
+    }
+  ];
+
+  boot.resumeDevice = "/dev/disk/by-label/NIXOS";
+
+  powerManagement.enable = true;
+
+  services.power-profiles-daemon.enable = true;
+  # Suspend first then hibernate when closing the lid
+  services.logind.lidSwitch = "suspend-then-hibernate";
+  # Hibernate on power button pressed
+  services.logind.powerKey = "hibernate";
+
+  # Define time delay for hibernation
+  systemd.sleep.extraConfig = ''
+    HibernateDelaySec=15m
+    SuspendState=mem
+  '';
 
   # Enable hardware accelerated video decode
   hardware.graphics = {
