@@ -92,17 +92,6 @@
             sha256 = "sha256:00rqh4bkwy8hhh2fl3pqddilprilanp78zi2l84ggfik4arm52ig";
           };
         });
-        # smaller systemtray icons with more spacing
-        # FIXME: this compiles plasma-workspace just to patch qml script
-        plasma-workspace = sprev.plasma-workspace.overrideAttrs (oldAttrs: {
-          patches =
-            oldAttrs.patches
-            ++ [
-              ../patches/0001-plasma-workspaces-systemtray-icon-sizes.patch
-              ../patches/0002-plasma-workspaces-lockout-icon-sizes.patch
-              ../patches/0003-plasma-workspaces-lockout-icon-lock-prompt.patch
-            ];
-        });
       });
     })
   ];
