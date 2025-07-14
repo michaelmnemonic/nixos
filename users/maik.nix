@@ -8,7 +8,7 @@ in {
     isNormalUser = true;
     description = "Maik Köhler";
     initialHashedPassword = "$y$j9T$BxQsIrZDobn4n7SRol8QE1$BNhg4USV5qCboQab8zQJex6BQCJN6rQiF4fDnXG/Mz6";
-    extraGroups = ["wheel" "kvm" "docker"]; # Enable ‘sudo’ for the user.
+    extraGroups = ["wheel" "kvm" "docker" "networkmanager"]; # Enable ‘sudo’ for the user.
     openssh.authorizedKeys.keys = ssh_keys;
     subUidRanges = [
       {
