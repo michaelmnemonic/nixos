@@ -360,9 +360,6 @@
     user = "maik";
   };
 
-  # tailscale
-  services.tailscale.enable = true;
-
   virtualisation.containers.enable = true;
   virtualisation = {
     podman = {
