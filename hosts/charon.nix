@@ -14,8 +14,8 @@
     ../hardware/charon.nix
     # Users
     ../users/maik.nix
-    # PLASMA desktop
-    ../gui/plasma.nix
+    # niri wm
+    ../gui/niri.nix
     # SSH
     ../capabilities/ssh.nix
     # vscode
