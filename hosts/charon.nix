@@ -159,8 +159,8 @@
         target_preserve_min = "no";
         target_preserve = "14d 4w 6m 1y";
         volume = {
-          "/home/maik" = {
-            subvolume."," = {
+          "/home" = {
+            subvolume."maik" = {
               snapshot_dir = ".snapshots";
               # snapshot_name = "anime_1980-1989";
               # target = "/run/media/2b09aa6c-a9f1-482c-b247-8c3a53a0345f";
