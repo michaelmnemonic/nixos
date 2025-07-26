@@ -50,14 +50,6 @@
     }
   ];
 
-  # energy managment
-  services.power-profiles-daemon.enable = true;
-  # Suspend first then hibernate when closing the lid
-  services.logind.lidSwitch = "hibernate";
-  # Hibernate on power button pressed
-  services.logind.powerKey = "hibernate";
-  services.logind.powerKeyLongPress = "poweroff";
-
   # Autologin with greetd
   services.greetd = {
     enable = true;
