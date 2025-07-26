@@ -6,4 +6,5 @@ let
   systems = [charon];
 in {
   "charon-private.key.age".publicKeys = users ++ systems;
+  "orpheus_charon.psk.age".publicKeys = users ++ systems;
 }

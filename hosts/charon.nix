@@ -62,6 +62,19 @@
     };
   };
 
+  age.secrets = {
+    "charon-private.key" = {
+      file = ../secrets/charon-private.key.age;
+      owner = "root";
+      group = "root";
+    };
+    "orpheus_charon.psk" = {
+      file = ../secrets/orpheus_charon.psk.age;
+      owner = "root";
+      group = "root";
+    };
+  };
+
   # Firewall configuration
   networking.firewall = {
     enable = true;
