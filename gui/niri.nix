@@ -45,6 +45,7 @@
     aspellDicts.de
     aspellDicts.en
     brightnessctl
+    celluloid
     fan2go
     firefox
     fractal
@@ -61,7 +62,6 @@
     playerctl
     mangohud
     mako
-    mpv
     nautilus
     nfs-utils
     papers
