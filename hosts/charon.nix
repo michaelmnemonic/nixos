@@ -62,9 +62,6 @@
     };
   };
 
-  # Enable kodi session
-  services.xserver.desktopManager.kodi.enable = true;
-
   # Firewall configuration
   networking.firewall = {
     enable = true;
