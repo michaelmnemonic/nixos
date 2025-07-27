@@ -14,8 +14,8 @@
     ../hardware/charon.nix
     # Users
     ../users/maik.nix
-    # plasma desktop
-    ../gui/plasma.nix
+    # niri wm
+    ../gui/niri.nix
     # SSH
     ../capabilities/ssh.nix
     # vscode
@@ -41,21 +41,21 @@
 
   # Network configuration
   networking.hostName = "charon";
-  networking.networkmanager.enable = false;
-  systemd.services."NetworkManager-wait-online".enable = false;
-  networking.modemmanager.fccUnlockScripts = [
-    {
-      id = "105b:e0c3";
-      path = "${pkgs.modemmanager}/share/ModemManager/fcc-unlock.available.d/105b";
-    }
-  ];
+  # networking.networkmanager.enable = false;
+  # systemd.services."NetworkManager-wait-online".enable = false;
+  # networking.modemmanager.fccUnlockScripts = [
+  #   {
+  #     id = "105b:e0c3";
+  #     path = "${pkgs.modemmanager}/share/ModemManager/fcc-unlock.available.d/105b";
+  #   }
+  # ];
 
   # Autologin with greetd
   services.greetd = {
     enable = true;
     settings = rec {
       initial_session = {
-        command = "${pkgs.kdePackages.plasma-workspace}/bin/startplasma-wayland";
+        command = "${pkgs.niri}/bin/niri-session";
         user = "maik";
       };
       default_session = initial_session;
