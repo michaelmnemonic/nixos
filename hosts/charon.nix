@@ -41,7 +41,7 @@
 
   # Network configuration
   networking.hostName = "charon";
-  networking.networkmanager.enable = false;
+  networking.networkmanager.enable = true;
   systemd.services."NetworkManager-wait-online".enable = false;
   networking.modemmanager.fccUnlockScripts = [
     {
