@@ -138,6 +138,7 @@
       with pkgs; [
         python312Packages.pillow
       ]))
+    keepassxc
     zed-editor
   ];
 
