@@ -139,14 +139,6 @@
       with pkgs; [
         python312Packages.pillow
       ]))
-    (chromium.override {
-      commandLineArgs = [
-        "--enable-features=AcceleratedVideoEncoder"
-        "--ignore-gpu-blocklist"
-        "--enable-zero-copy"
-      ];
-      enableWideVine = true;
-    })
     zed-editor
   ];
 
