@@ -30,6 +30,7 @@
         system = "x86_64-linux";
         modules = [
           ./hosts/pluto.nix
+          agenix.nixosModules.default
         ];
         specialArgs = {
         };

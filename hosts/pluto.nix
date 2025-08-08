@@ -1,7 +1,7 @@
 {
   pkgs,
   lib,
-  age,
+  config,
   ...
 }: {
   imports = [
@@ -82,6 +82,8 @@
       21027
       # transmission
       43219
+      # wireguard
+      51821
     ];
     allowedUDPPortRanges = [
       # kdeconnect
@@ -153,6 +155,53 @@
     "vm.max_map_count" = 16777216;
     "fs.file-max" = 524288;
   };
+
+  ###########
+  # Secrets #
+  ###########
+
+  # age.identityPaths = [
+  #   "/etc/ssh/ssh_host_ed25519_key"
+  # ];
+  age.secrets = {
+    "pluto-private.key" = {
+      file = ../secrets/pluto-private.key.age;
+      owner = "root";
+      group = "root";
+    };
+    "orpheus_pluto.psk" = {
+      file = ../secrets/orpheus_pluto.psk.age;
+      owner = "root";
+      group = "root";
+    };
+  };
+
+  ##############
+  # Networking #
+  ##############
+
+  networking.wireguard.enable = true;
+  networking.wireguard.interfaces = {
+    Unterwelt = {
+      ips = [ "10.0.0.3/24" ];
+      listenPort = 51821;
+      privateKeyFile = config.age.secrets."pluto-private.key".path;
+
+      peers = [
+              {
+                publicKey = "b2D3/C+3yCuzNGW4zYZ8vUMFIO1MUeAp8DoVfjbv3QQ=";
+                presharedKeyFile = config.age.secrets."orpheus_pluto.psk".path;
+                allowedIPs = [ "10.0.0.0/24" ];
+                endpoint = "orpheus.42evy4oo6scnaepd.myfritz.net:51820";
+                dynamicEndpointRefreshSeconds = 600;
+              }
+      ];
+    };
+  };
+
+  networking.extraHosts = ''
+    10.0.0.1 orpheus
+  '';
 
   #####################
   # ETC configuration #
