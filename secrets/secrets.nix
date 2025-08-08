@@ -7,8 +7,8 @@ let
   pluto = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEFn+etfEQXxsj9be8x40LrBqgVcFtlxVCqbLtCbeRuK";
   systems = [charon pluto];
 in {
-#  "charon-private.key.age".publicKeys = users ++ systems;
-#  "orpheus_charon.psk.age".publicKeys = users ++ systems;
+  #  "charon-private.key.age".publicKeys = users ++ systems;
+  #  "orpheus_charon.psk.age".publicKeys = users ++ systems;
   "pluto-private.key.age".publicKeys = users ++ systems;
   "orpheus_pluto.psk.age".publicKeys = users ++ systems;
 }
