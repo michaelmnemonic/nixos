@@ -27,6 +27,7 @@
     kdePackages.kleopatra
     kdePackages.kmail
     kdePackages.kmail-account-wizard
+    kdePackages.krdc
     kdePackages.ksshaskpass
     kdePackages.merkuro
     kdePackages.neochat
