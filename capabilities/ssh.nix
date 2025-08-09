@@ -11,4 +11,6 @@
     startAgent = true;
     enableAskPassword = true;
   };
+
+  programs.mosh.enable = true;
 }
