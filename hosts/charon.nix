@@ -1,6 +1,7 @@
 {
   inputs,
   pkgs,
+  config,
   nixos-x13s,
   lib,
   self,
@@ -72,6 +73,34 @@
     };
   };
 
+  ##############
+  # Networking #
+  ##############
+
+  networking.networkmanager.unmanaged = ["Unterwelt"];
+  networking.wireguard.enable = true;
+  networking.wireguard.interfaces = {
+    Unterwelt = {
+      ips = ["10.0.0.2/24"];
+      listenPort = 51822;
+      privateKeyFile = config.age.secrets."charon-private.key".path;
+      peers = [
+        # orpheus
+        {
+          publicKey = "b2D3/C+3yCuzNGW4zYZ8vUMFIO1MUeAp8DoVfjbv3QQ=";
+          presharedKeyFile = config.age.secrets."orpheus_charon.psk".path;
+          allowedIPs = ["10.0.0.0/24"];
+          endpoint = "orpheus.42evy4oo6scnaepd.myfritz.net:51820";
+          dynamicEndpointRefreshSeconds = 600;
+        }
+      ];
+    };
+  };
+
+  networking.extraHosts = ''
+    10.0.0.1 orpheus
+  '';
+
   # Firewall configuration
   networking.firewall = {
     enable = true;
@@ -95,7 +124,7 @@
       # transmission
       43219
       # wireguard
-      51871
+      51822
     ];
     allowedUDPPortRanges = [
       # kdeconnect
