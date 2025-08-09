@@ -11,6 +11,7 @@
     ../hardware/flore.nix
     # Users
     ../users/maik.nix
+    ../users/katrin.nix
     # PLASMA desktop
     ../gui/plasma.nix
     # basic capabilities
