@@ -1,7 +1,7 @@
 {...}: let
   ssh_keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHDvt6BOPNRAzNIGukbsJmK6heRNjuuN5p0uc7RXH9zf maik@pluto"
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICfbWSyDza2x5JhQW2oFHoDmO2FEqlrTHRKqe5f/GB2A maik@charon"
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIILpZoy2khZNpMO05fNXVIB/6OWqarzgv7OOubj+JWgH maik@charon"
   ];
 in {
   users.users.maik = {
