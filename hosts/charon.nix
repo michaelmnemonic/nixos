@@ -99,6 +99,8 @@
 
   networking.extraHosts = ''
     10.0.0.1 orpheus
+    10.0.0.2 charon
+    10.0.0.3 pluto
   '';
 
   # Firewall configuration
