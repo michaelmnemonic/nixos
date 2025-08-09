@@ -90,7 +90,7 @@
           publicKey = "b2D3/C+3yCuzNGW4zYZ8vUMFIO1MUeAp8DoVfjbv3QQ=";
           presharedKeyFile = config.age.secrets."orpheus_charon.psk".path;
           allowedIPs = ["10.0.0.0/24"];
-          endpoint = "orpheus.42evy4oo6scnaepd.myfritz.net:51820";
+          endpoint = "maikkoehler.eu:51820";
           dynamicEndpointRefreshSeconds = 600;
         }
       ];
