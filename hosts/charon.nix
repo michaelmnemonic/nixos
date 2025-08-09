@@ -111,6 +111,8 @@
       22000 # sync
       # transmission
       43219
+      # rdp
+      3389
     ];
     allowedTCPPortRanges = [
       # kdeconnect
