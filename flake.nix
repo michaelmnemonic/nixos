@@ -43,6 +43,15 @@
         specialArgs = {
         };
       };
+      flore = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          ./hosts/flore.nix
+          agenix.nixosModules.default
+        ];
+        specialArgs = {
+        };
+      };
       charon = nixpkgs.lib.nixosSystem {
         system = "aarch64-linux";
         modules = [
