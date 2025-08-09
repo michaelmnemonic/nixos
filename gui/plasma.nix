@@ -12,7 +12,6 @@
     aspell
     aspellDicts.de
     aspellDicts.en
-    fooyin
     kdePackages.akonadi
     kdePackages.akonadi-calendar
     kdePackages.akonadi-contacts
@@ -33,8 +32,6 @@
     kdePackages.neochat
     kdePackages.qtlocation
     kdePackages.skanpage
-    kdePackages.tokodon
-    kmymoney
     libcamera
     libreoffice-qt
     (

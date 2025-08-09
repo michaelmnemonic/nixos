@@ -169,7 +169,8 @@
       with pkgs; [
         python312Packages.pillow
       ]))
-    keepassxc
+    fooyin
+    kdePackages.tokodon
     zed-editor
   ];
 

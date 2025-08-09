@@ -68,7 +68,6 @@
       22000 # sync
       # transmission
       43219
-      # rdp
       3389
     ];
     allowedTCPPortRanges = [
@@ -121,11 +120,13 @@
 
   environment.systemPackages = with pkgs; [
     AusweisApp2
+    fooyin
     gamescope-wsi
+    kdePackages.tokodon
     mangohud
     neovim
-    wineWowPackages.staging
     vulkan-hdr-layer-kwin6
+    wineWowPackages.staging
     zed-editor
   ];
 
