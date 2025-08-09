@@ -197,7 +197,7 @@
           presharedKeyFile = config.age.secrets."orpheus_pluto.psk".path;
           allowedIPs = ["10.0.0.0/24"];
           endpoint = "maikkoehler.eu:51820";
-          dynamicEndpointRefreshSeconds = 600;
+          dynamicEndpointRefreshSeconds = 60;
         }
       ];
     };
