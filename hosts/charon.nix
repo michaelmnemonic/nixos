@@ -135,6 +135,7 @@
     ];
     # if packets are still dropped, they will show up in dmesg
     logReversePathDrops = true;
+    checkReversePath = false;
     # wireguard trips rpfilter up
     extraCommands = ''
       ip46tables -t mangle -I nixos-fw-rpfilter -p udp -m udp --sport 1637 -j RETURN
