@@ -26,6 +26,7 @@
     ../capabilities/printing.nix
     ../capabilities/scanning.nix
     ../capabilities/chipcards.nix
+    ../capabilities/wireguard.nix
   ];
 
   # Enable X13S support
@@ -60,49 +61,6 @@
     };
   };
 
-  age.secrets = {
-    "charon-private.key" = {
-      file = ../secrets/charon-private.key.age;
-      owner = "root";
-      group = "root";
-    };
-    "orpheus_charon.psk" = {
-      file = ../secrets/orpheus_charon.psk.age;
-      owner = "root";
-      group = "root";
-    };
-  };
-
-  ##############
-  # Networking #
-  ##############
-
-  networking.networkmanager.unmanaged = ["Unterwelt"];
-  networking.wireguard.enable = true;
-  networking.wireguard.interfaces = {
-    Unterwelt = {
-      ips = ["10.0.0.2/24"];
-      listenPort = 51822;
-      privateKeyFile = config.age.secrets."charon-private.key".path;
-      peers = [
-        # orpheus
-        {
-          publicKey = "b2D3/C+3yCuzNGW4zYZ8vUMFIO1MUeAp8DoVfjbv3QQ=";
-          presharedKeyFile = config.age.secrets."orpheus_charon.psk".path;
-          allowedIPs = ["10.0.0.0/24"];
-          endpoint = "maikkoehler.eu:51820";
-          dynamicEndpointRefreshSeconds = 60;
-        }
-      ];
-    };
-  };
-
-  networking.extraHosts = ''
-    10.0.0.1 orpheus
-    10.0.0.2 charon
-    10.0.0.3 pluto
-  '';
-
   # Firewall configuration
   networking.firewall = {
     enable = true;
@@ -127,8 +85,6 @@
       21027
       # transmission
       43219
-      # wireguard
-      51822
     ];
     allowedUDPPortRanges = [
       # kdeconnect
