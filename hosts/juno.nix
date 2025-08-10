@@ -28,12 +28,6 @@
   # Use latest stable kernel
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  # Use zram as swap
-  zramSwap = {
-    enable = true;
-    algorithm = "zstd";
-  };
-
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
