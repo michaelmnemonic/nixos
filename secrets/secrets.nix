@@ -6,7 +6,8 @@ let
 
   charon = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPoesBYo+KX7Xn9svwOt3qqO6hMHwlDN+vuhiSvFFSpD";
   pluto = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEFn+etfEQXxsj9be8x40LrBqgVcFtlxVCqbLtCbeRuK";
-  systems = [charon pluto];
+  juno = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBgX0SJ0x/vYTxM+q8AS0fGNJA8Kh4CVf6Scvtf1UGB0";
+  systems = [charon pluto juno];
 in {
   "charon-private.key.age".publicKeys = users ++ systems;
   "orpheus_charon.psk.age".publicKeys = users ++ systems;
