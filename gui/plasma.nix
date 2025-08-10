@@ -1,4 +1,14 @@
-{pkgs, ...}: {
+{pkgs, ...}: let
+  background-package = pkgs.stdenvNoCC.mkDerivation {
+    name = "background-image";
+    src = ./.;
+    dontUnpack = true;
+    installPhase = ''
+      cp $src/wallpaper.jpg $out
+    '';
+  };
+  in
+  {
   # Use plasma as desktop environment
   services.desktopManager.plasma6.enable = true;
 
@@ -43,6 +53,10 @@
         mpv = pkgs.mpv-unwrapped;
       }
     )
+    (pkgs.writeTextDir "share/sddm/themes/breeze/theme.conf.user" ''
+      [General]
+      background=${background-package}
+    '')
     pinentry-qt
     syncthing
     transmission_4-qt
