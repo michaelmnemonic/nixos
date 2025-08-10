@@ -128,8 +128,10 @@
         python312Packages.pillow
       ]))
     fooyin
+    kdePackages.neochat
     kdePackages.tokodon
     syncthing
+    transmission_4-qt
     zed-editor
   ];
 

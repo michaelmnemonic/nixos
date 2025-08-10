@@ -26,7 +26,6 @@ in {
     kdePackages.kio-extras
     kdePackages.krdc
     kdePackages.ksshaskpass
-    kdePackages.neochat
     kdePackages.qtlocation
     kdePackages.skanpage
     libcamera
@@ -35,9 +34,6 @@ in {
       [General]
       background=${background-package}
     '')
-    pinentry-qt
-    syncthing
-    transmission_4-qt
     unar
   ];
 

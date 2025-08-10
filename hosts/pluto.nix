@@ -117,9 +117,11 @@
     AusweisApp2
     fooyin
     gamescope-wsi
+    kdePackages.neochat
     kdePackages.tokodon
     mangohud
     neovim
+    transmission_4-qt
     vulkan-hdr-layer-kwin6
     wineWowPackages.staging
     zed-editor

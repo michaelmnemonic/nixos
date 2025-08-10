@@ -90,12 +90,11 @@
 
   # Debloat GNOME install
   environment.gnome.excludePackages = with pkgs; [
-    gnome-tour
-    gnome-music
-    gnome-system-monitor
     epiphany
     evince
-    flashrom
+    gnome-music
+    gnome-system-monitor
+    gnome-tour
   ];
 
   # No need for xterm
@@ -124,6 +123,8 @@
     aspellDicts.en
     celluloid
     firefox
+    flashrom
+    foliate
     gnomeExtensions.caffeine
     kodi
     libcamera
@@ -133,7 +134,6 @@
     resources
     syncthing
     tuba
-    foliate
   ];
 
   #####################
