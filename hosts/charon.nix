@@ -127,13 +127,9 @@
       ]))
     fooyin
     kdePackages.tokodon
+    syncthing
     zed-editor
   ];
-
-  # Make sure syncthing home exists
-  environment.etc."tmpfiles.d/var-lib-synthing.conf".text = ''
-    d /var/lib/syncthing       700 1000 100 -
-  '';
 
   services.pipewire.configPackages = [
     # Provide equalizer for Lenovo X13s speakers
@@ -286,12 +282,6 @@
 
   # Enable mDNS
   services.avahi.enable = true;
-
-  # syncthing
-  services.syncthing = {
-    enable = true;
-    user = "maik";
-  };
 
   virtualisation.containers.enable = true;
   virtualisation = {
