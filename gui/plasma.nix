@@ -8,7 +8,6 @@
 
   # List of system-wide packages
   environment.systemPackages = with pkgs; [
-    aqbanking
     aspell
     aspellDicts.de
     aspellDicts.en
