@@ -17,18 +17,17 @@
     ../users/maik.nix
     # plasma desktop environment
     ../gui/plasma.nix
-    ../capabilities/plasma-pim.nix
     # niri
     ../gui/niri.nix
-    # SSH
-    ../capabilities/ssh.nix
-    # vscode
-    ../capabilities/vscode.nix
     # Basic capabilites
+    ../capabilities/chipcards.nix
+    ../capabilities/mpv.nix
     ../capabilities/pipewire.nix
+    ../capabilities/plasma-pim.nix
     ../capabilities/printing.nix
     ../capabilities/scanning.nix
-    ../capabilities/chipcards.nix
+    ../capabilities/ssh.nix
+    ../capabilities/vscode.nix
     ../capabilities/wireguard.nix
   ];
 

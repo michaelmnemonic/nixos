@@ -13,23 +13,17 @@
     ../users/maik.nix
     # PLASMA desktop
     ../gui/plasma.nix
-    ../capabilities/plasma-pim.nix
-    # SSH
-    ../capabilities/ssh.nix
-    # vscodium
-    ../capabilities/vscode.nix
-    # Fan control with fan2go
-    ../capabilities/fan2go.nix
-    # Software deployment platform steam
-    ../capabilities/steam.nix
-    # Audio and video via pipwire
-    ../capabilities/pipewire.nix
-    # Chipcards via pcscd
+    # Basic capabilities
     ../capabilities/chipcards.nix
-    # Printing
+    ../capabilities/fan2go.nix
+    ../capabilities/mpv.nix
+    ../capabilities/pipewire.nix
+    ../capabilities/plasma-pim.nix
     ../capabilities/printing.nix
-    # Scanning
     ../capabilities/scanning.nix
+    ../capabilities/ssh.nix
+    ../capabilities/steam.nix
+    ../capabilities/vscode.nix
   ];
 
   # Use latest stable kernel

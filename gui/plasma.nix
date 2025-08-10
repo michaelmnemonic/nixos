@@ -31,16 +31,6 @@ in {
     kdePackages.skanpage
     libcamera
     libreoffice-qt
-    (
-      mpv-unwrapped.wrapper {
-        scripts = with pkgs.mpvScripts; [
-          dynamic-crop
-          sponsorblock
-        ];
-
-        mpv = pkgs.mpv-unwrapped;
-      }
-    )
     (pkgs.writeTextDir "share/sddm/themes/breeze/theme.conf.user" ''
       [General]
       background=${background-package}
