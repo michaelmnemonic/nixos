@@ -13,6 +13,7 @@
     ../users/maik.nix
     # PLASMA desktop
     ../gui/plasma.nix
+    ../capabilities/plasma-pim.nix
     # SSH
     ../capabilities/ssh.nix
     # vscodium

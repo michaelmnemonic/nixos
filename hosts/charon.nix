@@ -17,6 +17,9 @@
     ../users/maik.nix
     # plasma desktop environment
     ../gui/plasma.nix
+    ../capabilities/plasma-pim.nix
+    # niri
+    ../gui/niri.nix
     # SSH
     ../capabilities/ssh.nix
     # vscode

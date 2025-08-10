@@ -7,8 +7,7 @@
       cp $src/wallpaper.jpg $out
     '';
   };
-  in
-  {
+in {
   # Use plasma as desktop environment
   services.desktopManager.plasma6.enable = true;
 
@@ -21,23 +20,12 @@
     aspell
     aspellDicts.de
     aspellDicts.en
-    kdePackages.akonadi
-    kdePackages.akonadi-calendar
-    kdePackages.akonadi-contacts
-    kdePackages.akonadi-mime
-    kdePackages.akonadi-search
     kdePackages.ark
     kdePackages.ffmpegthumbs
     kdePackages.kcalc
-    kdePackages.kdepim-addons
-    kdePackages.kdepim-runtime
     kdePackages.kio-extras
-    kdePackages.kleopatra
-    kdePackages.kmail
-    kdePackages.kmail-account-wizard
     kdePackages.krdc
     kdePackages.ksshaskpass
-    kdePackages.merkuro
     kdePackages.neochat
     kdePackages.qtlocation
     kdePackages.skanpage
