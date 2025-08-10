@@ -135,61 +135,6 @@
     d /var/lib/syncthing       700 1000 100 -
   '';
 
-  # Snapshots with btrbk
-  services.btrbk = {
-    ioSchedulingClass = "idle";
-    instances."NIXOS" = {
-      onCalendar = "hourly";
-      settings = {
-        timestamp_format = "long";
-        snapshot_preserve_min = "1h";
-        snapshot_preserve = "7d 2w 1m";
-        target_preserve_min = "no";
-        target_preserve = "14d 4w 6m 1y";
-        volume = {
-          "/home" = {
-            subvolume."maik" = {
-              snapshot_dir = ".snapshots";
-              # snapshot_name = "anime_1980-1989";
-              # target = "/run/media/2b09aa6c-a9f1-482c-b247-8c3a53a0345f";
-            };
-          };
-        };
-      };
-    };
-  };
-
-  # Add "btrbk" system user and allow to run sude
-  users.users.btrbk = {
-    isSystemUser = true;
-    extraGroups = ["wheel"];
-  };
-
-  # Make "test", "readlink" and "btrfs" available to btrbk user via sudo without
-  # password -- "https://nixos.wiki/wiki/Btrbk"
-  security.sudo = {
-    enable = true;
-    extraRules = [
-      {
-        commands = [
-          {
-            command = "${pkgs.coreutils-full}/bin/test";
-            options = ["NOPASSWD"];
-          }
-          {
-            command = "${pkgs.coreutils-full}/bin/readlink";
-            options = ["NOPASSWD"];
-          }
-          {
-            command = "${pkgs.btrfs-progs}/bin/btrfs";
-            options = ["NOPASSWD"];
-          }
-        ];
-        users = ["btrbk"];
-      }
-    ];
-  };
-
   services.pipewire.configPackages = [
     # Provide equalizer for Lenovo X13s speakers
     (pkgs.writeTextDir "share/pipewire/pipewire.conf.d/10-x13s-speakers.conf" ''
