@@ -7,6 +7,7 @@
     orpheus = "10.0.0.1";
     charon = "10.0.0.2";
     pluto = "10.0.0.3";
+    juno = "10.0.0.4";
   };
 in {
   age.secrets = {

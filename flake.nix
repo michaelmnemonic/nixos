@@ -39,6 +39,7 @@
         system = "x86_64-linux";
         modules = [
           ./hosts/juno.nix
+          agenix.nixosModules.default
         ];
         specialArgs = {
         };

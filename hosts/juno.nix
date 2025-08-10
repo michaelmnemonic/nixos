@@ -21,6 +21,8 @@
     ../capabilities/scanning.nix
     # VS Code
     ../capabilities/vscode.nix
+    # Wireguard
+    ../capabilities/wireguard.nix
   ];
 
   # Use latest stable kernel
