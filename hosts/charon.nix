@@ -22,6 +22,7 @@
     # Basic capabilites
     ../capabilities/chipcards.nix
     ../capabilities/mpv.nix
+    ../capabilities/neovim.nix
     ../capabilities/pipewire.nix
     ../capabilities/plasma-pim.nix
     ../capabilities/printing.nix
