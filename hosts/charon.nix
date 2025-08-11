@@ -130,6 +130,7 @@
     fooyin
     kdePackages.neochat
     kdePackages.tokodon
+    fishPlugins.hydro
     neovim
     syncthing
     transmission_4-qt
