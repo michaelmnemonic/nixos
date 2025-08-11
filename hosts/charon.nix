@@ -22,7 +22,6 @@
     # Basic capabilites
     ../capabilities/chipcards.nix
     ../capabilities/mpv.nix
-    ../capabilities/neovim.nix
     ../capabilities/pipewire.nix
     ../capabilities/plasma-pim.nix
     ../capabilities/printing.nix
@@ -131,6 +130,7 @@
     fooyin
     kdePackages.neochat
     kdePackages.tokodon
+    neovim
     syncthing
     transmission_4-qt
     zed-editor
