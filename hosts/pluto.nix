@@ -119,6 +119,7 @@
     gamescope-wsi
     kdePackages.neochat
     kdePackages.tokodon
+    kde-rounded-corners
     mangohud
     neovim
     transmission_4-qt
