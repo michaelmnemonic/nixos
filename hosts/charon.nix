@@ -126,6 +126,7 @@
         python312Packages.pillow
       ]))
     fooyin
+    haruna
     kdePackages.neochat
     kdePackages.tokodon
     fishPlugins.hydro
