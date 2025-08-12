@@ -129,6 +129,7 @@
     haruna
     kdePackages.neochat
     kdePackages.tokodon
+    kde-rounded-corners
     fishPlugins.hydro
     neovim
     syncthing
