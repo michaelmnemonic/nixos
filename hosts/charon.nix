@@ -125,7 +125,9 @@
       with pkgs; [
         python312Packages.pillow
       ]))
+    kdePackages.tokodon
     fishPlugins.hydro
+    fooyin
     neovim
     syncthing
     transmission_4-qt
