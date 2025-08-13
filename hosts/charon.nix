@@ -15,8 +15,8 @@
     ../hardware/charon.nix
     # Users
     ../users/maik.nix
-    # Hyprland
-    ../gui/hypr.nix
+    # plasma desktop
+    ../gui/plasma.nix
     # Basic capabilites
     ../capabilities/chipcards.nix
     ../capabilities/mpv.nix
