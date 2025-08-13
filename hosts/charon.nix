@@ -15,8 +15,7 @@
     ../hardware/charon.nix
     # Users
     ../users/maik.nix
-    # plasma desktop environment
-    ../gui/plasma.nix
+    # Hyprland
     ../gui/hypr.nix
     # Basic capabilites
     ../capabilities/chipcards.nix
@@ -126,11 +125,7 @@
       with pkgs; [
         python312Packages.pillow
       ]))
-    fooyin
-    haruna
-    kdePackages.neochat
-    kdePackages.tokodon
-    kde-rounded-corners
+    kdePackages.kwin
     fishPlugins.hydro
     neovim
     syncthing
