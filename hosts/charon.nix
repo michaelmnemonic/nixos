@@ -125,7 +125,6 @@
       with pkgs; [
         python312Packages.pillow
       ]))
-    kdePackages.kwin
     fishPlugins.hydro
     neovim
     syncthing
