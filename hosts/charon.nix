@@ -17,6 +17,7 @@
     ../users/maik.nix
     # plasma desktop environment
     ../gui/plasma.nix
+    ../gui/hypr.nix
     # Basic capabilites
     ../capabilities/chipcards.nix
     ../capabilities/mpv.nix
