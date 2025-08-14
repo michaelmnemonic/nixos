@@ -75,7 +75,7 @@
         ForceUnmount = true;
         TimeoutSec = "5s";
       };
-      what = "192.168.178.30:";
+      what = "orpheus:";
       where = "/mnt";
     }
   ];
