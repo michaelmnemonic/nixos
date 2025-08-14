@@ -15,13 +15,13 @@
     ../hardware/charon.nix
     # Users
     ../users/maik.nix
-    # cosmic desktop
-    ../gui/cosmic.nix
+    # plasma desktop
+    ../gui/plasma.nix
     # Basic capabilites
     ../capabilities/chipcards.nix
     ../capabilities/mpv.nix
     ../capabilities/pipewire.nix
-  #  ../capabilities/plasma-pim.nix
+    ../capabilities/plasma-pim.nix
     ../capabilities/printing.nix
     ../capabilities/scanning.nix
     ../capabilities/ssh.nix
@@ -52,8 +52,14 @@
     }
   ];
 
-  # Login with cosmic greeter
-  services.displayManager.cosmic-greeter.enable = true;
+  # Login with sddm
+  services.displayManager.sddm = {
+    enable = true;
+    wayland = {
+      enable = true;
+      compositor = "kwin";
+    };
+  };
 
   # Firewall configuration
   networking.firewall = {
