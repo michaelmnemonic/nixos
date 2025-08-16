@@ -53,8 +53,6 @@
       3389
     ];
     allowedUDPPorts = [
-      # wireguard
-      51823
     ];
     allowedUDPPortRanges = [
     ];
