@@ -46,6 +46,9 @@
     };
   };
 
+  # allow empty password
+  security.pam.allowEmptyPassword = true;
+
   # Firewall configuration
   networking.firewall = {
     enable = true;
