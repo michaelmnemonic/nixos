@@ -48,7 +48,7 @@
   # Firewall configuration
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [
+    interfaces."Unterwelt".allowedTCPPorts = [
       # RDP
       3389
     ];
