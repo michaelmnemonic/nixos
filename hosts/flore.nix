@@ -15,7 +15,7 @@
     # PLASMA desktop
     ../gui/plasma.nix
     # basic capabilities
-    ../capabilities/ssh.nix # Audio and video via pipwire
+    ../capabilities/ssh.nix
     ../capabilities/pipewire.nix
     ../capabilities/chipcards.nix
     ../capabilities/printing.nix
