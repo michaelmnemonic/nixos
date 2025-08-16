@@ -16,4 +16,6 @@ in {
   "orpheus_pluto.psk.age".publicKeys = users ++ systems;
   "juno-private.key.age".publicKeys = users ++ systems;
   "orpheus_juno.psk.age".publicKeys = users ++ systems;
+  "flore-private.key.age".publicKeys = users ++ systems;
+  "orpheus_flore.psk.age".publicKeys = users ++ systems;
 }
