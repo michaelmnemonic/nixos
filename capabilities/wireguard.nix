@@ -8,6 +8,7 @@
     charon = "10.0.0.2";
     pluto = "10.0.0.3";
     juno = "10.0.0.4";
+    flore = "10.0.0.5"
   };
 in {
   age.secrets = {

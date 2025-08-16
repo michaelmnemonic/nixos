@@ -20,6 +20,7 @@
     ../capabilities/chipcards.nix
     ../capabilities/printing.nix
     ../capabilities/scanning.nix
+    ../capabilites/wireguard.nix
   ];
 
   # Network configuration
