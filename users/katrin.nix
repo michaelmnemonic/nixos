@@ -3,7 +3,7 @@
     isNormalUser = true;
     description = "Katrin Köhler";
     uid = 1001;
-    password = "";
+    initialHashedPassword = "";
     extraGroups = []; # Enable ‘sudo’ for the user.
   };
 }
