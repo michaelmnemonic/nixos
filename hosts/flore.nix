@@ -70,54 +70,6 @@
   environment.systemPackages = with pkgs; [
   ];
 
-  ###########
-  # Secrets #
-  ###########
-
-  age.secrets = {
-    "pluto-flore.key" = {
-      file = ../secrets/pluto-flore.key.age;
-      owner = "root";
-      group = "root";
-    };
-    "orpheus_flore.psk" = {
-      file = ../secrets/orpheus_flore.psk.age;
-      owner = "root";
-      group = "root";
-    };
-  };
-
-  ##############
-  # Networking #
-  ##############
-
-  networking.networkmanager.unmanaged = ["Unterwelt"];
-  networking.wireguard.enable = true;
-  networking.wireguard.interfaces = {
-    Unterwelt = {
-      ips = ["10.0.0.10/24"];
-      listenPort = 51823;
-      privateKeyFile = config.age.secrets."pluto-flore.key".path;
-      peers = [
-        # orpheus
-        {
-          publicKey = "b2D3/C+3yCuzNGW4zYZ8vUMFIO1MUeAp8DoVfjbv3QQ=";
-          presharedKeyFile = config.age.secrets."orpheus_flore.psk".path;
-          allowedIPs = ["10.0.0.0/24"];
-          endpoint = "maikkoehler.eu:51820";
-          dynamicEndpointRefreshSeconds = 60;
-        }
-      ];
-    };
-  };
-
-  networking.extraHosts = ''
-    10.0.0.1 orpheus
-    10.0.0.2 charon
-    10.0.0.3 pluto
-    10.0.0.10 flore
-  '';
-
   #####################
   # ETC configuration #
   #####################
