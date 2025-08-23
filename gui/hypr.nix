@@ -40,7 +40,7 @@
     hyprpaper
     ptyxis
     rose-pine-hyprcursor
-    quodlibet
+    quodlibet-full
     resources
     thunderbird
     tuba
