@@ -60,6 +60,7 @@
     tuba
     valent
     vscodium
+    walker
     xwayland-satellite
   ];
 
