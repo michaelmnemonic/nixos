@@ -39,6 +39,7 @@
     pavucontrol
     hyprpaper
     ptyxis
+    rose-pine-hyprcursor
     quodlibet
     resources
     thunderbird
