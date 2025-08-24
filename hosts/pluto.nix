@@ -12,13 +12,12 @@
     # Users
     ../users/maik.nix
     # PLASMA desktop
-    ../gui/plasma.nix
+    ../gui/hypr.nix
     # Basic capabilities
     ../capabilities/chipcards.nix
     ../capabilities/fan2go.nix
     ../capabilities/mpv.nix
     ../capabilities/pipewire.nix
-    ../capabilities/plasma-pim.nix
     ../capabilities/printing.nix
     ../capabilities/scanning.nix
     ../capabilities/ssh.nix
@@ -49,7 +48,7 @@
     enable = true;
     settings = rec {
       initial_session = {
-        command = "${pkgs.kdePackages.plasma-workspace}/bin/startplasma-wayland";
+        command = "${pkgs.uwsm}/bin/uwsm start hyprland-uwsm.desktop";
         user = "maik";
       };
       default_session = initial_session;
@@ -116,11 +115,9 @@
 
   environment.systemPackages = with pkgs; [
     AusweisApp2
+    fishPlugins.hydro
     fooyin
     gamescope-wsi
-    kdePackages.neochat
-    kdePackages.tokodon
-    kde-rounded-corners
     mangohud
     neovim
     transmission_4-qt
@@ -408,6 +405,9 @@
 
   # Enable gamescope
   programs.gamescope.enable = true;
+
+  # Make fish shell availlable
+  programs.fish.enable = true;
 
   ############
   # Services #
