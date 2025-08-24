@@ -117,6 +117,7 @@
     fishPlugins.hydro
     fooyin
     gamescope-wsi
+    kdePackages.tokodon
     mangohud
     neovim
     transmission_4-qt
