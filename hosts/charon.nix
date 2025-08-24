@@ -17,10 +17,10 @@
     ../users/maik.nix
     # plasma desktop
     ../gui/plasma.nix
-    ../gui/cosmic.nix
     # Basic capabilites
     ../capabilities/chipcards.nix
     ../capabilities/mpv.nix
+    ../capabilities/networking-with-network-manager.nix
     ../capabilities/pipewire.nix
     ../capabilities/plasma-pim.nix
     ../capabilities/printing.nix
@@ -44,8 +44,6 @@
 
   # Network configuration
   networking.hostName = "charon";
-  networking.networkmanager.enable = true;
-  systemd.services."NetworkManager-wait-online".enable = false;
   networking.modemmanager.fccUnlockScripts = [
     {
       id = "105b:e0c3";
