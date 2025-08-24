@@ -125,6 +125,7 @@
         python312Packages.pillow
       ]))
     kdePackages.tokodon
+    kdePackages.akregator
     fishPlugins.hydro
     fooyin
     neovim
