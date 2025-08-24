@@ -27,6 +27,7 @@
     gnome-calculator
     gnome-clocks
     gnome-text-editor
+    hyprlock
     hyprpaper
     keepassxc
     libreoffice
