@@ -26,6 +26,7 @@
   # List of system-wide packages
   environment.systemPackages = with pkgs; [
     adwaita-icon-theme
+    adwaita-qt
     alacritty
     aspell
     aspellDicts.de
@@ -42,20 +43,20 @@
     gnome-clocks
     gnome-text-editor
     keepassxc
-    adwaita-qt
-    libsForQt5.qt5ct
     libreoffice
-    playerctl
-    mangohud
+    libsForQt5.qt5ct
     mako
+    mangohud
     nautilus
     nfs-utils
     papers
     pavucontrol
+    playerctl
     ptyxis
     quodlibet-full
     resources
     swaylock
+    swayosd
     thunderbird
     tuba
     valent
