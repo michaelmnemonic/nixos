@@ -12,11 +12,12 @@
     # Users
     ../users/maik.nix
     # PLASMA desktop
-    ../gui/hypr.nix
+    ../gui/plasma.nix
     # Basic capabilities
     ../capabilities/chipcards.nix
     ../capabilities/fan2go.nix
     ../capabilities/mpv.nix
+    ../capabilities/networking-with-network-manager.nix
     ../capabilities/pipewire.nix
     ../capabilities/printing.nix
     ../capabilities/scanning.nix
@@ -31,8 +32,6 @@
 
   # Network configuration
   networking.hostName = "pluto";
-  networking.networkmanager.enable = true;
-  systemd.services."NetworkManager-wait-online".enable = false;
 
   # Emulate aarch64
   boot.binfmt.emulatedSystems = ["aarch64-linux"];
@@ -48,7 +47,7 @@
     enable = true;
     settings = rec {
       initial_session = {
-        command = "${pkgs.uwsm}/bin/uwsm start hyprland-uwsm.desktop";
+        command = "${pkgs.kdePackages.plasma-workspace}/bin/startplasma-wayland";
         user = "maik";
       };
       default_session = initial_session;
