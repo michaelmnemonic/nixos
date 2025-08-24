@@ -118,6 +118,7 @@
     fooyin
     gamescope-wsi
     kdePackages.tokodon
+    kdePackages.neochat
     mangohud
     neovim
     transmission_4-qt
