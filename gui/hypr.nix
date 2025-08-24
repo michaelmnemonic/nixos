@@ -11,6 +11,7 @@
   # List of system-wide packages
   environment.systemPackages = with pkgs; [
     adwaita-icon-theme
+    adwaita-qt
     alacritty
     aspell
     aspellDicts.de
@@ -26,25 +27,25 @@
     gnome-calculator
     gnome-clocks
     gnome-text-editor
+    hyprpaper
     keepassxc
-    adwaita-qt
-    libsForQt5.qt5ct
     libreoffice
-    playerctl
-    mangohud
+    libsForQt5.qt5ct
     mako
+    mangohud
     nautilus
     nfs-utils
     papers
     pavucontrol
-    hyprpaper
+    playerctl
     ptyxis
-    rose-pine-hyprcursor
     quodlibet-full
     resources
+    rose-pine-hyprcursor
     thunderbird
     tuba
     valent
+    walker
   ];
 
   fonts.packages = with pkgs; [
