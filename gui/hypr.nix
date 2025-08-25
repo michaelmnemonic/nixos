@@ -43,6 +43,7 @@
     quodlibet-full
     resources
     rose-pine-hyprcursor
+    swayosd
     thunderbird
     tuba
     valent
