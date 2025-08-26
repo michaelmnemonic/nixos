@@ -120,13 +120,14 @@
 
   # List of system-wide packages
   environment.systemPackages = with pkgs; [
-    (pkgs.kodi.withPackages (kodiPkgs:
+    (pkgs.kodi-wayland.withPackages (kodiPkgs:
       with pkgs; [
         python312Packages.pillow
       ]))
     kdePackages.tokodon
     kdePackages.akregator
     fishPlugins.hydro
+    firefox
     fooyin
     neovim
     syncthing
