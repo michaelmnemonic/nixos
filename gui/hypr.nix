@@ -37,6 +37,7 @@
     mako
     mangohud
     nautilus
+    newsflash
     nfs-utils
     papers
     pavucontrol
