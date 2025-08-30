@@ -280,6 +280,9 @@
   # Make fish shell availlable
   programs.fish.enable = true;
 
+  # Enable location service
+  services.geoclue2.enable = true;
+
   ############
   # Services #
   ############
