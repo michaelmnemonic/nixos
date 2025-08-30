@@ -28,6 +28,7 @@ in {
     kdePackages.ksshaskpass
     kdePackages.qtlocation
     kdePackages.skanpage
+    kdePackages.wacomtablet
     libcamera
     libreoffice-qt
     (pkgs.writeTextDir "share/sddm/themes/breeze/theme.conf.user" ''
