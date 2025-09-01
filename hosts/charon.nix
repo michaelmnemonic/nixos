@@ -42,6 +42,9 @@
   # Allow unfree software
   nixpkgs.config.allowUnfree = true;
 
+  # Enable fingerprint reader
+  services.fprintd.enable = true;
+
   # Network configuration
   networking.hostName = "charon";
   networking.modemmanager.fccUnlockScripts = [
