@@ -118,6 +118,11 @@
     fishPlugins.hydro
     fooyin
     gamescope-wsi
+    (heroic.override {
+      extraPkgs = pkgs: [
+        pkgs.gamescope
+      ];
+    })
     kdePackages.tokodon
     kdePackages.neochat
     mangohud
