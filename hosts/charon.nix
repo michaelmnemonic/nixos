@@ -129,7 +129,6 @@
       ]))
     kdePackages.tokodon
     kdePackages.akregator
-    fishPlugins.hydro
     firefox
     fooyin
     neovim
@@ -279,9 +278,6 @@
 
   # Enable direnv
   programs.direnv.enable = true;
-
-  # Make fish shell availlable
-  programs.fish.enable = true;
 
   # Enable location service
   services.geoclue2.enable = true;

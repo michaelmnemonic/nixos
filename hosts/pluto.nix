@@ -115,7 +115,6 @@
 
   environment.systemPackages = with pkgs; [
     AusweisApp2
-    fishPlugins.hydro
     fooyin
     gamescope-wsi
     (heroic.override {
@@ -441,9 +440,6 @@
 
   # Enable gamescope
   programs.gamescope.enable = true;
-
-  # Make fish shell availlable
-  programs.fish.enable = true;
 
   ############
   # Services #
