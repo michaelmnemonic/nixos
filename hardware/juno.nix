@@ -27,7 +27,8 @@
     # Allow firmware upgrades
     "iomem=relaxed"
     # Allow hibernate
-    "resume_offset=4105728"
+    "resume=/dev/disk/by-label/NIXOS"
+    "resume_offset=1229312"
     "mem_sleep_default=deep"
   ];
 
