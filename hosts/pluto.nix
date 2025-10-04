@@ -124,6 +124,7 @@
     })
     kdePackages.tokodon
     kdePackages.neochat
+    kde-rounded-corners
     mangohud
     neovim
     transmission_4-qt
