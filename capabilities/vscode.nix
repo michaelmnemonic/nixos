@@ -20,13 +20,14 @@
 
   vscode = vscode-with-extensions.override {
     vscodeExtensions = with vscode-extensions; [
+      catppuccin.catppuccin-vsc
       continue
       jnoortheen.nix-ide
       mkhl.direnv
-      ms-vscode-remote.remote-ssh
-      ms-python.python
-      ms-python.debugpy
       ms-python.black-formatter
+      ms-python.debugpy
+      ms-python.python
+      ms-vscode-remote.remote-ssh
     ];
   };
 in {
