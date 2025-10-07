@@ -201,8 +201,8 @@
       context.modules = [
           { name = libpipewire-module-filter-chain
           args = {
-              node.description = "Desktoplautsprecher"
-              media.name       = "Desktoplautsprecher"
+              node.description = "Lautsprecher"
+              media.name       = "Lautsprecher"
               filter.graph = {
                   nodes = [
                       {
