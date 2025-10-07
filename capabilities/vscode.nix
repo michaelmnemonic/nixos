@@ -19,16 +19,25 @@
   };
 
   vscode = vscode-with-extensions.override {
-    vscodeExtensions = with vscode-extensions; [
-      catppuccin.catppuccin-vsc
-      continue
-      jnoortheen.nix-ide
-      mkhl.direnv
-      ms-python.black-formatter
-      ms-python.debugpy
-      ms-python.python
-      ms-vscode-remote.remote-ssh
-    ];
+    vscodeExtensions = with vscode-extensions;
+      [
+        catppuccin.catppuccin-vsc
+        continue
+        jnoortheen.nix-ide
+        mkhl.direnv
+        ms-python.black-formatter
+        ms-python.debugpy
+        ms-python.python
+        ms-vscode-remote.remote-ssh
+      ]
+      ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+        {
+          name = "kde-plasma-breeze";
+          publisher = "davidprush";
+          version = "1.0.0";
+          sha256 = "sha256-wNG8GxP5v687koGOKXXJ520bsr8KmLujK9aSG/XL0rM=";
+        }
+      ];
   };
 in {
   environment.systemPackages = with pkgs; [
