@@ -14,23 +14,6 @@
     "nvme"
     "phy-qcom-qmp-pcie"
     "pcie-qcom"
-
-    "i2c-core"
-    "i2c-hid"
-    "i2c-hid-of"
-    "i2c-qcom-geni"
-
-    "leds_qcom_lpg"
-    "pwm_bl"
-    "qrtr"
-    "pmic_glink_altmode"
-    "gpio_sbu_mux"
-    "phy-qcom-qmp-combo"
-    "gpucc_sc8280xp"
-    "dispcc_sc8280xp"
-    "phy_qcom_edp"
-    "panel-edp"
-    "msm"
   ];
 
   # Kernel modules to load ofter initrd
