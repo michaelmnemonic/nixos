@@ -304,12 +304,6 @@
     };
   };
 
-  # syncthing
-  services.syncthing = {
-    enable = true;
-    user = "maik";
-  };
-
   # NixOS state version
   system.stateVersion = "24.05";
 }
