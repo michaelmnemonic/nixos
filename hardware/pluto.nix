@@ -25,6 +25,10 @@
 
   boot.extraModulePackages = [];
 
+  boot.extraModprobeConfig = ''
+    options ath12k_pci disable_aspm=1
+  '';
+
   # Luks encrypted root partition
   boot.initrd.luks.devices.NIXOS = {
     device = "/dev/disk/by-partlabel/NIXOS";
