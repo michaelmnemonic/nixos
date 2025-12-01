@@ -38,12 +38,6 @@
     192.168.178.30 orpheus
   '';
 
-  # Disable ttys
-  services.logind.extraConfig = ''
-    NAutoVTs=0
-    ReserveVT=0
-  '';
-
   # Use german internationalisation
   i18n.defaultLocale = "de_DE.UTF-8";
   console.keyMap = "de";
