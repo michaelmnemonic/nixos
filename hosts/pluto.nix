@@ -114,7 +114,7 @@
   ];
 
   environment.systemPackages = with pkgs; [
-    AusweisApp2
+    ausweisapp
     fooyin
     gamescope-wsi
     (heroic.override {
