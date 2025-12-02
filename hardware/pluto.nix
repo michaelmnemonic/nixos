@@ -3,7 +3,8 @@
   modulesPath,
   pkgs,
   ...
-}: {
+}:
+{
   # Import modulesPath
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
@@ -23,7 +24,7 @@
     "nct6775"
   ];
 
-  boot.extraModulePackages = [];
+  boot.extraModulePackages = [ ];
 
   boot.extraModprobeConfig = ''
     options ath12k_pci disable_aspm=1
@@ -39,7 +40,10 @@
   fileSystems."/" = {
     device = "/dev/disk/by-label/NIXOS";
     fsType = "btrfs";
-    options = ["subvol=@" "compress=zstd:1"];
+    options = [
+      "subvol=@"
+      "compress=zstd:1"
+    ];
   };
 
   fileSystems."/boot" = {
@@ -47,12 +51,12 @@
     fsType = "vfat";
   };
 
-  swapDevices = [];
+  swapDevices = [ ];
 
   # Kernel command line
   boot.kernelParams = [
     # Allow overclocking of GPU
-    "amdgpu.ppfeaturemask=0xfff7ffff"
+    #"amdgpu.ppfeaturemask=0xfff7ffff"
     # Use pstate_epp for CPU reclocking
     "amd_pstate=active"
   ];
@@ -62,7 +66,7 @@
 
   # Make gpu acceleration availlable using rocm
   hardware.amdgpu.opencl.enable = true;
-  hardware.graphics.extraPackages = with pkgs; [rocmPackages.clr.icd];
+  hardware.graphics.extraPackages = with pkgs; [ rocmPackages.clr.icd ];
 
   # Host platform
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
