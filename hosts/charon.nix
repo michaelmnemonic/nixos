@@ -7,7 +7,8 @@
   self,
   allowed-unfree-packages,
   ...
-}: {
+}:
+{
   imports = [
     # Shared host configuration
     ./_shared.nix
@@ -118,15 +119,16 @@
     jetbrains-mono
     noto-fonts
     noto-fonts-cjk-sans
-    noto-fonts-emoji
+    noto-fonts-color-emoji
   ];
 
   # List of system-wide packages
   environment.systemPackages = with pkgs; [
-    (pkgs.kodi-wayland.withPackages (kodiPkgs:
-      with pkgs; [
+    (pkgs.kodi-wayland.withPackages (
+      kodiPkgs: with pkgs; [
         python312Packages.pillow
-      ]))
+      ]
+    ))
     kdePackages.tokodon
     kdePackages.akregator
     firefox
