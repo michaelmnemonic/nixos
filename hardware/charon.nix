@@ -3,7 +3,8 @@
   modulesPath,
   nixos-x13s,
   ...
-}: {
+}:
+{
   # Import modulesPath
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
@@ -17,16 +18,22 @@
   ];
 
   # Kernel modules to load ofter initrd
-  boot.kernelModules = [];
+  boot.kernelModules = [ ];
 
-  boot.initrd.kernelModules = [];
-  boot.extraModulePackages = [];
+  boot.initrd.kernelModules = [ ];
+  boot.extraModulePackages = [ ];
 
   # Filesystems
   fileSystems."/" = {
     device = "/dev/disk/by-label/NIXOS";
     fsType = "f2fs";
-    options = ["compress_algorithm=zstd:1" "compress_chksum" "atgc" "gc_merge" "lazytime"];
+    options = [
+      "compress_algorithm=zstd:1"
+      "compress_chksum"
+      "atgc"
+      "gc_merge"
+      "lazytime"
+    ];
   };
 
   fileSystems."/boot" = {
@@ -44,6 +51,10 @@
 
   # Enable plymouth
   boot.plymouth.enable = true;
+
+  # TPM not supported on this platform
+  systemd.tpm2.enable = false;
+  boot.initrd.systemd.tpm2.enable = false;
 
   # Host platform
   nixpkgs.hostPlatform = lib.mkDefault "aarch64-linux";
