@@ -350,7 +350,6 @@
         minPwm: 80
         maxPwm: 220
         curve: gpu_curve
-        controlAlgorithm: direct
     sensors:
       - id: gpu_edge
         hwmon:
@@ -366,19 +365,19 @@
           index: 1
     curves:
       - id: gpu_edge_curve
-        pid:
+        linear:
           sensor: gpu_edge
-          setPoint: 75
-          p: -0.0040
-          i: -0.0080
-          d: -0.0008
+          steps:
+          - 50: 80
+          - 60: 110
+          - 65: 150
       - id: gpu_mem_curve
-        pid:
+        linear:
           sensor: gpu_mem
-          setPoint: 105
-          p: -0.0040
-          i: -0.0080
-          d: -0.0008
+          steps:
+          - 60: 80
+          - 90: 110
+          - 100: 150
       - id: gpu_curve
         function:
           type: maximum
