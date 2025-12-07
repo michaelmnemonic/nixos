@@ -333,7 +333,6 @@
           platform: nct6792-isa-0290
           index: 1
         neverStop: true
-        minPwm: 80
         maxPwm: 220
         curve: side_curve
       - id: cpu
@@ -347,7 +346,6 @@
           platform: nct6792-isa-0290
           index: 3
         neverStop: true
-        minPwm: 80
         maxPwm: 220
         curve: gpu_curve
     sensors:
