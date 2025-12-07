@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   # Make niri availlable
   programs.niri.enable = true;
 
@@ -20,7 +21,7 @@
     nerd-fonts.jetbrains-mono
     noto-fonts
     noto-fonts-cjk-sans
-    noto-fonts-emoji
+    noto-fonts-color-emoji
   ];
 
   # List of system-wide packages
@@ -84,7 +85,7 @@
     icons.enable = true;
     portal = {
       enable = true;
-      extraPortals = [pkgs.xdg-desktop-portal-gnome];
+      extraPortals = [ pkgs.xdg-desktop-portal-gnome ];
     };
   };
 
