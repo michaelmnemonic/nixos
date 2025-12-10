@@ -56,7 +56,7 @@
   # Kernel command line
   boot.kernelParams = [
     # Allow overclocking of GPU
-    #"amdgpu.ppfeaturemask=0xfff7ffff"
+    "amdgpu.ppfeaturemask=0xfff7ffff"
     # Use pstate_epp for CPU reclocking
     "amd_pstate=active"
   ];
