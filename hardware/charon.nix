@@ -49,14 +49,8 @@
   # Filesystems
   fileSystems."/" = {
     device = "/dev/disk/by-label/NIXOS";
-    fsType = "f2fs";
-    options = [
-      "compress_algorithm=zstd:1"
-      "compress_chksum"
-      "atgc"
-      "gc_merge"
-      "lazytime"
-    ];
+    fsType = "btrfs";
+    options = ["subvol=@" "compress=zstd:1"];
   };
 
   fileSystems."/boot" = {
