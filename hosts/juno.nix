@@ -23,6 +23,8 @@
     ../capabilities/vscode.nix
     # Wireguard
     ../capabilities/wireguard.nix
+    # Steam
+    ../capabilities/steam.nix
   ];
 
   # Use latest stable kernel
