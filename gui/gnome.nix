@@ -23,6 +23,7 @@
     celluloid
     foliate
     gnomeExtensions.caffeine
+    gnomeExtensions.just-perfection
     libcamera
     papers
     quodlibet
