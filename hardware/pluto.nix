@@ -34,7 +34,7 @@
   boot.initrd.luks.devices.NIXOS = {
     device = "/dev/disk/by-partlabel/NIXOS";
     allowDiscards = true;
-    crypttabExtraOpts = ["fido2-device=auto"]
+    crypttabExtraOpts = [ "fido2-device=auto" ];
   };
 
   # Filesystems
