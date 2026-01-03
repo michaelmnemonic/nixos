@@ -3,8 +3,7 @@
   pkgs,
   lib,
   ...
-}:
-{
+}: {
   imports = [
     # Shared host configuration
     ./_shared.nix
@@ -84,10 +83,10 @@
   hardware.bluetooth.enable = true;
 
   # Use GNOME as desktop environment
-  services.xserver.desktopManager.gnome.enable = true;
+  services.desktopManager.gnome.enable = true;
 
   # Use GDM as displayManager
-  services.xserver.displayManager.gdm.enable = true;
+  services.displayManager.gdm.enable = true;
 
   # Debloat GNOME install
   environment.gnome.excludePackages = with pkgs; [
@@ -99,7 +98,7 @@
   ];
 
   # No need for xterm
-  services.xserver.excludePackages = [ pkgs.xterm ];
+  services.xserver.excludePackages = [pkgs.xterm];
   services.xserver.desktopManager.xterm.enable = false;
 
   # Add inter, jetbrains-mono and noto fonts
