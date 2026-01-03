@@ -28,7 +28,7 @@
     "iomem=relaxed"
     # Allow hibernate
     "resume=/dev/disk/by-label/NIXOS"
-    "resume_offset=1229312"
+    "resume_offset=369152"
     "mem_sleep_default=deep"
   ];
 
