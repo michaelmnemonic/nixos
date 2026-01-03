@@ -3,7 +3,8 @@
   pkgs,
   lib,
   ...
-}: {
+}:
+{
   imports = [
     # Shared host configuration
     ./_shared.nix
@@ -98,7 +99,7 @@
   ];
 
   # No need for xterm
-  services.xserver.excludePackages = [pkgs.xterm];
+  services.xserver.excludePackages = [ pkgs.xterm ];
   services.xserver.desktopManager.xterm.enable = false;
 
   # Add inter, jetbrains-mono and noto fonts
@@ -395,17 +396,6 @@
   programs.kdeconnect = {
     enable = true;
     package = pkgs.gnomeExtensions.gsconnect;
-  };
-
-  # Enable ssh-agent
-  programs.ssh = {
-    startAgent = true;
-    enableAskPassword = true;
-  };
-
-  # Enable gnupg
-  programs.gnupg.agent = {
-    enable = true;
   };
 
   ############
