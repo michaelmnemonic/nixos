@@ -135,7 +135,7 @@
     kdePackages.tokodon
     kdePackages.akregator
     firefox
-    #fooyin
+    fooyin
     neovim
     syncthing
     transmission_4-qt
