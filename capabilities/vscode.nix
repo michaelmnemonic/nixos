@@ -2,7 +2,8 @@
   pkgs,
   lib,
   ...
-}: let
+}:
+let
   inherit (pkgs) vscode-extensions vscode-with-extensions;
 
   continue = pkgs.vscode-utils.buildVscodeMarketplaceExtension {
@@ -14,12 +15,13 @@
       arch = "linux-x64";
     };
     # Patch obtained from: https://github.com/continuedev/continue/issues/821
-    nativeBuildInputs = [pkgs.autoPatchelfHook];
-    buildInputs = [pkgs.stdenv.cc.cc.lib];
+    nativeBuildInputs = [ pkgs.autoPatchelfHook ];
+    buildInputs = [ pkgs.stdenv.cc.cc.lib ];
   };
 
   vscode = vscode-with-extensions.override {
-    vscodeExtensions = with vscode-extensions;
+    vscodeExtensions =
+      with vscode-extensions;
       [
         catppuccin.catppuccin-vsc
         jnoortheen.nix-ide
@@ -36,9 +38,16 @@
           version = "1.0.0";
           sha256 = "sha256-wNG8GxP5v687koGOKXXJ520bsr8KmLujK9aSG/XL0rM=";
         }
+        {
+          name = "geminicodeassist";
+          publisher = "google";
+          version = "2.64.0";
+          sha256 = "sha256-7YDglB8DJFu77BDCoxkij+xXsIuLTPeaUqXoDtAWjVQ=";
+        }
       ];
   };
-in {
+in
+{
   environment.systemPackages = with pkgs; [
     vscode
   ];
