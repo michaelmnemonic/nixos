@@ -56,6 +56,12 @@ let
           version = "4.4.0";
           sha256 = "sha256-4tamHxduWgtGirvS+I6YlYlE3JGzlwDMD21dKaTP9io=";
         }
+        {
+          name = "code-spell-checker-german";
+          publisher = "streetsidesoftware";
+          version = "2.3.4";
+          sha256 = "sha256-zc0cv4AOswvYcC4xJOq2JEPMQ5qTj9Dad5HhxtNETEs=";
+        }
       ];
   };
 in
