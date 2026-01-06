@@ -309,6 +309,9 @@
   # Enable location service
   services.geoclue2.enable = true;
 
+  # Enable fish
+  programs.fish.enable = true;
+
   ############
   # Services #
   ############
