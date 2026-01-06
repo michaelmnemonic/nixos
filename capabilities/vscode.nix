@@ -44,6 +44,18 @@ let
           version = "2.64.0";
           sha256 = "sha256-7YDglB8DJFu77BDCoxkij+xXsIuLTPeaUqXoDtAWjVQ=";
         }
+        {
+          name = "latex-workshop";
+          publisher = "james-yu";
+          version = "10.12.0";
+          sha256 = "sha256-UrQ7Sp4hklKP+rF8Yke7qay/vSIb+B5mza2fmfcN6l8=";
+        }
+        {
+          name = "code-spell-checker";
+          publisher = "streetsidesoftware";
+          version = "4.4.0";
+          sha256 = "sha256-4tamHxduWgtGirvS+I6YlYlE3JGzlwDMD21dKaTP9io=";
+        }
       ];
   };
 in
