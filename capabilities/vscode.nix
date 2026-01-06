@@ -22,7 +22,6 @@
     vscodeExtensions = with vscode-extensions;
       [
         catppuccin.catppuccin-vsc
-        continue
         jnoortheen.nix-ide
         mkhl.direnv
         ms-python.black-formatter
