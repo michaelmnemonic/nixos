@@ -65,19 +65,6 @@
   # Enable plymouth
   boot.plymouth.enable = true;
 
-  # https://github.com/NixOS/nixpkgs/issues/466945
-  hardware.firmware = [
-    (pkgs.linux-firmware.overrideAttrs (old: {
-      version = "3d5c8135206cef364e7d353711b3e7358a90d152";
-      src = pkgs.fetchFromGitLab {
-        owner = "kernel-firmware";
-        repo = "linux-firmware";
-        rev = "3d5c8135206cef364e7d353711b3e7358a90d152";
-        hash = "sha256-ukXZjh5OWnFoppD1TVBwHvcXvH4IOoebnQI+pDm/nOk=";
-      };
-    }))
-  ];
-
   # Make gpu acceleration availlable using rocm
   hardware.amdgpu.opencl.enable = true;
   hardware.graphics.extraPackages = with pkgs; [ rocmPackages.clr.icd ];
