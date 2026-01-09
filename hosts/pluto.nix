@@ -123,11 +123,12 @@
         pkgs.gamescope
       ];
     })
-    kdePackages.tokodon
-    kdePackages.neochat
     kde-rounded-corners
+    kdePackages.neochat
+    kdePackages.tokodon
     mangohud
     neovim
+    signal-desktop
     transmission_4-qt
     vulkan-hdr-layer-kwin6
     wineWowPackages.staging
