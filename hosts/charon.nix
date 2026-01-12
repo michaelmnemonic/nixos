@@ -132,6 +132,7 @@
         python312Packages.pillow
       ]
     ))
+    btrfs-progs
     kdePackages.tokodon
     kdePackages.akregator
     firefox
@@ -141,6 +142,16 @@
     transmission_4-qt
     zed-editor
   ];
+
+  # Receive backups
+  services.btrbk = {
+    sshAccess = [
+      {
+        key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILvnVSjkHTyE9axypUKg3XBqT2ckiaTlmH9s1mHfoDfw";
+        roles = [ "send" "info" "delete" ];
+      }
+    ];
+  };
 
   services.pipewire.configPackages = [
     # Provide equalizer for Lenovo X13s speakers
