@@ -435,6 +435,8 @@
     user = "maik";
   };
 
+  services.languagetool.enable = true;
+
   # NixOS state version
   system.stateVersion = "24.05";
 }
