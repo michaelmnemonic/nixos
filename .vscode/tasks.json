@@ -37,6 +37,7 @@
         "build: flore",
         "build: charon"
       ],
+      "dependsOrder": "sequence",
       "group": {
         "kind": "build",
         "isDefault": true
