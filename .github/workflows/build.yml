@@ -1,10 +1,9 @@
 name: Build NixOS Configurations
 
 on:
-  push:
+  pull_request:
     branches:
-      - "**"
-  pull_request_target:
+      - main
 
 jobs:
   build:
