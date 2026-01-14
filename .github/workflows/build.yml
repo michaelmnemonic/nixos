@@ -24,4 +24,4 @@ jobs:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build NixOS configuration for ${{ matrix.host }}
-        run: nix build .#nixosConfigurations.${{ matrix.host }}
+        run: nix build .#nixosConfigurations.${{ matrix.host }}.config.system.build.toplevel
