@@ -1,7 +1,7 @@
 {pkgs, ...}: {
   programs.neovim = {
     enable = true;
-    configure= {
+    configure = {
       packages.myVimPackage = with pkgs.vimPlugins; {
         start = [
           ctrlp

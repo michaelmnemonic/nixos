@@ -3,8 +3,7 @@
   modulesPath,
   nixos-x13s,
   ...
-}:
-{
+}: {
   # Import modulesPath
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
@@ -35,10 +34,10 @@
   ];
 
   # Kernel modules to load ofter initrd
-  boot.kernelModules = [ ];
+  boot.kernelModules = [];
 
-  boot.initrd.kernelModules = [ ];
-  boot.extraModulePackages = [ ];
+  boot.initrd.kernelModules = [];
+  boot.extraModulePackages = [];
 
   # Luks encrypted root partition
   boot.initrd.luks.devices.NIXOS = {

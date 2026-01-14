@@ -3,8 +3,7 @@
   lib,
   config,
   ...
-}:
-{
+}: {
   imports = [
     # Shared host configuration
     ./_shared.nix
@@ -36,7 +35,7 @@
   networking.hostName = "pluto";
 
   # Emulate aarch64
-  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+  boot.binfmt.emulatedSystems = ["aarch64-linux"];
 
   # Use zram as swap
   zramSwap = {
@@ -136,8 +135,7 @@
   ];
 
   # Not all software is free
-  nixpkgs.config.allowUnfreePredicate =
-    pkg:
+  nixpkgs.config.allowUnfreePredicate = pkg:
     builtins.elem (lib.getName pkg) [
       "libvgm" # dependency of fooyin
       "steam"
