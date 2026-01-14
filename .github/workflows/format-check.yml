@@ -1,0 +1,22 @@
+name: Check Formatting
+
+on:
+  push:
+    branches:
+      - "**"
+  pull_request_target:
+
+jobs:
+  alejandra:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check formatting with alejandra
+        run: nix run nixpkgs#alejandra -- --check .
