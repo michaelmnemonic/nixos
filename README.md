@@ -2,8 +2,6 @@
 
 This repository contains a modular NixOS configuration for managing multiple host systems using Nix flakes. The configuration is designed to be maintainable, reusable, and organized around a clear separation of concerns.
 
-[![Build NixOS Configurations](https://github.com/michaelmnemonic/nixos/actions/workflows/build.yml/badge.svg)](https://github.com/michaelmnemonic/nixos/actions/workflows/build.yml)
-
 ## 🖥️ Host Systems
 
 The configuration currently manages three host systems:
