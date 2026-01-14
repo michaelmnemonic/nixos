@@ -30,8 +30,11 @@ jobs:
         uses: cachix/install-nix-action@v31
         with:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
-          cachix_name: ${{ secrets.CACHIX_NAME }}
-          cachix_signing_key: ${{ secrets.CACHIX_SIGNING_KEY }}
+
+      - uses: cachix/cachix-action@v14
+        with:
+          name: ${{ secrets.CACHIX_NAME }}
+          authToken: ${{ secrets.CACHIX_SIGNING_KEY }}
 
       - name: Free up disk space
         run: |
