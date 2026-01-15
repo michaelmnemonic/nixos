@@ -1,0 +1,48 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build: pluto",
+      "type": "shell",
+      "command": "nix build .#nixosConfigurations.pluto.config.system.build.toplevel",
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "build: juno",
+      "type": "shell",
+      "command": "nix build .#nixosConfigurations.juno.config.system.build.toplevel",
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "build: flore",
+      "type": "shell",
+      "command": "nix build .#nixosConfigurations.flore.config.system.build.toplevel",
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "build: charon",
+      "type": "shell",
+      "command": "nix build .#nixosConfigurations.charon.config.system.build.toplevel",
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "build: all",
+      "dependsOn": [
+        "build: pluto",
+        "build: juno",
+        "build: flore",
+        "build: charon"
+      ],
+      "dependsOrder": "sequence",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": []
+    }
+  ]
+}

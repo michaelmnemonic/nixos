@@ -3,8 +3,7 @@
   modulesPath,
   pkgs,
   ...
-}:
-{
+}: {
   # Import modulesPath
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
@@ -24,7 +23,7 @@
     "nct6775"
   ];
 
-  boot.extraModulePackages = [ ];
+  boot.extraModulePackages = [];
 
   boot.extraModprobeConfig = ''
     options ath12k_pci disable_aspm=1
@@ -34,7 +33,7 @@
   boot.initrd.luks.devices.NIXOS = {
     device = "/dev/disk/by-partlabel/NIXOS";
     allowDiscards = true;
-    crypttabExtraOpts = [ "fido2-device=auto" ];
+    crypttabExtraOpts = ["fido2-device=auto"];
   };
 
   # Filesystems
@@ -52,7 +51,7 @@
     fsType = "vfat";
   };
 
-  swapDevices = [ ];
+  swapDevices = [];
 
   # Kernel command line
   boot.kernelParams = [
@@ -67,7 +66,7 @@
 
   # Make gpu acceleration availlable using rocm
   hardware.amdgpu.opencl.enable = true;
-  hardware.graphics.extraPackages = with pkgs; [ rocmPackages.clr.icd ];
+  hardware.graphics.extraPackages = with pkgs; [rocmPackages.clr.icd];
 
   # Host platform
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";

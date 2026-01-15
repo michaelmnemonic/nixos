@@ -71,9 +71,10 @@
     in
       pkgs.mkShell {
         buildInputs = with pkgs; [
+          alejandra
+          cachix
           gitMinimal
           nil
-          alejandra
           ragenix
         ];
       });
