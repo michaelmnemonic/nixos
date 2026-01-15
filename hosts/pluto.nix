@@ -433,7 +433,11 @@
     user = "maik";
   };
 
-  services.languagetool.enable = true;
+  services.languagetool = {
+    enable = true;
+    allowOrigin = "*";
+    port = 8081;
+  };
 
   # NixOS state version
   system.stateVersion = "24.05";
