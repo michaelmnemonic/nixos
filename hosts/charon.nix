@@ -8,8 +8,7 @@
   allowed-unfree-packages,
   caelestia-shell,
   ...
-}:
-{
+}: {
   imports = [
     # Shared host configuration
     ./_shared.nix
@@ -41,7 +40,7 @@
   };
 
   # Emulate x86_64-linux (albeit slow)
-  boot.binfmt.emulatedSystems = [ "x86_64-linux" ];
+  boot.binfmt.emulatedSystems = ["x86_64-linux"];
 
   # Allow unfree software
   nixpkgs.config.allowUnfree = true;
@@ -131,9 +130,10 @@
   # List of system-wide packages
   environment.systemPackages = with pkgs; [
     (pkgs.kodi-wayland.withPackages (
-      kodiPkgs: with pkgs; [
-        python312Packages.pillow
-      ]
+      kodiPkgs:
+        with pkgs; [
+          python312Packages.pillow
+        ]
     ))
     btrfs-progs
     firefox
