@@ -2,11 +2,16 @@
   pkgs,
   config,
   ...
-}: {
+}:
+{
   # Initrd configuration
   boot.initrd.systemd.enable = true;
-  boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci"];
-  boot.initrd.kernelModules = [];
+  boot.initrd.availableKernelModules = [
+    "nvme"
+    "xhci_pci"
+    "ahci"
+  ];
+  boot.initrd.kernelModules = [ ];
 
   # Supress log messages
   boot.consoleLogLevel = 0;
@@ -75,7 +80,7 @@
   ];
   systemd.automounts = [
     {
-      wantedBy = ["multi-user.target"];
+      wantedBy = [ "multi-user.target" ];
       automountConfig = {
         TimeoutIdleSec = "600";
       };
@@ -93,7 +98,10 @@
   programs.direnv.enable = true;
 
   # Enable flakes
-  nix.settings.experimental-features = ["nix-command" "flakes"];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   # Garbage collect nix store
   nix.settings = {
@@ -125,6 +133,6 @@
   system.autoUpgrade = {
     enable = true;
     allowReboot = false;
-    flake = "github:michaelmnemonic/nixos";
+    flake = "github:michaelmnemonic/nixos/niri-on-charon";
   };
 }
