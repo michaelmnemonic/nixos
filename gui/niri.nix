@@ -3,9 +3,6 @@
   # Make niri availlable
   programs.niri.enable = true;
 
-  # Make waybar availlable
-  programs.waybar.enable = true;
-
   nixpkgs.config.qt5 = {
     enable = true;
     platformTheme = "qt5ct";
