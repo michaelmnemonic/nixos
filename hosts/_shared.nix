@@ -2,8 +2,7 @@
   pkgs,
   config,
   ...
-}:
-{
+}: {
   # Initrd configuration
   boot.initrd.systemd.enable = true;
   boot.initrd.availableKernelModules = [
@@ -11,7 +10,7 @@
     "xhci_pci"
     "ahci"
   ];
-  boot.initrd.kernelModules = [ ];
+  boot.initrd.kernelModules = [];
 
   # Supress log messages
   boot.consoleLogLevel = 0;
@@ -80,7 +79,7 @@
   ];
   systemd.automounts = [
     {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       automountConfig = {
         TimeoutIdleSec = "600";
       };
