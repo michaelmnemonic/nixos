@@ -35,6 +35,7 @@
     fractal
     fragments
     fuzzel
+    ghostty
     gitMinimal
     gnome-calculator
     gnome-clocks
