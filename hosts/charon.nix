@@ -6,6 +6,7 @@
   lib,
   self,
   allowed-unfree-packages,
+  caelestia-shell,
   ...
 }:
 {
@@ -139,6 +140,7 @@
     neovim
     syncthing
     zed-editor
+    caelestia-shell.packages.aarch64-linux.default
   ];
 
   # Receive backups
