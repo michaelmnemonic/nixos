@@ -92,6 +92,8 @@
     implementation = "broker";
   };
 
+  services.upower.enable = true;
+
   # swayosd
   systemd.services.swayosd-libinput-backend = {
     description = "SwayOSD LibInput backend for listening to certain keys like CapsLock, ScrollLock, VolumeUp, etc.";
