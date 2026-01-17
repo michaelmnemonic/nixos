@@ -231,6 +231,26 @@
         "type": "github"
       }
     },
+    "noctalia": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1768668019,
+        "narHash": "sha256-D8uu9Z1IMvP+7fgNG67QziJjJA7hxhPDgq5u7mnrKGI=",
+        "owner": "noctalia-dev",
+        "repo": "noctalia-shell",
+        "rev": "f989465ce90b24a6f502a4dc01b517bafd31d343",
+        "type": "github"
+      },
+      "original": {
+        "owner": "noctalia-dev",
+        "repo": "noctalia-shell",
+        "type": "github"
+      }
+    },
     "quickshell": {
       "inputs": {
         "nixpkgs": [
@@ -257,7 +277,8 @@
         "agenix": "agenix",
         "caelestia-shell": "caelestia-shell",
         "nixos-x13s": "nixos-x13s",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "noctalia": "noctalia"
       }
     },
     "rust-overlay": {

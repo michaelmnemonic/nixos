@@ -18,6 +18,11 @@
       url = "github:caelestia-dots/shell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    noctalia = {
+      url = "github:noctalia-dev/noctalia-shell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -27,6 +32,7 @@
       nixos-x13s,
       agenix,
       caelestia-shell,
+      noctalia,
     }:
     let
       # Define 'forAllSystems' for properties that shall be build for x86_64 *and* aarch64
@@ -71,6 +77,7 @@
             ./hosts/charon.nix
             nixos-x13s.nixosModules.default
             agenix.nixosModules.default
+            noctalia.nixosModules.default
           ];
           specialArgs = {
             inherit nixos-x13s caelestia-shell;
