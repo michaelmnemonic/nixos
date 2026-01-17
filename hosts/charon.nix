@@ -142,6 +142,9 @@
     zed-editor
   ];
 
+  # Enable noctalia-shell
+  services.noctalia-shell.enable = true;
+
   # Receive backups
   services.btrbk = {
     sshAccess = [
