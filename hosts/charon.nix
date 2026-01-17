@@ -7,7 +7,8 @@
   self,
   allowed-unfree-packages,
   ...
-}: {
+}:
+{
   imports = [
     # Shared host configuration
     ./_shared.nix
@@ -39,7 +40,7 @@
   };
 
   # Emulate x86_64-linux (albeit slow)
-  boot.binfmt.emulatedSystems = ["x86_64-linux"];
+  boot.binfmt.emulatedSystems = [ "x86_64-linux" ];
 
   # Allow unfree software
   nixpkgs.config.allowUnfree = true;
@@ -129,19 +130,14 @@
   # List of system-wide packages
   environment.systemPackages = with pkgs; [
     (pkgs.kodi-wayland.withPackages (
-      kodiPkgs:
-        with pkgs; [
-          python312Packages.pillow
-        ]
+      kodiPkgs: with pkgs; [
+        python312Packages.pillow
+      ]
     ))
     btrfs-progs
-    kdePackages.tokodon
-    kdePackages.akregator
     firefox
-    fooyin
     neovim
     syncthing
-    transmission_4-qt
     zed-editor
   ];
 
@@ -150,7 +146,11 @@
     sshAccess = [
       {
         key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILvnVSjkHTyE9axypUKg3XBqT2ckiaTlmH9s1mHfoDfw";
-        roles = ["send" "info" "delete"];
+        roles = [
+          "send"
+          "info"
+          "delete"
+        ];
       }
     ];
   };
