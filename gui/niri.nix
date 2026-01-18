@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   # Make niri availlable
   programs.niri.enable = true;
 
@@ -35,6 +34,7 @@
     ghostty
     gitMinimal
     gnome-calculator
+    gnome-calendar
     gnome-clocks
     gnome-text-editor
     keepassxc
@@ -70,7 +70,7 @@
     icons.enable = true;
     portal = {
       enable = true;
-      extraPortals = [ pkgs.xdg-desktop-portal-gnome ];
+      extraPortals = [pkgs.xdg-desktop-portal-gnome];
     };
   };
 
