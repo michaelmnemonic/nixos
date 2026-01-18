@@ -25,17 +25,13 @@
   environment.systemPackages = with pkgs; [
     adwaita-icon-theme
     adwaita-qt
-    alacritty
     aspell
     aspellDicts.de
     aspellDicts.en
-    brightnessctl
     celluloid
-    fan2go
     firefox
     fractal
     fragments
-    fuzzel
     ghostty
     gitMinimal
     gnome-calculator
@@ -50,15 +46,11 @@
     nfs-utils
     papers
     pavucontrol
-    playerctl
-    ptyxis
     quodlibet-full
     resources
-    swaylock
     thunderbird-esr
     tuba
     valent
-    vscodium
     walker
     xwayland-satellite
   ];
