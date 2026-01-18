@@ -40,7 +40,6 @@
     keepassxc
     libreoffice
     libsForQt5.qt5ct
-    mako
     mangohud
     nautilus
     nfs-utils
