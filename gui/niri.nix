@@ -70,9 +70,6 @@
   # Disable gnome-keyring, keepassxc is used instead
   services.gnome.gnome-keyring.enable = false;
 
-  # Enable blueman bluetooth manager
-  services.blueman.enable = true;
-
   # Enable dconf (needed for configuration of gtk themes under wayland)
   programs.dconf.enable = true;
 
