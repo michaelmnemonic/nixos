@@ -55,7 +55,6 @@
     quodlibet-full
     resources
     swaylock
-    swayosd
     thunderbird-esr
     tuba
     valent
@@ -91,32 +90,4 @@
   };
 
   services.upower.enable = true;
-
-  # swayosd
-  systemd.services.swayosd-libinput-backend = {
-    description = "SwayOSD LibInput backend for listening to certain keys like CapsLock, ScrollLock, VolumeUp, etc.";
-    documentation = [ "https://github.com/ErikReider/SwayOSD" ];
-    wantedBy = [ "graphical.target" ];
-    partOf = [ "graphical.target" ];
-    after = [ "graphical.target" ];
-
-    serviceConfig = {
-      Type = "dbus";
-      BusName = "org.erikreider.swayosd";
-      ExecStart = "${pkgs.swayosd}/bin/swayosd-libinput-backend";
-      Restart = "on-failure";
-    };
-  };
-
-  systemd.user.services.swayosd-server = {
-    description = "SwayOSD server";
-    documentation = [ "https://github.com/ErikReider/SwayOSD" ];
-    after = [ "graphical-session.target" ];
-
-    serviceConfig = {
-      Type = "simple";
-      ExecStart = "${pkgs.swayosd}/bin/swayosd-server";
-      Restart = "on-failure";
-    };
-  };
 }
