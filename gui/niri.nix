@@ -48,7 +48,7 @@
     pavucontrol
     quodlibet-full
     resources
-    thunderbird-esr
+    thunderbird
     tuba
     valent
     walker
