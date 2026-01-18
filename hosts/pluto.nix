@@ -168,11 +168,10 @@
   #####################
 
   # # Overclock and undervolt AMD GPU
-  # environment.etc."tmpfiles.d/gpu-undervolt.conf".text = ''
-  #   w+ /sys/class/drm/card1/device/pp_od_clk_voltage                - - - - vo -50\n
-  #   w+ /sys/class/drm/card1/device/pp_od_clk_voltage                - - - - m 1 1200\n
-  #   w+ /sys/class/drm/card1/device/pp_od_clk_voltage                - - - - c\n
-  # '';
+  environment.etc."tmpfiles.d/gpu-undervolt.conf".text = ''
+    w+ /sys/class/drm/card1/device/pp_od_clk_voltage                - - - - vo -125\n
+    w+ /sys/class/drm/card1/device/pp_od_clk_voltage                - - - - c\n
+  '';
 
   # Make sure syncthing home exists
   environment.etc."tmpfiles.d/var-lib-synthing.conf".text = ''
