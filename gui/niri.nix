@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   # Make niri availlable
   programs.niri.enable = true;
 
@@ -55,7 +56,7 @@
     resources
     swaylock
     swayosd
-    #thunderbird
+    thunderbird
     tuba
     valent
     vscodium
@@ -82,7 +83,7 @@
     icons.enable = true;
     portal = {
       enable = true;
-      extraPortals = [pkgs.xdg-desktop-portal-gnome];
+      extraPortals = [ pkgs.xdg-desktop-portal-gnome ];
     };
   };
 
@@ -97,10 +98,10 @@
   # swayosd
   systemd.services.swayosd-libinput-backend = {
     description = "SwayOSD LibInput backend for listening to certain keys like CapsLock, ScrollLock, VolumeUp, etc.";
-    documentation = ["https://github.com/ErikReider/SwayOSD"];
-    wantedBy = ["graphical.target"];
-    partOf = ["graphical.target"];
-    after = ["graphical.target"];
+    documentation = [ "https://github.com/ErikReider/SwayOSD" ];
+    wantedBy = [ "graphical.target" ];
+    partOf = [ "graphical.target" ];
+    after = [ "graphical.target" ];
 
     serviceConfig = {
       Type = "dbus";
@@ -112,8 +113,8 @@
 
   systemd.user.services.swayosd-server = {
     description = "SwayOSD server";
-    documentation = ["https://github.com/ErikReider/SwayOSD"];
-    after = ["graphical-session.target"];
+    documentation = [ "https://github.com/ErikReider/SwayOSD" ];
+    after = [ "graphical-session.target" ];
 
     serviceConfig = {
       Type = "simple";
