@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   # Make niri availlable
   programs.niri.enable = true;
@@ -59,7 +59,7 @@
   environment.variables.QT_QPA_PLATFORMTHEME = "qt5ct";
 
   # Disable gnome-keyring, keepassxc is used instead
-  services.gnome.gnome-keyring.enable = false;
+  services.gnome.gnome-keyring.enable = lib.mkForce false;
 
   # Enable dconf (needed for configuration of gtk themes under wayland)
   programs.dconf.enable = true;
