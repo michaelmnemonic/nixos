@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   # Make niri availlable
   programs.niri.enable = true;
 
@@ -47,7 +48,7 @@
     pavucontrol
     quodlibet-full
     resources
-    thunderbird
+    #thunderbird
     tuba
     valent
     walker
@@ -70,7 +71,7 @@
     icons.enable = true;
     portal = {
       enable = true;
-      extraPortals = [pkgs.xdg-desktop-portal-gnome];
+      extraPortals = [ pkgs.xdg-desktop-portal-gnome ];
     };
   };
 
