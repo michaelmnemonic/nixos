@@ -81,5 +81,7 @@
     implementation = "broker";
   };
 
+  services.gnome.evolution-data-server.enable = true;
+
   services.upower.enable = true;
 }
