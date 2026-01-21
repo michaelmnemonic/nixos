@@ -22,6 +22,11 @@
     # Disable LUKS encryption setup expected on real hardware
     boot.initrd.luks.devices = lib.mkForce {};
 
+    # Disable swap and resume device which depend on real hardware labels
+    swapDevices = lib.mkForce [];
+    boot.resumeDevice = lib.mkForce null;
+    boot.kernelParams = lib.mkForce ["console=ttyS0"];
+
     # Prevent conflict with the externally created nixpkgs instance
     nixpkgs.config = lib.mkForce {};
 
