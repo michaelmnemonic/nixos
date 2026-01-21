@@ -103,6 +103,13 @@
         in
         {
           pluto-boot = pkgs.testers.nixosTest (import ./tests/pluto-boot.nix { inherit agenix; });
+          juno-boot = pkgs.testers.nixosTest (import ./tests/juno-boot.nix { inherit agenix; });
+          flore-boot = pkgs.testers.nixosTest (import ./tests/flore-boot.nix { inherit agenix; });
+          charon-boot = pkgs.testers.nixosTest (
+            import ./tests/charon-boot.nix {
+              inherit agenix nixos-x13s;
+            }
+          );
         }
       );
     };
