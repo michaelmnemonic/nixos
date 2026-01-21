@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  Ci:
+  Run:
     uses: ./.github/workflows/_ci.yml
     with:
       host: pluto
