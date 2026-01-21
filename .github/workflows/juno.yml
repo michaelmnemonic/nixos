@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  ci:
+  CI:
     uses: ./.github/workflows/ci.yml
     with:
       host: juno
