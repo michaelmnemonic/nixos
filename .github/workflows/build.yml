@@ -35,9 +35,17 @@ jobs:
       - name: Build NixOS configuration for ${{ matrix.host }}
         run: nix build .#nixosConfigurations.${{ matrix.host }}.config.system.build.toplevel
 
-  test-pluto:
+  tests:
     needs: build
-    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - host: pluto
+            runs-on: ubuntu-latest
+            check: pluto-boot
+            system: x86_64-linux
+    runs-on: ${{ matrix.runs-on }}
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -49,5 +57,5 @@ jobs:
           cachix_name: ${{ secrets.CACHIX_NAME }}
           cachix_authToken: ${{ secrets.CACHIX_SIGNING_KEY }}
 
-      - name: Run pluto boot test
-        run: nix build -L .#checks.x86_64-linux.pluto-boot
+      - name: Run ${{ matrix.host }} boot test
+        run: nix build -L .#checks.${{ matrix.system }}.${{ matrix.check }}
