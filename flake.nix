@@ -15,64 +15,68 @@
     };
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    nixos-x13s,
-    agenix,
-  }: let
-    # Define 'forAllSystems' for properties that shall be build for x86_64 *and* aarch64
-    systems = [
-      "x86_64-linux"
-      "aarch64-linux"
-    ];
-    forAllSystems = nixpkgs.lib.genAttrs systems;
-  in {
-    nixosConfigurations = {
-      pluto = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          ./hosts/pluto.nix
-          agenix.nixosModules.default
-        ];
-        specialArgs = {
+  outputs =
+    {
+      self,
+      nixpkgs,
+      nixos-x13s,
+      agenix,
+    }:
+    let
+      # Define 'forAllSystems' for properties that shall be build for x86_64 *and* aarch64
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+      ];
+      forAllSystems = nixpkgs.lib.genAttrs systems;
+    in
+    {
+      nixosConfigurations = {
+        pluto = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            ./hosts/pluto.nix
+            agenix.nixosModules.default
+          ];
+          specialArgs = {
+          };
+        };
+        juno = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            ./hosts/juno.nix
+            agenix.nixosModules.default
+          ];
+          specialArgs = {
+          };
+        };
+        flore = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            ./hosts/flore.nix
+            agenix.nixosModules.default
+          ];
+          specialArgs = {
+          };
+        };
+        charon = nixpkgs.lib.nixosSystem {
+          system = "aarch64-linux";
+          modules = [
+            ./hosts/charon.nix
+            nixos-x13s.nixosModules.default
+            agenix.nixosModules.default
+          ];
+          specialArgs = {
+            inherit nixos-x13s;
+          };
         };
       };
-      juno = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          ./hosts/juno.nix
-          agenix.nixosModules.default
-        ];
-        specialArgs = {
-        };
-      };
-      flore = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          ./hosts/flore.nix
-          agenix.nixosModules.default
-        ];
-        specialArgs = {
-        };
-      };
-      charon = nixpkgs.lib.nixosSystem {
-        system = "aarch64-linux";
-        modules = [
-          ./hosts/charon.nix
-          nixos-x13s.nixosModules.default
-          agenix.nixosModules.default
-        ];
-        specialArgs = {
-          inherit nixos-x13s;
-        };
-      };
-    };
 
-    devShell = forAllSystems (
-      system: let
-        pkgs = nixpkgs.legacyPackages.${system}.pkgs;
-      in
+      devShell = forAllSystems (
+        system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system}.pkgs;
+        in
         pkgs.mkShell {
           buildInputs = with pkgs; [
             alejandra
@@ -82,29 +86,31 @@
             ragenix
           ];
         }
-    );
+      );
 
-    checks = forAllSystems (
-      system: let
-        pkgs = import nixpkgs {
-          inherit system;
-          config = {
-            allowUnfree = true;
-            permittedInsecurePackages = [
-              "olm-3.2.16"
-            ];
+      checks = forAllSystems (
+        system:
+        let
+          pkgs = import nixpkgs {
+            inherit system;
+            config = {
+              allowUnfree = true;
+              permittedInsecurePackages = [
+                "olm-3.2.16"
+              ];
+            };
           };
-        };
-      in {
-        pluto-boot = pkgs.testers.nixosTest (import ./tests/pluto-boot.nix {inherit agenix;});
-        juno-boot = pkgs.testers.nixosTest (import ./tests/juno-boot.nix {inherit agenix;});
-        flore-boot = pkgs.testers.nixosTest (import ./tests/flore-boot.nix {inherit agenix;});
-        charon-boot = pkgs.testers.nixosTest (
-          import ./tests/charon-boot.nix {
-            inherit agenix nixos-x13s;
-          }
-        );
-      }
-    );
-  };
+        in
+        {
+          pluto = pkgs.testers.nixosTest (import ./tests/pluto.nix { inherit agenix; });
+          juno = pkgs.testers.nixosTest (import ./tests/juno.nix { inherit agenix; });
+          flore = pkgs.testers.nixosTest (import ./tests/flore.nix { inherit agenix; });
+          charon = pkgs.testers.nixosTest (
+            import ./tests/charon.nix {
+              inherit agenix nixos-x13s;
+            }
+          );
+        }
+      );
+    };
 }
