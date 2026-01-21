@@ -27,7 +27,7 @@ on:
 
 jobs:
   build:
-    name: Build ${{ inputs.host }}
+    name: Build
     runs-on: ${{ inputs.runs-on }}
     steps:
       - name: Check out repository
@@ -44,7 +44,7 @@ jobs:
         run: nix build .#nixosConfigurations.${{ inputs.host }}.config.system.build.toplevel
 
   test:
-    name: Test ${{ inputs.host }}
+    name: Test
     needs: build
     runs-on: ${{ inputs.runs-on }}
     steps:
