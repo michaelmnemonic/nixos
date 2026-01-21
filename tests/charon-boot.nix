@@ -8,6 +8,7 @@
     imports = [
       ../hosts/charon.nix
       agenix.nixosModules.default
+      nixos-x13s.nixosModules.default
     ];
 
     # Inject nixos-x13s dependency
