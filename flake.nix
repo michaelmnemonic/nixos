@@ -91,7 +91,15 @@
       checks = forAllSystems (
         system:
         let
-          pkgs = nixpkgs.legacyPackages.${system};
+          pkgs = import nixpkgs {
+            inherit system;
+            config = {
+              allowUnfree = true;
+              permittedInsecurePackages = [
+                "olm-3.2.16"
+              ];
+            };
+          };
         in
         {
           pluto-boot = pkgs.testers.nixosTest (import ./tests/pluto-boot.nix { inherit agenix; });

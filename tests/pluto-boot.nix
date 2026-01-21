@@ -31,6 +31,9 @@
 
       # Resolve conflict with test-instrumentation
       boot.consoleLogLevel = lib.mkForce 0;
+
+      # Prevent conflict with the externally created nixpkgs instance
+      nixpkgs.config = lib.mkForce { };
     };
 
   testScript = ''
