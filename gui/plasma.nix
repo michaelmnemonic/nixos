@@ -1,4 +1,5 @@
-{pkgs, ...}: let
+{ pkgs, ... }:
+let
   background-package = pkgs.stdenvNoCC.mkDerivation {
     name = "background-image";
     src = ./.;
@@ -7,12 +8,13 @@
       cp $src/wallpaper.jpg $out
     '';
   };
-in {
+in
+{
   # Use plasma as desktop environment
   services.desktopManager.plasma6.enable = true;
 
   # No need for xterm
-  services.xserver.excludePackages = [pkgs.xterm];
+  services.xserver.excludePackages = [ pkgs.xterm ];
   services.xserver.desktopManager.xterm.enable = false;
 
   # List of system-wide packages
@@ -29,6 +31,7 @@ in {
     kdePackages.qtlocation
     kdePackages.skanpage
     kdePackages.wacomtablet
+    kde-rounded-corners
     libcamera
     libreoffice-qt
     (pkgs.writeTextDir "share/sddm/themes/breeze/theme.conf.user" ''
@@ -58,7 +61,7 @@ in {
   # Enable firefox
   programs.firefox = {
     enable = true;
-    nativeMessagingHosts.packages = [pkgs.kdePackages.plasma-browser-integration];
+    nativeMessagingHosts.packages = [ pkgs.kdePackages.plasma-browser-integration ];
   };
 
   # Enable kdeconnect
