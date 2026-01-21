@@ -3,7 +3,8 @@
   pkgs,
   lib,
   ...
-}: {
+}:
+{
   imports = [
     # Shared host configuration
     ./_shared.nix
@@ -32,6 +33,9 @@
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+
+  # Allow luks unlock using touchscreen
+  boot.initrd.unl0kr.enable = true;
 
   # Network configuration
   networking.hostName = "juno";
@@ -100,7 +104,7 @@
   ];
 
   # No need for xterm
-  services.xserver.excludePackages = [pkgs.xterm];
+  services.xserver.excludePackages = [ pkgs.xterm ];
   services.xserver.desktopManager.xterm.enable = false;
 
   # Add inter, jetbrains-mono and noto fonts
