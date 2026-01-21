@@ -1,5 +1,5 @@
 {agenix}: {
-  name = "juno-boot";
+  name = "juno";
 
   nodes.machine = {lib, ...}: {
     imports = [
