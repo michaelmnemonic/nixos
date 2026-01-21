@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-let
+{pkgs, ...}: let
   background-package = pkgs.stdenvNoCC.mkDerivation {
     name = "background-image";
     src = ./.;
@@ -8,13 +7,12 @@ let
       cp $src/wallpaper.jpg $out
     '';
   };
-in
-{
+in {
   # Use plasma as desktop environment
   services.desktopManager.plasma6.enable = true;
 
   # No need for xterm
-  services.xserver.excludePackages = [ pkgs.xterm ];
+  services.xserver.excludePackages = [pkgs.xterm];
   services.xserver.desktopManager.xterm.enable = false;
 
   # List of system-wide packages
@@ -61,7 +59,7 @@ in
   # Enable firefox
   programs.firefox = {
     enable = true;
-    nativeMessagingHosts.packages = [ pkgs.kdePackages.plasma-browser-integration ];
+    nativeMessagingHosts.packages = [pkgs.kdePackages.plasma-browser-integration];
   };
 
   # Enable kdeconnect
