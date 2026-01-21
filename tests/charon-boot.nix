@@ -4,6 +4,8 @@
 }: {
   name = "charon-boot";
 
+  enableKVM = false;
+
   nodes.machine = {lib, ...}: {
     imports = [
       ../hosts/charon.nix
