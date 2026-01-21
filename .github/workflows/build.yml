@@ -22,6 +22,9 @@ jobs:
             runs-on: ubuntu-24.04-arm
     runs-on: ${{ matrix.runs-on }}
     steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
       - name: Setup Nix
         uses: ./.github/actions/setup-nix
         with:
@@ -36,6 +39,9 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
       - name: Setup Nix
         uses: ./.github/actions/setup-nix
         with:
