@@ -15,68 +15,87 @@
     };
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    nixos-x13s,
-    agenix,
-  }: let
-    # Define 'forAllSystems' for properties that shall be build for x86_64 *and* aarch64
-    systems = ["x86_64-linux" "aarch64-linux"];
-    forAllSystems = nixpkgs.lib.genAttrs systems;
-  in {
-    nixosConfigurations = {
-      pluto = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          ./hosts/pluto.nix
-          agenix.nixosModules.default
-        ];
-        specialArgs = {
-        };
-      };
-      juno = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          ./hosts/juno.nix
-          agenix.nixosModules.default
-        ];
-        specialArgs = {
-        };
-      };
-      flore = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          ./hosts/flore.nix
-          agenix.nixosModules.default
-        ];
-        specialArgs = {
-        };
-      };
-      charon = nixpkgs.lib.nixosSystem {
-        system = "aarch64-linux";
-        modules = [
-          ./hosts/charon.nix
-          nixos-x13s.nixosModules.default
-          agenix.nixosModules.default
-        ];
-        specialArgs = {
-          inherit nixos-x13s;
-        };
-      };
-    };
-
-    devShell = forAllSystems (system: let
-      pkgs = nixpkgs.legacyPackages.${system}.pkgs;
+  outputs =
+    {
+      self,
+      nixpkgs,
+      nixos-x13s,
+      agenix,
+    }:
+    let
+      # Define 'forAllSystems' for properties that shall be build for x86_64 *and* aarch64
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+      ];
+      forAllSystems = nixpkgs.lib.genAttrs systems;
     in
-      pkgs.mkShell {
-        buildInputs = with pkgs; [
-          alejandra
-          cachix
-          gitMinimal
-          nil
-          ragenix
-        ];
-      });
-  };
+    {
+      nixosConfigurations = {
+        pluto = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            ./hosts/pluto.nix
+            agenix.nixosModules.default
+          ];
+          specialArgs = {
+          };
+        };
+        juno = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            ./hosts/juno.nix
+            agenix.nixosModules.default
+          ];
+          specialArgs = {
+          };
+        };
+        flore = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            ./hosts/flore.nix
+            agenix.nixosModules.default
+          ];
+          specialArgs = {
+          };
+        };
+        charon = nixpkgs.lib.nixosSystem {
+          system = "aarch64-linux";
+          modules = [
+            ./hosts/charon.nix
+            nixos-x13s.nixosModules.default
+            agenix.nixosModules.default
+          ];
+          specialArgs = {
+            inherit nixos-x13s;
+          };
+        };
+      };
+
+      devShell = forAllSystems (
+        system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system}.pkgs;
+        in
+        pkgs.mkShell {
+          buildInputs = with pkgs; [
+            alejandra
+            cachix
+            gitMinimal
+            nil
+            ragenix
+          ];
+        }
+      );
+
+      checks = forAllSystems (
+        system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+        in
+        {
+          pluto-boot = pkgs.testers.nixosTest (import ./tests/pluto-boot.nix { inherit agenix; });
+        }
+      );
+    };
 }
