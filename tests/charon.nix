@@ -4,7 +4,7 @@
 }: {
   name = "charon";
 
-  enableKVM = false;
+  requiredSystemFeatures = ["nixos-test"];
 
   nodes.machine = {lib, ...}: {
     imports = [
@@ -19,6 +19,7 @@
     # Increase memory and cores for the VM
     virtualisation.memorySize = 2048;
     virtualisation.cores = 2;
+    virtualisation.useKVM = false;
 
     # Override filesystem configuration to be compatible with the test VM
     fileSystems = lib.mkForce {
