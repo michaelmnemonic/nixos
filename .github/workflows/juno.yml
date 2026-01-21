@@ -7,7 +7,7 @@ on:
 
 jobs:
   CI:
-    uses: ./.github/workflows/ci.yml
+    uses: ./.github/workflows/_ci.yml
     with:
       host: juno
       check: juno-boot
