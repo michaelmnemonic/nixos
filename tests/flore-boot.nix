@@ -32,5 +32,13 @@
   testScript = ''
     machine.wait_for_unit("multi-user.target")
     machine.succeed("echo 'Flore configuration booted successfully!'")
+
+    # Check if greetd is running
+    machine.wait_for_unit("greetd.service")
+
+    # Check if user katrin (UID 1001) has a wayland session
+    # We look for wayland-0 socket in /run/user/1001/
+    machine.wait_for_file("/run/user/1001/wayland-0")
+    machine.succeed("pgrep -u katrin startplasma")
   '';
 }
