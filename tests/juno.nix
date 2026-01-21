@@ -24,7 +24,7 @@
 
     # Disable swap and resume device which depend on real hardware labels
     swapDevices = lib.mkForce [];
-    boot.resumeDevice = lib.mkForce [];
+    boot.resumeDevice = lib.mkForce "";
     boot.kernelParams = lib.mkForce ["console=ttyS0"];
 
     # Prevent conflict with the externally created nixpkgs instance
