@@ -2,7 +2,7 @@
   agenix,
   nixos-x13s,
 }: {
-  name = "charon-boot";
+  name = "charon";
 
   enableKVM = false;
 

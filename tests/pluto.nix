@@ -1,5 +1,5 @@
 {agenix}: {
-  name = "pluto-boot";
+  name = "pluto";
 
   nodes.machine = {lib, ...}: {
     imports = [

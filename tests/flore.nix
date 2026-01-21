@@ -1,5 +1,5 @@
 {agenix}: {
-  name = "flore-boot";
+  name = "flore";
 
   nodes.machine = {lib, ...}: {
     imports = [
