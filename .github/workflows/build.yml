@@ -7,7 +7,6 @@ on:
 
 jobs:
   build:
-    name: Build & Test
     strategy:
       fail-fast: false
       matrix:
