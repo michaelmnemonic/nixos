@@ -1,4 +1,4 @@
-name: CI
+name: Build and test NixOS Configurations
 
 on:
   pull_request:
@@ -29,15 +29,27 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Setup Nix
-        uses: ./.github/actions/setup-nix
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
         with:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
-          cachix_name: ${{ secrets.CACHIX_NAME }}
-          cachix_authToken: ${{ secrets.CACHIX_SIGNING_KEY }}
 
-      - name: Build NixOS configuration
+      - uses: cachix/cachix-action@v14
+        with:
+          name: ${{ secrets.CACHIX_NAME }}
+          authToken: ${{ secrets.CACHIX_SIGNING_KEY }}
+
+      - name: Free up disk space
+        run: |
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /opt/ghc
+          sudo rm -rf /usr/local/lib/android
+          sudo rm -rf /opt/hostedtoolcache/CodeQL
+          echo "Disk space after cleanup:"
+          df -h
+
+      - name: Build NixOS configuration for ${{ matrix.host }}
         run: nix build .#nixosConfigurations.${{ matrix.host }}.config.system.build.toplevel
 
-      - name: Run test
+      - name: Run test for ${{ matrix.host }}
         run: nix build -L .#checks.${{ matrix.system }}.${{ matrix.host }}
