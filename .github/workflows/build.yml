@@ -22,27 +22,12 @@ jobs:
             runs-on: ubuntu-24.04-arm
     runs-on: ${{ matrix.runs-on }}
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-
-      - name: Install Nix
-        uses: cachix/install-nix-action@v31
+      - name: Setup Nix
+        uses: ./.github/actions/setup-nix
         with:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
-
-      - uses: cachix/cachix-action@v14
-        with:
-          name: ${{ secrets.CACHIX_NAME }}
-          authToken: ${{ secrets.CACHIX_SIGNING_KEY }}
-
-      - name: Free up disk space
-        run: |
-          sudo rm -rf /usr/share/dotnet
-          sudo rm -rf /opt/ghc
-          sudo rm -rf /usr/local/lib/android
-          sudo rm -rf /opt/hostedtoolcache/CodeQL
-          echo "Disk space after cleanup:"
-          df -h
+          cachix_name: ${{ secrets.CACHIX_NAME }}
+          cachix_authToken: ${{ secrets.CACHIX_SIGNING_KEY }}
 
       - name: Build NixOS configuration for ${{ matrix.host }}
         run: nix build .#nixosConfigurations.${{ matrix.host }}.config.system.build.toplevel
@@ -51,27 +36,12 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-
-      - name: Install Nix
-        uses: cachix/install-nix-action@v31
+      - name: Setup Nix
+        uses: ./.github/actions/setup-nix
         with:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
-
-      - uses: cachix/cachix-action@v14
-        with:
-          name: ${{ secrets.CACHIX_NAME }}
-          authToken: ${{ secrets.CACHIX_SIGNING_KEY }}
-
-      - name: Free up disk space
-        run: |
-          sudo rm -rf /usr/share/dotnet
-          sudo rm -rf /opt/ghc
-          sudo rm -rf /usr/local/lib/android
-          sudo rm -rf /opt/hostedtoolcache/CodeQL
-          echo "Disk space after cleanup:"
-          df -h
+          cachix_name: ${{ secrets.CACHIX_NAME }}
+          cachix_authToken: ${{ secrets.CACHIX_SIGNING_KEY }}
 
       - name: Run pluto boot test
         run: nix build -L .#checks.x86_64-linux.pluto-boot

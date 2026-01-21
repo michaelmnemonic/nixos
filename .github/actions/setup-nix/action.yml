@@ -1,0 +1,37 @@
+name: "Setup Nix"
+description: "Setup Nix, Cachix and free disk space"
+inputs:
+  github_access_token:
+    description: "GitHub Token"
+    required: true
+  cachix_name:
+    description: "Cachix Name"
+    required: true
+  cachix_authToken:
+    description: "Cachix Auth Token"
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: Check out repository
+      uses: actions/checkout@v4
+
+    - name: Install Nix
+      uses: cachix/install-nix-action@v31
+      with:
+        github_access_token: ${{ inputs.github_access_token }}
+
+    - uses: cachix/cachix-action@v14
+      with:
+        name: ${{ inputs.cachix_name }}
+        authToken: ${{ inputs.cachix_authToken }}
+
+    - name: Free up disk space
+      shell: bash
+      run: |
+        sudo rm -rf /usr/share/dotnet
+        sudo rm -rf /opt/ghc
+        sudo rm -rf /usr/local/lib/android
+        sudo rm -rf /opt/hostedtoolcache/CodeQL
+        echo "Disk space after cleanup:"
+        df -h
