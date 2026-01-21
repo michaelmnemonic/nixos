@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  CI:
+  Ci:
     uses: ./.github/workflows/_ci.yml
     with:
       host: charon
