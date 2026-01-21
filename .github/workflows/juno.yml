@@ -1,0 +1,18 @@
+name: Juno
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  ci:
+    uses: ./.github/workflows/ci.yml
+    with:
+      host: juno
+      check: juno-boot
+      system: x86_64-linux
+      runs-on: ubuntu-latest
+    secrets:
+      CACHIX_NAME: ${{ secrets.CACHIX_NAME }}
+      CACHIX_SIGNING_KEY: ${{ secrets.CACHIX_SIGNING_KEY }}

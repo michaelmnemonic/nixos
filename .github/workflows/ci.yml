@@ -1,0 +1,62 @@
+name: CI Pipeline
+
+on:
+  workflow_call:
+    inputs:
+      host:
+        required: true
+        type: string
+        description: "The hostname of the NixOS configuration to build"
+      check:
+        required: true
+        type: string
+        description: "The name of the flake check to run (e.g. boot test)"
+      system:
+        required: true
+        type: string
+        description: "The system architecture (e.g. x86_64-linux)"
+      runs-on:
+        required: true
+        type: string
+        description: "The runner label to execute on"
+    secrets:
+      CACHIX_NAME:
+        required: true
+      CACHIX_SIGNING_KEY:
+        required: true
+
+jobs:
+  build:
+    name: Build ${{ inputs.host }}
+    runs-on: ${{ inputs.runs-on }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Setup Nix
+        uses: ./.github/actions/setup-nix
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+          cachix_name: ${{ secrets.CACHIX_NAME }}
+          cachix_authToken: ${{ secrets.CACHIX_SIGNING_KEY }}
+
+      - name: Build NixOS configuration
+        run: nix build .#nixosConfigurations.${{ inputs.host }}.config.system.build.toplevel
+
+  test:
+    name: Test ${{ inputs.host }}
+    needs: build
+    runs-on: ${{ inputs.runs-on }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Setup Nix
+        uses: ./.github/actions/setup-nix
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+          cachix_name: ${{ secrets.CACHIX_NAME }}
+          cachix_authToken: ${{ secrets.CACHIX_SIGNING_KEY }}
+
+      - name: Run boot test
+        run: nix build -L .#checks.${{ inputs.system }}.${{ inputs.check }}
