@@ -32,6 +32,7 @@ jobs:
         uses: cachix/install-nix-action@v31
         with:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
+          enable_kvm: ${{ matrix.system != 'aarch64-linux' }}
 
       - uses: cachix/cachix-action@v14
         with:
