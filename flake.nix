@@ -115,7 +115,7 @@
         flore = pkgs.testers.nixosTest (import ./tests/flore.nix {inherit agenix;});
         charon = pkgs.testers.nixosTest (
           import ./tests/charon.nix {
-            inherit agenix nixos-x13s;
+            inherit agenix nixos-x13s noctalia;
           }
         );
       }
