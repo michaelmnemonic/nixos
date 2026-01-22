@@ -31,9 +31,7 @@ jobs:
       - name: Install Nix
         uses: cachix/install-nix-action@v31
         with:
-          extra_nix_config: "system-features = nixos-test benchmark big-parallel kvm"
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
-          enable_kvm: ${{ matrix.system != 'aarch64-linux' }}
 
       - uses: cachix/cachix-action@v14
         with:
