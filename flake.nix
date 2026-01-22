@@ -97,9 +97,6 @@
           ];
         }
     );
-          ];
-        }
-    );
 
     checks = forAllSystems (
       system: let
