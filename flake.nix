@@ -97,5 +97,31 @@
           ];
         }
     );
+          ];
+        }
+    );
+
+    checks = forAllSystems (
+      system: let
+        pkgs = import nixpkgs {
+          inherit system;
+          config = {
+            allowUnfree = true;
+            permittedInsecurePackages = [
+              "olm-3.2.16"
+            ];
+          };
+        };
+      in {
+        pluto = pkgs.testers.nixosTest (import ./tests/pluto.nix {inherit agenix;});
+        juno = pkgs.testers.nixosTest (import ./tests/juno.nix {inherit agenix;});
+        flore = pkgs.testers.nixosTest (import ./tests/flore.nix {inherit agenix;});
+        charon = pkgs.testers.nixosTest (
+          import ./tests/charon.nix {
+            inherit agenix nixos-x13s;
+          }
+        );
+      }
+    );
   };
 }
