@@ -31,6 +31,7 @@ jobs:
       - name: Install Nix
         uses: cachix/install-nix-action@v31
         with:
+          extra_nix_config: "system-features = nixos-test benchmark big-parallel kvm"
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
           enable_kvm: ${{ matrix.system != 'aarch64-linux' }}
 
@@ -52,4 +53,6 @@ jobs:
         run: nix build .#nixosConfigurations.${{ matrix.host }}.config.system.build.toplevel
 
       - name: Run test for ${{ matrix.host }}
-        run: nix build -L .#checks.${{ matrix.system }}.${{ matrix.host }}
+        run: |
+          sudo chmod o+rw /dev/kvm
+          nix build -L .#checks.${{ matrix.system }}.${{ matrix.host }}
