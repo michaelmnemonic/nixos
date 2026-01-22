@@ -17,6 +17,8 @@
     # Increase memory and cores for the VM
     virtualisation.memorySize = 2048;
     virtualisation.cores = 2;
+    # Force TCG since GHA ARM runners lack KVM
+    virtualisation.qemu.options = ["-accel tcg"];
 
     # Override filesystem configuration to be compatible with the test VM
     fileSystems = lib.mkForce {

@@ -54,5 +54,4 @@ jobs:
 
       - name: Run test for ${{ matrix.host }}
         run: |
-          sudo chmod o+rw /dev/kvm
           nix build -L .#checks.${{ matrix.system }}.${{ matrix.host }}
