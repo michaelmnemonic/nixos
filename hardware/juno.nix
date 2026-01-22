@@ -32,9 +32,6 @@
     "mem_sleep_default=deep"
   ];
 
-  # Enable plymouth
-  boot.plymouth.enable = true;
-
   # Filesystems
   fileSystems."/" = {
     device = "/dev/disk/by-label/NIXOS";

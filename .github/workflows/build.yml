@@ -1,4 +1,4 @@
-name: Build NixOS Configurations
+name: Build and test NixOS Configurations
 
 on:
   pull_request:
@@ -6,20 +6,23 @@ on:
       - main
 
 jobs:
-  build:
+  run:
     strategy:
-      # Don't cancel all jobs if one fails
       fail-fast: false
       matrix:
         include:
-          - host: pluto
+          - host: charon
+            system: aarch64-linux
+            runs-on: ubuntu-24.04-arm
+          - host: flore
+            system: x86_64-linux
             runs-on: ubuntu-latest
           - host: juno
+            system: x86_64-linux
             runs-on: ubuntu-latest
-          - host: flore
+          - host: pluto
+            system: x86_64-linux
             runs-on: ubuntu-latest
-          - host: charon
-            runs-on: ubuntu-24.04-arm
     runs-on: ${{ matrix.runs-on }}
     steps:
       - name: Check out repository
@@ -28,7 +31,9 @@ jobs:
       - name: Install Nix
         uses: cachix/install-nix-action@v31
         with:
+          extra_nix_config: "system-features = nixos-test benchmark big-parallel kvm"
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
+          enable_kvm: ${{ matrix.system != 'aarch64-linux' }}
 
       - uses: cachix/cachix-action@v14
         with:
@@ -46,3 +51,7 @@ jobs:
 
       - name: Build NixOS configuration for ${{ matrix.host }}
         run: nix build .#nixosConfigurations.${{ matrix.host }}.config.system.build.toplevel
+
+      - name: Run test for ${{ matrix.host }}
+        run: |
+          nix build -L .#checks.${{ matrix.system }}.${{ matrix.host }}
