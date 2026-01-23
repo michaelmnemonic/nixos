@@ -47,7 +47,7 @@
     resources
     rose-pine-hyprcursor
     swayosd
-    thunderbird
+    #thunderbird
     tuba
     valent
     walker
