@@ -1,0 +1,57 @@
+name: Build and test NixOS Configurations
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  run:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - host: charon
+            system: aarch64-linux
+            runs-on: ubuntu-24.04-arm
+          - host: flore
+            system: x86_64-linux
+            runs-on: ubuntu-latest
+          - host: juno
+            system: x86_64-linux
+            runs-on: ubuntu-latest
+          - host: pluto
+            system: x86_64-linux
+            runs-on: ubuntu-latest
+    runs-on: ${{ matrix.runs-on }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: "system-features = nixos-test benchmark big-parallel kvm"
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+          enable_kvm: ${{ matrix.system != 'aarch64-linux' }}
+
+      - uses: cachix/cachix-action@v14
+        with:
+          name: ${{ secrets.CACHIX_NAME }}
+          authToken: ${{ secrets.CACHIX_SIGNING_KEY }}
+
+      - name: Free up disk space
+        run: |
+          sudo rm -rf /usr/share/dotnet
+          sudo rm -rf /opt/ghc
+          sudo rm -rf /usr/local/lib/android
+          sudo rm -rf /opt/hostedtoolcache/CodeQL
+          echo "Disk space after cleanup:"
+          df -h
+
+      - name: Build NixOS configuration for ${{ matrix.host }}
+        run: nix build .#nixosConfigurations.${{ matrix.host }}.config.system.build.toplevel
+
+      - name: Run test for ${{ matrix.host }}
+        run: |
+          nix build -L .#checks.${{ matrix.system }}.${{ matrix.host }}

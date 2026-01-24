@@ -7,8 +7,7 @@
   self,
   allowed-unfree-packages,
   ...
-}:
-{
+}: {
   imports = [
     # Shared host configuration
     ./_shared.nix
@@ -39,6 +38,9 @@
     bluetoothMac = "F4:A8:0D:30:9D:8B";
     kernel = "mainline";
   };
+
+  # Emulate x86_64-linux (albeit slow)
+  boot.binfmt.emulatedSystems = ["x86_64-linux"];
 
   # Allow unfree software
   nixpkgs.config.allowUnfree = true;
@@ -128,9 +130,10 @@
   # List of system-wide packages
   environment.systemPackages = with pkgs; [
     (pkgs.kodi-wayland.withPackages (
-      kodiPkgs: with pkgs; [
-        python312Packages.pillow
-      ]
+      kodiPkgs:
+        with pkgs; [
+          python312Packages.pillow
+        ]
     ))
     btrfs-progs
     kdePackages.tokodon
@@ -148,7 +151,7 @@
     sshAccess = [
       {
         key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILvnVSjkHTyE9axypUKg3XBqT2ckiaTlmH9s1mHfoDfw";
-        roles = [ "send" "info" "delete" ];
+        roles = ["send" "info" "delete"];
       }
     ];
   };

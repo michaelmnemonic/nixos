@@ -1,11 +1,11 @@
-{ pkgs, ...}: {
+{pkgs, ...}: {
   # Enable printing
   services.printing = {
     enable = true;
     drivers = with pkgs; [
-        cups-filters
-        cups-browsed
-      ];
+      cups-filters
+      cups-browsed
+    ];
   };
 
   # Enable auto discovery
