@@ -125,6 +125,6 @@
   system.autoUpgrade = {
     enable = true;
     allowReboot = false;
-    flake = "github:michaelmnemonic/nixos/hypr-on-charon";
+    flake = "github:michaelmnemonic/nixos/gnome-on-charon";
   };
 }
