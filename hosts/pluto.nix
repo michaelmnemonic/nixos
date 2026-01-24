@@ -3,8 +3,7 @@
   lib,
   config,
   ...
-}:
-{
+}: {
   imports = [
     # Shared host configuration
     ./_shared.nix
@@ -36,7 +35,7 @@
   networking.hostName = "pluto";
 
   # Emulate aarch64
-  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+  boot.binfmt.emulatedSystems = ["aarch64-linux"];
 
   # Use zram as swap
   zramSwap = {
@@ -136,8 +135,7 @@
   ];
 
   # Not all software is free
-  nixpkgs.config.allowUnfreePredicate =
-    pkg:
+  nixpkgs.config.allowUnfreePredicate = pkg:
     builtins.elem (lib.getName pkg) [
       "libvgm" # dependency of fooyin
       "steam"
@@ -170,11 +168,10 @@
   #####################
 
   # # Overclock and undervolt AMD GPU
-  # environment.etc."tmpfiles.d/gpu-undervolt.conf".text = ''
-  #   w+ /sys/class/drm/card1/device/pp_od_clk_voltage                - - - - vo -50\n
-  #   w+ /sys/class/drm/card1/device/pp_od_clk_voltage                - - - - m 1 1200\n
-  #   w+ /sys/class/drm/card1/device/pp_od_clk_voltage                - - - - c\n
-  # '';
+  environment.etc."tmpfiles.d/gpu-undervolt.conf".text = ''
+    w+ /sys/class/drm/card1/device/pp_od_clk_voltage                - - - - vo -125\n
+    w+ /sys/class/drm/card1/device/pp_od_clk_voltage                - - - - c\n
+  '';
 
   # Make sure syncthing home exists
   environment.etc."tmpfiles.d/var-lib-synthing.conf".text = ''
