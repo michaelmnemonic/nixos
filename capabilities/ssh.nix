@@ -8,8 +8,8 @@
 
   # Enable ssh-agent
   programs.ssh = {
-    startAgent = true;
-    enableAskPassword = true;
+    #startAgent = true;
+    #enableAskPassword = true;
   };
 
   programs.mosh.enable = true;

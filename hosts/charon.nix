@@ -16,7 +16,7 @@
     # Users
     ../users/maik.nix
     # hyprland wm
-    ../gui/hypr.nix
+    ../gui/gnome.nix
     # Basic capabilites
     ../capabilities/chipcards.nix
     ../capabilities/mpv.nix
@@ -57,15 +57,21 @@
   ];
 
   # Autologin with greetd
-  services.greetd = {
+  # services.greetd = {
+  #   enable = true;
+  #   settings = rec {
+  #     initial_session = {
+  #       command = "${pkgs.uwsm}/bin/uwsm start default";
+  #       user = "maik";
+  #     };
+  #     default_session = initial_session;
+  #   };
+  # };
+  #
+  services.displayManager.autoLogin.enable = true;
+  services.displayManager.autoLogin.user = "maik";
+  services.displayManager.gdm = {
     enable = true;
-    settings = rec {
-      initial_session = {
-        command = "${pkgs.uwsm}/bin/uwsm start default";
-        user = "maik";
-      };
-      default_session = initial_session;
-    };
   };
 
   # Firewall configuration
