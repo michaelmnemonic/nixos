@@ -22,6 +22,7 @@
     aspellDicts.en
     celluloid
     foliate
+    ghostty
     gnomeExtensions.caffeine
     gnomeExtensions.just-perfection
     libcamera
