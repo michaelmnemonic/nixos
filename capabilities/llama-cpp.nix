@@ -71,7 +71,7 @@ in
     systemd.services.llama-cpp = {
       description = "llama.cpp server";
       serviceConfig = {
-        ExecStart = "${llama-cpp-pkg}/bin/llama-server -hf ${cfg.modelHf} --port ${toString cfg.internalPort}${
+        ExecStart = "${llama-cpp-pkg}/bin/llama-server --jinja -hf ${cfg.modelHf} --port ${toString cfg.internalPort}${
           optionalString (cfg.apiKeyFile != null) " --api-key-file ${cfg.apiKeyFile}"
         }";
         # Persistent cache for models downloaded via -hf
