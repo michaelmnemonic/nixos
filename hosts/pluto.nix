@@ -17,6 +17,7 @@
     # Basic capabilities
     ../capabilities/chipcards.nix
     ../capabilities/fan2go.nix
+    ../capabilities/llama-cpp.nix
     ../capabilities/mpv.nix
     ../capabilities/networking-with-network-manager.nix
     ../capabilities/pipewire.nix
@@ -54,6 +55,12 @@
       };
       default_session = initial_session;
     };
+  };
+
+  # Secrets
+  age.secrets.llama-cpp-api-key = {
+    file = ../secrets/llama-cpp-api.key.age;
+    mode = "444";
   };
 
   # Firewall configuration
@@ -435,8 +442,14 @@
     user = "maik";
   };
 
-  services.languagetool.enable = true;
+  #services.languagetool.enable = true;
 
   # NixOS state version
+  capabilities.llama-cpp = {
+    enable = true;
+    rocmSupport = true;
+    apiKeyFile = config.age.secrets.llama-cpp-api-key.path;
+  };
+
   system.stateVersion = "24.05";
 }
