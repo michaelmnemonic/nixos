@@ -15,14 +15,13 @@
     ../hardware/charon.nix
     # Users
     ../users/maik.nix
-    # plasma desktop
-    ../gui/plasma.nix
+    # hyprland wm
+    ../gui/hypr.nix
     # Basic capabilites
     ../capabilities/chipcards.nix
     ../capabilities/mpv.nix
     ../capabilities/networking-with-network-manager.nix
     ../capabilities/pipewire.nix
-    ../capabilities/plasma-pim.nix
     ../capabilities/printing.nix
     ../capabilities/scanning.nix
     ../capabilities/ssh.nix
@@ -62,7 +61,7 @@
     enable = true;
     settings = rec {
       initial_session = {
-        command = "${pkgs.kdePackages.plasma-workspace}/bin/startplasma-wayland";
+        command = "${pkgs.uwsm}/bin/uwsm start default";
         user = "maik";
       };
       default_session = initial_session;
@@ -136,13 +135,10 @@
         ]
     ))
     btrfs-progs
-    kdePackages.tokodon
-    kdePackages.akregator
     firefox
     fooyin
     neovim
     syncthing
-    transmission_4-qt
     zed-editor
   ];
 
