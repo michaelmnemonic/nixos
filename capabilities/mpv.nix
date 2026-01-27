@@ -1,13 +1,11 @@
 {pkgs, ...}: {
   environment.systemPackages = with pkgs; [
     (
-      mpv-unwrapped.wrapper {
+      mpv.override {
         scripts = with pkgs.mpvScripts; [
           dynamic-crop
           sponsorblock
         ];
-
-        mpv = pkgs.mpv-unwrapped;
       }
     )
   ];
