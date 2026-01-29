@@ -3,8 +3,7 @@
   lib,
   config,
   ...
-}:
-{
+}: {
   imports = [
     # Shared host configuration
     ./_shared.nix
@@ -37,7 +36,7 @@
   networking.hostName = "pluto";
 
   # Emulate aarch64
-  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+  boot.binfmt.emulatedSystems = ["aarch64-linux"];
 
   # Use zram as swap
   zramSwap = {
@@ -143,8 +142,7 @@
   ];
 
   # Not all software is free
-  nixpkgs.config.allowUnfreePredicate =
-    pkg:
+  nixpkgs.config.allowUnfreePredicate = pkg:
     builtins.elem (lib.getName pkg) [
       "libvgm" # dependency of fooyin
       "steam"
@@ -449,6 +447,8 @@
     enable = true;
     rocmSupport = true;
     apiKeyFile = config.age.secrets.llama-cpp-api-key.path;
+    # https://unsloth.ai/docs/models/gpt-oss-how-to-run-and-fine-tune#llama.cpp-run-gpt-oss-20b-tutorial
+    options = "--jinja -ngl 99 --ctx-size 16384 --temp 1.0 --top-p 1.0 --top-k 0";
   };
 
   system.stateVersion = "24.05";

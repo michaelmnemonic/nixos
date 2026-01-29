@@ -4,13 +4,13 @@
   pkgs,
   ...
 }:
-with lib;
-let
+with lib; let
   cfg = config.capabilities.llama-cpp;
   llama-cpp-pkg =
-    if cfg.rocmSupport then pkgs.llama-cpp.override { rocmSupport = true; } else pkgs.llama-cpp;
-in
-{
+    if cfg.rocmSupport
+    then pkgs.llama-cpp.override {rocmSupport = true;}
+    else pkgs.llama-cpp;
+in {
   options.capabilities.llama-cpp = {
     enable = mkEnableOption "llama.cpp server";
     rocmSupport = mkOption {
@@ -30,7 +30,7 @@ in
     };
     modelHf = mkOption {
       type = types.str;
-      default = "ggml-org/gpt-oss-20b-GGUF";
+      default = "unsloth/gpt-oss-20b-GGUF:F16";
       description = "HuggingFace model to use";
     };
     idleTimeout = mkOption {
@@ -43,12 +43,17 @@ in
       default = null;
       description = "Path to a file containing the API key";
     };
+    options = mkOption {
+      type = types.str;
+      default = "--jinja";
+      description = "Options to pass to llama-cpp";
+    };
   };
 
   config = mkIf cfg.enable {
     systemd.sockets.llama-cpp = {
       description = "Socket for llama.cpp server";
-      wantedBy = [ "sockets.target" ];
+      wantedBy = ["sockets.target"];
       socketConfig = {
         ListenStream = "${toString cfg.port}";
         # Redirect to the proxy service
@@ -59,10 +64,10 @@ in
     systemd.services.llama-cpp-proxy = {
       description = "Proxy for llama.cpp server socket activation";
       # The proxy should stop if the server stops
-      bindsTo = [ "llama-cpp.service" ];
+      bindsTo = ["llama-cpp.service"];
       # Start the server if it's not running
-      requires = [ "llama-cpp.service" ];
-      after = [ "llama-cpp.service" ];
+      requires = ["llama-cpp.service"];
+      after = ["llama-cpp.service"];
       serviceConfig = {
         ExecStart = "${pkgs.systemd}/lib/systemd/systemd-socket-proxyd 127.0.0.1:${toString cfg.internalPort} --exit-idle-time=${toString cfg.idleTimeout}";
       };
@@ -71,15 +76,16 @@ in
     systemd.services.llama-cpp = {
       description = "llama.cpp server";
       serviceConfig = {
-        ExecStart = "${llama-cpp-pkg}/bin/llama-server --jinja -hf ${cfg.modelHf} --port ${toString cfg.internalPort}${
+        ExecStart = "${llama-cpp-pkg}/bin/llama-server ${cfg.options} -hf ${cfg.modelHf} --port ${toString cfg.internalPort}${
           optionalString (cfg.apiKeyFile != null) " --api-key-file ${cfg.apiKeyFile}"
         }";
         # Persistent cache for models downloaded via -hf
         CacheDirectory = "llama-cpp";
-        Environment = [
-          "LLAMA_CACHE=/var/cache/llama-cpp"
-        ]
-        ++ (lib.optional cfg.rocmSupport "LD_LIBRARY_PATH=/run/opengl-driver/lib");
+        Environment =
+          [
+            "LLAMA_CACHE=/var/cache/llama-cpp"
+          ]
+          ++ (lib.optional cfg.rocmSupport "LD_LIBRARY_PATH=/run/opengl-driver/lib");
         DynamicUser = true;
         # We don't want it to restart automatically; the proxy/socket will handle it
         Restart = "no";
