@@ -12,7 +12,7 @@
     # Users
     ../users/maik.nix
     # niri compositor
-    ../gui/plasma.nix
+    ../gui/niri.nix
     # Basic capabilities
     ../capabilities/chipcards.nix
     ../capabilities/fan2go.nix
