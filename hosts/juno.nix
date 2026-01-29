@@ -33,6 +33,9 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+  # Allow luks unlock using touchscreen
+  boot.initrd.unl0kr.enable = true;
+
   # Network configuration
   networking.hostName = "juno";
   networking.networkmanager.enable = true;

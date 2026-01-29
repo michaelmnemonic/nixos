@@ -8,8 +8,8 @@ let
     maik_juno
   ];
 
-  charon = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE/R4C471WzSIdlj4ELMyFxkfJOnEcX1VjNU5tkd6bmh";
-  pluto = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEME7emd72akaRqtz+3j/0VsOftHiS8ILO14IARJUk8P";
+  charon = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILbjziE1fVzOih4LTE7ZLg5kORqXhmz1kyRg8WctoQXS";
+  pluto = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIZNb1ud7fDrGm14BwJtkL3p25myjyMaN0cRiIHr2jNl";
   juno = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFLVfnTs0JR37mvWmOfuW9KPMp2cDl7sCGxDE7WP90PV";
   flore = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGa1hvRBpAFaN2zU1zQXt3l0/CvHypQ4WGhcsG8GB0sf";
   systems = [
@@ -18,8 +18,7 @@ let
     juno
     flore
   ];
-in
-{
+in {
   "charon-private.key.age".publicKeys = users ++ systems;
   "orpheus_charon.psk.age".publicKeys = users ++ systems;
   "pluto-private.key.age".publicKeys = users ++ systems;

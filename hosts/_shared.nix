@@ -105,9 +105,20 @@
     lfs.enable = true;
   };
 
-  nix.gc = {
-    automatic = true;
-    options = "--delete-older-than 7d";
+  nix = {
+    gc = {
+      automatic = true;
+      options = "--delete-older-than 7d";
+    };
+    settings = {
+      substituters = [
+        "https://cache.nixos.org/"
+        "https://michaelmnemonic.cachix.org"
+      ];
+      trusted-public-keys = [
+        "michaelmnemonic.cachix.org-1:uzb3NmZbeqWe1iNTh9llun7QhGzzmYncoSsk+jczbPM="
+      ];
+    };
   };
 
   # Enable auto upgrades, but without automatic reboot

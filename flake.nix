@@ -22,7 +22,10 @@
     agenix,
   }: let
     # Define 'forAllSystems' for properties that shall be build for x86_64 *and* aarch64
-    systems = ["x86_64-linux" "aarch64-linux"];
+    systems = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
     forAllSystems = nixpkgs.lib.genAttrs systems;
   in {
     nixosConfigurations = {
@@ -66,16 +69,42 @@
       };
     };
 
-    devShell = forAllSystems (system: let
-      pkgs = nixpkgs.legacyPackages.${system}.pkgs;
-    in
-      pkgs.mkShell {
-        buildInputs = with pkgs; [
-          gitMinimal
-          nil
-          alejandra
-          ragenix
-        ];
-      });
+    devShell = forAllSystems (
+      system: let
+        pkgs = nixpkgs.legacyPackages.${system}.pkgs;
+      in
+        pkgs.mkShell {
+          buildInputs = with pkgs; [
+            alejandra
+            cachix
+            gitMinimal
+            nil
+            ragenix
+          ];
+        }
+    );
+
+    checks = forAllSystems (
+      system: let
+        pkgs = import nixpkgs {
+          inherit system;
+          config = {
+            allowUnfree = true;
+            permittedInsecurePackages = [
+              "olm-3.2.16"
+            ];
+          };
+        };
+      in {
+        pluto = pkgs.testers.nixosTest (import ./tests/pluto.nix {inherit agenix;});
+        juno = pkgs.testers.nixosTest (import ./tests/juno.nix {inherit agenix;});
+        flore = pkgs.testers.nixosTest (import ./tests/flore.nix {inherit agenix;});
+        charon = pkgs.testers.nixosTest (
+          import ./tests/charon.nix {
+            inherit agenix nixos-x13s;
+          }
+        );
+      }
+    );
   };
 }
