@@ -450,7 +450,7 @@
     enable = true;
     rocmSupport = true;
     apiKeyFile = config.age.secrets.llama-cpp-api-key.path;
-    port = "8085";
+    port = 8085;
     # https://unsloth.ai/docs/models/gpt-oss-how-to-run-and-fine-tune#llama.cpp-run-gpt-oss-20b-tutorial
     options = "--jinja -ngl 99 --ctx-size 16384 --temp 1.0 --top-p 1.0 --top-k 0";
   };
