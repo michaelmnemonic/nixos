@@ -11,7 +11,7 @@
     ../hardware/pluto.nix
     # Users
     ../users/maik.nix
-    # PLASMA desktop
+    # niri compositor
     ../gui/plasma.nix
     # Basic capabilities
     ../capabilities/chipcards.nix
@@ -19,7 +19,6 @@
     ../capabilities/mpv.nix
     ../capabilities/networking-with-network-manager.nix
     ../capabilities/pipewire.nix
-    ../capabilities/plasma-pim.nix
     ../capabilities/printing.nix
     ../capabilities/scanning.nix
     ../capabilities/ssh.nix
@@ -48,7 +47,7 @@
     enable = true;
     settings = rec {
       initial_session = {
-        command = "${pkgs.kdePackages.plasma-workspace}/bin/startplasma-wayland";
+        command = "${pkgs.niri}/bin/niri-session";
         user = "maik";
       };
       default_session = initial_session;
@@ -115,21 +114,15 @@
 
   environment.systemPackages = with pkgs; [
     ausweisapp
-    fooyin
     gamescope-wsi
     (heroic.override {
       extraPkgs = pkgs: [
         pkgs.gamescope
       ];
     })
-    kde-rounded-corners
-    kdePackages.neochat
-    kdePackages.tokodon
     mangohud
     neovim
     signal-desktop
-    transmission_4-qt
-    vulkan-hdr-layer-kwin6
     wineWowPackages.staging
     zed-editor
   ];
