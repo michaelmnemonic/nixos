@@ -1,6 +1,6 @@
 let
   maik_charon = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG9aDwc6iRlynxbDm8bCNq0ufk+yenK+r9/9PcBHVDjG";
-  maik_pluto = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHiDzhputQHdP2A9AiLHEUirFPQIkk5v9r/geOjOO6lP";
+  maik_pluto = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDQLCaKYlzfz1qRSIyGWRKBSiOvq2uS1g9ymhIdObQ4o";
   maik_juno = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFPR6UDyMQN9Bx9mDTRmdO/B1Kdv/4cwV0MA9cYbsbob";
   users = [
     maik_charon
@@ -27,4 +27,5 @@ in {
   "orpheus_juno.psk.age".publicKeys = users ++ systems;
   "flore-private.key.age".publicKeys = users ++ systems;
   "orpheus_flore.psk.age".publicKeys = users ++ systems;
+  "llama-cpp-api.key.age".publicKeys = users ++ systems;
 }
