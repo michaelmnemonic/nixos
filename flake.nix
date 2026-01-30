@@ -2,7 +2,7 @@
   description = "Nix configuration for several private host systems";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-25.11";
+    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
 
     nixos-x13s = {
       url = "github:michaelmnemonic/x13s-nixos";
@@ -104,6 +104,17 @@
             inherit agenix nixos-x13s;
           }
         );
+      }
+    );
+
+    packages = forAllSystems (
+      system: let
+        pkgs = import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+        };
+      in {
+        vscode = pkgs.callPackage ./capabilities/vscode-package.nix {};
       }
     );
   };

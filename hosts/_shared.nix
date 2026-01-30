@@ -125,6 +125,6 @@
   system.autoUpgrade = {
     enable = true;
     allowReboot = false;
-    flake = "github:michaelmnemonic/nixos";
+    flake = "github:michaelmnemonic/nixos/unstable";
   };
 }
