@@ -1,0 +1,56 @@
+name: Update VS Code Extensions
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 4 * * 0" # Weekly on Sunday at 04:00
+
+jobs:
+  update-extensions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: "system-features = nixos-test benchmark big-parallel kvm"
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: cachix/cachix-action@v14
+        with:
+          name: ${{ secrets.CACHIX_NAME }}
+          authToken: ${{ secrets.CACHIX_SIGNING_KEY }}
+
+      - name: Run update script
+        id: update
+        run: |
+          python3 .github/scripts/update_vscode_extensions.py > update.log
+          cat update.log
+          if grep -q "Updated [0-9]* extensions" update.log; then
+            echo "updates_found=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Verify build
+        if: steps.update.outputs.updates_found == 'true'
+        run: nix build .#vscode
+
+      - name: Create Pull Request
+        if: steps.update.outputs.updates_found == 'true'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
+          commit-message: "chore: update vscode extensions"
+          title: "Update VS Code Extensions"
+          body: |
+            Automated updates for VS Code extensions.
+            
+            ```
+            $(grep "Found update" update.log)
+            ```
+          branch: update-vscode-extensions
+          base: main
+          labels: |
+            dependencies
+            automated

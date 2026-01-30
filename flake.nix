@@ -106,5 +106,16 @@
         );
       }
     );
+
+    packages = forAllSystems (
+      system: let
+        pkgs = import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+        };
+      in {
+        vscode = pkgs.callPackage ./capabilities/vscode-package.nix {};
+      }
+    );
   };
 }
