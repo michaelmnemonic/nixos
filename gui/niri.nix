@@ -32,6 +32,7 @@
     aspellDicts.de
     aspellDicts.en
     celluloid
+    ddcutil
     firefox
     fractal
     fragments
