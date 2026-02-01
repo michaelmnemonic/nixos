@@ -14,10 +14,11 @@
     "nvme"
     "xhci_pci"
     "ahci"
-    # touchscree
+    # touchscreen
     "hid"
     "hid_generic"
     "hid_multitouch"
+    "inter_lpss_pci"
   ];
 
   # Kernel modules to load ofter initrd
