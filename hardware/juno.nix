@@ -65,12 +65,11 @@
     fsType = "vfat";
   };
 
-  # swapDevices = [
-  #   {
-  #     device = "/var/lib/swapfile";
-  #     size = 20 * 1024; # 32GB in MB
-  #   }
-  # ];
+  swapDevices = [
+    {
+      device = "/dev/disk/by-label/SWAP";
+    }
+  ];
 
   # boot.resumeDevice = "/dev/disk/by-label/NIXOS";
 
