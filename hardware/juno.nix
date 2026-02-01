@@ -27,9 +27,9 @@
     # Allow firmware upgrades
     "iomem=relaxed"
     # Allow hibernate
-    "resume=/dev/disk/by-label/NIXOS"
-    "resume_offset=369152"
-    "mem_sleep_default=deep"
+    #"resume=/dev/disk/by-label/NIXOS"
+    #"resume_offset=369152"
+    #"mem_sleep_default=deep"
   ];
 
   # Luks devices
@@ -51,14 +51,14 @@
     fsType = "vfat";
   };
 
-  swapDevices = [
-    {
-      device = "/var/lib/swapfile";
-      size = 20 * 1024; # 32GB in MB
-    }
-  ];
+  # swapDevices = [
+  #   {
+  #     device = "/var/lib/swapfile";
+  #     size = 20 * 1024; # 32GB in MB
+  #   }
+  # ];
 
-  boot.resumeDevice = "/dev/disk/by-label/NIXOS";
+  # boot.resumeDevice = "/dev/disk/by-label/NIXOS";
 
   # Enable rotation sensor
   hardware.sensor.iio.enable = true;
