@@ -32,6 +32,13 @@
     "mem_sleep_default=deep"
   ];
 
+  # Luks devices
+  boot.initrd.luks.devices.NIXOS = {
+    device = "/dev/disk/by-partlabel/NIXOS";
+    allowDiscards = true;
+    crypttabExtraOpts = ["fido2-device=auto"];
+  };
+
   # Filesystems
   fileSystems."/" = {
     device = "/dev/disk/by-label/NIXOS";
