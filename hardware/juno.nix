@@ -32,9 +32,9 @@
     # Allow firmware upgrades
     "iomem=relaxed"
     # Allow hibernate
-    #"resume=/dev/disk/by-label/NIXOS"
+    "resume=/dev/disk/by-label/SWAP"
     #"resume_offset=369152"
-    #"mem_sleep_default=deep"
+    "mem_sleep_default=deep"
   ];
 
   # Luks devices
@@ -71,7 +71,7 @@
     }
   ];
 
-  # boot.resumeDevice = "/dev/disk/by-label/NIXOS";
+  boot.resumeDevice = "/dev/disk/by-label/SWAP";
 
   # Make sure mount point of user home exists
   environment.etc."tmpfiles.d/home-maik.conf".text = ''
