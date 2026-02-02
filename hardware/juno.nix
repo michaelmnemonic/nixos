@@ -102,7 +102,17 @@
           ++ [
             (super.fetchpatch {
               url = "https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/1846.patch";
-              hash = "sha256-SgimR5iQwoJwH5T9CYpZJqiRm/1zy/qYpFzS0LwBY1g=";
+              hash = "sha256-9Ab/AvlSAd8xlWvd41nWG6hF9q/XSOOSxWrQ9d81vN0=";
+            })
+          ];
+      });
+      gnome-shell = super.gnome-shell.overrideAttrs (oldAttrs: {
+        patches =
+          (oldAttrs.patches or [])
+          ++ [
+            (super.fetchpatch {
+              url = "https://gitlab.gnome.org/GNOME/gnome-shell/-/merge_requests/3742.patch";
+              hash = "sha256-SszTIu2xjAADzSIvud4bLwwt7dorC+XXhcb7sd1C0wI=";
             })
           ];
       });
