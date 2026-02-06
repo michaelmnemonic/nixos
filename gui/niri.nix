@@ -52,7 +52,7 @@
     pavucontrol
     quodlibet-full
     resources
-    #thunderbird
+    thunderbird
     tuba
     valent
     walker
