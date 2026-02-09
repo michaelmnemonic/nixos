@@ -338,7 +338,7 @@
 
   virtualisation.containers.enable = true;
   virtualisation = {
-    podman = {
+    docker = {
       enable = true;
     };
   };
