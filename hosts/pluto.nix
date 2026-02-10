@@ -432,6 +432,9 @@
     user = "maik";
   };
 
+  # Enable noctalia-shell
+  services.noctalia-shell.enable = true;
+
   # NixOS state version
   capabilities.llama-cpp = {
     enable = true;

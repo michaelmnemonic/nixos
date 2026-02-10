@@ -46,6 +46,7 @@
         modules = [
           ./hosts/pluto.nix
           agenix.nixosModules.default
+          noctalia.nixosModules.default
         ];
         specialArgs = {
         };
