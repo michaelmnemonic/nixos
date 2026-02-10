@@ -413,7 +413,10 @@
   programs.gamescope.enable = true;
 
   # Enable gnupg agent
-  programs.gnupg.agent.enable = true;
+  programs.gnupg.agent = {
+    enable = true;
+    pinentryPackage = pkgs.pinentry;
+  };
 
   ############
   # Services #

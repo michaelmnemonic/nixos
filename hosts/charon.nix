@@ -329,6 +329,12 @@
   # Enable fish
   programs.fish.enable = true;
 
+  # Enable gnupg agent
+  programs.gnupg.agent = {
+    enable = true;
+    pinentryPackage = pkgs.pinentry;
+  };
+
   ############
   # Services #
   ############
