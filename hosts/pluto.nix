@@ -415,7 +415,7 @@
   # Enable gnupg agent
   programs.gnupg.agent = {
     enable = true;
-    pinentryPackage = pkgs.pinentry;
+    pinentryPackage = pkgs.pinentry-qt;
   };
 
   ############
