@@ -412,6 +412,9 @@
   # Enable gamescope
   programs.gamescope.enable = true;
 
+  # Enable gnupg agent
+  programs.gnupg.agent.enable = true;
+
   ############
   # Services #
   ############
