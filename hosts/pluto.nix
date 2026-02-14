@@ -145,6 +145,7 @@
       "vscode"
       "vscode-with-extensions"
       "vscode-extension-ms-vscode-remote-remote-ssh"
+      "vscode-extension-ms-vscode-remote-remote-containers"
     ];
 
   # Enable podman
