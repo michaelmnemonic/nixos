@@ -68,6 +68,12 @@ in {
     vscode
   ];
 
+  nixpkgs.config.allowUnfreePredicate = pkg:
+    builtins.elem (lib.getName pkg) [
+      "vscode-extension-ms-vscode-remote-remote-ssh"
+      "vscode-extension-ms-vscode-remote-remote-containers"
+    ];
+
   # VSCode shall use native wayland
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 }
