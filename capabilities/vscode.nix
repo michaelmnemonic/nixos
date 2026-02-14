@@ -28,6 +28,7 @@
         ms-python.debugpy
         ms-python.python
         ms-vscode-remote.remote-ssh
+        ms-vscode-remote.remote-containers
       ]
       ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
         {
