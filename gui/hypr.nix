@@ -19,6 +19,7 @@
     brightnessctl
     blueberry
     celluloid
+    ddcutil
     fan2go
     firefox
     fractal
