@@ -332,7 +332,7 @@
                           type  = builtin
                           name  = eq_band_25
                           label = bq_peaking
-                          control = { "Freq" = 14362 "Q" = 3.77"Gain" = -7.4 }
+                          control = { "Freq" = 14362 "Q" = 3.77 "Gain" = -7.4 }
                       }
                       {
                           type  = builtin
