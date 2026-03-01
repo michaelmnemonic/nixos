@@ -296,13 +296,39 @@
     d /var/lib/syncthing       700 1000 100 -
   '';
 
+  # Make sure btrfs root exists
+  environment.etc."tmpfiles.d/_btrfs.conf".text = ''
+    d /.btrfs               744 0 0 -
+  '';
+
+  # Make sure snapshot directory exists
+  environment.etc."tmpfiles.d/_snapshots.conf".text = ''
+    d /.snapshots               744 0 0 -
+  '';
+
   # Make sure mount point of user home exists
   environment.etc."tmpfiles.d/home-maik.conf".text = ''
     d /home/maik               700 1000 100 -
   '';
 
-  # Mount subvolume that contains the user home
+  # Mount subvolumes
   systemd.mounts = [
+    {
+      type = "btrfs";
+      mountConfig = {
+        Options = "subvol=/";
+      };
+      what = "LABEL=NIXOS";
+      where = "/.btrfs";
+    }
+    {
+      type = "btrfs";
+      mountConfig = {
+        Options = "subvol=@snapshots";
+      };
+      what = "LABEL=NIXOS";
+      where = "/.snapshots";
+    }
     {
       type = "btrfs";
       mountConfig = {
