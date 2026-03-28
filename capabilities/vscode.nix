@@ -27,8 +27,9 @@
         ms-python.black-formatter
         ms-python.debugpy
         ms-python.python
-        ms-vscode-remote.remote-ssh
         ms-vscode-remote.remote-containers
+        ms-vscode-remote.remote-ssh
+        saoudrizwan.claude-dev
       ]
       ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
         {
@@ -36,12 +37,6 @@
           publisher = "davidprush";
           version = "1.0.0";
           sha256 = "sha256-wNG8GxP5v687koGOKXXJ520bsr8KmLujK9aSG/XL0rM=";
-        }
-        {
-          name = "geminicodeassist";
-          publisher = "google";
-          version = "2.64.0";
-          sha256 = "sha256-7YDglB8DJFu77BDCoxkij+xXsIuLTPeaUqXoDtAWjVQ=";
         }
         {
           name = "latex-workshop";
