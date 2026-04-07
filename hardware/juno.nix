@@ -14,6 +14,11 @@
     "nvme"
     "xhci_pci"
     "ahci"
+    # touchscreen
+    "hid"
+    "hid_generic"
+    "hid_multitouch"
+    "intel_lpss_pci"
   ];
 
   # Kernel modules to load ofter initrd
@@ -27,16 +32,32 @@
     # Allow firmware upgrades
     "iomem=relaxed"
     # Allow hibernate
-    "resume=/dev/disk/by-label/NIXOS"
-    "resume_offset=369152"
+    "resume=/dev/disk/by-label/SWAP"
+    #"resume_offset=369152"
     "mem_sleep_default=deep"
   ];
+
+  # Luks devices
+  boot.initrd.luks.devices = {
+    NIXOS = {
+      device = "/dev/disk/by-partlabel/NIXOS";
+      allowDiscards = true;
+      crypttabExtraOpts = ["fido2-device=auto"];
+    };
+    SWAP = {
+      device = "/dev/disk/by-partlabel/SWAP";
+      allowDiscards = true;
+      crypttabExtraOpts = ["fido2-device=auto"];
+    };
+  };
 
   # Filesystems
   fileSystems."/" = {
     device = "/dev/disk/by-label/NIXOS";
-    fsType = "f2fs";
-    options = ["compress_algorithm=zstd:1" "compress_chksum" "atgc" "gc_merge" "lazytime"];
+    fsType = "btrfs";
+    options = [
+      "compress=zstd:6"
+    ];
   };
 
   fileSystems."/boot" = {
@@ -46,12 +67,28 @@
 
   swapDevices = [
     {
-      device = "/var/lib/swapfile";
-      size = 20 * 1024; # 32GB in MB
+      device = "/dev/disk/by-label/SWAP";
     }
   ];
 
-  boot.resumeDevice = "/dev/disk/by-label/NIXOS";
+  boot.resumeDevice = "/dev/disk/by-label/SWAP";
+
+  # Make sure mount point of user home exists
+  environment.etc."tmpfiles.d/home-maik.conf".text = ''
+    d /home/maik               700 1000 100 -
+  '';
+
+  # Mount subvolume that contains the user home
+  systemd.mounts = [
+    {
+      type = "btrfs";
+      mountConfig = {
+        Options = "subvol=@maik";
+      };
+      what = "LABEL=NIXOS";
+      where = "/home/maik";
+    }
+  ];
 
   # Enable rotation sensor
   hardware.sensor.iio.enable = true;
@@ -65,7 +102,17 @@
           ++ [
             (super.fetchpatch {
               url = "https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/1846.patch";
-              hash = "sha256-SgimR5iQwoJwH5T9CYpZJqiRm/1zy/qYpFzS0LwBY1g=";
+              hash = "sha256-9Ab/AvlSAd8xlWvd41nWG6hF9q/XSOOSxWrQ9d81vN0=";
+            })
+          ];
+      });
+      gnome-shell = super.gnome-shell.overrideAttrs (oldAttrs: {
+        patches =
+          (oldAttrs.patches or [])
+          ++ [
+            (super.fetchpatch {
+              url = "https://gitlab.gnome.org/GNOME/gnome-shell/-/merge_requests/3742.patch";
+              hash = "sha256-SszTIu2xjAADzSIvud4bLwwt7dorC+XXhcb7sd1C0wI=";
             })
           ];
       });
