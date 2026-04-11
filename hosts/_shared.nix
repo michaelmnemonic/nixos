@@ -132,6 +132,6 @@
   system.autoUpgrade = {
     enable = true;
     allowReboot = false;
-    flake = "github:michaelmnemonic/nixos/niri-on-charon";
+    flake = "github:michaelmnemonic/nixos";
   };
 }
