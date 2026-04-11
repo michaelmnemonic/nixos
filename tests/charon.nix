@@ -1,6 +1,7 @@
 {
   agenix,
   nixos-x13s,
+  noctalia,
 }: {
   name = "charon";
 
@@ -9,6 +10,7 @@
       ../hosts/charon.nix
       agenix.nixosModules.default
       nixos-x13s.nixosModules.default
+      noctalia.nixosModules.default
     ];
 
     # Inject nixos-x13s dependency

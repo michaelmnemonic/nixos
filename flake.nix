@@ -13,6 +13,11 @@
       url = "github:yaxitech/ragenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    noctalia = {
+      url = "github:noctalia-dev/noctalia-shell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -20,6 +25,7 @@
     nixpkgs,
     nixos-x13s,
     agenix,
+    noctalia,
   }: let
     # Define 'forAllSystems' for properties that shall be build for x86_64 *and* aarch64
     systems = [
@@ -34,6 +40,7 @@
         modules = [
           ./hosts/pluto.nix
           agenix.nixosModules.default
+          noctalia.nixosModules.default
         ];
         specialArgs = {
         };
@@ -62,6 +69,7 @@
           ./hosts/charon.nix
           nixos-x13s.nixosModules.default
           agenix.nixosModules.default
+          noctalia.nixosModules.default
         ];
         specialArgs = {
           inherit nixos-x13s;
@@ -80,6 +88,7 @@
             gitMinimal
             nil
             ragenix
+            cachix
           ];
         }
     );
@@ -101,7 +110,7 @@
         flore = pkgs.testers.nixosTest (import ./tests/flore.nix {inherit agenix;});
         charon = pkgs.testers.nixosTest (
           import ./tests/charon.nix {
-            inherit agenix nixos-x13s;
+            inherit agenix nixos-x13s noctalia;
           }
         );
       }

@@ -15,14 +15,13 @@
     ../hardware/charon.nix
     # Users
     ../users/maik.nix
-    # plasma desktop
-    ../gui/plasma.nix
+    # niri wm
+    ../gui/niri.nix
     # Basic capabilites
     ../capabilities/chipcards.nix
     ../capabilities/mpv.nix
     ../capabilities/networking-with-network-manager.nix
     ../capabilities/pipewire.nix
-    ../capabilities/plasma-pim.nix
     ../capabilities/printing.nix
     ../capabilities/scanning.nix
     ../capabilities/ssh.nix
@@ -62,7 +61,7 @@
     enable = true;
     settings = rec {
       initial_session = {
-        command = "${pkgs.kdePackages.plasma-workspace}/bin/startplasma-wayland";
+        command = "${pkgs.niri}/bin/niri-session";
         user = "maik";
       };
       default_session = initial_session;
@@ -136,22 +135,25 @@
         ]
     ))
     btrfs-progs
-    kdePackages.tokodon
-    kdePackages.akregator
     firefox
-    fooyin
     neovim
     syncthing
-    transmission_4-qt
     zed-editor
   ];
+
+  # Enable noctalia-shell
+  services.noctalia-shell.enable = true;
 
   # Receive backups
   services.btrbk = {
     sshAccess = [
       {
         key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILvnVSjkHTyE9axypUKg3XBqT2ckiaTlmH9s1mHfoDfw";
-        roles = ["send" "info" "delete"];
+        roles = [
+          "send"
+          "info"
+          "delete"
+        ];
       }
     ];
   };
@@ -326,6 +328,12 @@
   # Enable fish
   programs.fish.enable = true;
 
+  # Enable gnupg agent
+  programs.gnupg.agent = {
+    enable = true;
+    pinentryPackage = pkgs.pinentry-qt;
+  };
+
   ############
   # Services #
   ############
@@ -335,7 +343,7 @@
 
   virtualisation.containers.enable = true;
   virtualisation = {
-    podman = {
+    docker = {
       enable = true;
     };
   };

@@ -5,7 +5,11 @@
 }: {
   # Initrd configuration
   boot.initrd.systemd.enable = true;
-  boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci"];
+  boot.initrd.availableKernelModules = [
+    "nvme"
+    "xhci_pci"
+    "ahci"
+  ];
   boot.initrd.kernelModules = [];
 
   # Supress log messages
@@ -93,7 +97,10 @@
   programs.direnv.enable = true;
 
   # Enable flakes
-  nix.settings.experimental-features = ["nix-command" "flakes"];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   # Garbage collect nix store
   nix.settings = {
