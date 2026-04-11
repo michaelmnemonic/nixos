@@ -1,0 +1,34 @@
+--- a/src/plugins/overview/qml/Main.qml	2026-04-11 23:07:36.304887632 +0200
++++ b/src/plugins/overview/qml/Main.qml	2026-04-11 23:07:36.244890754 +0200
+@@ -13,7 +13,6 @@
+ import org.kde.kwin as KWinComponents
+ import org.kde.kwin.private.effects
+ import org.kde.plasma.components as PC3
+-import org.kde.kcmutils as KCM
+ 
+ FocusScope {
+     id: container
+@@ -341,23 +340,6 @@
+                 icon.name: "virtual-desktops-symbolic"
+             }
+ 
+-            PC3.Button {
+-                Layout.alignment: Qt.AlignHCenter
+-                text: i18ndc("kwin", "@action:button", "Add Virtual Desktop")
+-                icon.name: "list-add-symbolic"
+-                onClicked: desktopModel.create(desktopModel.rowCount())
+-            }
+-
+-            PC3.Button {
+-                Layout.alignment: Qt.AlignHCenter
+-                text: i18ndc("kwin", "@action:button", "Configure Virtual Desktops…")
+-                icon.name: "preferences-virtual-desktops"
+-                onClicked: {
+-                    KCM.KCMLauncher.openSystemSettings("kcm_kwin_virtualdesktops")
+-                    effect.deactivate();
+-                }
+-            }
+-
+         }
+ 
+ 

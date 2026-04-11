@@ -67,4 +67,21 @@ in {
 
   # Use ksshaskpass for ssh
   programs.ssh.askPassword = "${pkgs.kdePackages.ksshaskpass}/bin/ksshaskpass";
+
+  # Customize plasma desktop
+  nixpkgs.overlays = [
+    (final: prev: {
+      kdePackages = prev.kdePackages.overrideScope (sfinal: sprev: {
+        # https://invent.kde.org/plasma/ksshaskpass/-/merge_requests/24
+        kwin = sprev.kwin.overrideAttrs (oldAttrs: {
+          patches =
+            (oldAttrs.patches or [])
+            ++ [
+              ../patches/0004-kwin-no-search-in-overview.patch
+              ../patches/0005-kwin-no-virtual-desktop-buttons.patch
+            ];
+        });
+      });
+    })
+  ];
 }

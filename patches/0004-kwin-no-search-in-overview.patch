@@ -1,0 +1,135 @@
+diff --git a/src/plugins/overview/qml/Main.qml b/src/plugins/overview/qml/Main.qml
+index ce021afe95..4991a5cbbb 100644
+--- a/src/plugins/overview/qml/Main.qml
++++ b/src/plugins/overview/qml/Main.qml
+@@ -12,9 +12,7 @@ import QtQuick.Layouts
+ import org.kde.kirigami as Kirigami
+ import org.kde.kwin as KWinComponents
+ import org.kde.kwin.private.effects
+-import org.kde.milou as Milou
+ import org.kde.plasma.components as PC3
+-import org.kde.plasma.extras as PlasmaExtras
+ import org.kde.kcmutils as KCM
+ 
+ FocusScope {
+@@ -129,7 +127,6 @@ FocusScope {
+     }
+ 
+     function selectNext(direction) {
+-        if (effect.searchText !== "") return false;
+         let currentIndex = 0
+         for (let i = 0; i < allDesktopHeaps.count; i++) {
+             if (allDesktopHeaps.itemAt(i).current) {
+@@ -179,11 +176,7 @@ FocusScope {
+ 
+     Keys.onPressed: (event) => {
+         if (event.key === Qt.Key_Escape) {
+-            if (effect.searchText !== "") {
+-                effect.searchText = ""
+-            } else {
+-                effect.deactivate();
+-            }
++            effect.deactivate();
+         } else if (event.key === Qt.Key_Plus || event.key === Qt.Key_Equal) {
+             desktopModel.create(desktopModel.rowCount());
+         } else if (event.key === Qt.Key_Minus) {
+@@ -240,7 +233,7 @@ FocusScope {
+         }
+     }
+     Keys.priority: Keys.AfterItem
+-    Keys.forwardTo: [allDesktopHeaps.currentHeap, searchField, searchResults]
++    Keys.forwardTo: [allDesktopHeaps.currentHeap]
+ 
+     Item {
+         width: backgroundItem.width
+@@ -302,42 +295,11 @@ FocusScope {
+         }
+     }
+ 
+-    Item {
+-        id: topBar
+-        opacity: desktopBar.opacity
+-        anchors.left: container.verticalDesktopBar ? desktopBar.right : parent.left
+-        anchors.right: parent.right
+-        anchors.top: container.verticalDesktopBar ? parent.top : desktopBar.bottom
+-        anchors.topMargin: Kirigami.Units.largeSpacing
+-        height: searchField.height + 1 * Kirigami.Units.largeSpacing
+-
+-        PlasmaExtras.SearchField {
+-            id: searchField
+-            anchors.centerIn: parent
+-            width: Math.min(parent.width, 20 * Kirigami.Units.gridUnit)
+-            focus: enabled
+-            readOnly: gridVal == 1
+-            onReadOnlyChanged: {
+-                text = ""
+-                effect.searchText = ""
+-                effect.searchTextChanged()
+-            }
+-            text: effect.searchText
+-            // not onTextEdited so that the UI always stays in sync
+-            onTextChanged: {
+-                effect.searchText = text;
+-                allDesktopHeaps.currentHeap.resetSelected();
+-                allDesktopHeaps.currentHeap.selectNextItem(WindowHeap.Direction.Down);
+-                searchField.focus = true;
+-            }
+-        }
+-    }
+-
+     property var currentGeometry: targetScreen.geometry
+ 
+     // These are the minimum position of maximum size of the desktop preview in the overview
+     property int minX: Kirigami.Units.largeSpacing + (container.verticalDesktopBar ? desktopBar.width : 0)
+-    property int minY: Kirigami.Units.largeSpacing + topBar.height + (container.verticalDesktopBar ? 0 : desktopBar.height)
++    property int minY: Kirigami.Units.largeSpacing + (container.verticalDesktopBar ? 0 : desktopBar.height)
+     property int maxWidth: currentGeometry.width - minX - Kirigami.Units.gridUnit * 2
+     property int maxHeight: currentGeometry.height - minY - Kirigami.Units.gridUnit * 2
+ 
+@@ -721,46 +683,6 @@ FocusScope {
+ 
+     }
+ 
+-    Loader {
+-        id: searchResults
+-        active: effect.searchText.length > 0 && (allDesktopHeaps.currentHeap.count === 0 || !effect.filterWindows)
+-        anchors.left: container.verticalDesktopBar ? desktopBar.right : parent.left
+-        anchors.right: parent.right
+-        anchors.bottom: parent.bottom
+-        anchors.top: topBar.bottom
+-
+-        sourceComponent: Item {
+-            width: parent.width
+-            height: parent.height - topBar.height
+-            opacity: overviewVal
+-
+-            PlasmaExtras.PlaceholderMessage {
+-                id: placeholderMessage
+-                visible: allDesktopHeaps.currentHeap.count === 0 && effect.filterWindows
+-                anchors.top: parent.top
+-                anchors.horizontalCenter: parent.horizontalCenter
+-                text: i18ndc("kwin", "@info:placeholder", "No matching windows")
+-            }
+-
+-            Milou.ResultsView {
+-                id: milouView
+-                anchors.bottom: parent.bottom
+-                anchors.horizontalCenter: parent.horizontalCenter
+-                width: parent.width / 2
+-                height: effect.filterWindows ? parent.height - placeholderMessage.height - Kirigami.Units.largeSpacing : parent.height - Kirigami.Units.largeSpacing
+-                queryString: effect.searchText
+-
+-                onActivated: {
+-                    effect.deactivate();
+-                }
+-            }
+-
+-            Keys.forwardTo: milouView
+-        }
+-
+-        Keys.forwardTo: item
+-    }
+-
+     Repeater {
+         model: KWinComponents.WindowFilterModel {
+             desktop: KWinComponents.Workspace.currentDesktop
