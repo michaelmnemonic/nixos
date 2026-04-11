@@ -6,7 +6,6 @@
   lib,
   self,
   allowed-unfree-packages,
-  caelestia-shell,
   ...
 }: {
   imports = [
