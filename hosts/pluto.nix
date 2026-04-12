@@ -11,8 +11,8 @@
     ../hardware/pluto.nix
     # Users
     ../users/maik.nix
-    # PLASMA desktop
-    ../gui/plasma.nix
+    # niri compositor
+    ../gui/niri.nix
     # Basic capabilities
     ../capabilities/chipcards.nix
     ../capabilities/fan2go.nix
