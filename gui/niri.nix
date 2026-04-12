@@ -16,6 +16,7 @@
   };
 
   fonts.packages = with pkgs; [
+    adwaita-fonts
     inter
     jetbrains-mono
     nerd-fonts.jetbrains-mono
