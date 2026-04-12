@@ -128,7 +128,6 @@
         pkgs.gamescope
       ];
     })
-    kde-rounded-corners
     kdePackages.neochat
     kdePackages.tokodon
     mangohud
