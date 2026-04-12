@@ -1,0 +1,32 @@
+diff --git a/applets/systemtray/qml/ConfigGeneral.qml b/applets/systemtray/qml/ConfigGeneral.qml
+index 17acf328dc..33d6e1cc5b 100644
+--- a/applets/systemtray/qml/ConfigGeneral.qml
++++ b/applets/systemtray/qml/ConfigGeneral.qml
+@@ -260,6 +260,10 @@ KCMUtils.ScrollViewKCM {
+                         "label": i18nc("@item:inlistbox Icon spacing", "Normal"),
+                         "spacing": 2
+                     },
++                    {
++                        "label": i18nc("@item:inlistbox Icon spacing", "Medium"),
++                        "spacing": 3
++                    },
+                     {
+                         "label": i18nc("@item:inlistbox Icon spacing", "Large"),
+                         "spacing": 6
+@@ -270,13 +274,14 @@ KCMUtils.ScrollViewKCM {
+ 
+                 currentIndex: {
+                     if (Kirigami.Settings.tabletMode) {
+-                        return 2; // Large
++                        return 3; // Large
+                     }
+ 
+                     switch (iconsPage.cfg_iconSpacing) {
+                         case 1: return 0; // Small
+                         case 2: return 1; // Normal
+-                        case 6: return 2; // Large
++                        case 3: return 2; // Medium
++                        case 6: return 3; // Large
+                     }
+                 }
+ 
