@@ -34,6 +34,7 @@
     aspellDicts.en
     celluloid
     ddcutil
+    evolution
     firefox
     fractal
     fragments
