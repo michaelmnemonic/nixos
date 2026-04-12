@@ -122,7 +122,6 @@
   environment.systemPackages = with pkgs; [
     ausweisapp
     fooyin
-    gamescope-wsi
     (heroic.override {
       extraPkgs = pkgs: [
         pkgs.gamescope
@@ -131,7 +130,6 @@
     mangohud
     neovim
     signal-desktop
-    vulkan-hdr-layer-kwin6
     wineWowPackages.staging
     zed-editor
   ];
