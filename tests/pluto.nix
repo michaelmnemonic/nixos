@@ -1,10 +1,14 @@
-{agenix}: {
+{
+  agenix,
+  noctalia,
+}: {
   name = "pluto";
 
   nodes.machine = {lib, ...}: {
     imports = [
       ../hosts/pluto.nix
       agenix.nixosModules.default
+      noctalia.nixosModules.default
     ];
 
     # Increase memory and cores for the VM

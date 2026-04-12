@@ -49,6 +49,7 @@
     keepassxc
     libreoffice
     libsForQt5.qt5ct
+    loupe
     mangohud
     nautilus
     nfs-utils
@@ -59,9 +60,11 @@
     thunderbird
     tuba
     valent
-    walker
     xwayland-satellite
   ];
+
+  # Enable noctalia-shell
+  services.noctalia-shell.enable = true;
 
   # Use qt5ct configuration
   environment.variables.QT_QPA_PLATFORMTHEME = "qt5ct";
@@ -75,6 +78,7 @@
   # Enable evolution
   programs.evolution.enable = true;
 
+  # Setup xdg
   xdg = {
     autostart.enable = true;
     menus.enable = true;
@@ -92,7 +96,9 @@
     implementation = "broker";
   };
 
+  # Enable calendar entries in bar
   services.gnome.evolution-data-server.enable = true;
 
+  # Enable battery state reporting
   services.upower.enable = true;
 }
