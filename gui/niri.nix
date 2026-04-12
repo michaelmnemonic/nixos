@@ -37,6 +37,7 @@
     firefox
     fractal
     fragments
+    geary
     ghostty
     gitMinimal
     gnome-calculator
