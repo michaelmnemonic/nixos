@@ -15,13 +15,14 @@
     ../hardware/charon.nix
     # Users
     ../users/maik.nix
-    # niri wm
-    ../gui/niri.nix
+    # plasma desktop
+    ../gui/plasma.nix
     # Basic capabilites
     ../capabilities/chipcards.nix
     ../capabilities/mpv.nix
     ../capabilities/networking-with-network-manager.nix
     ../capabilities/pipewire.nix
+    ../capabilities/plasma-pim.nix
     ../capabilities/printing.nix
     ../capabilities/scanning.nix
     ../capabilities/ssh.nix
@@ -61,7 +62,7 @@
     enable = true;
     settings = rec {
       initial_session = {
-        command = "${pkgs.niri}/bin/niri-session";
+        command = "${pkgs.kdePackages.plasma-workspace}/bin/startplasma-wayland";
         user = "maik";
       };
       default_session = initial_session;
@@ -140,9 +141,6 @@
     syncthing
     zed-editor
   ];
-
-  # Enable noctalia-shell
-  services.noctalia-shell.enable = true;
 
   # Receive backups
   services.btrbk = {
