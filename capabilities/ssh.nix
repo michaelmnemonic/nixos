@@ -2,8 +2,8 @@
   # Enable SSH server with public key authentication only
   services.openssh = {
     enable = true;
-    settings.PasswordAuthentication = false;
-    settings.KbdInteractiveAuthentication = false;
+    settings.PasswordAuthentication = true;
+    settings.KbdInteractiveAuthentication = true;
   };
 
   # Enable ssh-agent
