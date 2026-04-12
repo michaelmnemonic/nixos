@@ -74,6 +74,7 @@
   # Enable evolution
   programs.evolution.enable = true;
 
+  # Setup xdg
   xdg = {
     autostart.enable = true;
     menus.enable = true;
@@ -91,7 +92,9 @@
     implementation = "broker";
   };
 
+  # Enable calendar entries in bar
   services.gnome.evolution-data-server.enable = true;
 
+  # Enable battery state reporting
   services.upower.enable = true;
 }
