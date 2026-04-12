@@ -61,7 +61,7 @@
 
   # Enable noctalia-shell
   services.noctalia-shell.enable = true;
-  
+
   # Use qt5ct configuration
   environment.variables.QT_QPA_PLATFORMTHEME = "qt5ct";
 
