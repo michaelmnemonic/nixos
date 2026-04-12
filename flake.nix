@@ -105,7 +105,7 @@
           };
         };
       in {
-        pluto = pkgs.testers.nixosTest (import ./tests/pluto.nix {inherit agenix;});
+        pluto = pkgs.testers.nixosTest (import ./tests/pluto.nix {inherit agenix noctalia;});
         juno = pkgs.testers.nixosTest (import ./tests/juno.nix {inherit agenix;});
         flore = pkgs.testers.nixosTest (import ./tests/flore.nix {inherit agenix;});
         charon = pkgs.testers.nixosTest (
