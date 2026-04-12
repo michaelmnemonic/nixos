@@ -33,6 +33,7 @@
     aspellDicts.de
     aspellDicts.en
     celluloid
+    darktable
     ddcutil
     evolution
     firefox
