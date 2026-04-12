@@ -16,6 +16,7 @@
   };
 
   fonts.packages = with pkgs; [
+    adwaita-fonts
     inter
     jetbrains-mono
     nerd-fonts.jetbrains-mono
@@ -32,10 +33,13 @@
     aspellDicts.de
     aspellDicts.en
     celluloid
+    darktable
     ddcutil
+    evolution
     firefox
     fractal
     fragments
+    geary
     ghostty
     gitMinimal
     gnome-calculator
