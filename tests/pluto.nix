@@ -35,6 +35,9 @@
 
     # Prevent conflict with the externally created nixpkgs instance
     nixpkgs.config = lib.mkForce {};
+
+    # Inject noctalia dependency
+    _module.args.noctalia = noctalia;
   };
 
   testScript = ''
