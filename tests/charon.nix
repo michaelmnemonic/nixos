@@ -16,6 +16,9 @@
     # Inject nixos-x13s dependency
     _module.args.nixos-x13s = nixos-x13s;
 
+    # Inject noctalia dependency
+    _module.args.noctalia = noctalia;
+
     # Increase memory and cores for the VM
     virtualisation.memorySize = 2048;
     virtualisation.cores = 2;
