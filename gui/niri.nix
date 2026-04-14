@@ -1,6 +1,7 @@
 {
   pkgs,
   lib,
+  noctalia,
   ...
 }: {
   # Make niri availlable
@@ -64,7 +65,12 @@
   ];
 
   # Enable noctalia-shell
-  services.noctalia-shell.enable = true;
+  services.noctalia-shell = {
+    enable = true;
+    package = noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default.override {
+      calendarSupport = true;
+    };
+  };
 
   # Use qt5ct configuration
   environment.variables.QT_QPA_PLATFORMTHEME = "qt5ct";

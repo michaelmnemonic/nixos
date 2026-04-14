@@ -43,6 +43,7 @@
           noctalia.nixosModules.default
         ];
         specialArgs = {
+          inherit noctalia;
         };
       };
       juno = nixpkgs.lib.nixosSystem {
@@ -73,6 +74,7 @@
         ];
         specialArgs = {
           inherit nixos-x13s;
+          inherit noctalia;
         };
       };
     };
