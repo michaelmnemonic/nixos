@@ -1,11 +1,6 @@
 {
-  inputs,
   pkgs,
-  config,
   nixos-x13s,
-  lib,
-  self,
-  allowed-unfree-packages,
   ...
 }: {
   imports = [
@@ -19,7 +14,6 @@
     ../gui/gnome.nix
     # Basic capabilites
     ../capabilities/chipcards.nix
-    ../capabilities/mpv.nix
     ../capabilities/networking-with-network-manager.nix
     ../capabilities/pipewire.nix
     ../capabilities/printing.nix
@@ -127,13 +121,7 @@
     ))
     btrfs-progs
     firefox
-    neovim
-    syncthing
-    zed-editor
   ];
-
-  # Enable noctalia-shell
-  services.noctalia-shell.enable = true;
 
   # Receive backups
   services.btrbk = {
@@ -322,7 +310,6 @@
   # Enable gnupg agent
   programs.gnupg.agent = {
     enable = true;
-    pinentryPackage = pkgs.pinentry-qt;
   };
 
   ############
