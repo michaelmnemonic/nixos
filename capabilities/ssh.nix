@@ -8,7 +8,6 @@
 
   # Enable ssh-agent
   programs.ssh = {
-    startAgent = true;
     enableAskPassword = true;
   };
 
