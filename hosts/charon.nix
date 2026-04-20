@@ -15,8 +15,8 @@
     ../hardware/charon.nix
     # Users
     ../users/maik.nix
-    # niri wm
-    ../gui/niri.nix
+    # gnome desktop environment
+    ../gui/gnome.nix
     # Basic capabilites
     ../capabilities/chipcards.nix
     ../capabilities/mpv.nix
@@ -56,17 +56,8 @@
     }
   ];
 
-  # Autologin with greetd
-  services.greetd = {
-    enable = true;
-    settings = rec {
-      initial_session = {
-        command = "${pkgs.niri}/bin/niri-session";
-        user = "maik";
-      };
-      default_session = initial_session;
-    };
-  };
+  # Gnome login manager
+  services.xserver.desktopManager.gnome.enable = true;
 
   # Firewall configuration
   networking.firewall = {
