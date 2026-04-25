@@ -1,11 +1,6 @@
 {
-  inputs,
   pkgs,
-  config,
   nixos-x13s,
-  lib,
-  self,
-  allowed-unfree-packages,
   ...
 }: {
   imports = [
@@ -19,7 +14,6 @@
     ../gui/hypr.nix
     # Basic capabilites
     ../capabilities/chipcards.nix
-    ../capabilities/mpv.nix
     ../capabilities/networking-with-network-manager.nix
     ../capabilities/pipewire.nix
     ../capabilities/printing.nix
@@ -136,10 +130,6 @@
     ))
     btrfs-progs
     firefox
-    fooyin
-    neovim
-    syncthing
-    zed-editor
   ];
 
   # Receive backups
@@ -147,7 +137,11 @@
     sshAccess = [
       {
         key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILvnVSjkHTyE9axypUKg3XBqT2ckiaTlmH9s1mHfoDfw";
-        roles = ["send" "info" "delete"];
+        roles = [
+          "send"
+          "info"
+          "delete"
+        ];
       }
     ];
   };
@@ -322,6 +316,11 @@
   # Enable fish
   programs.fish.enable = true;
 
+  # Enable gnupg agent
+  programs.gnupg.agent = {
+    enable = true;
+  };
+
   ############
   # Services #
   ############
@@ -331,7 +330,7 @@
 
   virtualisation.containers.enable = true;
   virtualisation = {
-    podman = {
+    docker = {
       enable = true;
     };
   };

@@ -43,6 +43,20 @@
         "isDefault": true
       },
       "problemMatcher": []
-    }
+    },
+    {
+      "label": "deploy: boot",
+      "type": "shell",
+      "command": "sudo nixos-rebuild boot --flake .",
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "deploy: switch",
+      "type": "shell",
+      "command": "sudo nixos-rebuild switch --flake .",
+      "group": "build",
+      "problemMatcher": []
+    },
   ]
 }

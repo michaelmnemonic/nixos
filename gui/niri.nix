@@ -1,9 +1,11 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  noctalia,
+  ...
+}: {
   # Make niri availlable
   programs.niri.enable = true;
-
-  # Make waybar availlable
-  programs.waybar.enable = true;
 
   nixpkgs.config.qt5 = {
     enable = true;
@@ -15,6 +17,7 @@
   };
 
   fonts.packages = with pkgs; [
+    adwaita-fonts
     inter
     jetbrains-mono
     nerd-fonts.jetbrains-mono
@@ -27,56 +30,61 @@
   environment.systemPackages = with pkgs; [
     adwaita-icon-theme
     adwaita-qt
-    alacritty
     aspell
     aspellDicts.de
     aspellDicts.en
-    brightnessctl
     celluloid
-    fan2go
+    darktable
+    ddcutil
+    evolution
     firefox
     fractal
     fragments
-    fuzzel
+    geary
+    ghostty
     gitMinimal
     gnome-calculator
+    gnome-calendar
     gnome-clocks
     gnome-text-editor
     keepassxc
     libreoffice
     libsForQt5.qt5ct
-    mako
+    loupe
     mangohud
     nautilus
     nfs-utils
     papers
     pavucontrol
-    playerctl
-    ptyxis
     quodlibet-full
     resources
-    swaylock
-    swayosd
     thunderbird
     tuba
     valent
-    vscodium
-    walker
     xwayland-satellite
   ];
+
+  # Enable noctalia-shell
+  services.noctalia-shell = {
+    enable = true;
+    package = noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default.override {
+      calendarSupport = true;
+    };
+  };
 
   # Use qt5ct configuration
   environment.variables.QT_QPA_PLATFORMTHEME = "qt5ct";
 
   # Disable gnome-keyring, keepassxc is used instead
-  services.gnome.gnome-keyring.enable = false;
-
-  # Enable blueman bluetooth manager
-  services.blueman.enable = true;
+  services.gnome.gnome-keyring.enable = lib.mkForce false;
 
   # Enable dconf (needed for configuration of gtk themes under wayland)
   programs.dconf.enable = true;
 
+  # Enable evolution
+  programs.evolution.enable = true;
+
+  # Setup xdg
   xdg = {
     autostart.enable = true;
     menus.enable = true;
@@ -94,31 +102,9 @@
     implementation = "broker";
   };
 
-  # swayosd
-  systemd.services.swayosd-libinput-backend = {
-    description = "SwayOSD LibInput backend for listening to certain keys like CapsLock, ScrollLock, VolumeUp, etc.";
-    documentation = ["https://github.com/ErikReider/SwayOSD"];
-    wantedBy = ["graphical.target"];
-    partOf = ["graphical.target"];
-    after = ["graphical.target"];
+  # Enable calendar entries in bar
+  services.gnome.evolution-data-server.enable = true;
 
-    serviceConfig = {
-      Type = "dbus";
-      BusName = "org.erikreider.swayosd";
-      ExecStart = "${pkgs.swayosd}/bin/swayosd-libinput-backend";
-      Restart = "on-failure";
-    };
-  };
-
-  systemd.user.services.swayosd-server = {
-    description = "SwayOSD server";
-    documentation = ["https://github.com/ErikReider/SwayOSD"];
-    after = ["graphical-session.target"];
-
-    serviceConfig = {
-      Type = "simple";
-      ExecStart = "${pkgs.swayosd}/bin/swayosd-server";
-      Restart = "on-failure";
-    };
-  };
+  # Enable battery state reporting
+  services.upower.enable = true;
 }

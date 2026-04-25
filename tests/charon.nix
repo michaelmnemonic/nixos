@@ -1,6 +1,7 @@
 {
   agenix,
   nixos-x13s,
+  noctalia,
 }: {
   name = "charon";
 
@@ -9,10 +10,14 @@
       ../hosts/charon.nix
       agenix.nixosModules.default
       nixos-x13s.nixosModules.default
+      noctalia.nixosModules.default
     ];
 
     # Inject nixos-x13s dependency
     _module.args.nixos-x13s = nixos-x13s;
+
+    # Inject noctalia dependency
+    _module.args.noctalia = noctalia;
 
     # Increase memory and cores for the VM
     virtualisation.memorySize = 2048;

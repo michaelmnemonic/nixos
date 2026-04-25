@@ -11,15 +11,15 @@
     ../hardware/pluto.nix
     # Users
     ../users/maik.nix
-    # PLASMA desktop
-    ../gui/plasma.nix
+    # niri compositor
+    ../gui/niri.nix
     # Basic capabilities
     ../capabilities/chipcards.nix
     ../capabilities/fan2go.nix
+    ../capabilities/llama-cpp.nix
     ../capabilities/mpv.nix
     ../capabilities/networking-with-network-manager.nix
     ../capabilities/pipewire.nix
-    ../capabilities/plasma-pim.nix
     ../capabilities/printing.nix
     ../capabilities/scanning.nix
     ../capabilities/ssh.nix
@@ -48,11 +48,17 @@
     enable = true;
     settings = rec {
       initial_session = {
-        command = "${pkgs.kdePackages.plasma-workspace}/bin/startplasma-wayland";
+        command = "${pkgs.niri}/bin/niri-session";
         user = "maik";
       };
       default_session = initial_session;
     };
+  };
+
+  # Secrets
+  age.secrets.llama-cpp-api-key = {
+    file = ../secrets/llama-cpp-api.key.age;
+    mode = "444";
   };
 
   # Firewall configuration
@@ -116,20 +122,14 @@
   environment.systemPackages = with pkgs; [
     ausweisapp
     fooyin
-    gamescope-wsi
     (heroic.override {
       extraPkgs = pkgs: [
         pkgs.gamescope
       ];
     })
-    kde-rounded-corners
-    kdePackages.neochat
-    kdePackages.tokodon
     mangohud
     neovim
     signal-desktop
-    transmission_4-qt
-    vulkan-hdr-layer-kwin6
     wineWowPackages.staging
     zed-editor
   ];
@@ -145,6 +145,7 @@
       "vscode"
       "vscode-with-extensions"
       "vscode-extension-ms-vscode-remote-remote-ssh"
+      "vscode-extension-ms-vscode-remote-remote-containers"
     ];
 
   # Enable podman
@@ -168,11 +169,10 @@
   #####################
 
   # # Overclock and undervolt AMD GPU
-  # environment.etc."tmpfiles.d/gpu-undervolt.conf".text = ''
-  #   w+ /sys/class/drm/card1/device/pp_od_clk_voltage                - - - - vo -50\n
-  #   w+ /sys/class/drm/card1/device/pp_od_clk_voltage                - - - - m 1 1200\n
-  #   w+ /sys/class/drm/card1/device/pp_od_clk_voltage                - - - - c\n
-  # '';
+  environment.etc."tmpfiles.d/gpu-undervolt.conf".text = ''
+    w+ /sys/class/drm/card1/device/pp_od_clk_voltage                - - - - vo -125\n
+    w+ /sys/class/drm/card1/device/pp_od_clk_voltage                - - - - c\n
+  '';
 
   # Make sure syncthing home exists
   environment.etc."tmpfiles.d/var-lib-synthing.conf".text = ''
@@ -433,12 +433,14 @@
     user = "maik";
   };
 
-  services.languagetool = {
+  # NixOS state version
+  capabilities.llama-cpp = {
     enable = true;
-    allowOrigin = "*";
-    port = 8081;
+    rocmSupport = true;
+    apiKeyFile = config.age.secrets.llama-cpp-api-key.path;
+    # https://unsloth.ai/docs/models/gpt-oss-how-to-run-and-fine-tune#llama.cpp-run-gpt-oss-20b-tutorial
+    options = "--jinja -ngl 99 --ctx-size 16384 --temp 1.0 --top-p 1.0 --top-k 0";
   };
 
-  # NixOS state version
   system.stateVersion = "24.05";
 }
