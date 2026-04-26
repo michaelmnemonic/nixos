@@ -11,8 +11,8 @@
     ../hardware/pluto.nix
     # Users
     ../users/maik.nix
-    # niri compositor
-    ../gui/niri.nix
+    # plasma desktop environment
+    ../gui/plasma.nix
     # Basic capabilities
     ../capabilities/chipcards.nix
     ../capabilities/fan2go.nix
@@ -20,6 +20,7 @@
     ../capabilities/mpv.nix
     ../capabilities/networking-with-network-manager.nix
     ../capabilities/pipewire.nix
+    ../capabilities/plasma-pim.nix
     ../capabilities/printing.nix
     ../capabilities/scanning.nix
     ../capabilities/ssh.nix
@@ -48,7 +49,7 @@
     enable = true;
     settings = rec {
       initial_session = {
-        command = "${pkgs.niri}/bin/niri-session";
+        command = "${pkgs.kdePackages.plasma-workspace}/bin/startplasma-wayland";
         user = "maik";
       };
       default_session = initial_session;
