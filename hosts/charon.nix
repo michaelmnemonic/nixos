@@ -10,13 +10,12 @@
     ../hardware/charon.nix
     # Users
     ../users/maik.nix
-    # plasma desktop environment
-    ../gui/plasma.nix
+    # niri wm
+    ../gui/niri.nix
     # Basic capabilites
     ../capabilities/chipcards.nix
     ../capabilities/networking-with-network-manager.nix
     ../capabilities/pipewire.nix
-    ../capabilities/plasma-pim.nix
     ../capabilities/printing.nix
     ../capabilities/scanning.nix
     ../capabilities/ssh.nix
@@ -56,7 +55,7 @@
     enable = true;
     wayland = {
       enable = true;
-      compositor = "kwin";
+      compositor = "weston";
     };
   };
 
