@@ -61,7 +61,6 @@
     thunderbird
     tuba
     valent
-    walker
     xwayland-satellite
   ];
 
