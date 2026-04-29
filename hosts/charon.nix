@@ -278,11 +278,6 @@
     '')
   ];
 
-  # Make sure syncthing home exists
-  environment.etc."tmpfiles.d/var-lib-synthing.conf".text = ''
-    d /var/lib/syncthing       700 1000 100 -
-  '';
-
   ############
   # Programs #
   ############
