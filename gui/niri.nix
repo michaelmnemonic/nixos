@@ -36,11 +36,9 @@
     celluloid
     darktable
     ddcutil
-    evolution
     firefox
     fractal
     fragments
-    geary
     ghostty
     gitMinimal
     gnome-calculator
