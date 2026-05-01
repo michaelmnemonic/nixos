@@ -57,7 +57,6 @@
     quodlibet-full
     resources
     tuba
-    valent
     xwayland-satellite
   ];
 
