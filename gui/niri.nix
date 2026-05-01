@@ -56,7 +56,6 @@
     pavucontrol
     quodlibet-full
     resources
-    thunderbird
     tuba
     valent
     xwayland-satellite
