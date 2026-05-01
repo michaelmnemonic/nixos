@@ -90,9 +90,6 @@
     implementation = "broker";
   };
 
-  # Enable calendar entries in bar
-  services.gnome.evolution-data-server.enable = true;
-
   # Enable battery state reporting
   services.upower.enable = true;
 }
