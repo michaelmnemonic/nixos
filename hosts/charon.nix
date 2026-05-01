@@ -125,6 +125,8 @@
           python312Packages.pillow
         ]
     ))
+    alsa-ucm-conf
+    alsa-topology-conf
     btrfs-progs
     firefox
   ];
