@@ -33,11 +33,9 @@
     aspell
     aspellDicts.de
     aspellDicts.en
-    celluloid
     darktable
     ddcutil
     firefox
-    fractal
     fragments
     ghostty
     gitMinimal
@@ -56,7 +54,6 @@
     pavucontrol
     quodlibet-full
     resources
-    tuba
     xwayland-satellite
   ];
 
