@@ -134,6 +134,10 @@
     firefox
   ];
 
+  services.udev.extraRules = ''
+    SUBSYSTEM=="leds", KERNEL=="input1::capslock", ACTION=="add", RUN+="${pkgs.coreutils}/bin/chmod 0666 /sys/class/leds/%k/brightness /sys/class/leds/%k/trigger /sys/class/leds/%k/delay_on /sys/class/leds/%k/delay_off"
+  '';
+
   # Receive backups
   services.btrbk = {
     sshAccess = [

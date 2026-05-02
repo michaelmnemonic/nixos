@@ -34,7 +34,7 @@
   ];
 
   # Kernel modules to load ofter initrd
-  boot.kernelModules = [];
+  boot.kernelModules = ["ledtrig-timer"];
 
   boot.initrd.kernelModules = [];
   boot.extraModulePackages = [];
