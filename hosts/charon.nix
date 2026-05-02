@@ -50,12 +50,15 @@
     }
   ];
 
-  # Login with sddm
-  services.displayManager.sddm = {
+  # Autologin with greetd
+  services.greetd = {
     enable = true;
-    wayland = {
-      enable = true;
-      compositor = "weston";
+    settings = rec {
+      initial_session = {
+        command = "${pkgs.niri}/bin/niri-session";
+        user = "maik";
+      };
+      default_session = initial_session;
     };
   };
 
@@ -280,6 +283,28 @@
     '')
   ];
 
+  # Make sure syncthing home exists
+  environment.etc."tmpfiles.d/var-lib-synthing.conf".text = ''
+    d /var/lib/syncthing       700 1000 100 -
+  '';
+
+  # Make sure mount point of user home exists
+  environment.etc."tmpfiles.d/home-maik.conf".text = ''
+    d /home/maik               700 1000 100 -
+  '';
+
+  # Mount subvolume that contains the user home
+  systemd.mounts = [
+    {
+      type = "btrfs";
+      mountConfig = {
+        Options = "subvol=@maik";
+      };
+      what = "LABEL=NIXOS";
+      where = "/home/maik";
+    }
+  ];
+
   ############
   # Programs #
   ############
@@ -310,6 +335,12 @@
     docker = {
       enable = true;
     };
+  };
+
+  # syncthing
+  services.syncthing = {
+    enable = true;
+    user = "maik";
   };
 
   # NixOS state version
