@@ -66,9 +66,6 @@
   # Enable dconf (needed for configuration of gtk themes under wayland)
   programs.dconf.enable = true;
 
-  # Enable evolution
-  programs.evolution.enable = true;
-
   # Setup xdg
   xdg = {
     autostart.enable = true;
