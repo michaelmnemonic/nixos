@@ -134,18 +134,18 @@
   ];
 
   # Receive backups
-  services.btrbk = {
-    sshAccess = [
-      {
-        key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILvnVSjkHTyE9axypUKg3XBqT2ckiaTlmH9s1mHfoDfw";
-        roles = [
-          "send"
-          "info"
-          "delete"
-        ];
-      }
-    ];
-  };
+  # services.btrbk = {
+  #   sshAccess = [""
+  #     {
+  #       key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILvnVSjkHTyE9axypUKg3XBqT2ckiaTlmH9s1mHfoDfw";
+  #       roles = [
+  #         "send"
+  #         "info"
+  #         "delete"
+  #       ];
+  #     }
+  #   ];
+  # };
 
   services.pipewire.configPackages = [
     # Provide equalizer for Lenovo X13s speakers
