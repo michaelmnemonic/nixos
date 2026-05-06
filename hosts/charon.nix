@@ -132,6 +132,7 @@
     alsa-topology-conf
     btrfs-progs
     firefox
+    llama-cpp-vulkan
   ];
 
   services.udev.extraRules = ''

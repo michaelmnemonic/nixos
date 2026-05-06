@@ -73,7 +73,12 @@
   boot.initrd.systemd.tpm2.enable = false;
 
   # Ensure hardware acceleration is available
-  hardware.graphics.enable = true;
+  hardware = {
+    enableRedistributableFirmware = true;
+    graphics = {
+      enable = true;
+    };
+  };
 
   # Host platform
   nixpkgs.hostPlatform = lib.mkDefault "aarch64-linux";
