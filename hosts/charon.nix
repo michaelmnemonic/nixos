@@ -336,6 +336,12 @@
     };
   };
 
+  # Charon is passivly cooled, be less agressice with CPU useage
+  nix.settings = {
+    max-jobs = 1;
+    cores = 4;
+  };
+
   # NixOS state version
   system.stateVersion = "24.05";
 }
