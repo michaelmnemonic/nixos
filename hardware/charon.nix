@@ -57,6 +57,11 @@
     fsType = "vfat";
   };
 
+  swapDevices = [{
+    device = "/dev/disk/by-partlabel/SWAP";
+    randomEncryption.enable = true;
+  }];
+
   # Set kernel parameters
   boot.kernelParams = [
     # https://wiki.debian.org/InstallingDebianOn/Thinkpad/X13s
