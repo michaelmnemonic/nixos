@@ -425,7 +425,7 @@
   # Enable ollama
   services.ollama = {
     enable = false;
-    acceleration = "rocm";
+    package = pkgs.olllama-rocm;
     rocmOverrideGfx = "11.0.0";
   };
 
