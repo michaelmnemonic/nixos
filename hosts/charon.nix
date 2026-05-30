@@ -14,6 +14,7 @@
     ../gui/niri.nix
     # Basic capabilites
     ../capabilities/chipcards.nix
+    ../capabilities/languagetool.nix
     ../capabilities/networking-with-network-manager.nix
     ../capabilities/pipewire.nix
     ../capabilities/printing.nix
