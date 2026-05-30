@@ -1,7 +1,6 @@
 {
   pkgs,
   lib,
-  noctalia,
   ...
 }: {
   # Make niri availlable
