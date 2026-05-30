@@ -2,7 +2,7 @@
   description = "Nix configuration for several private host systems";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-26.05";
 
     nixos-x13s = {
       url = "github:michaelmnemonic/x13s-nixos";

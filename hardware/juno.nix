@@ -81,10 +81,10 @@
   services.logind.settings.Login.HandlePowerKey = "suspend-then-hibernate";
 
   # Define time delay for hibernation
-  systemd.sleep.extraConfig = ''
-    HibernateDelaySec=15m
-    SuspendState=mem
-  '';
+  systemd.sleep.settings.Sleep = {
+    HibernateDelaySec = "15m";
+    SuspendState = "mem";
+  };
 
   # Enable hardware accelerated video decode
   hardware.graphics = {

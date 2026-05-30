@@ -14,6 +14,7 @@
     # plasma desktop environment
     ../gui/plasma.nix
     # Basic capabilities
+    ../capabilities/android.nix
     ../capabilities/chipcards.nix
     ../capabilities/fan2go.nix
     ../capabilities/llama-cpp.nix
@@ -424,7 +425,7 @@
   # Enable ollama
   services.ollama = {
     enable = false;
-    acceleration = "rocm";
+    package = pkgs.olllama-rocm;
     rocmOverrideGfx = "11.0.0";
   };
 
