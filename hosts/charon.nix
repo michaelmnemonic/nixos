@@ -131,6 +131,8 @@
     ))
     btrfs-progs
     firefox
+    kdePackages.tokodon
+    kdePackages.neochat
   ];
 
   # Customize kde plasma
