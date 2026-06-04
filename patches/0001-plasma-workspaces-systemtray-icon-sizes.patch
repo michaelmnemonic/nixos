@@ -1,9 +1,9 @@
-diff --git a/applets/systemtray/package/contents/ui/main.qml b/applets/systemtray/package/contents/ui/main.qml
-index b978cc9..41eedba 100644
---- a/applets/systemtray/package/contents/ui/main.qml
-+++ b/applets/systemtray/package/contents/ui/main.qml
-@@ -117,7 +117,7 @@
-                 flow: vertical ? GridView.LeftToRight : GridView.TopToBottom
+diff --git a/applets/systemtray/qml/main.qml b/applets/systemtray/qml/main.qml
+index c07bb4310b..8238329a5b 100644
+--- a/applets/systemtray/qml/main.qml
++++ b/applets/systemtray/qml/main.qml
+@@ -182,7 +182,7 @@ ContainmentItem {
+                 flow: root.vertical ? GridView.LeftToRight : GridView.TopToBottom
  
                  // The icon size to display when not using the auto-scaling setting
 -                readonly property int smallIconSize: Kirigami.Units.iconSizes.smallMedium
@@ -11,7 +11,7 @@ index b978cc9..41eedba 100644
  
                  // Automatically use autoSize setting when in tablet mode, if it's
                  // not already being used
-@@ -128,7 +128,7 @@
+@@ -193,7 +193,7 @@ ContainmentItem {
                  readonly property int rowsOrColumns: autoSize ? 1 : Math.max(1, Math.min(count, Math.floor(gridThickness / (smallIconSize + Kirigami.Units.smallSpacing))))
  
                  // Add margins only if the panel is larger than a small icon (to avoid large gaps between tiny icons)

@@ -131,6 +131,25 @@
     ))
     btrfs-progs
     firefox
+    kdePackages.tokodon
+    kdePackages.neochat
+  ];
+
+  # Customize kde plasma
+  nixpkgs.overlays = [
+    (final: prev: {
+      kdePackages = prev.kdePackages.overrideScope (sfinal: sprev: {
+        # smaller systemtray icons with more spacing
+        # FIXME: this compiles plasma-workspace just to patch qml script
+        plasma-workspace = sprev.plasma-workspace.overrideAttrs (oldAttrs: {
+          patches =
+            oldAttrs.patches
+            ++ [
+              ../patches/0001-plasma-workspaces-systemtray-icon-sizes.patch
+            ];
+        });
+      });
+    })
   ];
 
   # Receive backups
