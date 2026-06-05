@@ -1,6 +1,8 @@
 {
   agenix,
   nixos-x13s,
+  vibepanel,
+  voxtype,
 }: {
   name = "charon";
 
@@ -11,8 +13,10 @@
       nixos-x13s.nixosModules.default
     ];
 
-    # Inject nixos-x13s dependency
+    # Inject flake dependencies
     _module.args.nixos-x13s = nixos-x13s;
+    _module.args.vibepanel = vibepanel;
+    _module.args.voxtype = voxtype;
 
     # Increase memory and cores for the VM
     virtualisation.memorySize = 2048;
