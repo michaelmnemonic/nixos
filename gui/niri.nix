@@ -46,6 +46,7 @@ in {
       darktable
       ddcutil
       firefox
+      fractal
       fragments
       ghostty
       gitMinimal
