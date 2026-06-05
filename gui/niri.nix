@@ -5,7 +5,7 @@
   voxtype,
   ...
 }: let
-  patchedVibepanel = vibepanel.packages.${pkgs.system}.vibepanel.overrideAttrs (old: {
+  patchedVibepanel = vibepanel.packages.${pkgs.stdenv.hostPlatform.system}.vibepanel.overrideAttrs (old: {
     patches = (old.patches or []) ++ [../patches/0001-vibepanel-voxtype-widget.patch];
   });
 in {
