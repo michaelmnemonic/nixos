@@ -3,7 +3,11 @@
   lib,
   vibepanel,
   ...
-}: {
+}: let
+  patchedVibepanel = vibepanel.packages.${pkgs.system}.vibepanel.overrideAttrs (old: {
+    patches = (old.patches or []) ++ [../patches/0001-vibepanel-voxtype-widget.patch];
+  });
+in {
   # Make niri availlable
   programs.niri.enable = true;
 
@@ -29,9 +33,7 @@
   # List of system-wide packages
   environment.systemPackages =
     [
-      (vibepanel.packages.${pkgs.system}.vibepanel.overrideAttrs (old: {
-        patches = (old.patches or []) ++ [../patches/0001-vibepanel-voxtype-widget.patch];
-      }))
+      patchedVibepanel
     ]
     ++ (with pkgs; [
       adwaita-icon-theme
@@ -93,4 +95,19 @@
 
   # Enable battery state reporting
   services.upower.enable = true;
+
+  # Start vibepanel as a systemd user service
+  systemd.user.services.vibepanel = {
+    description = "GTK4 panel for Wayland with notifications, OSD, and quick settings";
+    after = ["graphical-session.target"];
+    partOf = ["graphical-session.target"];
+    requisite = ["graphical-session.target"];
+    serviceConfig = {
+      Slice = "session.slice";
+      ExecStart = "${patchedVibepanel}/bin/vibepanel";
+      Restart = "on-failure";
+      RestartSec = "10";
+    };
+    wantedBy = ["graphical-session.target"];
+  };
 }
