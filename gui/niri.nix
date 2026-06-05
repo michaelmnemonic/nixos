@@ -53,6 +53,7 @@
     pavucontrol
     quodlibet-full
     resources
+    xdg-user-dirs
     xwayland-satellite
   ];
 
