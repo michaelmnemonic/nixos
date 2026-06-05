@@ -67,6 +67,7 @@ in {
       resources
       tuba
       voxtype.packages.${pkgs.stdenv.hostPlatform.system}.onnx
+      wtype
       xdg-user-dirs
       xwayland-satellite
     ]);
