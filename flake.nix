@@ -18,6 +18,11 @@
       url = "github:prankstr/vibepanel/6e58ca24fa0c9c1354b638ada20ecd6f14db5a22"; # v0.14.1
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    voxtype = {
+      url = "github:peteonrails/voxtype/8d49248baa53f29cb33007c9625a37281c72e799"; # v0.7.5
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -26,6 +31,7 @@
     nixos-x13s,
     agenix,
     vibepanel,
+    voxtype,
   }: let
     # Define 'forAllSystems' for properties that shall be build for x86_64 *and* aarch64
     systems = [
@@ -72,6 +78,7 @@
         specialArgs = {
           inherit nixos-x13s;
           inherit vibepanel;
+          inherit voxtype;
         };
       };
     };

@@ -2,6 +2,7 @@
   pkgs,
   lib,
   vibepanel,
+  voxtype,
   ...
 }: let
   patchedVibepanel = vibepanel.packages.${pkgs.system}.vibepanel.overrideAttrs (old: {
@@ -62,6 +63,7 @@ in {
       pavucontrol
       quodlibet-full
       resources
+      voxtype.packages.${pkgs.stdenv.hostPlatform.system}.onnx
       xdg-user-dirs
       xwayland-satellite
     ]);
