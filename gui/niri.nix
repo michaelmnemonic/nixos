@@ -102,6 +102,12 @@ in {
   # Enable battery state reporting
   services.upower.enable = true;
 
+  # Start ssh-agent
+  programs.ssh = {
+    startAgent = true;
+    enableAskPassword = lib.mkForce false;
+  };
+
   # Start vibepanel as a systemd user service
   systemd.user.services.vibepanel = {
     description = "GTK4 panel for Wayland with notifications, OSD, and quick settings";
