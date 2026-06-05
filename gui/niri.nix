@@ -42,6 +42,7 @@ in {
       aspell
       aspellDicts.de
       aspellDicts.en
+      celluloid
       darktable
       ddcutil
       firefox
