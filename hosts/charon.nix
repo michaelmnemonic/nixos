@@ -133,7 +133,6 @@
     btrfs-progs
     chromium
     firefox
-    llama-cpp-vulkan
   ];
 
   services.udev.extraRules = ''
