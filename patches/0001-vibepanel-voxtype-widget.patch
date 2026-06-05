@@ -1,0 +1,617 @@
+diff --git a/crates/vibepanel/src/services.rs b/crates/vibepanel/src/services.rs
+index 291722e..0974f35 100644
+--- a/crates/vibepanel/src/services.rs
++++ b/crates/vibepanel/src/services.rs
+@@ -46,6 +46,7 @@ pub mod system;
+ pub mod tooltip;
+ pub mod tray;
+ pub mod updates;
++pub mod voxtype;
+ pub mod vpn;
+ pub mod vpn_secret_agent;
+ pub mod wallpaper;
+diff --git a/crates/vibepanel/src/services/voxtype.rs b/crates/vibepanel/src/services/voxtype.rs
+new file mode 100644
+index 0000000..541245c
+--- /dev/null
++++ b/crates/vibepanel/src/services/voxtype.rs
+@@ -0,0 +1,306 @@
++//! VoxTypeService - event-driven VoxType dictation daemon state observer.
++//!
++//! Watches `$XDG_RUNTIME_DIR/voxtype/` via inotify for state changes and
++//! provides click-to-toggle control by sending SIGUSR1/SIGUSR2 to the daemon.
++//!
++//! No polling is used. The inotify watcher fires callbacks only when the
++//! `state` or `pid` files actually change on disk.
++
++use std::cell::RefCell;
++use std::fs;
++use std::path::{Path, PathBuf};
++use std::rc::Rc;
++use std::sync::Arc;
++use std::sync::atomic::{AtomicBool, Ordering};
++use std::thread;
++use std::time::Duration;
++
++use gtk4::glib;
++use notify_debouncer_mini::{DebounceEventResult, new_debouncer, notify::RecursiveMode};
++use tracing::{debug, error, info, warn};
++
++use super::callbacks::{CallbackId, Callbacks};
++
++const FILE_CHANGE_DEBOUNCE_MS: u64 = 100;
++
++/// VoxType daemon state values, matching the state file contents.
++#[derive(Debug, Clone, Copy, PartialEq, Eq)]
++pub enum VoxTypeState {
++    Idle,
++    Recording,
++    Transcribing,
++}
++
++impl std::fmt::Display for VoxTypeState {
++    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
++        match self {
++            VoxTypeState::Idle => write!(f, "Idle"),
++            VoxTypeState::Recording => write!(f, "Recording"),
++            VoxTypeState::Transcribing => write!(f, "Transcribing"),
++        }
++    }
++}
++
++/// Canonical snapshot of VoxType daemon state.
++#[derive(Debug, Clone)]
++pub struct VoxTypeSnapshot {
++    /// Whether the VoxType daemon is running (PID file exists).
++    pub available: bool,
++    /// Current dictation state.
++    pub state: VoxTypeState,
++}
++
++impl VoxTypeSnapshot {
++    pub fn unavailable() -> Self {
++        Self {
++            available: false,
++            state: VoxTypeState::Idle,
++        }
++    }
++}
++
++/// Shared, process-wide VoxType state service.
++///
++/// Uses inotify (via the `notify` crate) to watch the VoxType runtime directory
++/// for file changes. When the `state` or `pid` file changes, the snapshot is
++/// updated and all registered callbacks are notified on the GLib main loop.
++pub struct VoxTypeService {
++    snapshot: RefCell<VoxTypeSnapshot>,
++    callbacks: Callbacks<VoxTypeSnapshot>,
++    #[allow(dead_code)]
++    shutdown_flag: Arc<AtomicBool>,
++}
++
++impl VoxTypeService {
++    fn new() -> Rc<Self> {
++        let runtime_dir = voxtype_runtime_dir();
++
++        let initial_snapshot = match &runtime_dir {
++            Some(dir) => {
++                let pid_exists = dir.join("pid").exists();
++                let state = if pid_exists {
++                    read_state_file(&dir.join("state")).unwrap_or(VoxTypeState::Idle)
++                } else {
++                    VoxTypeState::Idle
++                };
++                VoxTypeSnapshot {
++                    available: pid_exists,
++                    state,
++                }
++            }
++            None => VoxTypeSnapshot::unavailable(),
++        };
++
++        let shutdown_flag = Arc::new(AtomicBool::new(false));
++
++        let service = Rc::new(Self {
++            snapshot: RefCell::new(initial_snapshot),
++            callbacks: Callbacks::new(),
++            shutdown_flag: shutdown_flag.clone(),
++        });
++
++        if let Some(dir) = runtime_dir {
++            Self::start_watcher(&dir, shutdown_flag);
++        } else {
++            warn!("VoxTypeService: XDG_RUNTIME_DIR not set; service disabled");
++        }
++
++        service
++    }
++
++    pub fn global() -> Rc<Self> {
++        thread_local! {
++            static INSTANCE: Rc<VoxTypeService> = VoxTypeService::new();
++        }
++        INSTANCE.with(|s| s.clone())
++    }
++
++    pub fn connect<F>(&self, callback: F) -> CallbackId
++    where
++        F: Fn(&VoxTypeSnapshot) + 'static,
++    {
++        let id = self.callbacks.register(callback);
++        self.callbacks.notify_single(id, &self.snapshot.borrow());
++        id
++    }
++
++    pub fn disconnect(&self, id: CallbackId) -> bool {
++        self.callbacks.unregister(id)
++    }
++
++    #[allow(dead_code)]
++    pub fn snapshot(&self) -> VoxTypeSnapshot {
++        self.snapshot.borrow().clone()
++    }
++
++    /// Toggle recording: sends SIGUSR1 (start) or SIGUSR2 (stop) to the daemon.
++    pub fn toggle_recording(&self) {
++        let dir = match voxtype_runtime_dir() {
++            Some(d) => d,
++            None => {
++                warn!("VoxType: no runtime directory, cannot toggle");
++                return;
++            }
++        };
++
++        let pid = match read_pid_file(&dir.join("pid")) {
++            Some(p) => p,
++            None => {
++                warn!("VoxType: no PID file, daemon not running?");
++                return;
++            }
++        };
++
++        let signal = match self.snapshot.borrow().state {
++            VoxTypeState::Idle => libc::SIGUSR1,
++            VoxTypeState::Recording | VoxTypeState::Transcribing => libc::SIGUSR2,
++        };
++
++        unsafe {
++            if libc::kill(pid, signal) != 0 {
++                let errno = *libc::__errno_location();
++                warn!(
++                    "VoxType: failed to send signal to pid {}: errno {}",
++                    pid, errno
++                );
++            } else {
++                debug!("VoxType: sent signal {} to pid {}", signal, pid);
++            }
++        }
++    }
++
++    fn start_watcher(runtime_dir: &Path, shutdown_flag: Arc<AtomicBool>) {
++        if !runtime_dir.exists()
++            && let Err(e) = fs::create_dir_all(runtime_dir)
++        {
++            warn!(
++                "VoxType: failed to create runtime dir {}: {}",
++                runtime_dir.display(),
++                e
++            );
++            return;
++        }
++
++        let dir = runtime_dir.to_path_buf();
++        thread::spawn(move || {
++            Self::run_watcher(&dir, shutdown_flag);
++        });
++    }
++
++    fn run_watcher(runtime_dir: &Path, shutdown_flag: Arc<AtomicBool>) {
++        let debounce_duration = Duration::from_millis(FILE_CHANGE_DEBOUNCE_MS);
++
++        let dir_for_cb = runtime_dir.to_path_buf();
++        let mut debouncer = match new_debouncer(
++            debounce_duration,
++            move |res: DebounceEventResult| match res {
++                Ok(events) => {
++                    for e in &events {
++                        debug!(
++                            "VoxType watcher event: {:?} path={}",
++                            e.kind,
++                            e.path.display()
++                        );
++                    }
++                    let relevant = events.iter().any(|e| {
++                        e.path
++                            .file_name()
++                            .is_some_and(|n| n == "state" || n == "pid")
++                    });
++                    if relevant {
++                        debug!("VoxType: relevant state/pid change detected");
++                        let dir = dir_for_cb.clone();
++                        glib::idle_add_once(move || {
++                            VoxTypeService::global().update_from_files(&dir);
++                        });
++                    }
++                }
++                Err(err) => {
++                    error!("VoxType file watcher error: {}", err);
++                }
++            },
++        ) {
++            Ok(d) => d,
++            Err(e) => {
++                error!("VoxType: failed to create file watcher: {}", e);
++                return;
++            }
++        };
++
++        if let Err(e) = debouncer
++            .watcher()
++            .watch(runtime_dir, RecursiveMode::NonRecursive)
++        {
++            warn!("VoxType: failed to watch {}: {}", runtime_dir.display(), e);
++            return;
++        }
++
++        info!(
++            "VoxType watcher started, watching: {}",
++            runtime_dir.display()
++        );
++
++        while !shutdown_flag.load(Ordering::Relaxed) {
++            thread::sleep(Duration::from_millis(500));
++        }
++
++        debug!("VoxType file watcher thread shutting down");
++    }
++
++    fn update_from_files(&self, runtime_dir: &Path) {
++        let pid_exists = runtime_dir.join("pid").exists();
++        let new_state = if pid_exists {
++            read_state_file(&runtime_dir.join("state")).unwrap_or(VoxTypeState::Idle)
++        } else {
++            VoxTypeState::Idle
++        };
++
++        debug!(
++            "VoxType update_from_files: available={}, state={}",
++            pid_exists, new_state
++        );
++
++        let new_snapshot = VoxTypeSnapshot {
++            available: pid_exists,
++            state: new_state,
++        };
++
++        let mut snapshot = self.snapshot.borrow_mut();
++        if snapshot.available == new_snapshot.available && snapshot.state == new_snapshot.state {
++            debug!("VoxType: no state change, skipping notification");
++            return;
++        }
++        info!(
++            "VoxType state changed: {:?} -> {:?}",
++            (snapshot.available, snapshot.state),
++            (new_snapshot.available, new_snapshot.state)
++        );
++        *snapshot = new_snapshot;
++        drop(snapshot);
++        self.callbacks.notify(&self.snapshot.borrow());
++    }
++}
++
++fn voxtype_runtime_dir() -> Option<PathBuf> {
++    std::env::var("XDG_RUNTIME_DIR")
++        .ok()
++        .map(|d| PathBuf::from(d).join("voxtype"))
++}
++
++fn read_state_file(path: &Path) -> Option<VoxTypeState> {
++    let content = fs::read_to_string(path).ok()?;
++    match content.trim() {
++        "idle" => Some(VoxTypeState::Idle),
++        "recording" => Some(VoxTypeState::Recording),
++        "transcribing" => Some(VoxTypeState::Transcribing),
++        other => {
++            debug!("VoxType: unknown state '{}', treating as idle", other);
++            Some(VoxTypeState::Idle)
++        }
++    }
++}
++
++fn read_pid_file(path: &Path) -> Option<libc::pid_t> {
++    let content = fs::read_to_string(path).ok()?;
++    content.trim().parse().ok()
++}
+diff --git a/crates/vibepanel/src/styles.rs b/crates/vibepanel/src/styles.rs
+index e868b8b..bd42a6f 100644
+--- a/crates/vibepanel/src/styles.rs
++++ b/crates/vibepanel/src/styles.rs
+@@ -684,6 +684,19 @@ pub mod widget {
+ 
+     /// Keyboard layout label (`.keyboard-layout-label`).
+     pub const KEYBOARD_LAYOUT_LABEL: &str = "keyboard-layout-label";
++
++    // VoxType
++    /// VoxType dictation widget (`.voxtype`).
++    pub const VOXTYPE: &str = "voxtype";
++
++    /// VoxType icon (`.voxtype-icon`).
++    pub const VOXTYPE_ICON: &str = "voxtype-icon";
++
++    /// VoxType recording state (`.voxtype-recording`).
++    pub const VOXTYPE_RECORDING: &str = "voxtype-recording";
++
++    /// VoxType transcribing state (`.voxtype-transcribing`).
++    pub const VOXTYPE_TRANSCRIBING: &str = "voxtype-transcribing";
+ }
+ 
+ /// Surface and popover classes.
+diff --git a/crates/vibepanel/src/widgets/css/mod.rs b/crates/vibepanel/src/widgets/css/mod.rs
+index c280760..6bc62f7 100644
+--- a/crates/vibepanel/src/widgets/css/mod.rs
++++ b/crates/vibepanel/src/widgets/css/mod.rs
+@@ -52,6 +52,7 @@ mod osd;
+ mod quick_settings;
+ mod system;
+ mod tray;
++mod voxtype;
+ 
+ use vibepanel_core::Config;
+ 
+@@ -89,8 +90,9 @@ pub fn widget_css(config: &Config) -> String {
+     let osd_css = osd::css();
+     let media_css = media::css(animations);
+     let system_css = system::css();
++    let voxtype_css = voxtype::css();
+ 
+     format!(
+-        "{bar_css}\n{tray_css}\n{buttons_css}\n{calendar_css}\n{quick_settings_css}\n{battery_css}\n{notifications_css}\n{osd_css}\n{media_css}\n{system_css}"
++        "{bar_css}\n{tray_css}\n{buttons_css}\n{calendar_css}\n{quick_settings_css}\n{battery_css}\n{notifications_css}\n{osd_css}\n{media_css}\n{system_css}\n{voxtype_css}"
+     )
+ }
+diff --git a/crates/vibepanel/src/widgets/css/voxtype.rs b/crates/vibepanel/src/widgets/css/voxtype.rs
+new file mode 100644
+index 0000000..168e586
+--- /dev/null
++++ b/crates/vibepanel/src/widgets/css/voxtype.rs
+@@ -0,0 +1,23 @@
++//! VoxType widget CSS.
++
++/// Return voxtype CSS.
++pub fn css() -> &'static str {
++    r#"
++/* ===== VOXTYPE ===== */
++
++.voxtype-icon.voxtype-recording {
++    color: var(--color-accent-primary);
++    animation: voxtype-breathe 2s ease-in-out infinite;
++}
++
++.voxtype-icon.voxtype-transcribing {
++    color: var(--color-accent-primary);
++    animation: voxtype-breathe 2s ease-in-out infinite;
++}
++
++@keyframes voxtype-breathe {
++    0%, 100% { opacity: 1; }
++    50% { opacity: 0.3; }
++}
++"#
++}
+diff --git a/crates/vibepanel/src/widgets/mod.rs b/crates/vibepanel/src/widgets/mod.rs
+index e5f7226..bd7eca9 100644
+--- a/crates/vibepanel/src/widgets/mod.rs
++++ b/crates/vibepanel/src/widgets/mod.rs
+@@ -45,6 +45,7 @@ mod taskbar;
+ mod tray;
+ mod updates;
+ mod updates_common;
++mod voxtype;
+ mod window_title;
+ mod workspaces;
+ 
+@@ -74,6 +75,7 @@ pub use gpu::{GpuConfig, GpuWidget};
+ pub use keyboard_layout::{KeyboardLayoutConfig, KeyboardLayoutWidget};
+ pub use memory::{MemoryConfig, MemoryWidget};
+ pub use network_speed::{NetworkSpeedConfig, NetworkSpeedWidget};
++pub use voxtype::{VoxTypeConfig, VoxTypeWidget};
+ 
+ pub(crate) use system_popover::SystemPopoverBinding;
+ 
+@@ -357,6 +359,15 @@ impl WidgetFactory {
+                     handle: Box::new(spacer),
+                 })
+             }
++            "voxtype" => {
++                let cfg = VoxTypeConfig::from_entry(entry);
++                let voxtype = VoxTypeWidget::new(cfg);
++                let root = voxtype.widget().clone().upcast::<Widget>();
++                Some(BuiltWidget {
++                    widget: root,
++                    handle: Box::new(voxtype),
++                })
++            }
+             name if name.starts_with("custom-") => {
+                 let custom_id = &name["custom-".len()..];
+                 if custom_id.is_empty() {
+diff --git a/crates/vibepanel/src/widgets/voxtype.rs b/crates/vibepanel/src/widgets/voxtype.rs
+new file mode 100644
+index 0000000..14dfe3f
+--- /dev/null
++++ b/crates/vibepanel/src/widgets/voxtype.rs
+@@ -0,0 +1,175 @@
++//! VoxType widget - displays dictation state from the VoxType daemon.
++//!
++//! Shows a microphone icon that changes based on the current state:
++//! - **Idle**: dimmed mic icon
++//! - **Recording**: red/accent mic icon with `recording` CSS class
++//! - **Transcribing**: amber mic icon with `transcribing` CSS class
++//! - **Unavailable**: hidden (daemon not running)
++//!
++//! Primary click toggles recording (sends SIGUSR1/SIGUSR2 via VoxTypeService).
++
++use gtk4::GestureClick;
++use gtk4::gdk;
++use gtk4::prelude::*;
++use vibepanel_core::config::WidgetEntry;
++
++use crate::services::callbacks::CallbackId;
++use crate::services::tooltip::TooltipManager;
++use crate::services::voxtype::{VoxTypeService, VoxTypeSnapshot, VoxTypeState};
++use crate::styles::{state, widget};
++use crate::widgets::WidgetConfig;
++use crate::widgets::base::BaseWidget;
++use crate::widgets::warn_unknown_options;
++
++const DEFAULT_SHOW_ICON: bool = true;
++
++#[derive(Debug, Clone)]
++pub struct VoxTypeConfig {
++    pub show_icon: bool,
++}
++
++impl WidgetConfig for VoxTypeConfig {
++    fn from_entry(entry: &WidgetEntry) -> Self {
++        warn_unknown_options("voxtype", entry, &["show_icon"]);
++
++        let show_icon = entry
++            .options
++            .get("show_icon")
++            .and_then(|v| v.as_bool())
++            .unwrap_or(DEFAULT_SHOW_ICON);
++
++        Self { show_icon }
++    }
++}
++
++impl Default for VoxTypeConfig {
++    fn default() -> Self {
++        Self {
++            show_icon: DEFAULT_SHOW_ICON,
++        }
++    }
++}
++
++pub struct VoxTypeWidget {
++    base: BaseWidget,
++    callback_id: CallbackId,
++    _click_gesture: GestureClick,
++}
++
++impl VoxTypeWidget {
++    pub fn new(config: VoxTypeConfig) -> Self {
++        let base = BaseWidget::new(&[widget::VOXTYPE]);
++
++        let icon_handle = base.add_icon("audio-input-microphone-symbolic", &[widget::VOXTYPE_ICON]);
++
++        icon_handle.widget().set_visible(config.show_icon);
++
++        base.widget().add_css_class(state::CLICKABLE);
++
++        let click_gesture = GestureClick::new();
++        click_gesture.set_button(gdk::BUTTON_PRIMARY);
++        click_gesture.connect_pressed(move |_gesture, _n_press, _x, _y| {
++            VoxTypeService::global().toggle_recording();
++        });
++        base.content().add_controller(click_gesture.clone());
++
++        let callback_id = {
++            let container = base.widget().clone();
++            let icon_handle = icon_handle.clone();
++
++            VoxTypeService::global().connect(move |snapshot: &VoxTypeSnapshot| {
++                update_widget(&container, &icon_handle, snapshot, config.show_icon);
++            })
++        };
++
++        Self {
++            base,
++            callback_id,
++            _click_gesture: click_gesture,
++        }
++    }
++
++    pub fn widget(&self) -> &gtk4::Box {
++        self.base.widget()
++    }
++}
++
++impl Drop for VoxTypeWidget {
++    fn drop(&mut self) {
++        VoxTypeService::global().disconnect(self.callback_id);
++    }
++}
++
++fn update_widget(
++    container: &gtk4::Box,
++    icon_handle: &crate::services::icons::IconHandle,
++    snapshot: &VoxTypeSnapshot,
++    show_icon: bool,
++) {
++    if !snapshot.available {
++        container.set_visible(false);
++        return;
++    }
++
++    container.set_visible(true);
++
++    icon_handle.remove_css_class(widget::VOXTYPE_RECORDING);
++    icon_handle.remove_css_class(widget::VOXTYPE_TRANSCRIBING);
++
++    match snapshot.state {
++        VoxTypeState::Idle => {
++            icon_handle.set_icon("audio-input-microphone-symbolic");
++        }
++        VoxTypeState::Recording => {
++            icon_handle.add_css_class(widget::VOXTYPE_RECORDING);
++            icon_handle.set_icon("audio-input-microphone-symbolic");
++        }
++        VoxTypeState::Transcribing => {
++            icon_handle.add_css_class(widget::VOXTYPE_TRANSCRIBING);
++            icon_handle.set_icon("audio-input-microphone-symbolic");
++        }
++    }
++
++    icon_handle.widget().set_visible(show_icon);
++
++    let tooltip_text = format!("VoxType: {}", snapshot.state);
++    let tooltip_manager = TooltipManager::global();
++    tooltip_manager.set_styled_tooltip(container, &tooltip_text);
++}
++
++#[cfg(test)]
++mod tests {
++    use super::*;
++    use std::collections::HashMap;
++    use toml::Value;
++
++    fn make_widget_entry(name: &str, options: HashMap<String, Value>) -> WidgetEntry {
++        WidgetEntry {
++            name: name.to_string(),
++            options,
++        }
++    }
++
++    #[test]
++    fn test_voxtype_config_defaults() {
++        let entry = make_widget_entry("voxtype", HashMap::new());
++        let config = VoxTypeConfig::from_entry(&entry);
++        assert!(config.show_icon);
++    }
++
++    #[test]
++    fn test_voxtype_config_show_icon_false() {
++        let mut options = HashMap::new();
++        options.insert("show_icon".to_string(), Value::Boolean(false));
++        let entry = make_widget_entry("voxtype", options);
++        let config = VoxTypeConfig::from_entry(&entry);
++        assert!(!config.show_icon);
++    }
++
++    #[test]
++    fn test_voxtype_state_display() {
++        assert_eq!(VoxTypeState::Idle.to_string(), "Idle");
++        assert_eq!(VoxTypeState::Recording.to_string(), "Recording");
++        assert_eq!(VoxTypeState::Transcribing.to_string(), "Transcribing");
++    }
++}

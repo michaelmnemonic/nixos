@@ -1,6 +1,7 @@
 {
   pkgs,
   lib,
+  vibepanel,
   ...
 }: {
   # Make niri availlable
@@ -26,36 +27,42 @@
   ];
 
   # List of system-wide packages
-  environment.systemPackages = with pkgs; [
-    adwaita-icon-theme
-    adwaita-qt
-    aspell
-    aspellDicts.de
-    aspellDicts.en
-    darktable
-    ddcutil
-    firefox
-    fragments
-    ghostty
-    gitMinimal
-    gnome-calculator
-    gnome-calendar
-    gnome-clocks
-    gnome-text-editor
-    keepassxc
-    libreoffice
-    libsForQt5.qt5ct
-    loupe
-    mangohud
-    nautilus
-    nfs-utils
-    papers
-    pavucontrol
-    quodlibet-full
-    resources
-    xdg-user-dirs
-    xwayland-satellite
-  ];
+  environment.systemPackages =
+    [
+      (vibepanel.packages.${pkgs.system}.vibepanel.overrideAttrs (old: {
+        patches = (old.patches or []) ++ [../patches/0001-vibepanel-voxtype-widget.patch];
+      }))
+    ]
+    ++ (with pkgs; [
+      adwaita-icon-theme
+      adwaita-qt
+      aspell
+      aspellDicts.de
+      aspellDicts.en
+      darktable
+      ddcutil
+      firefox
+      fragments
+      ghostty
+      gitMinimal
+      gnome-calculator
+      gnome-calendar
+      gnome-clocks
+      gnome-text-editor
+      keepassxc
+      libreoffice
+      libsForQt5.qt5ct
+      loupe
+      mangohud
+      nautilus
+      nfs-utils
+      papers
+      pavucontrol
+      quodlibet-full
+      resources
+      xdg-user-dirs
+      xwayland-satellite
+    ]);
 
   # Use qt5ct configuration
   environment.variables.QT_QPA_PLATFORMTHEME = "qt5ct";
