@@ -128,9 +128,10 @@
           python312Packages.pillow
         ]
     ))
-    alsa-ucm-conf
     alsa-topology-conf
+    alsa-ucm-conf
     btrfs-progs
+    chromium
     firefox
     llama-cpp-vulkan
   ];
