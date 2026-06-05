@@ -63,6 +63,7 @@ in {
       pavucontrol
       quodlibet-full
       resources
+      tuba
       voxtype.packages.${pkgs.stdenv.hostPlatform.system}.onnx
       xdg-user-dirs
       xwayland-satellite
