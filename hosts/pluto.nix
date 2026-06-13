@@ -437,6 +437,8 @@
 
   services.flatpak.enable = true;
 
+  services.howdy.enable = true;
+
   ###########
   # Patches #
   ###########
