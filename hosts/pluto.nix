@@ -436,6 +436,8 @@
     user = "maik";
   };
 
+  services.flatpak.enable = true;
+
   ###########
   # Patches #
   ###########
