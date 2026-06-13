@@ -437,7 +437,10 @@
 
   services.flatpak.enable = true;
 
-  services.howdy.enable = true;
+  services.howdy = {
+    enable = true;
+    control = "sufficient";
+  };
 
   ###########
   # Patches #
