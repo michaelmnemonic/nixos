@@ -135,6 +135,7 @@
     neovim
     signal-desktop
     teams-for-linux
+    transmission_4-qt
     wineWowPackages.staging
     zed-editor
   ];
