@@ -129,6 +129,7 @@
         pkgs.gamescope
       ];
     })
+    kdePackages.neochat
     mangohud
     neovim
     signal-desktop
