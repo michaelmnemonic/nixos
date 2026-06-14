@@ -137,7 +137,7 @@
     signal-desktop
     teams-for-linux
     transmission_4-qt
-    wineWowPackages.staging
+    wineWow64Packages.staging
     zed-editor
   ];
 
