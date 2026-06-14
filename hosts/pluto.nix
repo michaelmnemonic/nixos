@@ -133,6 +133,7 @@
     mangohud
     neovim
     signal-desktop
+    teams-for-linux
     wineWowPackages.staging
     zed-editor
   ];
