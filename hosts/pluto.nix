@@ -123,16 +123,21 @@
 
   environment.systemPackages = with pkgs; [
     ausweisapp
+    drawy
     fooyin
     (heroic.override {
       extraPkgs = pkgs: [
         pkgs.gamescope
       ];
     })
+    kdePackages.neochat
+    kdePackages.tokodon
     mangohud
     neovim
     signal-desktop
-    wineWowPackages.staging
+    teams-for-linux
+    transmission_4-qt
+    wineWow64Packages.staging
     zed-editor
   ];
 
@@ -434,6 +439,8 @@
     enable = true;
     user = "maik";
   };
+
+  services.flatpak.enable = true;
 
   ###########
   # Patches #
