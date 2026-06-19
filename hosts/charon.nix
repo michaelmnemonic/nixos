@@ -51,17 +51,12 @@
     }
   ];
 
-  # Autologin with greetd
-  services.greetd = {
-    enable = true;
-    settings = rec {
-      initial_session = {
-        command = "${pkgs.kdePackages.plasma-workspace}/bin/startplasma-wayland";
-        user = "maik";
-      };
-      default_session = initial_session;
+  # Autologin with COSMIC login manager
+  services.displayManager.cosmic-greeter.enable = true;
+  services.displayManager.autoLogin = {
+      enable = true;
+      user = "maik";
     };
-  };
 
   # Firewall configuration
   networking.firewall = {
