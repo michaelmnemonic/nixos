@@ -11,7 +11,7 @@
     # Users
     ../users/maik.nix
     # cosmic desktop environment
-    ../gui/cosimc.nix
+    ../gui/cosmic.nix
     # Basic capabilites
     ../capabilities/chipcards.nix
     ../capabilities/networking-with-network-manager.nix
