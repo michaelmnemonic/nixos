@@ -10,13 +10,12 @@
     ../hardware/charon.nix
     # Users
     ../users/maik.nix
-    # plasma desktop environment
-    ../gui/plasma.nix
+    # cosmic desktop environment
+    ../gui/cosmic.nix
     # Basic capabilites
     ../capabilities/chipcards.nix
     ../capabilities/networking-with-network-manager.nix
     ../capabilities/pipewire.nix
-    ../capabilities/plasma-pim.nix
     ../capabilities/printing.nix
     ../capabilities/scanning.nix
     ../capabilities/ssh.nix
@@ -51,17 +50,12 @@
     }
   ];
 
-  # Autologin with greetd
-  services.greetd = {
-    enable = true;
-    settings = rec {
-      initial_session = {
-        command = "${pkgs.kdePackages.plasma-workspace}/bin/startplasma-wayland";
-        user = "maik";
-      };
-      default_session = initial_session;
+  # Autologin with COSMIC login manager
+  services.displayManager.cosmic-greeter.enable = true;
+  services.displayManager.autoLogin = {
+      enable = true;
+      user = "maik";
     };
-  };
 
   # Firewall configuration
   networking.firewall = {
@@ -131,8 +125,6 @@
     ))
     btrfs-progs
     firefox
-    kdePackages.tokodon
-    kdePackages.neochat
   ];
 
   # Customize kde plasma
