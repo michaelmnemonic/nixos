@@ -1,8 +1,8 @@
 diff --git a/crates/vibepanel/src/services.rs b/crates/vibepanel/src/services.rs
-index 291722e..0974f35 100644
+index 508f279..b0ec6c6 100644
 --- a/crates/vibepanel/src/services.rs
 +++ b/crates/vibepanel/src/services.rs
-@@ -46,6 +46,7 @@ pub mod system;
+@@ -49,6 +49,7 @@ pub mod system;
  pub mod tooltip;
  pub mod tray;
  pub mod updates;
@@ -323,10 +323,10 @@ index 0000000..541245c
 +    content.trim().parse().ok()
 +}
 diff --git a/crates/vibepanel/src/styles.rs b/crates/vibepanel/src/styles.rs
-index e868b8b..bd42a6f 100644
+index 93b4e4a..ac580be 100644
 --- a/crates/vibepanel/src/styles.rs
 +++ b/crates/vibepanel/src/styles.rs
-@@ -684,6 +684,19 @@ pub mod widget {
+@@ -739,6 +739,19 @@ pub mod widget {
  
      /// Keyboard layout label (`.keyboard-layout-label`).
      pub const KEYBOARD_LAYOUT_LABEL: &str = "keyboard-layout-label";
@@ -347,31 +347,31 @@ index e868b8b..bd42a6f 100644
  
  /// Surface and popover classes.
 diff --git a/crates/vibepanel/src/widgets/css/mod.rs b/crates/vibepanel/src/widgets/css/mod.rs
-index c280760..6bc62f7 100644
+index 9ee9107..55c8d51 100644
 --- a/crates/vibepanel/src/widgets/css/mod.rs
 +++ b/crates/vibepanel/src/widgets/css/mod.rs
-@@ -52,6 +52,7 @@ mod osd;
+@@ -47,6 +47,7 @@ mod osd;
  mod quick_settings;
  mod system;
  mod tray;
 +mod voxtype;
+ mod weather;
  
  use vibepanel_core::Config;
- 
-@@ -89,8 +90,9 @@ pub fn widget_css(config: &Config) -> String {
-     let osd_css = osd::css();
+@@ -86,8 +87,9 @@ pub fn widget_css(config: &Config) -> String {
      let media_css = media::css(animations);
      let system_css = system::css();
+     let weather_css = weather::css();
 +    let voxtype_css = voxtype::css();
  
      format!(
--        "{bar_css}\n{tray_css}\n{buttons_css}\n{calendar_css}\n{quick_settings_css}\n{battery_css}\n{notifications_css}\n{osd_css}\n{media_css}\n{system_css}"
-+        "{bar_css}\n{tray_css}\n{buttons_css}\n{calendar_css}\n{quick_settings_css}\n{battery_css}\n{notifications_css}\n{osd_css}\n{media_css}\n{system_css}\n{voxtype_css}"
+-        "{bar_css}\n{tray_css}\n{buttons_css}\n{calendar_css}\n{quick_settings_css}\n{battery_css}\n{notifications_css}\n{osd_css}\n{media_css}\n{system_css}\n{weather_css}"
++        "{bar_css}\n{tray_css}\n{buttons_css}\n{calendar_css}\n{quick_settings_css}\n{battery_css}\n{notifications_css}\n{osd_css}\n{media_css}\n{system_css}\n{weather_css}\n{voxtype_css}"
      )
  }
 diff --git a/crates/vibepanel/src/widgets/css/voxtype.rs b/crates/vibepanel/src/widgets/css/voxtype.rs
 new file mode 100644
-index 0000000..168e586
+index 0000000..024e2e3
 --- /dev/null
 +++ b/crates/vibepanel/src/widgets/css/voxtype.rs
 @@ -0,0 +1,23 @@
@@ -399,7 +399,7 @@ index 0000000..168e586
 +"#
 +}
 diff --git a/crates/vibepanel/src/widgets/mod.rs b/crates/vibepanel/src/widgets/mod.rs
-index e5f7226..bd7eca9 100644
+index 42c91fe..7ccc895 100644
 --- a/crates/vibepanel/src/widgets/mod.rs
 +++ b/crates/vibepanel/src/widgets/mod.rs
 @@ -45,6 +45,7 @@ mod taskbar;
@@ -407,10 +407,10 @@ index e5f7226..bd7eca9 100644
  mod updates;
  mod updates_common;
 +mod voxtype;
+ mod weather;
+ mod weather_popover;
  mod window_title;
- mod workspaces;
- 
-@@ -74,6 +75,7 @@ pub use gpu::{GpuConfig, GpuWidget};
+@@ -77,6 +78,7 @@ pub use gpu::{GpuConfig, GpuWidget};
  pub use keyboard_layout::{KeyboardLayoutConfig, KeyboardLayoutWidget};
  pub use memory::{MemoryConfig, MemoryWidget};
  pub use network_speed::{NetworkSpeedConfig, NetworkSpeedWidget};
@@ -418,18 +418,15 @@ index e5f7226..bd7eca9 100644
  
  pub(crate) use system_popover::SystemPopoverBinding;
  
-@@ -357,6 +359,15 @@ impl WidgetFactory {
-                     handle: Box::new(spacer),
-                 })
+@@ -359,6 +361,12 @@ impl WidgetFactory {
+                 let root = spacer.widget().clone().upcast::<Widget>();
+                 Some(BuiltWidget::new(root, spacer))
              }
 +            "voxtype" => {
 +                let cfg = VoxTypeConfig::from_entry(entry);
 +                let voxtype = VoxTypeWidget::new(cfg);
 +                let root = voxtype.widget().clone().upcast::<Widget>();
-+                Some(BuiltWidget {
-+                    widget: root,
-+                    handle: Box::new(voxtype),
-+                })
++                Some(BuiltWidget::new(root, voxtype))
 +            }
              name if name.starts_with("custom-") => {
                  let custom_id = &name["custom-".len()..];
