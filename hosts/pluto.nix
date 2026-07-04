@@ -129,6 +129,7 @@
         pkgs.gamescope
       ];
     })
+    kodi
     mangohud
     signal-desktop
     teams-for-linux
