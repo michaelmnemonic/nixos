@@ -7,6 +7,10 @@
       agenix.nixosModules.default
     ];
 
+    # Inject flake dependencies
+    _module.args.vibepanel = vibepanel;
+    _module.args.voxtype = voxtype;
+
     # Increase memory and cores for the VM
     virtualisation.memorySize = 2048;
     virtualisation.cores = 2;
