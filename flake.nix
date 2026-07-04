@@ -48,6 +48,7 @@
           agenix.nixosModules.default
         ];
         specialArgs = {
+          inherit vibepanel;
         };
       };
       juno = nixpkgs.lib.nixosSystem {
