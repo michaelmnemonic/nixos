@@ -49,6 +49,7 @@
         ];
         specialArgs = {
           inherit vibepanel;
+          inherit voxtype;
         };
       };
       juno = nixpkgs.lib.nixosSystem {
