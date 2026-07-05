@@ -178,11 +178,6 @@
     w+ /sys/class/drm/card1/device/pp_od_clk_voltage                - - - - c\n
   '';
 
-  # Make sure syncthing home exists
-  environment.etc."tmpfiles.d/var-lib-synthing.conf".text = ''
-    d /var/lib/syncthing       700 1000 100 -
-  '';
-
   # Make sure mount point of user home exists
   environment.etc."tmpfiles.d/home-maik.conf".text = ''
     d /home/maik               700 1000 100 -
@@ -429,12 +424,6 @@
     enable = false;
     package = pkgs.olllama-rocm;
     rocmOverrideGfx = "11.0.0";
-  };
-
-  # syncthing
-  services.syncthing = {
-    enable = true;
-    user = "maik";
   };
 
   services.flatpak.enable = true;
