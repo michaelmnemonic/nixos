@@ -130,6 +130,7 @@
         ]
     ))
     btrfs-progs
+    chromium
     firefox
     kdePackages.tokodon
     kdePackages.neochat
