@@ -30,6 +30,7 @@
   environment.systemPackages = with pkgs; [
     adwaita-icon-theme
     adwaita-qt
+    alacritty
     aspell
     aspellDicts.de
     aspellDicts.en
@@ -41,7 +42,6 @@
     fractal
     fragments
     geary
-    ghostty
     gitMinimal
     gnome-calculator
     gnome-calendar
