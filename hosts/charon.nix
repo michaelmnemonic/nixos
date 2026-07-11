@@ -136,7 +136,7 @@
     kdePackages.neochat
   ];
 
-  # Customize kde plasma
+  # Customize kde plasma and chromium
   nixpkgs.overlays = [
     (final: prev: {
       kdePackages = prev.kdePackages.overrideScope (sfinal: sprev: {
@@ -150,6 +150,31 @@
             ];
         });
       });
+      # remove the profile/avatar button from the toolbar.
+      # The top-level `chromium` is just a wrapper script; the real source
+      # build (where patches are applied) is `chromium.browser`, so we patch
+      # that and re-point the wrapper's buildCommand at the patched binary.
+      chromium =
+        let
+          browser = prev.chromium.browser.overrideAttrs (oldAttrs: {
+            patches =
+              (oldAttrs.patches or [])
+              ++ [
+                ../patches/0001-remove-profile-button.patch
+              ];
+          });
+        in
+        prev.chromium.overrideAttrs (oldAttrs: {
+          buildCommand =
+            prev.lib.replaceStrings
+              [
+                "${prev.chromium.browser}"
+              ]
+              [
+                "${browser}"
+              ]
+              oldAttrs.buildCommand;
+        });
     })
   ];
 
