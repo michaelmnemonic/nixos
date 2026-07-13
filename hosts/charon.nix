@@ -16,7 +16,6 @@
     ../capabilities/chipcards.nix
     ../capabilities/networking-with-network-manager.nix
     ../capabilities/pipewire.nix
-    ../capabilities/plasma-pim.nix
     ../capabilities/printing.nix
     ../capabilities/scanning.nix
     ../capabilities/ssh.nix
