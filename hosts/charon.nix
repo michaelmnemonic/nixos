@@ -10,8 +10,8 @@
     ../hardware/charon.nix
     # Users
     ../users/maik.nix
-    # plasma desktop environment
-    ../gui/plasma.nix
+    # GNOME desktop environment
+    ../gui/gnome.nix
     # Basic capabilites
     ../capabilities/chipcards.nix
     ../capabilities/networking-with-network-manager.nix
@@ -51,17 +51,8 @@
     }
   ];
 
-  # Autologin with greetd
-  services.greetd = {
-    enable = true;
-    settings = rec {
-      initial_session = {
-        command = "${pkgs.kdePackages.plasma-workspace}/bin/startplasma-wayland";
-        user = "maik";
-      };
-      default_session = initial_session;
-    };
-  };
+  # Use GDM as displayManager
+  services.displayManager.gdm.enable = true;
 
   # Firewall configuration
   networking.firewall = {
@@ -132,8 +123,6 @@
     btrfs-progs
     chromium
     firefox
-    kdePackages.tokodon
-    kdePackages.neochat
   ];
 
   # Customize kde plasma
