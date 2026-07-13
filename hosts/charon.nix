@@ -53,6 +53,10 @@
   # Use GDM as displayManager
   services.displayManager.gdm.enable = true;
 
+  # Autologin
+  services.displayManager.autoLogin.enable  = true;
+  services.displayManager.autoLogin.user = "maik";
+
   # Firewall configuration
   networking.firewall = {
     enable = true;
