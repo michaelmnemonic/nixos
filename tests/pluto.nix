@@ -1,5 +1,6 @@
 {
   agenix,
+  comfyui-nix,
   noctalia,
 }: {
   name = "pluto";
@@ -8,6 +9,7 @@
     imports = [
       ../hosts/pluto.nix
       agenix.nixosModules.default
+      comfyui-nix.nixosModules.default
       noctalia.nixosModules.default
     ];
 
