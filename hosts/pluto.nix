@@ -442,6 +442,16 @@
 
   services.flatpak.enable = true;
 
+  services.comfyui = {
+    enable = true;
+    gpuSupport = "rocm";
+    enableManager = true;
+    port = 8188;
+    listenAddress = "127.0.0.1";
+    dataDir = "/var/lib/comfyui";
+    openFirewall = false;
+  };
+
   ###########
   # Patches #
   ###########

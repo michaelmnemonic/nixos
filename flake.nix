@@ -14,6 +14,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    comfyui-nix = {
+      url = "github:utensils/comfyui-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     noctalia = {
       url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -25,6 +30,7 @@
     nixpkgs,
     nixos-x13s,
     agenix,
+    comfyui-nix,
     noctalia,
   }: let
     # Define 'forAllSystems' for properties that shall be build for x86_64 *and* aarch64
@@ -40,6 +46,7 @@
         modules = [
           ./hosts/pluto.nix
           agenix.nixosModules.default
+          comfyui-nix.nixosModules.default
           noctalia.nixosModules.default
         ];
         specialArgs = {
