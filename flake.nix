@@ -16,7 +16,6 @@
 
     comfyui-nix = {
       url = "github:utensils/comfyui-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     noctalia = {
