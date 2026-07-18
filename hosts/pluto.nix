@@ -131,6 +131,8 @@
     })
     kodi
     mangohud
+    neovim
+    rocmPackages.rocminfo
     signal-desktop
     teams-for-linux
     transmission_4-qt
@@ -174,7 +176,7 @@
 
   # # Overclock and undervolt AMD GPU
   environment.etc."tmpfiles.d/gpu-undervolt.conf".text = ''
-    w+ /sys/class/drm/card1/device/pp_od_clk_voltage                - - - - vo -125\n
+    w+ /sys/class/drm/card1/device/pp_od_clk_voltage                - - - - vo -100\n
     w+ /sys/class/drm/card1/device/pp_od_clk_voltage                - - - - c\n
   '';
 
