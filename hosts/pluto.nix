@@ -134,6 +134,7 @@
     kdePackages.tokodon
     mangohud
     neovim
+    rocmPackages.rocminfo
     signal-desktop
     teams-for-linux
     transmission_4-qt
