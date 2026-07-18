@@ -1,15 +1,15 @@
-{
-  agenix,
-  noctalia,
-}: {
+{agenix}: {
   name = "pluto";
 
   nodes.machine = {lib, ...}: {
     imports = [
       ../hosts/pluto.nix
       agenix.nixosModules.default
-      noctalia.nixosModules.default
     ];
+
+    # Inject flake dependencies
+    _module.args.vibepanel = vibepanel;
+    _module.args.voxtype = voxtype;
 
     # Increase memory and cores for the VM
     virtualisation.memorySize = 2048;
@@ -35,9 +35,6 @@
 
     # Prevent conflict with the externally created nixpkgs instance
     nixpkgs.config = lib.mkForce {};
-
-    # Inject noctalia dependency
-    _module.args.noctalia = noctalia;
   };
 
   testScript = ''

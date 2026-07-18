@@ -10,17 +10,16 @@
     ../hardware/charon.nix
     # Users
     ../users/maik.nix
-    # plasma desktop environment
-    ../gui/plasma.nix
+    # niri wm
+    ../gui/niri.nix
     # Basic capabilites
     ../capabilities/chipcards.nix
+    ../capabilities/languagetool.nix
     ../capabilities/networking-with-network-manager.nix
     ../capabilities/pipewire.nix
-    ../capabilities/plasma-pim.nix
     ../capabilities/printing.nix
     ../capabilities/scanning.nix
     ../capabilities/ssh.nix
-    ../capabilities/vscode.nix
     ../capabilities/wireguard.nix
   ];
 
@@ -56,7 +55,7 @@
     enable = true;
     settings = rec {
       initial_session = {
-        command = "${pkgs.kdePackages.plasma-workspace}/bin/startplasma-wayland";
+        command = "${pkgs.niri}/bin/niri-session";
         user = "maik";
       };
       default_session = initial_session;
@@ -129,29 +128,16 @@
           python312Packages.pillow
         ]
     ))
+    alsa-topology-conf
+    alsa-ucm-conf
     btrfs-progs
     chromium
     firefox
-    kdePackages.tokodon
-    kdePackages.neochat
   ];
 
-  # Customize kde plasma
-  nixpkgs.overlays = [
-    (final: prev: {
-      kdePackages = prev.kdePackages.overrideScope (sfinal: sprev: {
-        # smaller systemtray icons with more spacing
-        # FIXME: this compiles plasma-workspace just to patch qml script
-        plasma-workspace = sprev.plasma-workspace.overrideAttrs (oldAttrs: {
-          patches =
-            oldAttrs.patches
-            ++ [
-              ../patches/0001-plasma-workspaces-systemtray-icon-sizes.patch
-            ];
-        });
-      });
-    })
-  ];
+  services.udev.extraRules = ''
+    SUBSYSTEM=="leds", KERNEL=="input1::capslock", ACTION=="add", RUN+="${pkgs.coreutils}/bin/chmod 0666 /sys/class/leds/%k/brightness /sys/class/leds/%k/trigger /sys/class/leds/%k/delay_on /sys/class/leds/%k/delay_off"
+  '';
 
   # Receive backups
   services.btrbk = {
@@ -302,11 +288,6 @@
     '')
   ];
 
-  # Make sure syncthing home exists
-  environment.etc."tmpfiles.d/var-lib-synthing.conf".text = ''
-    d /var/lib/syncthing       700 1000 100 -
-  '';
-
   # Make sure mount point of user home exists
   environment.etc."tmpfiles.d/home-maik.conf".text = ''
     d /home/maik               700 1000 100 -
@@ -356,10 +337,10 @@
     };
   };
 
-  # syncthing
-  services.syncthing = {
-    enable = true;
-    user = "maik";
+  # Charon is passivly cooled, be less agressice with CPU useage
+  nix.settings = {
+    max-jobs = 1;
+    cores = 4;
   };
 
   # NixOS state version

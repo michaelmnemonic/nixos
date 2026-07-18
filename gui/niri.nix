@@ -1,9 +1,14 @@
 {
   pkgs,
   lib,
-  noctalia,
+  vibepanel,
+  voxtype,
   ...
-}: {
+}: let
+  patchedVibepanel = vibepanel.packages.${pkgs.stdenv.hostPlatform.system}.vibepanel.overrideAttrs (old: {
+    patches = (old.patches or []) ++ [../patches/0001-vibepanel-voxtype-widget.patch];
+  });
+in {
   # Make niri availlable
   programs.niri.enable = true;
 
@@ -27,50 +32,45 @@
   ];
 
   # List of system-wide packages
-  environment.systemPackages = with pkgs; [
-    adwaita-icon-theme
-    adwaita-qt
-    alacritty
-    aspell
-    aspellDicts.de
-    aspellDicts.en
-    celluloid
-    darktable
-    ddcutil
-    evolution
-    firefox
-    fractal
-    fragments
-    geary
-    gitMinimal
-    gnome-calculator
-    gnome-calendar
-    gnome-clocks
-    gnome-text-editor
-    keepassxc
-    libreoffice
-    libsForQt5.qt5ct
-    loupe
-    mangohud
-    nautilus
-    nfs-utils
-    papers
-    pavucontrol
-    quodlibet-full
-    resources
-    thunderbird
-    tuba
-    valent
-    xwayland-satellite
-  ];
-
-  # Enable noctalia-shell
-  services.noctalia-shell = {
-    enable = true;
-    package = noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default.override {
-      calendarSupport = true;
-    };
-  };
+  environment.systemPackages =
+    [
+      patchedVibepanel
+    ]
+    ++ (with pkgs; [
+      adwaita-icon-theme
+      adwaita-qt
+      aspell
+      aspellDicts.de
+      aspellDicts.en
+      celluloid
+      darktable
+      ddcutil
+      firefox
+      fractal
+      fragments
+      ghostty
+      gitMinimal
+      gnome-calculator
+      gnome-calendar
+      gnome-clocks
+      gnome-text-editor
+      keepassxc
+      libreoffice
+      libsForQt5.qt5ct
+      loupe
+      mangohud
+      nautilus
+      nfs-utils
+      papers
+      pavucontrol
+      quodlibet-full
+      resources
+      tuba
+      voxtype.packages.${pkgs.stdenv.hostPlatform.system}.onnx
+      wtype
+      xdg-user-dirs
+      xwayland-satellite
+    ]);
 
   # Use qt5ct configuration
   environment.variables.QT_QPA_PLATFORMTHEME = "qt5ct";
@@ -81,9 +81,6 @@
   # Enable dconf (needed for configuration of gtk themes under wayland)
   programs.dconf.enable = true;
 
-  # Enable evolution
-  programs.evolution.enable = true;
-
   # Setup xdg
   xdg = {
     autostart.enable = true;
@@ -92,7 +89,14 @@
     icons.enable = true;
     portal = {
       enable = true;
-      extraPortals = [pkgs.xdg-desktop-portal-gnome];
+      extraPortals = with pkgs; [xdg-desktop-portal-gtk xdg-desktop-portal-gnome];
+      config = {
+        common = {
+          default = [
+            "gnome"
+          ];
+        };
+      };
     };
   };
 
@@ -102,9 +106,27 @@
     implementation = "broker";
   };
 
-  # Enable calendar entries in bar
-  services.gnome.evolution-data-server.enable = true;
-
   # Enable battery state reporting
   services.upower.enable = true;
+
+  # Start ssh-agent
+  programs.ssh = {
+    startAgent = true;
+    enableAskPassword = lib.mkForce false;
+  };
+
+  # Start vibepanel as a systemd user service
+  systemd.user.services.vibepanel = {
+    description = "GTK4 panel for Wayland with notifications, OSD, and quick settings";
+    after = ["graphical-session.target"];
+    partOf = ["graphical-session.target"];
+    requisite = ["graphical-session.target"];
+    serviceConfig = {
+      Slice = "session.slice";
+      ExecStart = "${patchedVibepanel}/bin/vibepanel";
+      Restart = "on-failure";
+      RestartSec = "10";
+    };
+    wantedBy = ["graphical-session.target"];
+  };
 }

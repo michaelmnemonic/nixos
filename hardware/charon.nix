@@ -34,7 +34,7 @@
   ];
 
   # Kernel modules to load ofter initrd
-  boot.kernelModules = [];
+  boot.kernelModules = ["ledtrig-timer"];
 
   boot.initrd.kernelModules = [];
   boot.extraModulePackages = [];
@@ -57,6 +57,13 @@
     fsType = "vfat";
   };
 
+  swapDevices = [
+    {
+      device = "/dev/disk/by-partlabel/SWAP";
+      randomEncryption.enable = true;
+    }
+  ];
+
   # Set kernel parameters
   boot.kernelParams = [
     # https://wiki.debian.org/InstallingDebianOn/Thinkpad/X13s
@@ -71,6 +78,14 @@
   # TPM not supported on this platform
   systemd.tpm2.enable = false;
   boot.initrd.systemd.tpm2.enable = false;
+
+  # Ensure hardware acceleration is available
+  hardware = {
+    enableRedistributableFirmware = true;
+    graphics = {
+      enable = true;
+    };
+  };
 
   # Host platform
   nixpkgs.hostPlatform = lib.mkDefault "aarch64-linux";

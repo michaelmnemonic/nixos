@@ -14,8 +14,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    noctalia = {
-      url = "github:noctalia-dev/noctalia-shell";
+    vibepanel = {
+      url = "github:prankstr/vibepanel/9cabdf92766ec756d4ffbf2aea739220a4a368dc"; # v0.15.0
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    voxtype = {
+      url = "github:peteonrails/voxtype/8d49248baa53f29cb33007c9625a37281c72e799"; # v0.7.5
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -25,7 +30,8 @@
     nixpkgs,
     nixos-x13s,
     agenix,
-    noctalia,
+    vibepanel,
+    voxtype,
   }: let
     # Define 'forAllSystems' for properties that shall be build for x86_64 *and* aarch64
     systems = [
@@ -40,10 +46,10 @@
         modules = [
           ./hosts/pluto.nix
           agenix.nixosModules.default
-          noctalia.nixosModules.default
         ];
         specialArgs = {
-          inherit noctalia;
+          inherit vibepanel;
+          inherit voxtype;
         };
       };
       juno = nixpkgs.lib.nixosSystem {
@@ -70,11 +76,11 @@
           ./hosts/charon.nix
           nixos-x13s.nixosModules.default
           agenix.nixosModules.default
-          noctalia.nixosModules.default
         ];
         specialArgs = {
           inherit nixos-x13s;
-          inherit noctalia;
+          inherit vibepanel;
+          inherit voxtype;
         };
       };
     };
@@ -107,12 +113,12 @@
           };
         };
       in {
-        pluto = pkgs.testers.nixosTest (import ./tests/pluto.nix {inherit agenix noctalia;});
+        pluto = pkgs.testers.nixosTest (import ./tests/pluto.nix {inherit agenix;});
         juno = pkgs.testers.nixosTest (import ./tests/juno.nix {inherit agenix;});
         flore = pkgs.testers.nixosTest (import ./tests/flore.nix {inherit agenix;});
         charon = pkgs.testers.nixosTest (
           import ./tests/charon.nix {
-            inherit agenix nixos-x13s noctalia;
+            inherit agenix nixos-x13s vibepanel voxtype;
           }
         );
       }

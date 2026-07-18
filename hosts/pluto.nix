@@ -11,8 +11,8 @@
     ../hardware/pluto.nix
     # Users
     ../users/maik.nix
-    # plasma desktop environment
-    ../gui/plasma.nix
+    # niri wm
+    ../gui/niri.nix
     # Basic capabilities
     ../capabilities/android.nix
     ../capabilities/chipcards.nix
@@ -21,7 +21,6 @@
     ../capabilities/mpv.nix
     ../capabilities/networking-with-network-manager.nix
     ../capabilities/pipewire.nix
-    ../capabilities/plasma-pim.nix
     ../capabilities/printing.nix
     ../capabilities/scanning.nix
     ../capabilities/ssh.nix
@@ -50,7 +49,7 @@
     enable = true;
     settings = rec {
       initial_session = {
-        command = "${pkgs.kdePackages.plasma-workspace}/bin/startplasma-wayland";
+        command = "${pkgs.niri}/bin/niri-session";
         user = "maik";
       };
       default_session = initial_session;
@@ -130,8 +129,7 @@
         pkgs.gamescope
       ];
     })
-    kdePackages.neochat
-    kdePackages.tokodon
+    kodi
     mangohud
     neovim
     rocmPackages.rocminfo
@@ -180,11 +178,6 @@
   environment.etc."tmpfiles.d/gpu-undervolt.conf".text = ''
     w+ /sys/class/drm/card1/device/pp_od_clk_voltage                - - - - vo -100\n
     w+ /sys/class/drm/card1/device/pp_od_clk_voltage                - - - - c\n
-  '';
-
-  # Make sure syncthing home exists
-  environment.etc."tmpfiles.d/var-lib-synthing.conf".text = ''
-    d /var/lib/syncthing       700 1000 100 -
   '';
 
   # Make sure mount point of user home exists
@@ -433,12 +426,6 @@
     enable = false;
     package = pkgs.olllama-rocm;
     rocmOverrideGfx = "11.0.0";
-  };
-
-  # syncthing
-  services.syncthing = {
-    enable = true;
-    user = "maik";
   };
 
   services.flatpak.enable = true;
