@@ -178,7 +178,7 @@
 
   # # Overclock and undervolt AMD GPU
   environment.etc."tmpfiles.d/gpu-undervolt.conf".text = ''
-    w+ /sys/class/drm/card1/device/pp_od_clk_voltage                - - - - vo -100\n
+    w+ /sys/class/drm/card1/device/pp_od_clk_voltage                - - - - vo -75\n
     w+ /sys/class/drm/card1/device/pp_od_clk_voltage                - - - - c\n
   '';
 
