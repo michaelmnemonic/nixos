@@ -51,15 +51,18 @@
     }
   ];
 
-  # Autologin with greetd
-  services.greetd = {
-    enable = true;
-    settings = rec {
-      initial_session = {
-        command = "${pkgs.kdePackages.plasma-workspace}/bin/startplasma-wayland";
-        user = "maik";
+  # Manage displays
+  services.displayManager = {
+    autoLogin = {
+      enable = true;
+      user = "maik";
+    };
+    sddm = {
+      enable = true;
+      wayland = {
+        enable = true;
+        compositor = "kwin";
       };
-      default_session = initial_session;
     };
   };
 
