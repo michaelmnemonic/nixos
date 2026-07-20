@@ -71,7 +71,7 @@
     enable = true;
     allowedTCPPorts = [
       # syncthing
-      22000 # sync
+      22000
       # transmission
       43219
       # rdp
@@ -305,11 +305,6 @@
     '')
   ];
 
-  # Make sure syncthing home exists
-  environment.etc."tmpfiles.d/var-lib-synthing.conf".text = ''
-    d /var/lib/syncthing       700 1000 100 -
-  '';
-
   # Make sure mount point of user home exists
   environment.etc."tmpfiles.d/home-maik.conf".text = ''
     d /home/maik               700 1000 100 -
@@ -357,12 +352,6 @@
     docker = {
       enable = true;
     };
-  };
-
-  # syncthing
-  services.syncthing = {
-    enable = true;
-    user = "maik";
   };
 
   # NixOS state version
