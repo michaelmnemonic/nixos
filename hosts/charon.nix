@@ -20,7 +20,6 @@
     ../capabilities/printing.nix
     ../capabilities/scanning.nix
     ../capabilities/ssh.nix
-    ../capabilities/vscode.nix
     ../capabilities/wireguard.nix
   ];
 
