@@ -47,7 +47,7 @@
 
   swapDevices = [
     {
-      device = "/dev/disk/by-label/SWAP";
+      device = "/dev/disk/by-partlabel/SWAP";
       randomEncryption.enable = true;
     }
   ];
