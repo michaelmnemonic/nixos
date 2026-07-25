@@ -69,6 +69,9 @@
     vaapiDriver = "intel-media-driver";
   };
 
+  # NPU
+  hardware.cpu.intel.npu.enable = true;
+
   # Update microcode
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
