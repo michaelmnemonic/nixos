@@ -51,6 +51,11 @@
     }
   ];
 
+  boot.zswap = {
+    enable = true;
+    compressor = "lz4hc";
+  };
+
   # Kernel command line
   boot.kernelParams = [
   ];
