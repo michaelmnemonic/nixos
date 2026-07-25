@@ -1,4 +1,5 @@
 {
+  config,
   lib,
   modulesPath,
   pkgs,
@@ -64,9 +65,13 @@
   boot.plymouth.enable = true;
 
   # GPU
-  hardware.intelgpu = {
-    driver = lib.mkIf (lib.versionAtLeast config.boot.kernelPackages.kernel.version "6.8") "xe";
-    vaapiDriver = "intel-media-driver";
+  hardware.graphics = {
+    enable = true;
+    extraPackages = with pkgs; [
+      intel-media-driver
+      vpl-gpu-rt
+      intel-compute-runtime
+    ];
   };
 
   # NPU
