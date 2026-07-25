@@ -23,6 +23,12 @@
   # Network configuration
   networking.hostName = "styx";
 
+  # Enable bluetooth
+  hardware.bluetooth.enable = true;
+
+  # Enable firmware updates via fwupd
+  services.fwupd.enable = true;
+
   # Manage displays with SDDM
   services.displayManager = {
     autoLogin = {
