@@ -92,6 +92,62 @@
   ];
 
   ############
+  # Services #
+  ############
+
+  services.tuned = {
+    enable = true;
+    profiles = {
+      styx-balanced-battery = {
+        cpu = {
+          governor = "performance";
+          energy_perf_bias = "default";
+          energy_performance_preference = "default";
+          pm_qos_resume_latency_us = "0";
+          boost = "1";
+        };
+        audio = {
+          timeout = 5;
+        };
+        usb = {
+          autosuspend = 5;
+        };
+        net = {
+          devices = "wlp0s20f3";
+          wake_on_lan = "d";
+        };
+        modules = {
+          iwlwifi = "+r power_save=1 power_level=1";
+        };
+        sysfs = {
+          # Increase writeback time
+          "/proc/sys/vm/dirty_writeback_centisecs" = 1500;
+          # Disable nmi watchdog
+          "/proc/sys/kernel/nmi_watchdog" = 0;
+          # Power save for audio
+          "/sys/module/snd_hda_intel/parameters/power_save" = 1;
+          # Power policy for PCI devices
+          "/sys/module/pcie_aspm/parameters/policy" = "powersupersave";
+          "/sys/bus/pci/devices/0000:00:0a.0/power/control" = "auto";
+          "/sys/bus/pci/devices/0000:00:04.0/power/control" = "auto";
+          "/sys/bus/pci/devices/0000:00:1f.0/power/control" = "auto";
+          "/sys/bus/pci/devices/0000:55:00.0/power/control" = "auto";
+          "/sys/bus/pci/devices/0000:00:13.0/power/control" = "auto";
+          "/sys/bus/pci/devices/0000:00:14.3/power/control" = "auto";
+          "/sys/bus/pci/devices/0000:00:1f.5/power/control" = "auto";
+          "/sys/bus/pci/devices/0000:00:00.0/power/control" = "auto";
+          "/sys/bus/pci/devices/0000:00:14.2/power/control" = "auto";
+          "/sys/bus/pci/devices/0000:56:00.0/power/control" = "auto";
+          "/sys/bus/pci/devices/0000:00:1f.4/power/control" = "auto";
+        };
+      };
+    };
+    ppdSettings.battery = {
+      balanced = "styx-balanced-battery";
+    };
+  };
+
+  ############
   # Programs #
   ############
 
