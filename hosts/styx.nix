@@ -59,6 +59,7 @@
         ]
     ))
     firefox
+    fooyin
     kdePackages.tokodon
     kdePackages.neochat
   ];
