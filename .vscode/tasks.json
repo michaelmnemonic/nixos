@@ -55,14 +55,14 @@
     {
       "label": "deploy: boot",
       "type": "shell",
-      "command": "sudo nixos-rebuild boot --flake .",
+      "command": "run0 nixos-rebuild boot --flake .",
       "group": "build",
       "problemMatcher": []
     },
     {
       "label": "deploy: switch",
       "type": "shell",
-      "command": "sudo nixos-rebuild switch --flake .",
+      "command": "run0 nixos-rebuild switch --flake .",
       "group": "build",
       "problemMatcher": []
     },
