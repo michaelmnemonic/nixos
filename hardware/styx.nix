@@ -21,7 +21,7 @@
   boot.extraModulePackages = [];
 
   boot.extraModprobeConfig = ''
-    options iwlwifi power_save=1 power_level=3
+    options iwlwifi power_save=1
   '';
 
   # Luks encrypted root partition
