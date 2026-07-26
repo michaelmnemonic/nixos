@@ -17,6 +17,7 @@ in {
 
   # Exclude some default packages
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
+    discover
     kwin-x11
   ];
 
