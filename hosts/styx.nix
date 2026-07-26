@@ -52,6 +52,12 @@
 
   # List of system-wide packages
   environment.systemPackages = with pkgs; [
+    (pkgs.kodi-wayland.withPackages (
+      kodiPkgs:
+        with pkgs; [
+          python312Packages.pillow
+        ]
+    ))
     firefox
     kdePackages.tokodon
     kdePackages.neochat
@@ -101,8 +107,8 @@
       styx-balanced-battery = {
         cpu = {
           governor = "performance";
-          energy_perf_bias = "default";
-          energy_performance_preference = "default";
+          energy_perf_bias = "balance-power";
+          energy_performance_preference = "balance_power";
           pm_qos_resume_latency_us = "0";
           boost = "1";
         };
