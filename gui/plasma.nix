@@ -15,6 +15,11 @@ in {
   services.xserver.excludePackages = [pkgs.xterm];
   services.xserver.desktopManager.xterm.enable = false;
 
+  # Exclude some default packages
+  environment.plasma6.excludePackages = with pkgs.kdePackages; [
+    kwin-x11
+  ];
+
   # List of system-wide packages
   environment.systemPackages = with pkgs; [
     aspell
