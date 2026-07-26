@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   imports = [
     # Shared host configuration
     ./_shared.nix
@@ -63,6 +67,12 @@
     kdePackages.tokodon
     kdePackages.neochat
   ];
+
+  # Not all software is free
+  nixpkgs.config.allowUnfreePredicate = pkg:
+    builtins.elem (lib.getName pkg) [
+      "libvgm" # dependency of fooyin
+    ];
 
   # Customize kde plasma
   nixpkgs.overlays = [
@@ -290,6 +300,24 @@
         performance = "styx-performance-battery";
       };
     };
+  };
+
+  # Restrict system-level daemons to efficency cores after start-up
+  systemd.slices."system".sliceConfig = {
+    AllowedCPUs = "3-7";
+    StartupAllowedCPUs = "";
+  };
+
+  # Restrict user session components to efficency cores after start-up
+  systemd.user.slices."session".sliceConfig = {
+    AllowedCPUs = "3-7";
+    StartupAllowedCPUs = "";
+  };
+
+  # Restrict user background tasks to efficency cores after start-up
+  systemd.user.slices."background".sliceConfig = {
+    AllowedCPUs = "3-7";
+    StartupAllowedCPUs = "";
   };
 
   ############
