@@ -104,11 +104,54 @@
   services.tuned = {
     enable = true;
     profiles = {
-      styx-balanced-battery = {
+      styx-performance = {
         cpu = {
           governor = "performance";
-          energy_perf_bias = "balance-power";
-          energy_performance_preference = "balance_power";
+          energy_perf_bias = "performance";
+          energy_performance_preference = "performance";
+          pm_qos_resume_latency_us = "0";
+          boost = "1";
+        };
+        audio = {
+          timeout = 30;
+        };
+        usb = {
+          autosuspend = 0;
+        };
+        net = {
+          devices = "wlp0s20f3";
+          wake_on_lan = "d";
+        };
+        modules = {
+          iwlwifi = "+r power_save=0";
+        };
+        sysfs = {
+          # Increase writeback time
+          "/proc/sys/vm/dirty_writeback_centisecs" = 1500;
+          # Disable nmi watchdog
+          "/proc/sys/kernel/nmi_watchdog" = 0;
+          # Power save for audio
+          "/sys/module/snd_hda_intel/parameters/power_save" = 0;
+          # Power policy for PCI devices
+          "/sys/module/pcie_aspm/parameters/policy" = "performance";
+          "/sys/bus/pci/devices/0000:00:0a.0/power/control" = "on";
+          "/sys/bus/pci/devices/0000:00:04.0/power/control" = "on";
+          "/sys/bus/pci/devices/0000:00:1f.0/power/control" = "on";
+          "/sys/bus/pci/devices/0000:55:00.0/power/control" = "on";
+          "/sys/bus/pci/devices/0000:00:13.0/power/control" = "on";
+          "/sys/bus/pci/devices/0000:00:14.3/power/control" = "on";
+          "/sys/bus/pci/devices/0000:00:1f.5/power/control" = "on";
+          "/sys/bus/pci/devices/0000:00:00.0/power/control" = "on";
+          "/sys/bus/pci/devices/0000:00:14.2/power/control" = "on";
+          "/sys/bus/pci/devices/0000:56:00.0/power/control" = "on";
+          "/sys/bus/pci/devices/0000:00:1f.4/power/control" = "on";
+        };
+      };
+      styx-performance-battery = {
+        cpu = {
+          governor = "performance";
+          energy_perf_bias = " 	balance-performance";
+          energy_performance_preference = "balance_performance";
           pm_qos_resume_latency_us = "0";
           boost = "1";
         };
@@ -133,6 +176,49 @@
           # Power save for audio
           "/sys/module/snd_hda_intel/parameters/power_save" = 1;
           # Power policy for PCI devices
+          "/sys/module/pcie_aspm/parameters/policy" = "powersave";
+          "/sys/bus/pci/devices/0000:00:0a.0/power/control" = "auto";
+          "/sys/bus/pci/devices/0000:00:04.0/power/control" = "auto";
+          "/sys/bus/pci/devices/0000:00:1f.0/power/control" = "auto";
+          "/sys/bus/pci/devices/0000:55:00.0/power/control" = "auto";
+          "/sys/bus/pci/devices/0000:00:13.0/power/control" = "auto";
+          "/sys/bus/pci/devices/0000:00:14.3/power/control" = "auto";
+          "/sys/bus/pci/devices/0000:00:1f.5/power/control" = "auto";
+          "/sys/bus/pci/devices/0000:00:00.0/power/control" = "auto";
+          "/sys/bus/pci/devices/0000:00:14.2/power/control" = "auto";
+          "/sys/bus/pci/devices/0000:56:00.0/power/control" = "auto";
+          "/sys/bus/pci/devices/0000:00:1f.4/power/control" = "auto";
+        };
+      };
+      styx-balanced-battery = {
+        cpu = {
+          governor = "performance";
+          energy_perf_bias = "balance-power";
+          energy_performance_preference = "balance_power";
+          pm_qos_resume_latency_us = "0";
+          boost = "1";
+        };
+        audio = {
+          timeout = 5;
+        };
+        usb = {
+          autosuspend = 5;
+        };
+        net = {
+          devices = "wlp0s20f3";
+          wake_on_lan = "d";
+        };
+        modules = {
+          iwlwifi = "+r power_save=1 power_level=2";
+        };
+        sysfs = {
+          # Increase writeback time
+          "/proc/sys/vm/dirty_writeback_centisecs" = 1500;
+          # Disable nmi watchdog
+          "/proc/sys/kernel/nmi_watchdog" = 0;
+          # Power save for audio
+          "/sys/module/snd_hda_intel/parameters/power_save" = 1;
+          # Power policy for PCI devices
           "/sys/module/pcie_aspm/parameters/policy" = "powersupersave";
           "/sys/bus/pci/devices/0000:00:0a.0/power/control" = "auto";
           "/sys/bus/pci/devices/0000:00:04.0/power/control" = "auto";
@@ -147,7 +233,7 @@
           "/sys/bus/pci/devices/0000:00:1f.4/power/control" = "auto";
         };
       };
-      styx-balanced-powersave = {
+      styx-powersave-battery = {
         cpu = {
           governor = "performance";
           energy_perf_bias = "power";
@@ -191,9 +277,17 @@
         };
       };
     };
-    ppdSettings.battery = {
-      balanced = "styx-balanced-battery";
-      power-saver = "styx-balanced-powersave";
+    ppdSettings = {
+      profiles = {
+        balanced = "styx-balanced-battery";
+        performance = "styx-performance";
+        power-saver = "styx-powersave-battery";
+      };
+      battery = {
+        balanced = "styx-balanced-battery";
+        power-saver = "styx-powersave-battery";
+        performance = "styx-performance-battery";
+      };
     };
   };
 
