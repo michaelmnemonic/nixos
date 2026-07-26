@@ -157,6 +157,9 @@
           "/sys/bus/pci/devices/0000:00:14.2/power/control" = "on";
           "/sys/bus/pci/devices/0000:56:00.0/power/control" = "on";
           "/sys/bus/pci/devices/0000:00:1f.4/power/control" = "on";
+          # iGPU
+          "/sys/devices/pci0000:00/0000:00:02.0/tile0/gt0/freq0/power_profile" = "base";
+          "/sys/devices/pci0000:00/0000:00:02.0/tile0/gt1/freq0/power_profile" = "base";
         };
       };
       styx-performance-battery = {
@@ -200,6 +203,9 @@
           "/sys/bus/pci/devices/0000:00:14.2/power/control" = "auto";
           "/sys/bus/pci/devices/0000:56:00.0/power/control" = "auto";
           "/sys/bus/pci/devices/0000:00:1f.4/power/control" = "auto";
+          # iGPU
+          "/sys/devices/pci0000:00/0000:00:02.0/tile0/gt0/freq0/power_profile" = "base";
+          "/sys/devices/pci0000:00/0000:00:02.0/tile0/gt1/freq0/power_profile" = "base";
         };
       };
       styx-balanced-battery = {
@@ -243,6 +249,9 @@
           "/sys/bus/pci/devices/0000:00:14.2/power/control" = "auto";
           "/sys/bus/pci/devices/0000:56:00.0/power/control" = "auto";
           "/sys/bus/pci/devices/0000:00:1f.4/power/control" = "auto";
+          # iGPU
+          "/sys/devices/pci0000:00/0000:00:02.0/tile0/gt0/freq0/power_profile" = "power_saving";
+          "/sys/devices/pci0000:00/0000:00:02.0/tile0/gt1/freq0/power_profile" = "power_saving";
         };
       };
       styx-powersave-battery = {
@@ -286,6 +295,9 @@
           "/sys/bus/pci/devices/0000:00:14.2/power/control" = "auto";
           "/sys/bus/pci/devices/0000:56:00.0/power/control" = "auto";
           "/sys/bus/pci/devices/0000:00:1f.4/power/control" = "auto";
+          # iGPU
+          "/sys/devices/pci0000:00/0000:00:02.0/tile0/gt0/freq0/power_profile" = "power_saving";
+          "/sys/devices/pci0000:00/0000:00:02.0/tile0/gt1/freq0/power_profile" = "power_saving";
         };
       };
     };
