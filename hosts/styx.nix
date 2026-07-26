@@ -14,6 +14,7 @@
     ../gui/plasma.nix
     # Basic capabilities
     ../capabilities/chipcards.nix
+    ../capabilities/mpv.nix
     ../capabilities/networking-with-network-manager.nix
     ../capabilities/pipewire.nix
     ../capabilities/plasma-pim.nix
