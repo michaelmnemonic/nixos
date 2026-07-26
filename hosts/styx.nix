@@ -134,9 +134,6 @@
           devices = "wlp0s20f3";
           wake_on_lan = "d";
         };
-        modules = {
-          iwlwifi = "+r power_save=0";
-        };
         sysfs = {
           # Increase writeback time
           "/proc/sys/vm/dirty_writeback_centisecs" = 1500;
@@ -179,9 +176,6 @@
         net = {
           devices = "wlp0s20f3";
           wake_on_lan = "d";
-        };
-        modules = {
-          iwlwifi = "+r power_save=1 power_level=1";
         };
         sysfs = {
           # Increase writeback time
@@ -226,9 +220,6 @@
           devices = "wlp0s20f3";
           wake_on_lan = "d";
         };
-        modules = {
-          iwlwifi = "+r power_save=1 power_level=2";
-        };
         sysfs = {
           # Increase writeback time
           "/proc/sys/vm/dirty_writeback_centisecs" = 1500;
@@ -271,9 +262,6 @@
         net = {
           devices = "wlp0s20f3";
           wake_on_lan = "d";
-        };
-        modules = {
-          iwlwifi = "+r power_save=1 power_level=5";
         };
         sysfs = {
           # Increase writeback time
