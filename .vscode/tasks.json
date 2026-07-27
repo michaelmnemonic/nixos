@@ -30,12 +30,20 @@
       "problemMatcher": []
     },
     {
+      "label": "build: styx",
+      "type": "shell",
+      "command": "nix build .#nixosConfigurations.styx.config.system.build.toplevel",
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
       "label": "build: all",
       "dependsOn": [
         "build: pluto",
         "build: juno",
         "build: flore",
-        "build: charon"
+        "build: charon",
+        "build: styx"
       ],
       "dependsOrder": "sequence",
       "group": {
@@ -47,14 +55,14 @@
     {
       "label": "deploy: boot",
       "type": "shell",
-      "command": "sudo nixos-rebuild boot --flake .",
+      "command": "run0 nixos-rebuild boot --flake .",
       "group": "build",
       "problemMatcher": []
     },
     {
       "label": "deploy: switch",
       "type": "shell",
-      "command": "sudo nixos-rebuild switch --flake .",
+      "command": "run0 nixos-rebuild switch --flake .",
       "group": "build",
       "problemMatcher": []
     },

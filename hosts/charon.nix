@@ -58,7 +58,6 @@
         command = "${pkgs.niri}/bin/niri-session";
         user = "maik";
       };
-      default_session = initial_session;
     };
   };
 
@@ -67,7 +66,7 @@
     enable = true;
     allowedTCPPorts = [
       # syncthing
-      22000 # sync
+      22000
       # transmission
       43219
       # rdp
