@@ -77,6 +77,8 @@
           agenix.nixosModules.default
         ];
         specialArgs = {
+          inherit vibepanel;
+          inherit voxtype;
         };
       };
       charon = nixpkgs.lib.nixosSystem {
