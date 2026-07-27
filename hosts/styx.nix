@@ -157,17 +157,13 @@
           # iGPU
           "/sys/devices/pci0000:00/0000:00:02.0/tile0/gt0/freq0/power_profile" = "base";
           "/sys/devices/pci0000:00/0000:00:02.0/tile0/gt1/freq0/power_profile" = "base";
-          # Enable all P-cores
-          "/sys/devices/system/cpu/cpu1/online" = "1";
-          "/sys/devices/system/cpu/cpu2/online" = "1";
-          "/sys/devices/system/cpu/cpu3/online" = "1";
         };
       };
       styx-performance-battery = {
         cpu = {
           governor = "performance";
-          energy_perf_bias = " 	balance-performance";
-          energy_performance_preference = "balance_performance";
+          energy_perf_bias = "performance";
+          energy_performance_preference = "performance";
           pm_qos_resume_latency_us = "0";
           boost = "1";
         };
@@ -204,17 +200,13 @@
           # iGPU
           "/sys/devices/pci0000:00/0000:00:02.0/tile0/gt0/freq0/power_profile" = "base";
           "/sys/devices/pci0000:00/0000:00:02.0/tile0/gt1/freq0/power_profile" = "base";
-          # Enable all P-cores
-          "/sys/devices/system/cpu/cpu1/online" = "1";
-          "/sys/devices/system/cpu/cpu2/online" = "1";
-          "/sys/devices/system/cpu/cpu3/online" = "1";
         };
       };
       styx-balanced-battery = {
         cpu = {
           governor = "performance";
-          energy_perf_bias = "balance-power";
-          energy_performance_preference = "balance_power";
+          energy_perf_bias = "balance-performance";
+          energy_performance_preference = "balance_performance";
           pm_qos_resume_latency_us = "0";
           boost = "1";
         };
@@ -251,10 +243,6 @@
           # iGPU
           "/sys/devices/pci0000:00/0000:00:02.0/tile0/gt0/freq0/power_profile" = "power_saving";
           "/sys/devices/pci0000:00/0000:00:02.0/tile0/gt1/freq0/power_profile" = "power_saving";
-          # Enable all P-cores
-          "/sys/devices/system/cpu/cpu1/online" = "1";
-          "/sys/devices/system/cpu/cpu2/online" = "1";
-          "/sys/devices/system/cpu/cpu3/online" = "1";
         };
       };
       styx-powersave-battery = {
@@ -298,10 +286,6 @@
           # iGPU
           "/sys/devices/pci0000:00/0000:00:02.0/tile0/gt0/freq0/power_profile" = "power_saving";
           "/sys/devices/pci0000:00/0000:00:02.0/tile0/gt1/freq0/power_profile" = "power_saving";
-          # Disable 3 of the 4 P-cores
-          "/sys/devices/system/cpu/cpu1/online" = "0";
-          "/sys/devices/system/cpu/cpu2/online" = "0";
-          "/sys/devices/system/cpu/cpu3/online" = "0";
         };
       };
     };
