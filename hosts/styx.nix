@@ -305,19 +305,19 @@
 
   # Restrict system-level daemons to efficency cores after start-up
   systemd.slices."system".sliceConfig = {
-    AllowedCPUs = "3-7";
+    AllowedCPUs = "4-7";
     StartupAllowedCPUs = "";
   };
 
   # Restrict user session components to efficency cores after start-up
   systemd.user.slices."session".sliceConfig = {
-    AllowedCPUs = "3-7";
+    AllowedCPUs = "4-7";
     StartupAllowedCPUs = "";
   };
 
   # Restrict user background tasks to efficency cores after start-up
   systemd.user.slices."background".sliceConfig = {
-    AllowedCPUs = "3-7";
+    AllowedCPUs = "4-7";
     StartupAllowedCPUs = "";
   };
 
