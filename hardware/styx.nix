@@ -60,6 +60,9 @@
 
   # Kernel command line
   boot.kernelParams = [
+    # iommu passthrough
+    "intel_iommu=on"
+    "iommu=pt"
   ];
 
   # Enable plymouth
