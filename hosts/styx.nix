@@ -20,6 +20,7 @@
     ../capabilities/plasma-pim.nix
     ../capabilities/printing.nix
     ../capabilities/ssh.nix
+    ../capabilities/steam.nix
   ];
 
   # Use latest stable kernel
