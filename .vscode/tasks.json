@@ -30,12 +30,20 @@
       "problemMatcher": []
     },
     {
+      "label": "build: styx",
+      "type": "shell",
+      "command": "nix build .#nixosConfigurations.styx.config.system.build.toplevel",
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
       "label": "build: all",
       "dependsOn": [
         "build: pluto",
         "build: juno",
         "build: flore",
-        "build: charon"
+        "build: charon",
+        "build: styx"
       ],
       "dependsOrder": "sequence",
       "group": {

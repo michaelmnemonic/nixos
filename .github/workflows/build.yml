@@ -23,6 +23,9 @@ jobs:
           - host: pluto
             system: x86_64-linux
             runs-on: ubuntu-latest
+          - host: styx
+            system: x86_64-linux
+            runs-on: ubuntu-latest
     runs-on: ${{ matrix.runs-on }}
     steps:
       - name: Check out repository

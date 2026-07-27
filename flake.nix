@@ -56,6 +56,15 @@
         specialArgs = {
         };
       };
+      styx = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          ./hosts/styx.nix
+          agenix.nixosModules.default
+        ];
+        specialArgs = {
+        };
+      };
       charon = nixpkgs.lib.nixosSystem {
         system = "aarch64-linux";
         modules = [
@@ -98,6 +107,7 @@
         };
       in {
         pluto = pkgs.testers.nixosTest (import ./tests/pluto.nix {inherit agenix;});
+        styx = pkgs.testers.nixosTest (import ./tests/styx.nix {inherit agenix;});
         juno = pkgs.testers.nixosTest (import ./tests/juno.nix {inherit agenix;});
         flore = pkgs.testers.nixosTest (import ./tests/flore.nix {inherit agenix;});
         charon = pkgs.testers.nixosTest (
