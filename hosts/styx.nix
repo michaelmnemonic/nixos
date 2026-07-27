@@ -74,6 +74,10 @@
   nixpkgs.config.allowUnfreePredicate = pkg:
     builtins.elem (lib.getName pkg) [
       "libvgm" # dependency of fooyin
+      "steam"
+      "steam-original"
+      "steam-run"
+      "steam-unwrapped"
     ];
 
   # Customize kde plasma
