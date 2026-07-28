@@ -14,6 +14,10 @@
     # Inject nixos-x13s dependency
     _module.args.nixos-x13s = nixos-x13s;
 
+    # Disable X13s hardware support for the test VM.
+    nixos-x13s.enable = lib.mkForce false;
+    boot.initrd.availableKernelModules = lib.mkForce [];
+
     # Increase memory and cores for the VM
     virtualisation.memorySize = 2048;
     virtualisation.cores = 2;
