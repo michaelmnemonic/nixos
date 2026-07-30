@@ -333,6 +333,9 @@
   # Enable direnv
   programs.direnv.enable = true;
 
+  # Zenless Zone Zero launcher
+  programs.sleepy-launcher.enable = true;
+
   # NixOS state version
   system.stateVersion = "24.05";
 }

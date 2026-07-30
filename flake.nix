@@ -13,6 +13,11 @@
       url = "github:yaxitech/ragenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    aagl = {
+      url = "github:ezKEa/aagl-gtk-on-nix/release-26.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -20,6 +25,7 @@
     nixpkgs,
     nixos-x13s,
     agenix,
+    aagl,
   }: let
     # Define 'forAllSystems' for properties that shall be build for x86_64 *and* aarch64
     systems = [
@@ -61,6 +67,7 @@
         modules = [
           ./hosts/styx.nix
           agenix.nixosModules.default
+          aagl.nixosModules.default
         ];
         specialArgs = {
         };
