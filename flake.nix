@@ -114,7 +114,7 @@
         };
       in {
         pluto = pkgs.testers.nixosTest (import ./tests/pluto.nix {inherit agenix;});
-        styx = pkgs.testers.nixosTest (import ./tests/styx.nix {inherit agenix;});
+        styx = pkgs.testers.nixosTest (import ./tests/styx.nix {inherit agenix aagl;});
         juno = pkgs.testers.nixosTest (import ./tests/juno.nix {inherit agenix;});
         flore = pkgs.testers.nixosTest (import ./tests/flore.nix {inherit agenix;});
         charon = pkgs.testers.nixosTest (
