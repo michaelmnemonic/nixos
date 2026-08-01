@@ -1,6 +1,7 @@
 {
   agenix,
   aagl,
+  intel-lpmd-flake,
 }: {
   name = "styx";
 
@@ -9,6 +10,7 @@
       ../hosts/styx.nix
       agenix.nixosModules.default
       aagl.nixosModules.default
+      intel-lpmd-flake.nixosModules.default
     ];
 
     # Increase memory and cores for the VM

@@ -186,6 +186,26 @@
         "type": "github"
       }
     },
+    "intel-lpmd-flake": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1780884504,
+        "narHash": "sha256-smhI9ZUqPJ1LHhE0a01C38AVg9Sz7OnMaSLHDt44Rco=",
+        "owner": "dmfrpro",
+        "repo": "intel-lpmd-flake",
+        "rev": "226def6f3960505f2dfeabfb6b8299952ced856f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "dmfrpro",
+        "repo": "intel-lpmd-flake",
+        "type": "github"
+      }
+    },
     "nixos-x13s": {
       "inputs": {
         "flake-utils": "flake-utils_2",
@@ -228,6 +248,7 @@
       "inputs": {
         "aagl": "aagl",
         "agenix": "agenix",
+        "intel-lpmd-flake": "intel-lpmd-flake",
         "nixos-x13s": "nixos-x13s",
         "nixpkgs": "nixpkgs"
       }
