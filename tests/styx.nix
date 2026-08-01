@@ -1,10 +1,14 @@
-{agenix}: {
+{
+  agenix,
+  aagl,
+}: {
   name = "styx";
 
   nodes.machine = {lib, ...}: {
     imports = [
       ../hosts/styx.nix
       agenix.nixosModules.default
+      aagl.nixosModules.default
     ];
 
     # Increase memory and cores for the VM
