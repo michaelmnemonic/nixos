@@ -122,13 +122,6 @@
     enable = true;
     profiles = {
       styx-performance = {
-        cpu = {
-          governor = "performance";
-          energy_perf_bias = "performance";
-          energy_performance_preference = "performance";
-          pm_qos_resume_latency_us = "0";
-          boost = "1";
-        };
         audio = {
           timeout = 30;
         };
@@ -165,13 +158,6 @@
         };
       };
       styx-performance-battery = {
-        cpu = {
-          governor = "performance";
-          energy_perf_bias = "performance";
-          energy_performance_preference = "performance";
-          pm_qos_resume_latency_us = "0";
-          boost = "1";
-        };
         audio = {
           timeout = 5;
         };
@@ -208,13 +194,6 @@
         };
       };
       styx-balanced-battery = {
-        cpu = {
-          governor = "performance";
-          energy_perf_bias = "balance-performance";
-          energy_performance_preference = "balance_performance";
-          pm_qos_resume_latency_us = "0";
-          boost = "1";
-        };
         audio = {
           timeout = 5;
         };
@@ -251,13 +230,6 @@
         };
       };
       styx-powersave-battery = {
-        cpu = {
-          governor = "performance";
-          energy_perf_bias = "power";
-          energy_performance_preference = "power";
-          pm_qos_resume_latency_us = "0";
-          boost = "0";
-        };
         audio = {
           timeout = 5;
         };
