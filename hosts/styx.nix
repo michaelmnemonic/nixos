@@ -326,6 +326,13 @@
     StartupAllowedCPUs = "";
   };
 
+  services.intel-lpmd = {
+    enable = true;
+    config.lunarLake = true;
+    mode = "ON";
+    debug = true;
+  };
+
   ############
   # Programs #
   ############
