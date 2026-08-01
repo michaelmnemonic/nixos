@@ -71,7 +71,10 @@ in {
   programs.kdeconnect.enable = true;
 
   # Use ksshaskpass for ssh
-  programs.ssh.askPassword = "${pkgs.kdePackages.ksshaskpass}/bin/ksshaskpass";
+  programs.ssh = {
+    startAgent = true;
+    askPassword = "${pkgs.kdePackages.ksshaskpass}/bin/ksshaskpass";
+  };
 
   # Run speech-dispatcher in the background slice to reduce resource contention
   systemd.user.services.speech-dispatcher = {
