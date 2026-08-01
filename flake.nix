@@ -13,6 +13,11 @@
       url = "github:yaxitech/ragenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    intel-lpmd-flake = {
+      url = "github:dmfrpro/intel-lpmd-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -20,6 +25,7 @@
     nixpkgs,
     nixos-x13s,
     agenix,
+    intel-lpmd-flake,
   }: let
     # Define 'forAllSystems' for properties that shall be build for x86_64 *and* aarch64
     systems = [
@@ -61,6 +67,7 @@
         modules = [
           ./hosts/styx.nix
           agenix.nixosModules.default
+          intel-lpmd-flake.nixosModules.default
         ];
         specialArgs = {
         };
@@ -107,7 +114,7 @@
         };
       in {
         pluto = pkgs.testers.nixosTest (import ./tests/pluto.nix {inherit agenix;});
-        styx = pkgs.testers.nixosTest (import ./tests/styx.nix {inherit agenix;});
+        styx = pkgs.testers.nixosTest (import ./tests/styx.nix {inherit agenix intel-lpmd-flake;});
         juno = pkgs.testers.nixosTest (import ./tests/juno.nix {inherit agenix;});
         flore = pkgs.testers.nixosTest (import ./tests/flore.nix {inherit agenix;});
         charon = pkgs.testers.nixosTest (

@@ -1,10 +1,14 @@
-{agenix}: {
+{
+  agenix,
+  intel-lpmd-flake,
+}: {
   name = "styx";
 
   nodes.machine = {lib, ...}: {
     imports = [
       ../hosts/styx.nix
       agenix.nixosModules.default
+      intel-lpmd-flake.nixosModules.default
     ];
 
     # Increase memory and cores for the VM
