@@ -51,11 +51,12 @@
     fsType = "vfat";
   };
 
-  swapDevices = [{
-    device = "/dev/disk/by-partlabel/SWAP";
-    randomEncryption.enable = true;
-  }];
-
+  swapDevices = [
+    {
+      device = "/dev/disk/by-partlabel/SWAP";
+      randomEncryption.enable = true;
+    }
+  ];
 
   # Kernel command line
   boot.kernelParams = [
