@@ -23,6 +23,11 @@
       url = "github:peteonrails/voxtype/8d49248baa53f29cb33007c9625a37281c72e799"; # v0.7.5
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    intel-lpmd-flake = {
+      url = "github:dmfrpro/intel-lpmd-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -32,6 +37,7 @@
     agenix,
     vibepanel,
     voxtype,
+    intel-lpmd-flake,
   }: let
     # Define 'forAllSystems' for properties that shall be build for x86_64 *and* aarch64
     systems = [
@@ -75,6 +81,7 @@
         modules = [
           ./hosts/styx.nix
           agenix.nixosModules.default
+          intel-lpmd-flake.nixosModules.default
         ];
         specialArgs = {
           inherit vibepanel;
@@ -125,7 +132,7 @@
         };
       in {
         pluto = pkgs.testers.nixosTest (import ./tests/pluto.nix {inherit agenix;});
-        styx = pkgs.testers.nixosTest (import ./tests/styx.nix {inherit agenix vibepanel voxtype;});
+        styx = pkgs.testers.nixosTest (import ./tests/styx.nix {inherit agenix intel-lpmd-flake vibepanel voxtype;});
         juno = pkgs.testers.nixosTest (import ./tests/juno.nix {inherit agenix;});
         flore = pkgs.testers.nixosTest (import ./tests/flore.nix {inherit agenix;});
         charon = pkgs.testers.nixosTest (
