@@ -1,5 +1,6 @@
 {
   agenix,
+  aagl,
   intel-lpmd-flake,
 }: {
   name = "styx";
@@ -8,6 +9,7 @@
     imports = [
       ../hosts/styx.nix
       agenix.nixosModules.default
+      aagl.nixosModules.default
       intel-lpmd-flake.nixosModules.default
     ];
 
