@@ -26,6 +26,27 @@
   # Use latest stable kernel
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
+  # Lanzaboote currently replaces the systemd-boot module.
+  boot.loader.systemd-boot.enable = lib.mkForce false;
+
+  boot.lanzaboote = {
+    enable = true;
+    pkiBundle = "/var/lib/sbctl";
+    autoEnrollKeys = {
+      enable = true;
+      autoReboot = true;
+    };
+    autoGenerateKeys.enable = true;
+    measuredBoot = {
+      enable = true;
+      pcrs = [
+        0
+        4
+        7
+      ];
+    };
+  };
+
   # Network configuration
   networking.hostName = "styx";
 
