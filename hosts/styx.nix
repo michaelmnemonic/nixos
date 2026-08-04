@@ -32,6 +32,19 @@
   boot.lanzaboote = {
     enable = true;
     pkiBundle = "/var/lib/sbctl";
+    autoEnrollKeys = {
+      enable = true;
+      autoReboot = true;
+    };
+    autoGenerateKeys.enable = true;
+    measuredBoot = {
+      enable = true;
+      pcrs = [
+        0
+        4
+        7
+      ];
+    };
   };
 
   # Network configuration
