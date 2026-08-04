@@ -97,6 +97,42 @@ This includes:
 - `nil` - Nix language server
 - `alejandra` - Nix code formatter
 
+## Secure Boot
+
+Some hosts support secure boot using the [lanzaboote](https://github.com/nix-community/lanzaboote) project.
+
+To enable it run the following commands to generate the secure boot keys once a host is booted.
+
+```bash
+$ sudo sbctl create-keys
+[sudo] password for julian:
+Created Owner UUID 8ec4b2c3-dc7f-4362-b9a3-0cc17e5a34cd
+Creating secure boot keys...✓
+Secure boot keys created!
+```
+
+Next, rebuild the configuration.
+
+```bash
+sudo nixos-rebuild switch --flake github:michaelmnemonic/nixos
+```
+
+After you rebuild your system, check sbctl verify output:
+
+```bash
+$ sudo sbctl verify
+Verifying file database and EFI images in /boot...
+✓ /boot/EFI/BOOT/BOOTX64.EFI is signed
+✓ /boot/EFI/Linux/nixos-generation-355.efi is signed
+✓ /boot/EFI/Linux/nixos-generation-356.efi is signed
+✗ /boot/EFI/nixos/0n01vj3mq06pc31i2yhxndvhv4kwl2vp-linux-6.1.3-bzImage.efi is not signed
+✓ /boot/EFI/systemd/systemd-bootx64.efi is signed
+```
+
+It is expected that the files starting with kernel- are not signed.
+
+Next, enable Secure Boot so that your firmware enforces signature verification.
+
 ## 🔧 Configuration Features
 
 ### Shared Features (All Hosts)
