@@ -1,6 +1,7 @@
 {
   agenix,
   intel-lpmd-flake,
+  lanzaboote,
 }: {
   name = "styx";
 
