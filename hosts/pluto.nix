@@ -122,6 +122,7 @@
 
   environment.systemPackages = with pkgs; [
     ausweisapp
+    google-chrome
     drawy
     fooyin
     (heroic.override {
@@ -143,6 +144,7 @@
   # Not all software is free
   nixpkgs.config.allowUnfreePredicate = pkg:
     builtins.elem (lib.getName pkg) [
+      "google-chrome"
       "libvgm" # dependency of fooyin
       "steam"
       "steam-original"
