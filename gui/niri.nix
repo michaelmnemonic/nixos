@@ -1,14 +1,10 @@
 {
-  pkgs,
   lib,
+  pkgs,
   vibepanel,
   voxtype,
   ...
-}: let
-  patchedVibepanel = vibepanel.packages.${pkgs.stdenv.hostPlatform.system}.vibepanel.overrideAttrs (old: {
-    patches = (old.patches or []) ++ [../patches/0001-vibepanel-voxtype-widget.patch];
-  });
-in {
+}: {
   # Make niri availlable
   programs.niri.enable = true;
 
@@ -32,45 +28,42 @@ in {
   ];
 
   # List of system-wide packages
-  environment.systemPackages =
-    [
-      patchedVibepanel
-    ]
-    ++ (with pkgs; [
-      adwaita-icon-theme
-      adwaita-qt
-      aspell
-      aspellDicts.de
-      aspellDicts.en
-      celluloid
-      darktable
-      ddcutil
-      firefox
-      fractal
-      fragments
-      ghostty
-      gitMinimal
-      gnome-calculator
-      gnome-calendar
-      gnome-clocks
-      gnome-text-editor
-      keepassxc
-      libreoffice
-      libsForQt5.qt5ct
-      loupe
-      mangohud
-      nautilus
-      nfs-utils
-      papers
-      pavucontrol
-      quodlibet-full
-      resources
-      tuba
-      voxtype.packages.${pkgs.stdenv.hostPlatform.system}.onnx
-      wtype
-      xdg-user-dirs
-      xwayland-satellite
-    ]);
+  environment.systemPackages = with pkgs; [
+    adwaita-icon-theme
+    adwaita-qt
+    aspell
+    aspellDicts.de
+    aspellDicts.en
+    celluloid
+    darktable
+    ddcutil
+    firefox
+    fractal
+    fragments
+    ghostty
+    gitMinimal
+    gnome-calculator
+    gnome-calendar
+    gnome-clocks
+    gnome-text-editor
+    keepassxc
+    libreoffice
+    libsForQt5.qt5ct
+    loupe
+    mangohud
+    nautilus
+    nfs-utils
+    papers
+    pavucontrol
+    quodlibet-full
+    resources
+    tuba
+    vibepanel.packages.${pkgs.stdenv.hostPlatform.system}.vibepanel
+    voxtype.packages.${pkgs.stdenv.hostPlatform.system}.onnx
+    wtype
+    xdg-user-dirs
+    xwayland-satellite
+  ];
 
   # Use qt5ct configuration
   environment.variables.QT_QPA_PLATFORMTHEME = "qt5ct";
@@ -123,7 +116,7 @@ in {
     requisite = ["graphical-session.target"];
     serviceConfig = {
       Slice = "session.slice";
-      ExecStart = "${patchedVibepanel}/bin/vibepanel";
+      ExecStart = "${vibepanel.packages.${pkgs.stdenv.hostPlatform.system}.vibepanel}/bin/vibepanel";
       Restart = "on-failure";
       RestartSec = "10";
     };
