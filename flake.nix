@@ -18,14 +18,20 @@
       url = "github:dmfrpro/intel-lpmd-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/7c9a54a7f87b4539ddbd8bda09a8a5f5f9361aa9"; # v1.1.0
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
     self,
-    nixpkgs,
-    nixos-x13s,
     agenix,
     intel-lpmd-flake,
+    lanzaboote,
+    nixos-x13s,
+    nixpkgs,
   }: let
     # Define 'forAllSystems' for properties that shall be build for x86_64 *and* aarch64
     systems = [
@@ -68,6 +74,7 @@
           ./hosts/styx.nix
           agenix.nixosModules.default
           intel-lpmd-flake.nixosModules.default
+          lanzaboote.nixosModules.lanzaboote
         ];
         specialArgs = {
         };
@@ -96,7 +103,7 @@
             gitMinimal
             nil
             ragenix
-            cachix
+            sbctl
           ];
         }
     );
@@ -114,7 +121,7 @@
         };
       in {
         pluto = pkgs.testers.nixosTest (import ./tests/pluto.nix {inherit agenix;});
-        styx = pkgs.testers.nixosTest (import ./tests/styx.nix {inherit agenix intel-lpmd-flake;});
+        styx = pkgs.testers.nixosTest (import ./tests/styx.nix {inherit agenix intel-lpmd-flake lanzaboote;});
         juno = pkgs.testers.nixosTest (import ./tests/juno.nix {inherit agenix;});
         flore = pkgs.testers.nixosTest (import ./tests/flore.nix {inherit agenix;});
         charon = pkgs.testers.nixosTest (
