@@ -39,6 +39,28 @@
   # Emulate aarch64
   boot.binfmt.emulatedSystems = ["aarch64-linux"];
 
+  # Lanzaboote replaces the systemd-boot module.
+  boot.loader.systemd-boot.enable = lib.mkForce false;
+
+  # Use lanzaboote for secure and measured boot
+  boot.lanzaboote = {
+    enable = true;
+    pkiBundle = "/var/lib/sbctl";
+    autoEnrollKeys = {
+      enable = true;
+      autoReboot = true;
+    };
+    autoGenerateKeys.enable = true;
+    measuredBoot = {
+      enable = true;
+      pcrs = [
+        0
+        4
+        7
+      ];
+    };
+  };
+
   # Use zram as swap
   zramSwap = {
     enable = true;
