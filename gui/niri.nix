@@ -89,6 +89,10 @@
             "gnome"
           ];
         };
+        # The gnome portal backend's OpenURI no-ops on niri (no GNOME Shell),
+        # which breaks apps that open URLs via the portal with a parent window
+        # (e.g. Tuba's OAuth login). Force OpenURI to the gtk backend.
+        niri."org.freedesktop.impl.portal.OpenURI" = ["gtk"];
       };
     };
   };
