@@ -46,6 +46,7 @@
         modules = [
           ./hosts/pluto.nix
           agenix.nixosModules.default
+          lanzaboote.nixosModules.lanzaboote
         ];
         specialArgs = {
         };
@@ -120,7 +121,7 @@
           };
         };
       in {
-        pluto = pkgs.testers.nixosTest (import ./tests/pluto.nix {inherit agenix;});
+        pluto = pkgs.testers.nixosTest (import ./tests/pluto.nix {inherit agenix lanzaboote;});
         styx = pkgs.testers.nixosTest (import ./tests/styx.nix {inherit agenix intel-lpmd-flake lanzaboote;});
         juno = pkgs.testers.nixosTest (import ./tests/juno.nix {inherit agenix;});
         flore = pkgs.testers.nixosTest (import ./tests/flore.nix {inherit agenix;});
