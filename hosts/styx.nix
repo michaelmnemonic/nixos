@@ -38,7 +38,7 @@
     };
     autoGenerateKeys.enable = true;
     measuredBoot = {
-      enable = true;
+      enable = false;
       pcrs = [
         0
         4
