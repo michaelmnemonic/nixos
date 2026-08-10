@@ -324,7 +324,7 @@
   services.intel-lpmd = {
     enable = true;
     config.lunarLake = true;
-    mode = "ON";
+    mode = "AUTO";
     debug = true;
   };
 
