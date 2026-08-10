@@ -328,6 +328,8 @@
     debug = true;
   };
 
+  services.thermald.enable = true;
+
   ############
   # Programs #
   ############
