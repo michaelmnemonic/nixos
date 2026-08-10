@@ -16,6 +16,7 @@
 
   # Kernel modules to load ofter initrd
   boot.kernelModules = [
+    "msr" # used by intel-lpmd
   ];
 
   boot.extraModulePackages = [];
