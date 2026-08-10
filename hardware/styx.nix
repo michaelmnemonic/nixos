@@ -24,6 +24,24 @@
     options iwlwifi power_save=1
   '';
 
+  # Optimize kernel config for this platform
+  boot.kernelPatches = [
+    {
+      name = "energy-efficiency";
+      patch = null;
+      structuredExtraConfig = with lib.kernel; {
+        # Read thermal feedback information
+        INTEL_HFI_THERMAL = yes;
+        # Support for reading thermal information
+        INT340X_THERMAL = yes;
+        # Model energy consumption, see https://docs.kernel.org/power/energy-model.html
+        ENERGY_MODEL = yes;
+        # Prefer energy efficiency by default
+        WQ_POWER_EFFICIENT_DEFAULT = yes;
+      };
+    }
+  ];
+
   # Luks encrypted root partition
   boot.initrd.luks.devices.NIXOS = {
     device = "/dev/disk/by-partlabel/NIXOS";
