@@ -449,8 +449,8 @@
         			<ActiveCPUs> 4-7 </ActiveCPUs>
         			<EnterGFXLoadThres>50</EnterGFXLoadThres>
         			<IRQMigrate> -1 </IRQMigrate>
-        			<EPP> 192 </EPP>
-        			<EPB> 8 </EPB>
+        			<EPP> 255 </EPP>
+        			<EPB> 15 </EPB>
         			<ITMTState> -1 </ITMTState>
         			<MinPollInterval> 1000 </MinPollInterval>
         			<PollIntervalIncrement> 500 </PollIntervalIncrement>
@@ -477,8 +477,8 @@
         			<ActiveCPUs> 4-7 </ActiveCPUs>
         			<EnterGFXLoadThres>75</EnterGFXLoadThres>
         			<IRQMigrate> -1 </IRQMigrate>
-        			<EPP> 64 </EPP>
-        			<EPB> 8 </EPB>
+        			<EPP> 192 </EPP>
+        			<EPB> 11 </EPB>
         			<ITMTState> -1 </ITMTState>
         			<MinPollInterval> 1000 </MinPollInterval>
         			<PollIntervalIncrement> 500 </PollIntervalIncrement>
