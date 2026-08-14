@@ -1,10 +1,14 @@
-{agenix}: {
+{
+  agenix,
+  lanzaboote,
+}: {
   name = "pluto";
 
   nodes.machine = {lib, ...}: {
     imports = [
       ../hosts/pluto.nix
       agenix.nixosModules.default
+      lanzaboote.nixosModules.lanzaboote
     ];
 
     # Inject flake dependencies
