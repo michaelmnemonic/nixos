@@ -16,6 +16,7 @@ in {
       "kvm"
       "docker"
       "networkmanager"
+      "input"
     ]; # Enable ‘sudo’ for the user.
     openssh.authorizedKeys.keys = ssh_keys;
     subUidRanges = [
