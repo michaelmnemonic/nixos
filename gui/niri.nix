@@ -1,6 +1,8 @@
 {
-  pkgs,
   lib,
+  pkgs,
+  vibepanel,
+  voxtype,
   ...
 }: {
   # Make niri availlable
@@ -29,18 +31,16 @@
   environment.systemPackages = with pkgs; [
     adwaita-icon-theme
     adwaita-qt
-    alacritty
     aspell
     aspellDicts.de
     aspellDicts.en
     celluloid
     darktable
     ddcutil
-    evolution
     firefox
     fractal
     fragments
-    geary
+    ghostty
     gitMinimal
     gnome-calculator
     gnome-calendar
@@ -57,9 +57,11 @@
     pavucontrol
     quodlibet-full
     resources
-    thunderbird
     tuba
-    valent
+    vibepanel.packages.${pkgs.stdenv.hostPlatform.system}.vibepanel
+    voxtype.packages.${pkgs.stdenv.hostPlatform.system}.onnx
+    wtype
+    xdg-user-dirs
     xwayland-satellite
   ];
 
@@ -72,9 +74,6 @@
   # Enable dconf (needed for configuration of gtk themes under wayland)
   programs.dconf.enable = true;
 
-  # Enable evolution
-  programs.evolution.enable = true;
-
   # Setup xdg
   xdg = {
     autostart.enable = true;
@@ -83,7 +82,18 @@
     icons.enable = true;
     portal = {
       enable = true;
-      extraPortals = [pkgs.xdg-desktop-portal-gnome];
+      extraPortals = with pkgs; [xdg-desktop-portal-gtk xdg-desktop-portal-gnome];
+      config = {
+        common = {
+          default = [
+            "gnome"
+          ];
+        };
+        # The gnome portal backend's OpenURI no-ops on niri (no GNOME Shell),
+        # which breaks apps that open URLs via the portal with a parent window
+        # (e.g. Tuba's OAuth login). Force OpenURI to the gtk backend.
+        niri."org.freedesktop.impl.portal.OpenURI" = ["gtk"];
+      };
     };
   };
 
@@ -93,9 +103,27 @@
     implementation = "broker";
   };
 
-  # Enable calendar entries in bar
-  services.gnome.evolution-data-server.enable = true;
-
   # Enable battery state reporting
   services.upower.enable = true;
+
+  # Start ssh-agent
+  programs.ssh = {
+    startAgent = true;
+    enableAskPassword = lib.mkForce false;
+  };
+
+  # Start vibepanel as a systemd user service
+  systemd.user.services.vibepanel = {
+    description = "GTK4 panel for Wayland with notifications, OSD, and quick settings";
+    after = ["graphical-session.target"];
+    partOf = ["graphical-session.target"];
+    requisite = ["graphical-session.target"];
+    serviceConfig = {
+      Slice = "session.slice";
+      ExecStart = "${vibepanel.packages.${pkgs.stdenv.hostPlatform.system}.vibepanel}/bin/vibepanel";
+      Restart = "on-failure";
+      RestartSec = "10";
+    };
+    wantedBy = ["graphical-session.target"];
+  };
 }
