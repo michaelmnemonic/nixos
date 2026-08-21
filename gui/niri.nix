@@ -59,7 +59,6 @@
     resources
     tuba
     vibepanel.packages.${pkgs.stdenv.hostPlatform.system}.vibepanel
-    voxtype.packages.${pkgs.stdenv.hostPlatform.system}.onnx
     wtype
     xdg-user-dirs
     xwayland-satellite
