@@ -88,8 +88,9 @@
     firefox
     fooyin
     google-chrome
-    kdePackages.tokodon
     kdePackages.neochat
+    kdePackages.tokodon
+    transmission_4-qt
   ];
 
   # Not all software is free
