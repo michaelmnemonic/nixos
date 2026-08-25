@@ -10,8 +10,8 @@
     ../hardware/styx.nix
     # Users
     ../users/maik.nix
-    # plasma desktop environment
-    ../gui/plasma.nix
+    # GNOME desktop environment
+    ../gui/gnome.nix
     # Basic capabilities
     ../capabilities/chipcards.nix
     ../capabilities/mpv.nix
@@ -62,14 +62,8 @@
       enable = true;
       user = "maik";
     };
-    plasma-login-manager.enable = true;
+    gdm.enable = true;
   };
-
-  # Fonts
-  fonts.packages = with pkgs; [
-    inter
-    jetbrains-mono
-  ];
 
   # List of system-wide packages
   environment.systemPackages = with pkgs; [
@@ -80,11 +74,7 @@
         ]
     ))
     firefox
-    fooyin
     google-chrome
-    kdePackages.neochat
-    kdePackages.tokodon
-    transmission_4-qt
   ];
 
   # Not all software is free
@@ -97,23 +87,6 @@
       "steam-run"
       "steam-unwrapped"
     ];
-
-  # Customize kde plasma
-  nixpkgs.overlays = [
-    (final: prev: {
-      kdePackages = prev.kdePackages.overrideScope (sfinal: sprev: {
-        # smaller systemtray icons with more spacing
-        # FIXME: this compiles plasma-workspace just to patch qml script
-        plasma-workspace = sprev.plasma-workspace.overrideAttrs (oldAttrs: {
-          patches =
-            oldAttrs.patches
-            ++ [
-              ../patches/0001-plasma-workspaces-systemtray-icon-sizes.patch
-            ];
-        });
-      });
-    })
-  ];
 
   # Make sure mount point of user home exists
   environment.etc."tmpfiles.d/home-maik.conf".text = ''
