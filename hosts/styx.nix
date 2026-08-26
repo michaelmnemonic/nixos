@@ -519,7 +519,7 @@
       '';
     };
     mode = "AUTO";
-    debug = true;
+    debug = false;
   };
 
   services.thermald.enable = true;
