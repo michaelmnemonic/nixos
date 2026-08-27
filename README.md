@@ -39,8 +39,6 @@ nixos/
 │   ├── scanning.nix     # Document scanning
 │   ├── ssh.nix          # SSH configuration
 │   ├── steam.nix        # Steam gaming platform
-│   ├── vscode.nix       # Visual Studio Code
-│   └── vscodium.nix     # VSCodium (open source VS Code)
 ├── patches/         # Custom patches and modifications
 ├── flake.nix        # Main flake configuration
 └── flake.lock       # Locked dependency versions
