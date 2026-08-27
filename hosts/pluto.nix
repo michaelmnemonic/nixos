@@ -69,7 +69,10 @@
   # Autologin with greetd
   services.greetd = {
     enable = true;
-    settings = rec {
+    settings = {
+      default_session = {
+        command = "${pkgs.greetd}/bin/agreety --cmd $SHELL";
+      };
       initial_session = {
         command = "${pkgs.niri}/bin/niri-session";
         user = "maik";
