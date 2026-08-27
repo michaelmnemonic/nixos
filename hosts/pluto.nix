@@ -26,7 +26,6 @@
     ../capabilities/scanning.nix
     ../capabilities/ssh.nix
     ../capabilities/steam.nix
-    ../capabilities/vscode.nix
     ../capabilities/wireguard.nix
   ];
 
@@ -177,10 +176,6 @@
       "steam-original"
       "steam-run"
       "steam-unwrapped"
-      "vscode"
-      "vscode-with-extensions"
-      "vscode-extension-ms-vscode-remote-remote-ssh"
-      "vscode-extension-ms-vscode-remote-remote-containers"
     ];
 
   # Enable podman
