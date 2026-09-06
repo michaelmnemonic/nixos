@@ -2,6 +2,9 @@
   # Enable card reader
   services.pcscd = {
     enable = true;
-    plugins = [pkgs.pcsc-cyberjack];
+    plugins = [
+      pkgs.ccid
+      pkgs.pcsc-cyberjack
+    ];
   };
 }
