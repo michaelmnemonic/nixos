@@ -45,6 +45,7 @@
   boot.lanzaboote = {
     enable = true;
     pkiBundle = "/var/lib/sbctl";
+    configurationLimit = 2;
     autoEnrollKeys = {
       enable = true;
       autoReboot = true;
