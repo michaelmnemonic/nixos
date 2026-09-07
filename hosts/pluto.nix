@@ -29,9 +29,6 @@
     ../capabilities/wireguard.nix
   ];
 
-  # Use latest stable kernel
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-
   # Network configuration
   networking.hostName = "pluto";
 
@@ -45,6 +42,7 @@
   boot.lanzaboote = {
     enable = true;
     pkiBundle = "/var/lib/sbctl";
+    configurationLimit = 2;
     autoEnrollKeys = {
       enable = true;
       autoReboot = true;
