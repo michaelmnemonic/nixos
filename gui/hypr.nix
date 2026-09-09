@@ -5,9 +5,6 @@
     withUWSM = true;
   };
 
-  # Make waybar availlable
-  programs.waybar.enable = true;
-
   # List of system-wide packages
   environment.systemPackages = with pkgs; [
     adwaita-icon-theme
