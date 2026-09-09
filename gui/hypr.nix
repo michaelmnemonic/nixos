@@ -23,7 +23,6 @@
     fractal
     file-roller
     fragments
-    fuzzel
     gitMinimal
     gnome-calculator
     gnome-clocks
