@@ -82,11 +82,7 @@
         ]
     ))
     firefox
-    fooyin
     google-chrome
-    kdePackages.neochat
-    kdePackages.tokodon
-    transmission_4-qt
   ];
 
   # Not all software is free
