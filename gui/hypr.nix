@@ -16,8 +16,6 @@
     aspell
     aspellDicts.de
     aspellDicts.en
-    brightnessctl
-    blueberry
     celluloid
     ddcutil
     fan2go
