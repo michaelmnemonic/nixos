@@ -10,14 +10,13 @@
     ../hardware/styx.nix
     # Users
     ../users/maik.nix
-    # plasma desktop environment
-    ../gui/plasma.nix
+    # hyprland window manager
+    ../gui/hypr.nix
     # Basic capabilities
     ../capabilities/chipcards.nix
     ../capabilities/mpv.nix
     ../capabilities/networking-with-network-manager.nix
     ../capabilities/pipewire.nix
-    ../capabilities/plasma-pim.nix
     ../capabilities/printing.nix
     ../capabilities/ssh.nix
     ../capabilities/steam.nix
@@ -61,7 +60,7 @@
     enable = true;
     settings = rec {
       initial_session = {
-        command = "${pkgs.kdePackages.plasma-workspace}/bin/startplasma-wayland";
+        command = "${pkgs.uwsm}/bin/uwsm start -- hyprland.desktop";
         user = "maik";
       };
       default_session = initial_session;
