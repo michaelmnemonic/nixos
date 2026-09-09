@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{pkgs, vibepanel,...}: {
   # make hyprland enable
   programs.hyprland = {
     enable = true;
@@ -44,6 +44,7 @@
     thunderbird
     tuba
     valent
+    vibepanel.packages.${pkgs.stdenv.hostPlatform.system}.vibepanel
   ];
 
   fonts.packages = with pkgs; [
@@ -76,6 +77,21 @@
   services.dbus = {
     enable = true;
     implementation = "broker";
+  };
+
+  # Start vibepanel as a systemd user service
+  systemd.user.services.vibepanel = {
+    description = "GTK4 panel for Wayland with notifications, OSD, and quick settings";
+    after = ["graphical-session.target"];
+    partOf = ["graphical-session.target"];
+    requisite = ["graphical-session.target"];
+    serviceConfig = {
+      Slice = "session.slice";
+      ExecStart = "${vibepanel.packages.${pkgs.stdenv.hostPlatform.system}.vibepanel}/bin/vibepanel";
+      Restart = "on-failure";
+      RestartSec = "10";
+    };
+    wantedBy = ["graphical-session.target"];
   };
 
   # swayosd
