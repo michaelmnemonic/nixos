@@ -49,7 +49,6 @@
     thunderbird
     tuba
     valent
-    walker
   ];
 
   fonts.packages = with pkgs; [
