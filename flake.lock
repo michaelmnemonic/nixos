@@ -481,17 +481,16 @@
         "rust-overlay": "rust-overlay_3"
       },
       "locked": {
-        "lastModified": 1778001012,
-        "narHash": "sha256-QsYSfNzaAtUTJGuGxikproRgMmmcKO4ZCkyrbruh4Z4=",
+        "lastModified": 1788070052,
+        "narHash": "sha256-NMQ6roDCZ+EKTG2MG1Olmu3xjgWw8DbDhZ6sajjlA9s=",
         "owner": "prankstr",
         "repo": "vibepanel",
-        "rev": "6e58ca24fa0c9c1354b638ada20ecd6f14db5a22",
+        "rev": "92420c6d527419a550e0ef79d54c1a57fb30e940",
         "type": "github"
       },
       "original": {
         "owner": "prankstr",
         "repo": "vibepanel",
-        "rev": "6e58ca24fa0c9c1354b638ada20ecd6f14db5a22",
         "type": "github"
       }
     }
