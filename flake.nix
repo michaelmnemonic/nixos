@@ -23,6 +23,11 @@
       url = "github:nix-community/lanzaboote/7c9a54a7f87b4539ddbd8bda09a8a5f5f9361aa9"; # v1.1.0
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    vibepanel = {
+      url = "github:prankstr/vibepanel/6e58ca24fa0c9c1354b638ada20ecd6f14db5a22"; # v0.14.1
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -32,6 +37,7 @@
     lanzaboote,
     nixos-x13s,
     nixpkgs,
+    vibepanel,
   }: let
     # Define 'forAllSystems' for properties that shall be build for x86_64 *and* aarch64
     systems = [
@@ -78,6 +84,7 @@
           lanzaboote.nixosModules.lanzaboote
         ];
         specialArgs = {
+          inherit vibepanel;
         };
       };
       charon = nixpkgs.lib.nixosSystem {
