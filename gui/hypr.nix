@@ -1,4 +1,8 @@
-{pkgs, vibepanel,...}: {
+{
+  pkgs,
+  vibepanel,
+  ...
+}: {
   # make hyprland enable
   programs.hyprland = {
     enable = true;
