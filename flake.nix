@@ -93,6 +93,14 @@
       };
     };
 
+    packages = forAllSystems (
+      system: let
+        pkgs = nixpkgs.legacyPackages.${system};
+      in {
+        kiot = pkgs.kdePackages.callPackage ./pkgs/kiot {};
+      }
+    );
+
     devShell = forAllSystems (
       system: let
         pkgs = nixpkgs.legacyPackages.${system}.pkgs;
