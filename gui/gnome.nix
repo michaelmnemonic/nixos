@@ -43,4 +43,7 @@
     enable = true;
     implementation = "broker";
   };
+
+  # Enable evolution data server for PIM
+  services.gnome.evolution-data-server.enable = true;
 }
