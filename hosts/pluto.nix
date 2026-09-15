@@ -153,6 +153,7 @@
         pkgs.gamescope
       ];
     })
+    (kdePackages.callPackage ../pkgs/kiot {})
     kdePackages.neochat
     kdePackages.tokodon
     mangohud
