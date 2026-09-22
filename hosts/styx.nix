@@ -59,13 +59,11 @@
   services.greetd = {
     enable = true;
     settings = rec {
-      default_session = {
-        command = "${pkgs.greetd}/bin/agreety --cmd $SHELL";
-      };
       initial_session = {
         command = "${pkgs.niri}/bin/niri-session";
         user = "maik";
       };
+      default_session = initial_session;
     };
   };
 
@@ -84,6 +82,8 @@
         ]
     ))
     firefox
+    google-chrome
+    webex
   ];
 
   # Not all software is free
@@ -95,6 +95,7 @@
       "steam-original"
       "steam-run"
       "steam-unwrapped"
+      "webex"
     ];
 
   # Make sure mount point of user home exists
@@ -498,7 +499,7 @@
       '';
     };
     mode = "AUTO";
-    debug = true;
+    debug = false;
   };
 
   services.thermald.enable = true;

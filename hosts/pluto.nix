@@ -25,12 +25,8 @@
     ../capabilities/scanning.nix
     ../capabilities/ssh.nix
     ../capabilities/steam.nix
-    ../capabilities/vscode.nix
     ../capabilities/wireguard.nix
   ];
-
-  # Use latest stable kernel
-  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # Network configuration
   networking.hostName = "pluto";
@@ -45,6 +41,7 @@
   boot.lanzaboote = {
     enable = true;
     pkiBundle = "/var/lib/sbctl";
+    configurationLimit = 2;
     autoEnrollKeys = {
       enable = true;
       autoReboot = true;
@@ -174,10 +171,6 @@
       "steam-original"
       "steam-run"
       "steam-unwrapped"
-      "vscode"
-      "vscode-with-extensions"
-      "vscode-extension-ms-vscode-remote-remote-ssh"
-      "vscode-extension-ms-vscode-remote-remote-containers"
     ];
 
   # Enable podman

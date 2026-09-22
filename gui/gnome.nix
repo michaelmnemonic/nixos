@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   # Use GNOME as desktop environment
-  services.xserver.desktopManager.gnome.enable = true;
+  services.desktopManager.gnome.enable = true;
 
   # Debloat GNOME install
   environment.gnome.excludePackages = with pkgs; [
@@ -43,4 +43,7 @@
     enable = true;
     implementation = "broker";
   };
+
+  # Enable evolution data server for PIM
+  services.gnome.evolution-data-server.enable = true;
 }
