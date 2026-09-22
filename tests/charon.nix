@@ -1,6 +1,8 @@
 {
   agenix,
   nixos-x13s,
+  vibepanel,
+  voxtype,
 }: {
   name = "charon";
 
