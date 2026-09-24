@@ -7,4 +7,28 @@
       pkgs.pcsc-cyberjack
     ];
   };
+
+  # Make chipcard readers accessible to non-root users
+  # https://discourse.nixos.org/t/pcscd-not-recognizing-cyberjack-usb-card-reader/72392/12
+  services.udev.extraRules = ''
+    ATTR{idVendor}=="0c4b", ATTR{idProduct}=="0100", MODE="660", GROUP="pcscd"
+    ATTR{idVendor}=="0c4b", ATTR{idProduct}=="0300", MODE="660", GROUP="pcscd"
+    ATTR{idVendor}=="0c4b", ATTR{idProduct}=="0400", MODE="660", GROUP="pcscd"
+    ATTR{idVendor}=="0c4b", ATTR{idProduct}=="0401", MODE="660", GROUP="pcscd"
+    ATTR{idVendor}=="0c4b", ATTR{idProduct}=="0412", MODE="660", GROUP="pcscd"
+    ATTR{idVendor}=="0c4b", ATTR{idProduct}=="0485", MODE="660", GROUP="pcscd"
+    ATTR{idVendor}=="0c4b", ATTR{idProduct}=="0500", MODE="660", GROUP="pcscd"
+    ATTR{idVendor}=="0c4b", ATTR{idProduct}=="0501", MODE="660", GROUP="pcscd"
+    ATTR{idVendor}=="0c4b", ATTR{idProduct}=="0502", MODE="660", GROUP="pcscd"
+    ATTR{idVendor}=="0c4b", ATTR{idProduct}=="0503", MODE="660", GROUP="pcscd"
+    ATTR{idVendor}=="0c4b", ATTR{idProduct}=="0504", MODE="660", GROUP="pcscd"
+    ATTR{idVendor}=="0c4b", ATTR{idProduct}=="0505", MODE="660", GROUP="pcscd"
+    ATTR{idVendor}=="0c4b", ATTR{idProduct}=="0506", MODE="660", GROUP="pcscd"
+    ATTR{idVendor}=="0c4b", ATTR{idProduct}=="0507", MODE="660", GROUP="pcscd"
+    ATTR{idVendor}=="0c4b", ATTR{idProduct}=="0525", MODE="660", GROUP="pcscd"
+    ATTR{idVendor}=="0c4b", ATTR{idProduct}=="0580", MODE="660", GROUP="pcscd"
+    ATTR{idVendor}=="0c4b", ATTR{idProduct}=="2000", MODE="660", GROUP="pcscd"
+    ATTR{idVendor}=="0c4b", ATTR{idProduct}=="0551", MODE="660", GROUP="pcscd"
+    ATTR{idVendor}=="0c4b", ATTR{idProduct}=="2002", MODE="660", GROUP="pcscd"
+  '';
 }
