@@ -10,14 +10,13 @@
     ../hardware/styx.nix
     # Users
     ../users/maik.nix
-    # plasma desktop environment
-    ../gui/plasma.nix
+    # GNOME desktop environment
+    ../gui/gnome.nix
     # Basic capabilities
     ../capabilities/chipcards.nix
     ../capabilities/mpv.nix
     ../capabilities/networking-with-network-manager.nix
     ../capabilities/pipewire.nix
-    ../capabilities/plasma-pim.nix
     ../capabilities/printing.nix
     ../capabilities/ssh.nix
     ../capabilities/steam.nix
@@ -56,16 +55,13 @@
   # Enable firmware updates via fwupd
   services.fwupd.enable = true;
 
-  # Autologin with greetd
-  services.greetd = {
-    enable = true;
-    settings = rec {
-      initial_session = {
-        command = "${pkgs.kdePackages.plasma-workspace}/bin/startplasma-wayland";
-        user = "maik";
-      };
-      default_session = initial_session;
+  # Manage displays
+  services.displayManager = {
+    autoLogin = {
+      enable = true;
+      user = "maik";
     };
+    gdm.enable = true;
   };
 
   # Fonts
@@ -83,11 +79,7 @@
         ]
     ))
     firefox
-    fooyin
     google-chrome
-    kdePackages.neochat
-    kdePackages.tokodon
-    transmission_4-qt
     webex
   ];
 
