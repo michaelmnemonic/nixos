@@ -82,6 +82,8 @@
     # iommu passthrough
     "intel_iommu=on"
     "iommu=pt"
+    # disable psr to prevent black screen after suspend
+    "xe.enable_psr=0"
   ];
 
   # Enable plymouth
