@@ -1,12 +1,13 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  vibepanel,
+  ...
+}: {
   # make hyprland enable
   programs.hyprland = {
     enable = true;
     withUWSM = true;
   };
-
-  # Make waybar availlable
-  programs.waybar.enable = true;
 
   # List of system-wide packages
   environment.systemPackages = with pkgs; [
@@ -16,8 +17,6 @@
     aspell
     aspellDicts.de
     aspellDicts.en
-    brightnessctl
-    blueberry
     celluloid
     ddcutil
     fan2go
@@ -25,7 +24,6 @@
     fractal
     file-roller
     fragments
-    fuzzel
     gitMinimal
     gnome-calculator
     gnome-clocks
@@ -47,11 +45,10 @@
     quodlibet-full
     resources
     rose-pine-hyprcursor
-    swayosd
     thunderbird
     tuba
     valent
-    walker
+    vibepanel.packages.${pkgs.stdenv.hostPlatform.system}.vibepanel
   ];
 
   fonts.packages = with pkgs; [
@@ -60,7 +57,7 @@
     nerd-fonts.jetbrains-mono
     noto-fonts
     noto-fonts-cjk-sans
-    noto-fonts-emoji
+    noto-fonts-color-emoji
   ];
 
   # Disable gnome-keyring, keepassxc is used instead
@@ -84,6 +81,21 @@
   services.dbus = {
     enable = true;
     implementation = "broker";
+  };
+
+  # Start vibepanel as a systemd user service
+  systemd.user.services.vibepanel = {
+    description = "GTK4 panel for Wayland with notifications, OSD, and quick settings";
+    after = ["graphical-session.target"];
+    partOf = ["graphical-session.target"];
+    requisite = ["graphical-session.target"];
+    serviceConfig = {
+      Slice = "session.slice";
+      ExecStart = "${vibepanel.packages.${pkgs.stdenv.hostPlatform.system}.vibepanel}/bin/vibepanel";
+      Restart = "on-failure";
+      RestartSec = "10";
+    };
+    wantedBy = ["graphical-session.target"];
   };
 
   # swayosd
