@@ -29,6 +29,9 @@
     ../capabilities/wireguard.nix
   ];
 
+  # Use latest stable kernel
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
   # Network configuration
   networking.hostName = "pluto";
 
@@ -153,6 +156,7 @@
         pkgs.gamescope
       ];
     })
+    (kdePackages.callPackage ../pkgs/kiot {})
     kdePackages.neochat
     kdePackages.tokodon
     mangohud

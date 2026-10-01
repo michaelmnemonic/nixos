@@ -83,6 +83,7 @@
     ))
     firefox
     google-chrome
+    webex
   ];
 
   # Not all software is free
@@ -94,6 +95,7 @@
       "steam-original"
       "steam-run"
       "steam-unwrapped"
+      "webex"
     ];
 
   # Customize kde plasma
