@@ -28,6 +28,9 @@
     ../capabilities/wireguard.nix
   ];
 
+  # Use latest stable kernel
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
   # Network configuration
   networking.hostName = "pluto";
 
