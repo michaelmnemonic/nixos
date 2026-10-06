@@ -11,8 +11,8 @@
     ../hardware/pluto.nix
     # Users
     ../users/maik.nix
-    # plasma desktop environment
-    ../gui/plasma.nix
+    # niri wm
+    ../gui/niri.nix
     # Basic capabilities
     ../capabilities/android.nix
     ../capabilities/chipcards.nix
@@ -21,7 +21,6 @@
     ../capabilities/mpv.nix
     ../capabilities/networking-with-network-manager.nix
     ../capabilities/pipewire.nix
-    ../capabilities/plasma-pim.nix
     ../capabilities/printing.nix
     ../capabilities/scanning.nix
     ../capabilities/ssh.nix
@@ -67,17 +66,16 @@
     algorithm = "zstd";
   };
 
-  # Manage displays with SDDM
-  services.displayManager = {
-    autoLogin = {
-      enable = true;
-      user = "maik";
-    };
-    sddm = {
-      enable = true;
-      wayland = {
-        enable = true;
-        compositor = "kwin";
+  # Autologin with greetd
+  services.greetd = {
+    enable = true;
+    settings = {
+      default_session = {
+        command = "${pkgs.greetd}/bin/agreety --cmd $SHELL";
+      };
+      initial_session = {
+        command = "${pkgs.niri}/bin/niri-session";
+        user = "maik";
       };
     };
   };
@@ -156,9 +154,7 @@
         pkgs.gamescope
       ];
     })
-    (kdePackages.callPackage ../pkgs/kiot {})
-    kdePackages.neochat
-    kdePackages.tokodon
+    kodi
     mangohud
     neovim
     rocmPackages.rocminfo
@@ -204,11 +200,6 @@
   environment.etc."tmpfiles.d/gpu-undervolt.conf".text = ''
     w+ /sys/class/drm/card1/device/pp_od_clk_voltage                - - - - vo -75\n
     w+ /sys/class/drm/card1/device/pp_od_clk_voltage                - - - - c\n
-  '';
-
-  # Make sure syncthing home exists
-  environment.etc."tmpfiles.d/var-lib-synthing.conf".text = ''
-    d /var/lib/syncthing       700 1000 100 -
   '';
 
   # Make sure mount point of user home exists
@@ -457,12 +448,6 @@
     enable = false;
     package = pkgs.olllama-rocm;
     rocmOverrideGfx = "11.0.0";
-  };
-
-  # syncthing
-  services.syncthing = {
-    enable = true;
-    user = "maik";
   };
 
   services.flatpak.enable = true;

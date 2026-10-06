@@ -10,13 +10,13 @@
     ../hardware/charon.nix
     # Users
     ../users/maik.nix
-    # plasma desktop environment
-    ../gui/plasma.nix
+    # niri wm
+    ../gui/niri.nix
     # Basic capabilites
     ../capabilities/chipcards.nix
+    ../capabilities/languagetool.nix
     ../capabilities/networking-with-network-manager.nix
     ../capabilities/pipewire.nix
-    ../capabilities/plasma-pim.nix
     ../capabilities/printing.nix
     ../capabilities/scanning.nix
     ../capabilities/ssh.nix
@@ -50,17 +50,13 @@
     }
   ];
 
-  # Manage displays
-  services.displayManager = {
-    autoLogin = {
-      enable = true;
-      user = "maik";
-    };
-    sddm = {
-      enable = true;
-      wayland = {
-        enable = true;
-        compositor = "kwin";
+  # Autologin with greetd
+  services.greetd = {
+    enable = true;
+    settings = rec {
+      initial_session = {
+        command = "${pkgs.niri}/bin/niri-session";
+        user = "maik";
       };
     };
   };
@@ -131,29 +127,16 @@
           python312Packages.pillow
         ]
     ))
+    alsa-topology-conf
+    alsa-ucm-conf
     btrfs-progs
     chromium
     firefox
-    kdePackages.tokodon
-    kdePackages.neochat
   ];
 
-  # Customize kde plasma
-  nixpkgs.overlays = [
-    (final: prev: {
-      kdePackages = prev.kdePackages.overrideScope (sfinal: sprev: {
-        # smaller systemtray icons with more spacing
-        # FIXME: this compiles plasma-workspace just to patch qml script
-        plasma-workspace = sprev.plasma-workspace.overrideAttrs (oldAttrs: {
-          patches =
-            oldAttrs.patches
-            ++ [
-              ../patches/0001-plasma-workspaces-systemtray-icon-sizes.patch
-            ];
-        });
-      });
-    })
-  ];
+  services.udev.extraRules = ''
+    SUBSYSTEM=="leds", KERNEL=="input1::capslock", ACTION=="add", RUN+="${pkgs.coreutils}/bin/chmod 0666 /sys/class/leds/%k/brightness /sys/class/leds/%k/trigger /sys/class/leds/%k/delay_on /sys/class/leds/%k/delay_off"
+  '';
 
   # Receive backups
   services.btrbk = {
@@ -351,6 +334,12 @@
     docker = {
       enable = true;
     };
+  };
+
+  # Charon is passivly cooled, be less agressice with CPU useage
+  nix.settings = {
+    max-jobs = 1;
+    cores = 4;
   };
 
   # NixOS state version
