@@ -26,10 +26,6 @@
   boot.kernelParams = [
     # Allow firmware upgrades
     "iomem=relaxed"
-    # Allow hibernate
-    "resume=/dev/disk/by-label/NIXOS"
-    "resume_offset=369152"
-    "mem_sleep_default=deep"
   ];
 
   # Filesystems
@@ -46,12 +42,11 @@
 
   swapDevices = [
     {
-      device = "/var/lib/swapfile";
-      size = 20 * 1024; # 32GB in MB
+      device = "/dev/disk/by-partlabel/SWAP";
     }
   ];
 
-  boot.resumeDevice = "/dev/disk/by-label/NIXOS";
+  boot.resumeDevice = "/dev/disk/by-partlabel/SWAP";
 
   # Enable rotation sensor
   hardware.sensor.iio.enable = true;
