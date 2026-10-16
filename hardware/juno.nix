@@ -26,10 +26,6 @@
   boot.kernelParams = [
     # Allow firmware upgrades
     "iomem=relaxed"
-    # Allow hibernate
-    "resume=/dev/disk/by-label/NIXOS"
-    "resume_offset=369152"
-    "mem_sleep_default=deep"
   ];
 
   # Filesystems
@@ -46,35 +42,19 @@
 
   swapDevices = [
     {
-      device = "/var/lib/swapfile";
-      size = 20 * 1024; # 32GB in MB
+      device = "/dev/disk/by-partlabel/SWAP";
     }
   ];
 
-  boot.resumeDevice = "/dev/disk/by-label/NIXOS";
+  boot.resumeDevice = "/dev/disk/by-partlabel/SWAP";
 
   # Enable rotation sensor
   hardware.sensor.iio.enable = true;
 
-  # Make touch mode detection work reliable on StarLabs Starlite MKV
-  nixpkgs.overlays = [
-    (self: super: {
-      mutter = super.mutter.overrideAttrs (oldAttrs: {
-        patches =
-          (oldAttrs.patches or [])
-          ++ [
-            (super.fetchpatch {
-              url = "https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/1846.patch";
-              hash = "sha256-SgimR5iQwoJwH5T9CYpZJqiRm/1zy/qYpFzS0LwBY1g=";
-            })
-          ];
-      });
-    })
-  ];
-
+  # Enable power management
   powerManagement.enable = true;
-
   services.power-profiles-daemon.enable = true;
+
   # Suspend first then hibernate when closing the lid
   services.logind.settings.Login.HandleLidSwitch = "suspend-then-hibernate";
   # Hibernate on power button pressed
