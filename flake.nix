@@ -14,6 +14,16 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    vibepanel = {
+      url = "github:prankstr/vibepanel/92420c6d527419a550e0ef79d54c1a57fb30e940"; # v0.16.1
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    voxtype = {
+      url = "github:peteonrails/voxtype/8d49248baa53f29cb33007c9625a37281c72e799"; # v0.7.5
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     intel-lpmd-flake = {
       url = "github:dmfrpro/intel-lpmd-flake";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -28,6 +38,8 @@
   outputs = {
     self,
     agenix,
+    vibepanel,
+    voxtype,
     intel-lpmd-flake,
     lanzaboote,
     nixos-x13s,
@@ -49,6 +61,8 @@
           lanzaboote.nixosModules.lanzaboote
         ];
         specialArgs = {
+          inherit vibepanel;
+          inherit voxtype;
         };
       };
       juno = nixpkgs.lib.nixosSystem {
@@ -78,6 +92,8 @@
           lanzaboote.nixosModules.lanzaboote
         ];
         specialArgs = {
+          inherit vibepanel;
+          inherit voxtype;
         };
       };
       charon = nixpkgs.lib.nixosSystem {
@@ -89,6 +105,8 @@
         ];
         specialArgs = {
           inherit nixos-x13s;
+          inherit vibepanel;
+          inherit voxtype;
         };
       };
     };
@@ -130,12 +148,12 @@
         };
       in {
         pluto = pkgs.testers.nixosTest (import ./tests/pluto.nix {inherit agenix lanzaboote;});
-        styx = pkgs.testers.nixosTest (import ./tests/styx.nix {inherit agenix intel-lpmd-flake lanzaboote;});
+        styx = pkgs.testers.nixosTest (import ./tests/styx.nix {inherit agenix intel-lpmd-flake vibepanel voxtype lanzaboote;});
         juno = pkgs.testers.nixosTest (import ./tests/juno.nix {inherit agenix;});
         flore = pkgs.testers.nixosTest (import ./tests/flore.nix {inherit agenix;});
         charon = pkgs.testers.nixosTest (
           import ./tests/charon.nix {
-            inherit agenix nixos-x13s;
+            inherit agenix nixos-x13s vibepanel voxtype;
           }
         );
       }
