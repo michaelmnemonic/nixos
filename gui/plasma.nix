@@ -76,6 +76,8 @@ in {
     askPassword = "${pkgs.kdePackages.ksshaskpass}/bin/ksshaskpass";
   };
 
+  programs.partition-manager.enable = true;
+
   # Run speech-dispatcher in the background slice to reduce resource contention
   systemd.user.services.speech-dispatcher = {
     serviceConfig.Slice = "background.slice";
