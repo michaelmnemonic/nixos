@@ -77,14 +77,6 @@
 
   # List of system-wide packages
   environment.systemPackages = with pkgs; [
-    (pkgs.kodi-wayland.withPackages (
-      kodiPkgs:
-        with pkgs; [
-          kodiPackages.pvr-iptvsimple
-          kodiPackages.youtube
-          python312Packages.pillow
-        ]
-    ))
     firefox
     fooyin
     google-chrome
