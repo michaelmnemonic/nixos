@@ -25,6 +25,7 @@
     ../capabilities/scanning.nix
     ../capabilities/ssh.nix
     ../capabilities/steam.nix
+    ../capabilities/virtual-surround.nix
     ../capabilities/wireguard.nix
   ];
 
