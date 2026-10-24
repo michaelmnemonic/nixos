@@ -47,11 +47,11 @@ let
   boot.binfmt.emulatedSystems = ["aarch64-linux"];
 
   # Lanzaboote replaces the systemd-boot module.
-  boot.loader.systemd-boot.enable = lib.mkForce true;
+  boot.loader.systemd-boot.enable = lib.mkForce false;
 
   # Use lanzaboote for secure and measured boot
   boot.lanzaboote = {
-    enable = false;
+    enable = true;
     pkiBundle = "/var/lib/sbctl";
     configurationLimit = 2;
     autoEnrollKeys = {
