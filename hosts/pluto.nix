@@ -3,14 +3,7 @@
   lib,
   config,
   ...
-}:
-let
-  # SOFA HRIR data file for the 7.1.4 surround spatializer
-  hrir-sofa = pkgs.runCommand "hrir-sofa" {} ''
-    install -D -m 444 ${../ressources/hrir.sofa} $out/hrir.sofa
-  '';
-  in
-{
+}: {
   imports = [
     # Shared host configuration
     ./_shared.nix
@@ -360,6 +353,7 @@ let
               }
           }
       }
+      ]
     '')
   ];
 
