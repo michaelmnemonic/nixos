@@ -3,7 +3,14 @@
   lib,
   config,
   ...
-}: {
+}:
+let
+  # SOFA HRIR data file for the 7.1.4 surround spatializer
+  hrir-sofa = pkgs.runCommand "hrir-sofa" {} ''
+    install -D -m 444 ${../ressources/hrir.sofa} $out/hrir.sofa
+  '';
+  in
+{
   imports = [
     # Shared host configuration
     ./_shared.nix
@@ -26,6 +33,7 @@
     ../capabilities/scanning.nix
     ../capabilities/ssh.nix
     ../capabilities/steam.nix
+    ../capabilities/virtual-surround.nix
     ../capabilities/wireguard.nix
   ];
 
@@ -39,11 +47,11 @@
   boot.binfmt.emulatedSystems = ["aarch64-linux"];
 
   # Lanzaboote replaces the systemd-boot module.
-  boot.loader.systemd-boot.enable = lib.mkForce false;
+  boot.loader.systemd-boot.enable = lib.mkForce true;
 
   # Use lanzaboote for secure and measured boot
   boot.lanzaboote = {
-    enable = true;
+    enable = false;
     pkiBundle = "/var/lib/sbctl";
     configurationLimit = 2;
     autoEnrollKeys = {
@@ -352,7 +360,6 @@
               }
           }
       }
-      ]
     '')
   ];
 
