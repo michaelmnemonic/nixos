@@ -80,6 +80,8 @@
     (pkgs.kodi-wayland.withPackages (
       kodiPkgs:
         with pkgs; [
+          kodiPackages.pvr-iptvsimple
+          kodiPackages.youtube
           python312Packages.pillow
         ]
     ))
