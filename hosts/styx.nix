@@ -76,12 +76,6 @@
 
   # List of system-wide packages
   environment.systemPackages = with pkgs; [
-    (pkgs.kodi-wayland.withPackages (
-      kodiPkgs:
-        with pkgs; [
-          python312Packages.pillow
-        ]
-    ))
     firefox
     google-chrome
     webex
