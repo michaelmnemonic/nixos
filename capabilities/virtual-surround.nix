@@ -1,5 +1,6 @@
 {pkgs, ...}: let
   # SOFA HRIR data file for the 7.1.4 surround spatializer
+  # https://airtable.com/appayGNkn3nSuXkaz/shruimhjdSakUPg2m/tbloLjoZKWJDnLtTc/viwMmtPWIXCzhidSv/recvTQDfUjDXx5HLG?copyLinkToCellOrRecordOrigin=gridView
   hrir-sofa = pkgs.runCommand "hrir-sofa" {} ''
     install -D -m 444 ${../ressources/hrir.sofa} $out/hrir.sofa
   '';
