@@ -17,7 +17,6 @@
     ../capabilities/android.nix
     ../capabilities/chipcards.nix
     ../capabilities/fan2go.nix
-    ../capabilities/llama-cpp.nix
     ../capabilities/mpv.nix
     ../capabilities/networking-with-network-manager.nix
     ../capabilities/pipewire.nix
@@ -83,12 +82,6 @@
     };
   };
 
-  # Secrets
-  age.secrets.llama-cpp-api-key = {
-    file = ../secrets/llama-cpp-api.key.age;
-    mode = "444";
-  };
-
   # Firewall configuration
   networking.firewall = {
     enable = true;
@@ -149,7 +142,6 @@
 
   environment.systemPackages = with pkgs; [
     ausweisapp
-    google-chrome
     drawy
     fooyin
     (heroic.override {
@@ -161,19 +153,12 @@
     kdePackages.neochat
     kdePackages.tokodon
     mangohud
-    neovim
-    rocmPackages.rocminfo
-    signal-desktop
-    teams-for-linux
     transmission_4-qt
-    wineWow64Packages.staging
-    zed-editor
   ];
 
   # Not all software is free
   nixpkgs.config.allowUnfreePredicate = pkg:
     builtins.elem (lib.getName pkg) [
-      "google-chrome"
       "libvgm" # dependency of fooyin
       "steam"
       "steam-original"
@@ -453,13 +438,6 @@
   # Enable mDNS
   services.avahi.enable = true;
 
-  # Enable ollama
-  services.ollama = {
-    enable = false;
-    package = pkgs.olllama-rocm;
-    rocmOverrideGfx = "11.0.0";
-  };
-
   # syncthing
   services.syncthing = {
     enable = true;
@@ -490,13 +468,5 @@
   ];
 
   # NixOS state version
-  capabilities.llama-cpp = {
-    enable = true;
-    rocmSupport = true;
-    apiKeyFile = config.age.secrets.llama-cpp-api-key.path;
-    # https://unsloth.ai/docs/models/gpt-oss-how-to-run-and-fine-tune#llama.cpp-run-gpt-oss-20b-tutorial
-    options = "--jinja -ngl 99 --ctx-size 16384 --temp 1.0 --top-p 1.0 --top-k 0";
-  };
-
   system.stateVersion = "24.05";
 }
