@@ -156,7 +156,6 @@
     mangohud
     neovim
     rocmPackages.rocminfo
-    signal-desktop
     transmission_4-qt
   ];
 
