@@ -154,7 +154,6 @@
     kdePackages.neochat
     kdePackages.tokodon
     mangohud
-    neovim
     transmission_4-qt
   ];
 
