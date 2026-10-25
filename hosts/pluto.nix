@@ -160,7 +160,6 @@
     teams-for-linux
     transmission_4-qt
     wineWow64Packages.staging
-    zed-editor
   ];
 
   # Not all software is free
