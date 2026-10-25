@@ -159,7 +159,6 @@
     signal-desktop
     teams-for-linux
     transmission_4-qt
-    wineWow64Packages.staging
   ];
 
   # Not all software is free
