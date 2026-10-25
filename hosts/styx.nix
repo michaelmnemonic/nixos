@@ -83,7 +83,6 @@
     kdePackages.neochat
     kdePackages.tokodon
     transmission_4-qt
-    webex
   ];
 
   # Not all software is free
@@ -95,7 +94,6 @@
       "steam-original"
       "steam-run"
       "steam-unwrapped"
-      "webex"
     ];
 
   # Customize kde plasma
