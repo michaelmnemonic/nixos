@@ -23,6 +23,7 @@ in {
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
     discover
     kwin-x11
+    plasma-workspace-wallpapers
   ];
 
   # List of system-wide packages
