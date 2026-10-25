@@ -4,7 +4,6 @@
   ...
 }: {
   # Initrd configuration
-  boot.initrd.systemd.enable = true;
   boot.initrd.availableKernelModules = [
     "nvme"
     "xhci_pci"
