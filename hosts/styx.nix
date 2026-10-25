@@ -79,7 +79,7 @@
   environment.systemPackages = with pkgs; [
     firefox
     fooyin
-    google-chrome
+    kdePackages.tokodon
     kdePackages.neochat
     kdePackages.tokodon
     transmission_4-qt
@@ -88,7 +88,6 @@
   # Not all software is free
   nixpkgs.config.allowUnfreePredicate = pkg:
     builtins.elem (lib.getName pkg) [
-      "google-chrome"
       "libvgm" # dependency of fooyin
       "steam"
       "steam-original"
