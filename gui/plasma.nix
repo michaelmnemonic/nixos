@@ -1,4 +1,8 @@
-{pkgs, ...}: let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   background-package = pkgs.stdenvNoCC.mkDerivation {
     name = "background-image";
     src = ./.;
@@ -76,10 +80,8 @@ in {
     askPassword = "${pkgs.kdePackages.ksshaskpass}/bin/ksshaskpass";
   };
 
-  # Run speech-dispatcher in the background slice to reduce resource contention
-  systemd.user.services.speech-dispatcher = {
-    serviceConfig.Slice = "background.slice";
-  };
+  # Disable speechd to slim-down the system
+  services.speechd.enable = lib.mkForce false;
 
   # Run kdeconnect daemon in the background slice to reduce resource contention
   systemd.user.services."app-org.kde.kdeconnect.daemon@autostart.service" = {
