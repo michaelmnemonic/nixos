@@ -155,7 +155,6 @@
     kdePackages.tokodon
     mangohud
     neovim
-    rocmPackages.rocminfo
     transmission_4-qt
   ];
 
