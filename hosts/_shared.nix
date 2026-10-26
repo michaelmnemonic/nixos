@@ -137,4 +137,22 @@
     allowReboot = false;
     flake = "github:michaelmnemonic/nixos";
   };
+
+  # Slim down libreoffice by building it without bundled help and Java
+  nixpkgs.overlays = [
+    (final: prev: {
+      libreoffice = prev.libreoffice.override {
+        unwrapped = prev.libreoffice.unwrapped.override {
+          withHelp = false;
+          withJava = false;
+        };
+      };
+      libreoffice-qt = prev.libreoffice-qt.override {
+        unwrapped = prev.libreoffice-qt.unwrapped.override {
+          withHelp = false;
+          withJava = false;
+        };
+      };
+    })
+  ];
 }
