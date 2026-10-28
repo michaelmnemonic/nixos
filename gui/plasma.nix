@@ -22,7 +22,6 @@ in {
   # Exclude some default packages
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
     discover
-    kwin-x11
     plasma-workspace-wallpapers
   ];
 
@@ -39,7 +38,6 @@ in {
     kdePackages.ksshaskpass
     kdePackages.qtlocation
     kdePackages.skanpage
-    kdePackages.wacomtablet
     libcamera
     libreoffice-qt
     (pkgs.writeTextDir "share/sddm/themes/breeze/theme.conf.user" ''
