@@ -15,7 +15,7 @@
     };
 
     vibepanel = {
-      url = "github:prankstr/vibepanel/92420c6d527419a550e0ef79d54c1a57fb30e940"; # v0.16.1
+      url = "github:prankstr/vibepanel/8d09e7d358b3d83dc84f20466dee8414b73a9dbf"; # v0.17.2
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
