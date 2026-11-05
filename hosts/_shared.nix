@@ -136,6 +136,6 @@
     enable = true;
     allowReboot = false;
     operation = "boot";
-    flake = "github:michaelmnemonic/nixos";
+    flake = "github:michaelmnemonic/nixos/feature/hypr-on-styx";
   };
 }
