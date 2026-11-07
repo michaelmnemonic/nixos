@@ -108,6 +108,14 @@
             }
           ]
         '')
+
+        # Stream audio via airplay
+        (pkgs.writeTextDir "share/pipewire/pipewire.conf.d/10-airplay.conf" ''
+          context.modules = [
+          {   name = libpipewire-module-raop-discover
+              args = {}
+          }
+        '')
       ];
     };
   };
