@@ -135,6 +135,7 @@
   system.autoUpgrade = {
     enable = true;
     allowReboot = false;
+    operation = "boot";
     flake = "github:michaelmnemonic/nixos";
   };
 
