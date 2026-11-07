@@ -21,6 +21,7 @@
     ../capabilities/printing.nix
     ../capabilities/ssh.nix
     ../capabilities/steam.nix
+    ../capabilities/virtual-surround.nix
   ];
 
   # Use latest stable kernel
@@ -76,31 +77,22 @@
 
   # List of system-wide packages
   environment.systemPackages = with pkgs; [
-    (pkgs.kodi-wayland.withPackages (
-      kodiPkgs:
-        with pkgs; [
-          python312Packages.pillow
-        ]
-    ))
     firefox
     fooyin
-    google-chrome
+    kdePackages.tokodon
     kdePackages.neochat
     kdePackages.tokodon
     transmission_4-qt
-    webex
   ];
 
   # Not all software is free
   nixpkgs.config.allowUnfreePredicate = pkg:
     builtins.elem (lib.getName pkg) [
-      "google-chrome"
       "libvgm" # dependency of fooyin
       "steam"
       "steam-original"
       "steam-run"
       "steam-unwrapped"
-      "webex"
     ];
 
   # Customize kde plasma
