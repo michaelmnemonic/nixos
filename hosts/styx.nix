@@ -77,8 +77,6 @@
   # List of system-wide packages
   environment.systemPackages = with pkgs; [
     firefox
-    google-chrome
-    webex
   ];
 
   # Not all software is free
