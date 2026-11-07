@@ -1,5 +1,6 @@
 {
   agenix,
+  aagl,
   intel-lpmd-flake,
   lanzaboote,
 }: {
@@ -9,6 +10,7 @@
     imports = [
       ../hosts/styx.nix
       agenix.nixosModules.default
+      aagl.nixosModules.default
       intel-lpmd-flake.nixosModules.default
       lanzaboote.nixosModules.lanzaboote
     ];
