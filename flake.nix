@@ -14,6 +14,16 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    vibepanel = {
+      url = "github:prankstr/vibepanel/8d09e7d358b3d83dc84f20466dee8414b73a9dbf"; # v0.17.2
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    voxtype = {
+      url = "github:peteonrails/voxtype/8d49248baa53f29cb33007c9625a37281c72e799"; # v0.7.5
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     intel-lpmd-flake = {
       url = "github:dmfrpro/intel-lpmd-flake";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -27,11 +37,13 @@
 
   outputs = {
     self,
-    agenix,
     aagl,
+    agenix,
     intel-lpmd-flake,
     lanzaboote,
     nixpkgs,
+    vibepanel,
+    voxtype,
   }: let
     # Define  architectures to build for 'forAllSystems'
     systems = [
@@ -48,6 +60,8 @@
           lanzaboote.nixosModules.lanzaboote
         ];
         specialArgs = {
+          inherit vibepanel;
+          inherit voxtype;
         };
       };
       juno = nixpkgs.lib.nixosSystem {
@@ -78,6 +92,8 @@
           lanzaboote.nixosModules.lanzaboote
         ];
         specialArgs = {
+          inherit vibepanel;
+          inherit voxtype;
         };
       };
     };
@@ -119,7 +135,7 @@
         };
       in {
         pluto = pkgs.testers.nixosTest (import ./tests/pluto.nix {inherit agenix lanzaboote;});
-        styx = pkgs.testers.nixosTest (import ./tests/styx.nix {inherit aagl agenix intel-lpmd-flake lanzaboote;});
+        styx = pkgs.testers.nixosTest (import ./tests/styx.nix {inherit aagl agenix intel-lpmd-flake lanzaboote vibepanel voxtype;});
         juno = pkgs.testers.nixosTest (import ./tests/juno.nix {inherit agenix;});
         flore = pkgs.testers.nixosTest (import ./tests/flore.nix {inherit agenix;});
       }

@@ -10,14 +10,13 @@
     ../hardware/styx.nix
     # Users
     ../users/maik.nix
-    # plasma desktop environment
-    ../gui/plasma.nix
+    # niri wm
+    ../gui/niri.nix
     # Basic capabilities
     ../capabilities/chipcards.nix
     ../capabilities/mpv.nix
     ../capabilities/networking-with-network-manager.nix
     ../capabilities/pipewire.nix
-    ../capabilities/plasma-pim.nix
     ../capabilities/printing.nix
     ../capabilities/ssh.nix
     ../capabilities/steam.nix
@@ -62,7 +61,7 @@
     enable = true;
     settings = rec {
       initial_session = {
-        command = "${pkgs.kdePackages.plasma-workspace}/bin/startplasma-wayland";
+        command = "${pkgs.niri}/bin/niri-session";
         user = "maik";
       };
       default_session = initial_session;
@@ -78,11 +77,6 @@
   # List of system-wide packages
   environment.systemPackages = with pkgs; [
     firefox
-    fooyin
-    kdePackages.tokodon
-    kdePackages.neochat
-    kdePackages.tokodon
-    transmission_4-qt
   ];
 
   # Not all software is free
@@ -94,23 +88,6 @@
       "steam-run"
       "steam-unwrapped"
     ];
-
-  # Customize kde plasma
-  nixpkgs.overlays = [
-    (final: prev: {
-      kdePackages = prev.kdePackages.overrideScope (sfinal: sprev: {
-        # smaller systemtray icons with more spacing
-        # FIXME: this compiles plasma-workspace just to patch qml script
-        plasma-workspace = sprev.plasma-workspace.overrideAttrs (oldAttrs: {
-          patches =
-            oldAttrs.patches
-            ++ [
-              ../patches/0001-plasma-workspaces-systemtray-icon-sizes.patch
-            ];
-        });
-      });
-    })
-  ];
 
   # Make sure mount point of user home exists
   environment.etc."tmpfiles.d/home-maik.conf".text = ''
@@ -132,6 +109,9 @@
   ############
   # Services #
   ############
+
+  # Enable mDNS
+  services.avahi.enable = true;
 
   services.tuned = {
     enable = true;
