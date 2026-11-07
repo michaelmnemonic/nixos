@@ -84,13 +84,11 @@
   # Not all software is free
   nixpkgs.config.allowUnfreePredicate = pkg:
     builtins.elem (lib.getName pkg) [
-      "google-chrome"
       "libvgm" # dependency of fooyin
       "steam"
       "steam-original"
       "steam-run"
       "steam-unwrapped"
-      "webex"
     ];
 
   # Make sure mount point of user home exists
@@ -505,6 +503,9 @@
 
   # Enable direnv
   programs.direnv.enable = true;
+
+  # Zenless Zone Zero launcher
+  programs.sleepy-launcher.enable = true;
 
   # NixOS state version
   system.stateVersion = "24.05";
