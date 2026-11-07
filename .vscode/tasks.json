@@ -23,13 +23,6 @@
       "problemMatcher": []
     },
     {
-      "label": "build: charon",
-      "type": "shell",
-      "command": "nix build .#nixosConfigurations.charon.config.system.build.toplevel",
-      "group": "build",
-      "problemMatcher": []
-    },
-    {
       "label": "build: styx",
       "type": "shell",
       "command": "nix build .#nixosConfigurations.styx.config.system.build.toplevel",
@@ -42,7 +35,6 @@
         "build: pluto",
         "build: juno",
         "build: flore",
-        "build: charon",
         "build: styx"
       ],
       "dependsOrder": "sequence",
