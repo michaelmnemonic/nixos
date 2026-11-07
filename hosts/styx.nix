@@ -110,6 +110,9 @@
   # Services #
   ############
 
+  # Enable mDNS
+  services.avahi.enable = true;
+
   services.tuned = {
     enable = true;
     profiles = {
