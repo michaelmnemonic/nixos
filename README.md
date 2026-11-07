@@ -8,7 +8,6 @@ The configuration currently manages three host systems:
 
 - **pluto** (x86_64-linux) - Desktop system
 - **juno** (x86_64-linux) - Tablet system
-- **charon** (aarch64-linux) - Lenovo ThinkPad X13s
 - **styx** (x86_64-linux) - Notebook system
 - **flore** (x86_64-linux) - Notebook system
 
@@ -42,9 +41,6 @@ The configuration follows a modular approach:
    ```bash
    # For the juno host
    sudo nixos-rebuild switch --flake .#juno
-   
-   # For the charon host  
-   sudo nixos-rebuild switch --flake .#charon
    
    # For the pluto host
    sudo nixos-rebuild switch --flake .#pluto

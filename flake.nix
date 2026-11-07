@@ -4,11 +4,6 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-26.05";
 
-    nixos-x13s = {
-      url = "github:michaelmnemonic/x13s-nixos";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     agenix = {
       url = "github:yaxitech/ragenix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -36,13 +31,11 @@
     aagl,
     intel-lpmd-flake,
     lanzaboote,
-    nixos-x13s,
     nixpkgs,
   }: let
-    # Define 'forAllSystems' for properties that shall be build for x86_64 *and* aarch64
+    # Define  architectures to build for 'forAllSystems'
     systems = [
       "x86_64-linux"
-      "aarch64-linux"
     ];
     forAllSystems = nixpkgs.lib.genAttrs systems;
   in {
@@ -87,17 +80,6 @@
         specialArgs = {
         };
       };
-      charon = nixpkgs.lib.nixosSystem {
-        system = "aarch64-linux";
-        modules = [
-          ./hosts/charon.nix
-          nixos-x13s.nixosModules.default
-          agenix.nixosModules.default
-        ];
-        specialArgs = {
-          inherit nixos-x13s;
-        };
-      };
     };
 
     packages = forAllSystems (
@@ -140,11 +122,6 @@
         styx = pkgs.testers.nixosTest (import ./tests/styx.nix {inherit aagl agenix intel-lpmd-flake lanzaboote;});
         juno = pkgs.testers.nixosTest (import ./tests/juno.nix {inherit agenix;});
         flore = pkgs.testers.nixosTest (import ./tests/flore.nix {inherit agenix;});
-        charon = pkgs.testers.nixosTest (
-          import ./tests/charon.nix {
-            inherit agenix nixos-x13s;
-          }
-        );
       }
     );
   };
