@@ -81,6 +81,9 @@ in {
     askPassword = "${pkgs.kdePackages.ksshaskpass}/bin/ksshaskpass";
   };
 
+  # Make partition manager availlable
+  programs.partition-manager.enable = true;
+
   # Disable speechd to slim-down the system
   services.speechd.enable = lib.mkForce false;
 
