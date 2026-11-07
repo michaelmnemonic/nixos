@@ -16,7 +16,11 @@
     "command": "nix build .#nixosConfigurations.charon.config.system.build.toplevel"
   },
   {
+    "label": "build: styx",
+    "command": "nix build .#nixosConfigurations.styx.config.system.build.toplevel"
+  },
+  {
     "label": "build: all",
-    "command": "nix build .#nixosConfigurations.pluto.config.system.build.toplevel && nix build .#nixosConfigurations.juno.config.system.build.toplevel && nix build .#nixosConfigurations.flore.config.system.build.toplevel && nix build .#nixosConfigurations.charon.config.system.build.toplevel"
+    "command": "nix build .#nixosConfigurations.pluto.config.system.build.toplevel && nix build .#nixosConfigurations.juno.config.system.build.toplevel && nix build .#nixosConfigurations.flore.config.system.build.toplevel && nix build .#nixosConfigurations.charon.config.system.build.toplevel && nix build .#nixosConfigurations.styx.config.system.build.toplevel"
   }
 ]

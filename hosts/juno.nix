@@ -19,8 +19,6 @@
     ../capabilities/printing.nix
     # Scanning
     ../capabilities/scanning.nix
-    # VS Code
-    ../capabilities/vscode.nix
     # Wireguard
     ../capabilities/wireguard.nix
     # Steam
@@ -131,6 +129,7 @@
     flashrom
     foliate
     gnomeExtensions.caffeine
+    gnomeExtensions.screen-rotate
     kodi
     libcamera
     nfs-utils

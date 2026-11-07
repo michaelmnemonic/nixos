@@ -5,6 +5,7 @@
     kdePackages.akonadi-contacts
     kdePackages.akonadi-mime
     kdePackages.akonadi-search
+    kdePackages.kcontacts
     kdePackages.kdepim-addons
     kdePackages.kdepim-runtime
     kdePackages.kleopatra

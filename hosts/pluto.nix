@@ -17,7 +17,6 @@
     ../capabilities/android.nix
     ../capabilities/chipcards.nix
     ../capabilities/fan2go.nix
-    ../capabilities/llama-cpp.nix
     ../capabilities/mpv.nix
     ../capabilities/networking-with-network-manager.nix
     ../capabilities/pipewire.nix
@@ -26,7 +25,7 @@
     ../capabilities/scanning.nix
     ../capabilities/ssh.nix
     ../capabilities/steam.nix
-    ../capabilities/vscode.nix
+    ../capabilities/virtual-surround.nix
     ../capabilities/wireguard.nix
   ];
 
@@ -39,28 +38,48 @@
   # Emulate aarch64
   boot.binfmt.emulatedSystems = ["aarch64-linux"];
 
+  # Lanzaboote replaces the systemd-boot module.
+  boot.loader.systemd-boot.enable = lib.mkForce false;
+
+  # Use lanzaboote for secure and measured boot
+  boot.lanzaboote = {
+    enable = true;
+    pkiBundle = "/var/lib/sbctl";
+    configurationLimit = 2;
+    autoEnrollKeys = {
+      enable = true;
+      autoReboot = true;
+    };
+    autoGenerateKeys.enable = true;
+    measuredBoot = {
+      enable = true;
+      pcrs = [
+        0
+        4
+        7
+      ];
+    };
+  };
+
   # Use zram as swap
   zramSwap = {
     enable = true;
     algorithm = "zstd";
   };
 
-  # Autologin with greetd
-  services.greetd = {
-    enable = true;
-    settings = rec {
-      initial_session = {
-        command = "${pkgs.kdePackages.plasma-workspace}/bin/startplasma-wayland";
-        user = "maik";
-      };
-      default_session = initial_session;
+  # Manage displays with SDDM
+  services.displayManager = {
+    autoLogin = {
+      enable = true;
+      user = "maik";
     };
-  };
-
-  # Secrets
-  age.secrets.llama-cpp-api-key = {
-    file = ../secrets/llama-cpp-api.key.age;
-    mode = "444";
+    sddm = {
+      enable = true;
+      wayland = {
+        enable = true;
+        compositor = "kwin";
+      };
+    };
   };
 
   # Firewall configuration
@@ -130,16 +149,11 @@
         pkgs.gamescope
       ];
     })
+    (kdePackages.callPackage ../pkgs/kiot {})
     kdePackages.neochat
     kdePackages.tokodon
     mangohud
-    neovim
-    rocmPackages.rocminfo
-    signal-desktop
-    teams-for-linux
     transmission_4-qt
-    wineWow64Packages.staging
-    zed-editor
   ];
 
   # Not all software is free
@@ -150,10 +164,6 @@
       "steam-original"
       "steam-run"
       "steam-unwrapped"
-      "vscode"
-      "vscode-with-extensions"
-      "vscode-extension-ms-vscode-remote-remote-ssh"
-      "vscode-extension-ms-vscode-remote-remote-containers"
     ];
 
   # Enable podman
@@ -204,133 +214,166 @@
     }
   ];
 
-  services.pipewire.configPackages = [
-    # Provide equalizer for Desktop Speakers
-    (pkgs.writeTextDir "share/pipewire/pipewire.conf.d/10-kef-speakers.conf" ''
-      context.modules = [
-          { name = libpipewire-module-filter-chain
-          args = {
-              node.description = "Lautsprecher"
-              media.name       = "Lautsprecher"
-              filter.graph = {
-                  nodes = [
-                      {
-                          type  = builtin
-                          name  = eq_band_1
-                          label = bq_peaking
-                          control = { "Freq" = 139 "Q" = 3.17 "Gain" = -6.4 }
-                      }
-                      {
-                          type  = builtin
-                          name  = eq_band_2
-                          label = bq_peaking
-                          control = { "Freq" = 184 "Q" = 2.0 "Gain" = -8.8 }
-                      }
-                      {
-                          type  = builtin
-                          name  = eq_band_3
-                          label = bq_peaking
-                          control = { "Freq" = 265 "Q" = 1.79 "Gain" = -7.3 }
-                      }
-                      {
-                          type  = builtin
-                          name  = eq_band_4
-                          label = bq_peaking
-                          control = { "Freq" = 320 "Q" = 1.92 "Gain" = 3.4 }
-                      }
-                      {
-                          type  = builtin
-                          name  = eq_band_5
-                          label = bq_peaking
-                          control = { "Freq" = 327 "Q" = 6.27 "Gain" = -4.1 }
-                      }
-                      {
-                          type  = builtin
-                          name  = eq_band_6
-                          label = bq_peaking
-                          control = { "Freq" = 1720 "Q" = 7.09 "Gain" = 1.7 }
-                      }
-                      {
-                          type  = builtin
-                          name  = eq_band_7
-                          label = bq_peaking
-                          control = { "Freq" = 1813 "Q" = 3.06 "Gain" = -2.2 }
-                      }
-                      {
-                          type  = builtin
-                          name  = eq_band_8
-                          label = bq_peaking
-                          control = { "Freq" = 2569 "Q" = 1.87 "Gain" = 2.4 }
-                      }
-                      {
-                          type  = builtin
-                          name  = eq_band_9
-                          label = bq_peaking
-                          control = { "Freq" = 2932 "Q" = 2.27 "Gain" = -3.3 }
-                      }
-                      {
-                          type  = builtin
-                          name  = eq_band_10
-                          label = bq_peaking
-                          control = { "Freq" = 4707 "Q" = 4.35 "Gain" = -2.7 }
-                      }
-                      {
-                          type  = builtin
-                          name  = eq_band_11
-                          label = bq_peaking
-                          control = { "Freq" = 5141 "Q" = 1.45 "Gain" = 3.9 }
-                      }
-                      {
-                          type  = builtin
-                          name  = eq_band_12
-                          label = bq_peaking
-                          control = { "Freq" = 6862 "Q" = 1.82 "Gain" = -4.4 }
-                      }
-                      {
-                          type  = builtin
-                          name  = eq_band_13
-                          label = bq_peaking
-                          control = { "Freq" = 11002 "Q" = 1.0 "Gain" = -3.1 }
-                      }
-                      {
-                          type  = builtin
-                          name  = eq_band_14
-                          label = bq_peaking
-                          control = { "Freq" = 15390 "Q" = 1.53 "Gain" = -3.7 }
-                      }
-                  ]
-                  links = [
-                      { output = "eq_band_1:Out" input = "eq_band_2:In" }
-                      { output = "eq_band_2:Out" input = "eq_band_3:In" }
-                      { output = "eq_band_3:Out" input = "eq_band_4:In" }
-                      { output = "eq_band_4:Out" input = "eq_band_5:In" }
-                      { output = "eq_band_5:Out" input = "eq_band_6:In" }
-                      { output = "eq_band_6:Out" input = "eq_band_7:In" }
-                      { output = "eq_band_7:Out" input = "eq_band_8:In" }
-                      { output = "eq_band_8:Out" input = "eq_band_9:In" }
-                      { output = "eq_band_9:Out" input = "eq_band_10:In" }
-                      { output = "eq_band_10:Out" input = "eq_band_11:In" }
-                      { output = "eq_band_11:Out" input = "eq_band_12:In" }
-                      { output = "eq_band_12:Out" input = "eq_band_13:In" }
-                      { output = "eq_band_13:Out" input = "eq_band_14:In" }
-                  ]
-              }
-          audio.channels = 2
-          audio.position = [ FL FR ]
-              capture.props = {
-                  node.name   = "effect_input.eq14"
-                  media.class = Audio/Sink
-              }
-              playback.props = {
-                  node.name   = "effect_output.eq14"
-                  node.target = "alsa_output.usb-SMSL_SMSL_USB_AUDIO-00.analog-stereo"
-                  node.passive = true
-              }
-          }
-      }
-      ]
-    '')
-  ];
+  services.pipewire = {
+    extraLv2Packages = [pkgs.bs2b-lv2];
+    configPackages = [
+      # Provide equalizer for Desktop Speakers
+      (pkgs.writeTextDir "share/pipewire/pipewire.conf.d/10-kef-speakers.conf" ''
+        context.modules = [
+            { name = libpipewire-module-filter-chain
+            args = {
+                node.description = "Lautsprecher"
+                media.name       = "Lautsprecher"
+                filter.graph = {
+                    nodes = [
+                        {
+                            type  = builtin
+                            name  = eq_band_1
+                            label = bq_peaking
+                            control = { "Freq" = 139 "Q" = 3.17 "Gain" = -6.4 }
+                        }
+                        {
+                            type  = builtin
+                            name  = eq_band_2
+                            label = bq_peaking
+                            control = { "Freq" = 184 "Q" = 2.0 "Gain" = -8.8 }
+                        }
+                        {
+                            type  = builtin
+                            name  = eq_band_3
+                            label = bq_peaking
+                            control = { "Freq" = 265 "Q" = 1.79 "Gain" = -7.3 }
+                        }
+                        {
+                            type  = builtin
+                            name  = eq_band_4
+                            label = bq_peaking
+                            control = { "Freq" = 320 "Q" = 1.92 "Gain" = 3.4 }
+                        }
+                        {
+                            type  = builtin
+                            name  = eq_band_5
+                            label = bq_peaking
+                            control = { "Freq" = 327 "Q" = 6.27 "Gain" = -4.1 }
+                        }
+                        {
+                            type  = builtin
+                            name  = eq_band_6
+                            label = bq_peaking
+                            control = { "Freq" = 1720 "Q" = 7.09 "Gain" = 1.7 }
+                        }
+                        {
+                            type  = builtin
+                            name  = eq_band_7
+                            label = bq_peaking
+                            control = { "Freq" = 1813 "Q" = 3.06 "Gain" = -2.2 }
+                        }
+                        {
+                            type  = builtin
+                            name  = eq_band_8
+                            label = bq_peaking
+                            control = { "Freq" = 2569 "Q" = 1.87 "Gain" = 2.4 }
+                        }
+                        {
+                            type  = builtin
+                            name  = eq_band_9
+                            label = bq_peaking
+                            control = { "Freq" = 2932 "Q" = 2.27 "Gain" = -3.3 }
+                        }
+                        {
+                            type  = builtin
+                            name  = eq_band_10
+                            label = bq_peaking
+                            control = { "Freq" = 4707 "Q" = 4.35 "Gain" = -2.7 }
+                        }
+                        {
+                            type  = builtin
+                            name  = eq_band_11
+                            label = bq_peaking
+                            control = { "Freq" = 5141 "Q" = 1.45 "Gain" = 3.9 }
+                        }
+                        {
+                            type  = builtin
+                            name  = eq_band_12
+                            label = bq_peaking
+                            control = { "Freq" = 6862 "Q" = 1.82 "Gain" = -4.4 }
+                        }
+                        {
+                            type  = builtin
+                            name  = eq_band_13
+                            label = bq_peaking
+                            control = { "Freq" = 11002 "Q" = 1.0 "Gain" = -3.1 }
+                        }
+                        {
+                            type  = builtin
+                            name  = eq_band_14
+                            label = bq_peaking
+                            control = { "Freq" = 15390 "Q" = 1.53 "Gain" = -3.7 }
+                        }
+                    ]
+                    links = [
+                        { output = "eq_band_1:Out" input = "eq_band_2:In" }
+                        { output = "eq_band_2:Out" input = "eq_band_3:In" }
+                        { output = "eq_band_3:Out" input = "eq_band_4:In" }
+                        { output = "eq_band_4:Out" input = "eq_band_5:In" }
+                        { output = "eq_band_5:Out" input = "eq_band_6:In" }
+                        { output = "eq_band_6:Out" input = "eq_band_7:In" }
+                        { output = "eq_band_7:Out" input = "eq_band_8:In" }
+                        { output = "eq_band_8:Out" input = "eq_band_9:In" }
+                        { output = "eq_band_9:Out" input = "eq_band_10:In" }
+                        { output = "eq_band_10:Out" input = "eq_band_11:In" }
+                        { output = "eq_band_11:Out" input = "eq_band_12:In" }
+                        { output = "eq_band_12:Out" input = "eq_band_13:In" }
+                        { output = "eq_band_13:Out" input = "eq_band_14:In" }
+                    ]
+                }
+            audio.channels = 2
+            audio.position = [ FL FR ]
+                capture.props = {
+                    node.name   = "effect_input.eq14"
+                    media.class = Audio/Sink
+                }
+                playback.props = {
+                    node.name   = "effect_output.eq14"
+                    node.target = "alsa_output.usb-SMSL_SMSL_USB_AUDIO-00.analog-stereo"
+                    node.passive = true
+                }
+            }
+        }
+        ]
+      '')
+      (pkgs.writeTextDir "share/pipewire/pipewire.conf.d/10-headphones-crossfeed.conf" ''
+        context.modules = [
+            { name = libpipewire-module-filter-chain
+            args = {
+                node.description = "Kopfhörer (Crossfeed)"
+                media.name       = "Kopfhörer (Crossfeed)"
+                filter.graph = {
+                    nodes = [
+                        {
+                            type  = lv2
+                            name  = bs2b
+                            plugin = "http://bs2b.sourceforge.net/plugins/bs2b"
+                            control = { "fcut" = 700.0 "feed" = 4.5 }
+                        }
+                    ]
+                }
+                capture.props = {
+                  node.name      = "bs2b_sink"
+                  media.class    = "Audio/Sink"
+                  audio.channels = 2
+                  audio.position = [ FL FR ]
+                }
+                playback.props = {
+                     node.passive   = true
+                    node.target = "alsa_output.usb-SMSL_SMSL_USB_AUDIO-00.analog-stereo"
+                }
+            }
+        }
+        ]
+      '')
+    ];
+  };
 
   # Fan control
   environment.etc."fan2go/fan2go.yaml".text = ''
@@ -428,13 +471,6 @@
   # Enable mDNS
   services.avahi.enable = true;
 
-  # Enable ollama
-  services.ollama = {
-    enable = false;
-    package = pkgs.olllama-rocm;
-    rocmOverrideGfx = "11.0.0";
-  };
-
   # syncthing
   services.syncthing = {
     enable = true;
@@ -465,13 +501,5 @@
   ];
 
   # NixOS state version
-  capabilities.llama-cpp = {
-    enable = true;
-    rocmSupport = true;
-    apiKeyFile = config.age.secrets.llama-cpp-api-key.path;
-    # https://unsloth.ai/docs/models/gpt-oss-how-to-run-and-fine-tune#llama.cpp-run-gpt-oss-20b-tutorial
-    options = "--jinja -ngl 99 --ctx-size 16384 --temp 1.0 --top-p 1.0 --top-k 0";
-  };
-
   system.stateVersion = "24.05";
 }

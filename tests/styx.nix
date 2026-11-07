@@ -2,6 +2,7 @@
   agenix,
   aagl,
   intel-lpmd-flake,
+  lanzaboote,
 }: {
   name = "styx";
 
@@ -11,6 +12,7 @@
       agenix.nixosModules.default
       aagl.nixosModules.default
       intel-lpmd-flake.nixosModules.default
+      lanzaboote.nixosModules.lanzaboote
     ];
 
     # Increase memory and cores for the VM

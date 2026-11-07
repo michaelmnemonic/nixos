@@ -116,6 +116,7 @@
     gc = {
       automatic = true;
       options = "--delete-older-than 7d";
+      randomizedDelaySec = "15min";
     };
     settings = {
       substituters = [
@@ -128,10 +129,13 @@
     };
   };
 
+  systemd.services.nix-gc.unitConfig.RequiresMountsFor = ["/home/maik"];
+
   # Enable auto upgrades, but without automatic reboot
   system.autoUpgrade = {
     enable = true;
     allowReboot = false;
+    operation = "boot";
     flake = "github:michaelmnemonic/nixos";
   };
 }
