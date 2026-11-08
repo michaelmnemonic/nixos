@@ -58,6 +58,7 @@
     quodlibet-full
     resources
     tuba
+    veila
     vibepanel.packages.${pkgs.stdenv.hostPlatform.system}.vibepanel
     wtype
     xdg-user-dirs
@@ -109,6 +110,17 @@
   programs.ssh = {
     startAgent = true;
     enableAskPassword = lib.mkForce false;
+  };
+
+  # Allow veila to lock the screen
+  programs.veila = {
+    enable = true;
+    service.enable = true;
+    idle = {
+      enable = true;
+      lockAfter = 300;
+      lockBeforeSleep = true;
+    };
   };
 
   # Start vibepanel as a systemd user service

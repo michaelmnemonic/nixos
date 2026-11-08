@@ -359,6 +359,7 @@
         "intel-lpmd-flake": "intel-lpmd-flake",
         "lanzaboote": "lanzaboote",
         "nixpkgs": "nixpkgs",
+        "veila": "veila",
         "vibepanel": "vibepanel",
         "voxtype": "voxtype"
       }
@@ -504,6 +505,26 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "veila": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1794160386,
+        "narHash": "sha256-7nuMherkb0fIasCQmRMhS+GzBHnwnwYZiUkcUsqq7OM=",
+        "owner": "naurissteins",
+        "repo": "Veila",
+        "rev": "d30039a6c9ee3a0e4c673b3fcb1061dd55dcbdee",
+        "type": "github"
+      },
+      "original": {
+        "owner": "naurissteins",
+        "repo": "Veila",
         "type": "github"
       }
     },
