@@ -278,13 +278,13 @@
       "locked": {
         "lastModified": 1790988903,
         "narHash": "sha256-CrYsBNG6+c0Ex0FGJl2HvKGVdO2Gj+H5ilqqGhVZTS4=",
-        "owner": "dmfrpro",
+        "owner": "michaelmnemonic",
         "repo": "intel-lpmd-flake",
         "rev": "a3c7af2338533c1d1f852c7a4cf6cd9ba48d5fc5",
         "type": "github"
       },
       "original": {
-        "owner": "dmfrpro",
+        "owner": "michaelmnemonic",
         "repo": "intel-lpmd-flake",
         "type": "github"
       }

@@ -25,7 +25,7 @@
     };
 
     intel-lpmd-flake = {
-      url = "github:dmfrpro/intel-lpmd-flake";
+      url = "github:michaelmnemonic/intel-lpmd-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
