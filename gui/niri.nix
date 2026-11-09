@@ -137,4 +137,19 @@
     };
     wantedBy = ["graphical-session.target"];
   };
+
+  # Start veila daemon as a systemd user service
+  systemd.user.services.veilad = {
+    description = "Secure, elegant and fast Wayland screen locker";
+    after = ["graphical-session.target"];
+    partOf = ["graphical-session.target"];
+    requisite = ["graphical-session.target"];
+    serviceConfig = {
+      Slice = "session.slice";
+      ExecStart = "${pkgs.veila}/bin/veilad";
+      Restart = "on-failure";
+      RestartSec = "10";
+    };
+    wantedBy = ["graphical-session.target"];
+  };
 }
