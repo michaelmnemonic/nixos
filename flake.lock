@@ -276,11 +276,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1790988903,
-        "narHash": "sha256-CrYsBNG6+c0Ex0FGJl2HvKGVdO2Gj+H5ilqqGhVZTS4=",
+        "lastModified": 1794251681,
+        "narHash": "sha256-PAiYKg0k4fihasn20dlx7EBRESKayDqpVVM0QnPdIWE=",
         "owner": "michaelmnemonic",
         "repo": "intel-lpmd-flake",
-        "rev": "a3c7af2338533c1d1f852c7a4cf6cd9ba48d5fc5",
+        "rev": "a896b87fd3a07b6be2a4e76d5cd091b7f882992c",
         "type": "github"
       },
       "original": {
