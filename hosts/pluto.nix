@@ -22,6 +22,7 @@
     ../capabilities/pipewire.nix
     ../capabilities/plasma-pim.nix
     ../capabilities/printing.nix
+    ../capabilities/resolve-domains-with-unbound.nix
     ../capabilities/scanning.nix
     ../capabilities/ssh.nix
     ../capabilities/steam.nix
