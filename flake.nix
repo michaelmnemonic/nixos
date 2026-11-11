@@ -10,12 +10,7 @@
     };
 
     aagl = {
-      url = "github:ezKEa/aagl-gtk-on-nix/release-26.05";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    intel-lpmd-flake = {
-      url = "github:dmfrpro/intel-lpmd-flake";
+      url = "github:ezKEa/aagl-gtk-on-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -29,7 +24,6 @@
     self,
     agenix,
     aagl,
-    intel-lpmd-flake,
     lanzaboote,
     nixpkgs,
   }: let
@@ -74,7 +68,6 @@
           ./hosts/styx.nix
           agenix.nixosModules.default
           aagl.nixosModules.default
-          intel-lpmd-flake.nixosModules.default
           lanzaboote.nixosModules.lanzaboote
         ];
         specialArgs = {
@@ -119,7 +112,7 @@
         };
       in {
         pluto = pkgs.testers.nixosTest (import ./tests/pluto.nix {inherit agenix lanzaboote;});
-        styx = pkgs.testers.nixosTest (import ./tests/styx.nix {inherit aagl agenix intel-lpmd-flake lanzaboote;});
+        styx = pkgs.testers.nixosTest (import ./tests/styx.nix {inherit aagl agenix lanzaboote;});
         juno = pkgs.testers.nixosTest (import ./tests/juno.nix {inherit agenix;});
         flore = pkgs.testers.nixosTest (import ./tests/flore.nix {inherit agenix;});
       }
