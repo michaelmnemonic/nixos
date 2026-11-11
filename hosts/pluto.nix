@@ -74,13 +74,7 @@
       enable = true;
       user = "maik";
     };
-    sddm = {
-      enable = true;
-      wayland = {
-        enable = true;
-        compositor = "kwin";
-      };
-    };
+    plasma-login-manager.enable = true;
   };
 
   # Firewall configuration
