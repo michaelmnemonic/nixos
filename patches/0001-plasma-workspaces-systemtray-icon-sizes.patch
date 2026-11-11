@@ -1,22 +1,22 @@
 diff --git a/applets/systemtray/qml/main.qml b/applets/systemtray/qml/main.qml
-index c07bb4310b..8238329a5b 100644
+index 036324f243..8238329a5b 100644
 --- a/applets/systemtray/qml/main.qml
 +++ b/applets/systemtray/qml/main.qml
-@@ -182,7 +182,7 @@ ContainmentItem {
-                 flow: root.vertical ? GridView.LeftToRight : GridView.TopToBottom
+@@ -204,7 +204,7 @@
+                 verticalLayoutDirection: (root.vertical && root.reverseLayout) ? GridView.BottomToTop : GridView.TopToBottom
  
                  // The icon size to display when not using the auto-scaling setting
 -                readonly property int smallIconSize: Kirigami.Units.iconSizes.smallMedium
 +                readonly property int smallIconSize: Kirigami.Units.iconSizes.small
  
-                 // Automatically use autoSize setting when in tablet mode, if it's
-                 // not already being used
-@@ -193,7 +193,7 @@ ContainmentItem {
+                 readonly property bool autoSize: Plasmoid.configuration.scaleIconsToFit
+ 
+@@ -213,7 +213,7 @@
                  readonly property int rowsOrColumns: autoSize ? 1 : Math.max(1, Math.min(count, Math.floor(gridThickness / (smallIconSize + Kirigami.Units.smallSpacing))))
  
                  // Add margins only if the panel is larger than a small icon (to avoid large gaps between tiny icons)
--                readonly property int cellSpacing: Kirigami.Units.smallSpacing * (Kirigami.Settings.tabletMode ? 6 : Plasmoid.configuration.iconSpacing)
-+                readonly property int cellSpacing: Kirigami.Units.mediumSpacing * (Kirigami.Settings.tabletMode ? 6 : Plasmoid.configuration.iconSpacing)
+-                readonly property int cellSpacing: Kirigami.Units.smallSpacing * Plasmoid.configuration.iconSpacing
++                readonly property int cellSpacing: Kirigami.Units.mediumSpacing * Plasmoid.configuration.iconSpacing
                  readonly property int smallSizeCellLength: gridThickness < smallIconSize ? smallIconSize : smallIconSize + cellSpacing
  
                  cellHeight: {
