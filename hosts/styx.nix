@@ -58,16 +58,13 @@
   # Enable firmware updates via fwupd
   services.fwupd.enable = true;
 
-  # Autologin with greetd
-  services.greetd = {
-    enable = true;
-    settings = rec {
-      initial_session = {
-        command = "${pkgs.kdePackages.plasma-workspace}/bin/startplasma-wayland";
-        user = "maik";
-      };
-      default_session = initial_session;
+  # Autologin with plasma login manager
+  services.displayManager = {
+    autoLogin = {
+      enable = true;
+      user = "maik";
     };
+    plasma-login-manager.enable = true;
   };
 
   # Fonts
