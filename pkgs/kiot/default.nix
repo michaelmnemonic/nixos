@@ -30,7 +30,7 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "kiot";
-  version = "21417a3362296442366b953cf3a47c4afaa3f618";
+  version = "1910297e8f227a9e6c8b9889f7e3417b60277833";
 
   src = fetchFromGitHub {
     owner = "davidedmundson";
