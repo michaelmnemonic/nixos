@@ -75,10 +75,11 @@
 
   # List of system-wide packages
   environment.systemPackages = with pkgs; [
+    (kdePackages.callPackage ../pkgs/kiot {})
     firefox
     fooyin
-    kdePackages.tokodon
     kdePackages.neochat
+    kdePackages.tokodon
     kdePackages.tokodon
     transmission_4-qt
   ];
