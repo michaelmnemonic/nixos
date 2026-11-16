@@ -90,6 +90,9 @@ in {
             services.vscode-server.enable = true;
             systemd.user.services.auto-fix-vscode-server.wantedBy = ["default.target"];
 
+            # Allow unpatched binaries to execute
+            programs.nix-ld.enable = true;
+
             # NixOS state version
             system.stateVersion = "24.05";
           };
