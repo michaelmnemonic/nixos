@@ -54,6 +54,20 @@ in {
                   tag = "ro-store";
                   proto = "virtiofs";
                 }
+                # Share vscode server volume to prevent multiple remote server installs
+                {
+                  source = "/var/lib/microvm-storage/vscode-server";
+                  mountPoint = "/root/.vscode-server";
+                  tag = "vscode-server";
+                  proto = "virtiofs";
+                }
+                # Share zed server volume to prevent multiple remote server installs
+                {
+                  source = "/var/lib/microvm-storage/zed_server";
+                  mountPoint = "/root/.zed_server";
+                  tag = "zed_server";
+                  proto = "virtiofs";
+                }
               ];
               # Access the vm with ssh via a vsock
               vsock = {
@@ -74,6 +88,7 @@ in {
 
             # Make vscode's remote server compatible with this host
             services.vscode-server.enable = true;
+            systemd.user.services.auto-fix-vscode-server.wantedBy = ["default.target"];
 
             # NixOS state version
             system.stateVersion = "24.05";
@@ -81,6 +96,13 @@ in {
         };
       };
     };
+
+    # Make sure shared volumes exist
+    environment.etc."tmpfiles.d/microvm-storage.conf".text = ''
+      d /var/lib/microvm-storage 755 microvm kvm\n
+      v /var/lib/microvm-storage/vscode-server 755 microvm kvm\n
+      v /var/lib/microvm-storage/zed_server 755 microvm kvm\n
+    '';
 
     # Provide a human friendly name
     programs.ssh.extraConfig = ''
