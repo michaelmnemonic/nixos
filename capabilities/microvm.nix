@@ -3,11 +3,14 @@
   lib,
   microvm,
   pkgs,
+  vscode-server,
   ...
 }: let
   cfg = config.universe.microvm;
 in {
-  imports = [microvm.nixosModules.host];
+  imports = [
+    microvm.nixosModules.host
+  ];
   options.universe.microvm = {
     enable = lib.mkEnableOption "Several microvms michaelmnemonic finds useful";
   };
@@ -16,6 +19,10 @@ in {
       vms = {
         dev-nix = {
           config = {
+            imports = [
+              vscode-server.nixosModules.default
+            ];
+
             # Set hostname
             networking.hostName = "dev-nix";
 
@@ -48,6 +55,9 @@ in {
             users.users.root.openssh.authorizedKeys.keys = [
               "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINM1F2ryn8sYFz2SwtPezNMJzFewcZC/WqTY6f6B86vq maik@styx"
             ];
+
+            # Make vscode's remote server compatible with this host
+            services.vscode-server.enable = true;
 
             # NixOS state version
             system.stateVersion = "24.05";

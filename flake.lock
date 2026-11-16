@@ -156,6 +156,24 @@
         "type": "github"
       }
     },
+    "flake-parts": {
+      "inputs": {
+        "nixpkgs-lib": "nixpkgs-lib"
+      },
+      "locked": {
+        "lastModified": 1772408722,
+        "narHash": "sha256-rHuJtdcOjK7rAHpHphUb1iCvgkU3GpfvicLMwwnfMT0=",
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "rev": "f20dc5d9b8027381c474144ecabc9034d6a839a3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "type": "github"
+      }
+    },
     "flake-utils": {
       "inputs": {
         "systems": "systems_2"
@@ -299,6 +317,21 @@
         "type": "github"
       }
     },
+    "nixpkgs-lib": {
+      "locked": {
+        "lastModified": 1772328832,
+        "narHash": "sha256-e+/T/pmEkLP6BHhYjx6GmwP5ivonQQn0bJdH9YrRB+Q=",
+        "owner": "nix-community",
+        "repo": "nixpkgs.lib",
+        "rev": "c185c7a5e5dd8f9add5b2f8ebeff00888b070742",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nixpkgs.lib",
+        "type": "github"
+      }
+    },
     "pre-commit": {
       "inputs": {
         "flake-compat": "flake-compat_2",
@@ -329,7 +362,8 @@
         "intel-lpmd-flake": "intel-lpmd-flake",
         "lanzaboote": "lanzaboote",
         "microvm": "microvm",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "vscode-server": "vscode-server"
       }
     },
     "rust-overlay": {
@@ -438,6 +472,24 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "vscode-server": {
+      "inputs": {
+        "flake-parts": "flake-parts"
+      },
+      "locked": {
+        "lastModified": 1794081290,
+        "narHash": "sha256-vJCjuYXp06XZ9rufttvv/W3mkzQzefYxEvmmsZfUmvw=",
+        "owner": "nix-community",
+        "repo": "nixos-vscode-server",
+        "rev": "e8aac40ed8d76486859741b1608badeca3475943",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nixos-vscode-server",
         "type": "github"
       }
     }

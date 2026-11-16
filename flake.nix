@@ -28,6 +28,11 @@
       url = "github:microvm-nix/microvm.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    vscode-server = {
+      url = "github:nix-community/nixos-vscode-server";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -38,6 +43,7 @@
     lanzaboote,
     microvm,
     nixpkgs,
+    vscode-server,
   }: let
     # Define  architectures to build for 'forAllSystems'
     systems = [
@@ -85,6 +91,7 @@
         ];
         specialArgs = {
           inherit microvm;
+          inherit vscode-server;
         };
       };
     };
