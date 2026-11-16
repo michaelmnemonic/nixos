@@ -23,6 +23,11 @@
       url = "github:nix-community/lanzaboote/7c9a54a7f87b4539ddbd8bda09a8a5f5f9361aa9"; # v1.1.0
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    microvm = {
+      url = "github:microvm-nix/microvm.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -31,6 +36,7 @@
     aagl,
     intel-lpmd-flake,
     lanzaboote,
+    microvm,
     nixpkgs,
   }: let
     # Define  architectures to build for 'forAllSystems'
@@ -72,12 +78,14 @@
         system = "x86_64-linux";
         modules = [
           ./hosts/styx.nix
-          agenix.nixosModules.default
           aagl.nixosModules.default
+          agenix.nixosModules.default
           intel-lpmd-flake.nixosModules.default
           lanzaboote.nixosModules.lanzaboote
+          microvm.nixosModules.microvm
         ];
         specialArgs = {
+          inherit microvm;
         };
       };
     };
