@@ -39,6 +39,11 @@ in {
               };
             };
 
+            environment.systemPackages = with pkgs; [
+              alejandra
+              nil
+            ];
+
             # TODO: can we access the ssh keys of the hosts config?
             users.users.root.openssh.authorizedKeys.keys = [
               "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINM1F2ryn8sYFz2SwtPezNMJzFewcZC/WqTY6f6B86vq maik@styx"
