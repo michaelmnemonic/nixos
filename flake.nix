@@ -82,7 +82,6 @@
           agenix.nixosModules.default
           intel-lpmd-flake.nixosModules.default
           lanzaboote.nixosModules.lanzaboote
-          microvm.nixosModules.microvm
         ];
         specialArgs = {
           inherit microvm;
