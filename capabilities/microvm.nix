@@ -29,7 +29,23 @@ in {
             # Use latest stable kernel
             boot.kernelPackages = pkgs.linuxPackages_latest;
 
+            networking.useNetworkd = true;
+
+            systemd.network.networks."20-lan" = {
+              matchConfig.Type = "ether";
+              networkConfig = {
+                DHCP = "yes";
+              };
+            };
+
             microvm = {
+              interfaces = [
+                {
+                  type = "user";
+                  id = "dev-nix";
+                  mac = "02:00:00:00:00:01";
+                }
+              ];
               shares = [
                 # Share the host's nix-store to prevent building huge images.
                 {
@@ -65,5 +81,15 @@ in {
         };
       };
     };
+
+    # Provide a human friendly name
+    programs.ssh.extraConfig = ''
+      Host dev-nix
+        HostName vsock/${toString config.microvm.vms.dev-nix.config.config.microvm.vsock.cid}
+        User root
+        ProxyCommand ${pkgs.systemd}/lib/systemd/systemd-ssh-proxy %h %p
+        ProxyUseFdpass yes
+        CheckHostIP no
+    '';
   };
 }
