@@ -131,6 +131,8 @@ in {
         ProxyCommand ${pkgs.systemd}/lib/systemd/systemd-ssh-proxy %h %p
         ProxyUseFdpass yes
         CheckHostIP no
+        ForwardAgent yes
+        AddKeysToAgent yes
     '';
   };
 }
