@@ -78,6 +78,7 @@ in {
 
             environment.systemPackages = with pkgs; [
               alejandra
+              git
               nil
             ];
 
