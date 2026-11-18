@@ -38,6 +38,10 @@ in {
               };
             };
 
+            environment.etc."tmpfiles.d/root.conf".text = ''
+              d /root/Projekte 0750 root root -
+            '';
+
             microvm = {
               interfaces = [
                 {
