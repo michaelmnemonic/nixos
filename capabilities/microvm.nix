@@ -4,6 +4,7 @@
   microvm,
   pkgs,
   vscode-server,
+  agenix,
   ...
 }: let
   cfg = config.universe.microvm;
@@ -15,6 +16,13 @@ in {
     enable = lib.mkEnableOption "Several microvms michaelmnemonic finds useful";
   };
   config = lib.mkIf cfg.enable {
+    age.secrets = {
+      "dev-nix-host.key" = {
+        file = ../secrets/dev-nix-host.key.age;
+        owner = "microvm";
+        group = "kvm";
+      };
+    };
     microvm = {
       vms = {
         dev-nix = {
@@ -43,6 +51,9 @@ in {
             '';
 
             microvm = {
+              credentialFiles = {
+                ssh_host_ed25519_key = config.age.secrets."dev-nix-host.key".path;
+              };
               interfaces = [
                 {
                   type = "user";
@@ -89,6 +100,14 @@ in {
             services.openssh = {
               enable = true;
               openFirewall = true;
+              # Never generate a random key: the identity must stay stable
+              generateHostKeys = false;
+              hostKeys = [
+                {
+                  path = "/run/credentials/@system/ssh_host_ed25519_key";
+                  type = "ed25519";
+                }
+              ];
               settings = {
                 PasswordAuthentication = false;
                 KbdInteractiveAuthentication = false;

@@ -90,6 +90,7 @@
           lanzaboote.nixosModules.lanzaboote
         ];
         specialArgs = {
+          inherit agenix;
           inherit microvm;
           inherit vscode-server;
         };
