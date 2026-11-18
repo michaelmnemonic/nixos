@@ -108,11 +108,18 @@
             ];
         });
       });
-      libbluray = prev.libbluray.override {
-        withJava = true;
-        withAACS = true;
-        withBDplus = true;
-      };
+      # Java (BD-J) support only on 64-bit: the overlay also applies to
+      # pkgsi686Linux (pulled in by pipewire's 32-bit ALSA plugins), and
+      # the Temurin JDK bootstrap has no i686-linux build.
+      libbluray =
+        if prev.stdenv.hostPlatform.isi686
+        then prev.libbluray
+        else
+          prev.libbluray.override {
+            withJava = true;
+            withAACS = true;
+            withBDplus = true;
+          };
     })
   ];
 
