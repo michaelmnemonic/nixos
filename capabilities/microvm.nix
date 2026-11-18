@@ -86,6 +86,17 @@ in {
               nil
             ];
 
+            services.openssh = {
+              enable = true;
+              openFirewall = true;
+              settings = {
+                PasswordAuthentication = false;
+                KbdInteractiveAuthentication = false;
+                AllowAgentForwarding = "yes";
+                PermitRootLogin = "yes";
+              };
+            };
+
             # TODO: can we access the ssh keys of the hosts config?
             users.users.root.openssh.authorizedKeys.keys = [
               "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINM1F2ryn8sYFz2SwtPezNMJzFewcZC/WqTY6f6B86vq maik@styx"
