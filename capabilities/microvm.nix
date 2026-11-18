@@ -187,6 +187,48 @@ in {
         AddKeysToAgent yes
     '';
 
+    # Stop dev-nix after 30 minutes without SSH connections; the next
+    # connection boots it again via the SSH ProxyCommand
+    systemd.services.dev-nix-idle-stop = {
+      description = "Stop the dev-nix MicroVM after an idle period";
+      serviceConfig.Type = "oneshot";
+      script = ''
+        set -eu
+        stamp=/run/dev-nix-idle-since
+
+        # Nothing to do while the VM is not running
+        ${pkgs.systemd}/bin/systemctl is-active --quiet microvm@dev-nix.service || {
+          ${pkgs.coreutils}/bin/rm -f "$stamp"
+          exit 0
+        }
+
+        # Any established SSH connection over vsock resets the idle clock.
+        # Abort if ss fails rather than risk stopping a VM that is in use.
+        conns=$(${pkgs.iproute2}/bin/ss -H --vsock state established)
+        if printf '%s\n' "$conns" |
+          ${pkgs.gnugrep}/bin/grep -qE '(^|[[:space:]])${toString config.microvm.vms.dev-nix.config.config.microvm.vsock.cid}:22$'; then
+          ${pkgs.coreutils}/bin/rm -f "$stamp"
+          exit 0
+        fi
+
+        # Stop once the VM has been idle for 30 continuous minutes
+        [ -s "$stamp" ] || ${pkgs.coreutils}/bin/date +%s > "$stamp"
+        read -r since < "$stamp"
+        if [ $(( $(${pkgs.coreutils}/bin/date +%s) - since )) -ge 1800 ]; then
+          ${pkgs.systemd}/bin/systemctl stop microvm@dev-nix.service
+          ${pkgs.coreutils}/bin/rm -f "$stamp"
+        fi
+      '';
+    };
+    systemd.timers.dev-nix-idle-stop = {
+      description = "Check dev-nix for idleness every 5 minutes";
+      wantedBy = ["timers.target"];
+      timerConfig = {
+        OnBootSec = "5min";
+        OnUnitActiveSec = "5min";
+      };
+    };
+
     # Configure git
     programs.git = {
       enable = true;
