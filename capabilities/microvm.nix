@@ -134,5 +134,14 @@ in {
         ForwardAgent yes
         AddKeysToAgent yes
     '';
+
+    # Configure git
+    programs.git = {
+      enable = true;
+      config.user = {
+        name  = "michaelmnemonic";
+        email = "michaelmnemonic@posteo.eu";
+      };
+    };
   };
 }
