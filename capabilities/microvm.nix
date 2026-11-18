@@ -95,6 +95,7 @@ in {
               alejandra
               git
               nil
+              pi-coding-agent
             ];
 
             services.openssh = {
