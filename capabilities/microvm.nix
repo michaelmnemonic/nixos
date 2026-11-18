@@ -8,6 +8,22 @@
   ...
 }: let
   cfg = config.universe.microvm;
+
+  # SSH ProxyCommand that boots dev-nix on demand: starts the VM if it
+  # isn't running, waits for the guest's sshd, then hands the connection
+  # to ssh via systemd-ssh-proxy (fd passing).
+  dev-nix-ssh-proxy = pkgs.writeShellScriptBin "dev-nix-ssh-proxy" ''
+    set -eu
+    ${pkgs.systemd}/bin/systemctl start microvm@dev-nix.service
+
+    for i in {1..120}; do
+      ${pkgs.systemd}/lib/systemd/systemd-ssh-proxy "$@" 2>/dev/null && exit 0
+      ${pkgs.coreutils}/bin/sleep 0.5
+    done
+
+    echo "dev-nix: SSH did not become reachable; check systemctl status microvm@dev-nix.service" >&2
+    exit 1
+  '';
 in {
   imports = [
     microvm.nixosModules.host
@@ -26,6 +42,8 @@ in {
     microvm = {
       vms = {
         dev-nix = {
+          # Booted on demand by the dev-nix SSH ProxyCommand
+          autostart = false;
           config = {
             imports = [
               vscode-server.nixosModules.default
@@ -143,12 +161,26 @@ in {
       v /var/lib/microvm-storage/zed_server 755 microvm kvm\n
     '';
 
+    environment.systemPackages = [dev-nix-ssh-proxy];
+
+    # Allow wheel to manage the dev-nix VM without a password so the
+    # SSH ProxyCommand can boot it on demand
+    security.polkit.extraConfig = ''
+      polkit.addRule(function(action, subject) {
+        if (action.id == "org.freedesktop.systemd1.manage-units" &&
+            action.lookup("unit") == "microvm@dev-nix.service" &&
+            subject.isInGroup("wheel")) {
+          return polkit.Result.YES;
+        }
+      });
+    '';
+
     # Provide a human friendly name
     programs.ssh.extraConfig = ''
       Host dev-nix
         HostName vsock/${toString config.microvm.vms.dev-nix.config.config.microvm.vsock.cid}
         User root
-        ProxyCommand ${pkgs.systemd}/lib/systemd/systemd-ssh-proxy %h %p
+        ProxyCommand ${dev-nix-ssh-proxy}/bin/dev-nix-ssh-proxy %h %p
         ProxyUseFdpass yes
         CheckHostIP no
         ForwardAgent yes
@@ -159,7 +191,7 @@ in {
     programs.git = {
       enable = true;
       config.user = {
-        name  = "michaelmnemonic";
+        name = "michaelmnemonic";
         email = "michaelmnemonic@posteo.eu";
       };
     };
