@@ -108,6 +108,11 @@
             ];
         });
       });
+      libbluray = prev.libbluray.override {
+        withJava = true;
+        withAACS = true;
+        withBDplus = true;
+      };
     })
   ];
 
