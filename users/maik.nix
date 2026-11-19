@@ -1,7 +1,6 @@
 {...}: let
   ssh_keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICfEOsO8EXO+oW8sisd+JHrT6FrvnuY+1xAVPEz5Prhm maik@pluto"
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG9aDwc6iRlynxbDm8bCNq0ufk+yenK+r9/9PcBHVDjG maik@charon"
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMdpU8lQTPUVpDxIQ8cyqBFTfGfxBNkNtIxfNa8NHger maik@juno"
   ];
 in {

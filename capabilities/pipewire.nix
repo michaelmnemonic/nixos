@@ -71,26 +71,6 @@
           ]
         '')
 
-        # Prettier name for speakers of charon
-        (pkgs.writeTextDir "share/wireplumber/wireplumber.conf.d/10-lenovo-x13s-speakers.conf" ''
-          monitor.alsa.rules = [
-             {
-              matches = [
-                {
-                  node.name = "alsa_output.platform-sound.HiFi__Speaker__sink"
-                }
-              ]
-              actions = {
-                update-props = {
-                  node.nick                  = "Lautsprecher"
-                  node.description           = "Lautsprecher"
-                  device.profile.description = "Lautsprecher"
-                }
-              }
-            }
-          ]
-        '')
-
         # Prettier name for USB DAC
         (pkgs.writeTextDir "share/wireplumber/wireplumber.conf.d/10-usb-dac.conf" ''
           monitor.alsa.rules = [

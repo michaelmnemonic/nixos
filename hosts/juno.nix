@@ -129,6 +129,7 @@
     flashrom
     foliate
     gnomeExtensions.caffeine
+    gnomeExtensions.screen-rotate
     kodi
     libcamera
     nfs-utils

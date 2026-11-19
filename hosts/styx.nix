@@ -18,8 +18,10 @@
     ../capabilities/networking-with-network-manager.nix
     ../capabilities/pipewire.nix
     ../capabilities/printing.nix
+    ../capabilities/resolve-domains-with-unbound.nix
     ../capabilities/ssh.nix
     ../capabilities/steam.nix
+    ../capabilities/virtual-surround.nix
   ];
 
   # Use latest stable kernel
@@ -72,15 +74,9 @@
 
   # List of system-wide packages
   environment.systemPackages = with pkgs; [
-    (pkgs.kodi-wayland.withPackages (
-      kodiPkgs:
-        with pkgs; [
-          python312Packages.pillow
-        ]
-    ))
     firefox
     google-chrome
-    webex
+
   ];
 
   # Not all software is free
@@ -92,7 +88,6 @@
       "steam-original"
       "steam-run"
       "steam-unwrapped"
-      "webex"
     ];
 
   # Customize kde plasma
@@ -524,6 +519,9 @@
 
   # Enable direnv
   programs.direnv.enable = true;
+
+  # Zenless Zone Zero launcher
+  programs.sleepy-launcher.enable = true;
 
   # NixOS state version
   system.stateVersion = "24.05";
