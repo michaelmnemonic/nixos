@@ -1,22 +1,22 @@
 [
   {
     "label": "build: pluto",
-    "command": "nix build .#nixosConfigurations.pluto.config.system.build.toplevel"
+    "command": "nix --extra-experimental-features nix-command --extra-experimental-features flakes build .#nixosConfigurations.pluto.config.system.build.toplevel"
   },
   {
     "label": "build: juno",
-    "command": "nix build .#nixosConfigurations.juno.config.system.build.toplevel"
+    "command": "nix --extra-experimental-features nix-command --extra-experimental-features flakes build .#nixosConfigurations.juno.config.system.build.toplevel"
   },
   {
     "label": "build: flore",
-    "command": "nix build .#nixosConfigurations.flore.config.system.build.toplevel"
+    "command": "nix --extra-experimental-features nix-command --extra-experimental-features flakes build .#nixosConfigurations.flore.config.system.build.toplevel"
   },
   {
     "label": "build: styx",
-    "command": "nix build .#nixosConfigurations.styx.config.system.build.toplevel"
+    "command": "nix --extra-experimental-features nix-command --extra-experimental-features flakes build .#nixosConfigurations.styx.config.system.build.toplevel"
   },
   {
     "label": "build: all",
-    "command": "nix build .#nixosConfigurations.pluto.config.system.build.toplevel && nix build .#nixosConfigurations.juno.config.system.build.toplevel && nix build .#nixosConfigurations.flore.config.system.build.toplevel && nix build .#nixosConfigurations.styx.config.system.build.toplevel"
+    "command": "nix --extra-experimental-features nix-command --extra-experimental-features flakes build .#nixosConfigurations.pluto.config.system.build.toplevel && nix --extra-experimental-features nix-command --extra-experimental-features flakes build .#nixosConfigurations.juno.config.system.build.toplevel && nix --extra-experimental-features nix-command --extra-experimental-features flakes build .#nixosConfigurations.flore.config.system.build.toplevel && nix --extra-experimental-features nix-command --extra-experimental-features flakes build .#nixosConfigurations.styx.config.system.build.toplevel"
   }
 ]
