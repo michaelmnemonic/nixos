@@ -139,6 +139,7 @@
     ausweisapp
     drawy
     fooyin
+    google-chrome
     (heroic.override {
       extraPkgs = pkgs: [
         pkgs.gamescope
@@ -154,6 +155,7 @@
   # Not all software is free
   nixpkgs.config.allowUnfreePredicate = pkg:
     builtins.elem (lib.getName pkg) [
+      "google-chrome"
       "libvgm" # dependency of fooyin
       "steam"
       "steam-original"
