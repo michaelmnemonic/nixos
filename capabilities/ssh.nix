@@ -11,5 +11,9 @@
     enableAskPassword = true;
   };
 
+  # Allow usage of tpm-backed ssh keys
+  services.ssh-tpm-agent.enable = true;
+
+  # Enable better ssh experience over bad connections
   programs.mosh.enable = true;
 }
