@@ -519,6 +519,9 @@
 
   services.thermald.enable = true;
 
+  # Allow usage of tpm chip
+  security.tpm2.enable = true;
+
   ############
   # Programs #
   ############
