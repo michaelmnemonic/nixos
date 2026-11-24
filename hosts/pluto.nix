@@ -4,6 +4,8 @@
   config,
   ...
 }: {
+  universe.kiot.enable = true;
+
   imports = [
     # Shared host configuration
     ./_shared.nix
@@ -17,6 +19,7 @@
     ../capabilities/android.nix
     ../capabilities/chipcards.nix
     ../capabilities/fan2go.nix
+    ../capabilities/kiot.nix
     ../capabilities/mpv.nix
     ../capabilities/networking-with-network-manager.nix
     ../capabilities/pipewire.nix

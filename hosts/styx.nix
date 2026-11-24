@@ -3,6 +3,8 @@
   lib,
   ...
 }: {
+  universe.kiot.enable = true;
+
   imports = [
     # Shared host configuration
     ./_shared.nix
@@ -14,6 +16,7 @@
     ../gui/plasma.nix
     # Basic capabilities
     ../capabilities/chipcards.nix
+    ../capabilities/kiot.nix
     ../capabilities/mpv.nix
     ../capabilities/networking-with-network-manager.nix
     ../capabilities/pipewire.nix
