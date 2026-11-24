@@ -3,8 +3,6 @@
   lib,
   ...
 }: {
-  universe.kiot.enable = true;
-
   imports = [
     # Shared host configuration
     ./_shared.nix
@@ -521,6 +519,13 @@
   };
 
   services.thermald.enable = true;
+
+  ############
+  # Universe #
+  ############
+
+  # Expose this hosts information to home assistant
+  universe.kiot.enable = true;
 
   ############
   # Programs #

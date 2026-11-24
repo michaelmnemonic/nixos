@@ -4,8 +4,6 @@
   config,
   ...
 }: {
-  universe.kiot.enable = true;
-
   imports = [
     # Shared host configuration
     ./_shared.nix
@@ -478,6 +476,13 @@
   };
 
   services.flatpak.enable = true;
+
+  ############
+  # Universe #
+  ############
+
+  # Expose this hosts information to home assistant
+  universe.kiot.enable = true;
 
   ###########
   # Patches #
