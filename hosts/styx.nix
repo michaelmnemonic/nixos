@@ -14,6 +14,7 @@
     ../gui/plasma.nix
     # Basic capabilities
     ../capabilities/chipcards.nix
+    ../capabilities/kiot.nix
     ../capabilities/mpv.nix
     ../capabilities/networking-with-network-manager.nix
     ../capabilities/pipewire.nix
@@ -521,6 +522,13 @@
 
   # Allow usage of tpm chip
   security.tpm2.enable = true;
+
+  ############
+  # Universe #
+  ############
+
+  # Expose this hosts information to home assistant
+  universe.kiot.enable = true;
 
   ############
   # Programs #
