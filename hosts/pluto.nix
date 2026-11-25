@@ -17,10 +17,12 @@
     ../capabilities/android.nix
     ../capabilities/chipcards.nix
     ../capabilities/fan2go.nix
+    ../capabilities/kiot.nix
     ../capabilities/mpv.nix
     ../capabilities/networking-with-network-manager.nix
     ../capabilities/pipewire.nix
     ../capabilities/printing.nix
+    ../capabilities/resolve-domains-with-unbound.nix
     ../capabilities/scanning.nix
     ../capabilities/ssh.nix
     ../capabilities/steam.nix
@@ -142,6 +144,7 @@
     ausweisapp
     drawy
     fooyin
+    google-chrome
     (heroic.override {
       extraPkgs = pkgs: [
         pkgs.gamescope
@@ -155,6 +158,7 @@
   # Not all software is free
   nixpkgs.config.allowUnfreePredicate = pkg:
     builtins.elem (lib.getName pkg) [
+      "google-chrome"
       "libvgm" # dependency of fooyin
       "steam"
       "steam-original"
@@ -469,6 +473,13 @@
   };
 
   services.flatpak.enable = true;
+
+  ############
+  # Universe #
+  ############
+
+  # Expose this hosts information to home assistant
+  universe.kiot.enable = true;
 
   ###########
   # Patches #

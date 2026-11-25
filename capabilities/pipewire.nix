@@ -25,9 +25,9 @@
           ## Properties for the DSP configuration.
           default.clock.rate          = 48000
           default.clock.allowed-rates = [ 44100 48000 88200 96000 ]
-          default.clock.quantum       = 512
-          default.clock.min-quantum   = 32
-          default.clock.max-quantum   = 1024
+          default.clock.quantum       = 1024
+          default.clock.min-quantum   = 512
+          default.clock.max-quantum   = 4096
           #default.clock.quantum-limit = 8192
           #default.video.width         = 640
           #default.video.height        = 480
@@ -105,15 +105,6 @@
                   node.description       = "Monitor"
                 }
               }
-            }
-          ]
-        '')
-
-        # Stream audio via airplay
-        (pkgs.writeTextDir "share/pipewire/pipewire.conf.d/10-airplay.conf" ''
-          context.modules = [
-            {   name = libpipewire-module-raop-discover
-                args = {}
             }
           ]
         '')

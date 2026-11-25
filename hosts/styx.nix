@@ -14,10 +14,12 @@
     ../gui/niri.nix
     # Basic capabilities
     ../capabilities/chipcards.nix
+    ../capabilities/kiot.nix
     ../capabilities/mpv.nix
     ../capabilities/networking-with-network-manager.nix
     ../capabilities/pipewire.nix
     ../capabilities/printing.nix
+    ../capabilities/resolve-domains-with-unbound.nix
     ../capabilities/ssh.nix
     ../capabilities/steam.nix
     ../capabilities/virtual-surround.nix
@@ -76,12 +78,14 @@
 
   # List of system-wide packages
   environment.systemPackages = with pkgs; [
+
     firefox
   ];
 
   # Not all software is free
   nixpkgs.config.allowUnfreePredicate = pkg:
     builtins.elem (lib.getName pkg) [
+      "google-chrome"
       "libvgm" # dependency of fooyin
       "steam"
       "steam-original"
@@ -479,6 +483,16 @@
   };
 
   services.thermald.enable = true;
+
+  # Allow usage of tpm chip
+  security.tpm2.enable = true;
+
+  ############
+  # Universe #
+  ############
+
+  # Expose this hosts information to home assistant
+  universe.kiot.enable = true;
 
   ############
   # Programs #
