@@ -64,6 +64,7 @@
           ./hosts/pluto.nix
           agenix.nixosModules.default
           lanzaboote.nixosModules.lanzaboote
+          veila.nixosModules.default
         ];
         specialArgs = {
           inherit vibepanel;
