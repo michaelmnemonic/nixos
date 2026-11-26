@@ -1,6 +1,9 @@
 {
   agenix,
   lanzaboote,
+  veila,
+  vibepanel,
+  voxtype,
 }: {
   name = "pluto";
 
@@ -9,6 +12,7 @@
       ../hosts/pluto.nix
       agenix.nixosModules.default
       lanzaboote.nixosModules.lanzaboote
+      veila.nixosModules.default
     ];
 
     # Inject flake dependencies
