@@ -142,7 +142,7 @@
           };
         };
       in {
-        pluto = pkgs.testers.nixosTest (import ./tests/pluto.nix {inherit agenix lanzaboote;});
+        pluto = pkgs.testers.nixosTest (import ./tests/pluto.nix {inherit agenix lanzaboote vibepanel voxtype;});
         styx = pkgs.testers.nixosTest (import ./tests/styx.nix {inherit aagl agenix intel-lpmd-flake lanzaboote vibepanel voxtype;});
         juno = pkgs.testers.nixosTest (import ./tests/juno.nix {inherit agenix;});
         flore = pkgs.testers.nixosTest (import ./tests/flore.nix {inherit agenix;});
