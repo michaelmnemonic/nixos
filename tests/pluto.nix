@@ -1,6 +1,9 @@
 {
   agenix,
   lanzaboote,
+  veila,
+  vibepanel,
+  voxtype,
 }: {
   name = "pluto";
 
@@ -9,7 +12,12 @@
       ../hosts/pluto.nix
       agenix.nixosModules.default
       lanzaboote.nixosModules.lanzaboote
+      veila.nixosModules.default
     ];
+
+    # Inject flake dependencies
+    _module.args.vibepanel = vibepanel;
+    _module.args.voxtype = voxtype;
 
     # Increase memory and cores for the VM
     virtualisation.memorySize = 2048;

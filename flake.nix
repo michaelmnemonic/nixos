@@ -14,8 +14,18 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    vibepanel = {
+      url = "github:prankstr/vibepanel/8d09e7d358b3d83dc84f20466dee8414b73a9dbf"; # v0.17.2
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    voxtype = {
+      url = "github:peteonrails/voxtype/8d49248baa53f29cb33007c9625a37281c72e799"; # v0.7.5
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     intel-lpmd-flake = {
-      url = "github:dmfrpro/intel-lpmd-flake";
+      url = "github:michaelmnemonic/intel-lpmd-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -23,15 +33,23 @@
       url = "github:nix-community/lanzaboote/7c9a54a7f87b4539ddbd8bda09a8a5f5f9361aa9"; # v1.1.0
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    veila = {
+      url = "github:naurissteins/Veila";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
     self,
-    agenix,
     aagl,
+    agenix,
     intel-lpmd-flake,
     lanzaboote,
     nixpkgs,
+    veila,
+    vibepanel,
+    voxtype,
   }: let
     # Define  architectures to build for 'forAllSystems'
     systems = [
@@ -46,8 +64,11 @@
           ./hosts/pluto.nix
           agenix.nixosModules.default
           lanzaboote.nixosModules.lanzaboote
+          veila.nixosModules.default
         ];
         specialArgs = {
+          inherit vibepanel;
+          inherit voxtype;
         };
       };
       juno = nixpkgs.lib.nixosSystem {
@@ -72,12 +93,15 @@
         system = "x86_64-linux";
         modules = [
           ./hosts/styx.nix
-          agenix.nixosModules.default
           aagl.nixosModules.default
+          agenix.nixosModules.default
           intel-lpmd-flake.nixosModules.default
           lanzaboote.nixosModules.lanzaboote
+          veila.nixosModules.default
         ];
         specialArgs = {
+          inherit vibepanel;
+          inherit voxtype;
         };
       };
     };
@@ -118,8 +142,8 @@
           };
         };
       in {
-        pluto = pkgs.testers.nixosTest (import ./tests/pluto.nix {inherit agenix lanzaboote;});
-        styx = pkgs.testers.nixosTest (import ./tests/styx.nix {inherit aagl agenix intel-lpmd-flake lanzaboote;});
+        pluto = pkgs.testers.nixosTest (import ./tests/pluto.nix {inherit agenix lanzaboote veila vibepanel voxtype;});
+        styx = pkgs.testers.nixosTest (import ./tests/styx.nix {inherit aagl agenix intel-lpmd-flake lanzaboote veila vibepanel voxtype;});
         juno = pkgs.testers.nixosTest (import ./tests/juno.nix {inherit agenix;});
         flore = pkgs.testers.nixosTest (import ./tests/flore.nix {inherit agenix;});
       }

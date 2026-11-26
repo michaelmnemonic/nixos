@@ -10,15 +10,14 @@
     ../hardware/styx.nix
     # Users
     ../users/maik.nix
-    # plasma desktop environment
-    ../gui/plasma.nix
+    # niri wm
+    ../gui/niri.nix
     # Basic capabilities
     ../capabilities/chipcards.nix
     ../capabilities/kiot.nix
     ../capabilities/mpv.nix
     ../capabilities/networking-with-network-manager.nix
     ../capabilities/pipewire.nix
-    ../capabilities/plasma-pim.nix
     ../capabilities/printing.nix
     ../capabilities/resolve-domains-with-unbound.nix
     ../capabilities/ssh.nix
@@ -59,13 +58,16 @@
   # Enable firmware updates via fwupd
   services.fwupd.enable = true;
 
-  # Autologin with plasma login manager
-  services.displayManager = {
-    autoLogin = {
-      enable = true;
-      user = "maik";
+  # Autologin with greetd
+  services.greetd = {
+    enable = true;
+    settings = rec {
+      initial_session = {
+        command = "${pkgs.niri}/bin/niri-session";
+        user = "maik";
+      };
+      default_session = initial_session;
     };
-    plasma-login-manager.enable = true;
   };
 
   # Fonts
@@ -76,14 +78,7 @@
 
   # List of system-wide packages
   environment.systemPackages = with pkgs; [
-    (kdePackages.callPackage ../pkgs/kiot {})
     firefox
-    fooyin
-    google-chrome
-    kdePackages.neochat
-    kdePackages.tokodon
-    kdePackages.tokodon
-    transmission_4-qt
   ];
 
   # Not all software is free
@@ -96,23 +91,6 @@
       "steam-run"
       "steam-unwrapped"
     ];
-
-  # Customize kde plasma
-  nixpkgs.overlays = [
-    (final: prev: {
-      kdePackages = prev.kdePackages.overrideScope (sfinal: sprev: {
-        # smaller systemtray icons with more spacing
-        # FIXME: this compiles plasma-workspace just to patch qml script
-        plasma-workspace = sprev.plasma-workspace.overrideAttrs (oldAttrs: {
-          patches =
-            oldAttrs.patches
-            ++ [
-              ../patches/0001-plasma-workspaces-systemtray-icon-sizes.patch
-            ];
-        });
-      });
-    })
-  ];
 
   # Make sure mount point of user home exists
   environment.etc."tmpfiles.d/home-maik.conf".text = ''
@@ -134,6 +112,9 @@
   ############
   # Services #
   ############
+
+  # Enable mDNS
+  services.avahi.enable = true;
 
   services.tuned = {
     enable = true;
@@ -295,24 +276,6 @@
         performance = "styx-performance-battery";
       };
     };
-  };
-
-  # Restrict system-level daemons to efficency cores after start-up
-  systemd.slices."system".sliceConfig = {
-    AllowedCPUs = "4-7";
-    StartupAllowedCPUs = "";
-  };
-
-  # Restrict user session components to efficency cores after start-up
-  systemd.user.slices."session".sliceConfig = {
-    AllowedCPUs = "4-7";
-    StartupAllowedCPUs = "";
-  };
-
-  # Restrict user background tasks to efficency cores after start-up
-  systemd.user.slices."background".sliceConfig = {
-    AllowedCPUs = "4-7";
-    StartupAllowedCPUs = "";
   };
 
   services.intel-lpmd = {

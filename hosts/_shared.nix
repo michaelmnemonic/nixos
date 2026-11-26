@@ -135,8 +135,7 @@
   system.autoUpgrade = {
     enable = true;
     allowReboot = false;
-    operation = "boot";
-    flake = "github:michaelmnemonic/nixos";
+    flake = "github:michaelmnemonic/nixos/charon-niri";
   };
 
   # Slim down libreoffice by building it without bundled help and Java
