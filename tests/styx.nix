@@ -1,8 +1,9 @@
 {
-  agenix,
   aagl,
+  agenix,
   intel-lpmd-flake,
   lanzaboote,
+  microvm,
 }: {
   name = "styx";
 
