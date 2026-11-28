@@ -24,6 +24,7 @@
     ../capabilities/ssh.nix
     ../capabilities/steam.nix
     ../capabilities/virtual-surround.nix
+    ../capabilities/microvm.nix
   ];
 
   # Use latest stable kernel
@@ -539,6 +540,12 @@
 
   # Zenless Zone Zero launcher
   programs.sleepy-launcher.enable = true;
+
+  ###########
+  # Modules #
+  ###########
+
+  universe.microvm.enable = true;
 
   # NixOS state version
   system.stateVersion = "24.05";
